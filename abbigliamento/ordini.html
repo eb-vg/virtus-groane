@@ -1,28 +1,20 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Istruzioni Ordine Abbigliamento - ASD Virtus Groane</title>
-            <style>
-        html { overflow-y: scroll; }
-        header { position: fixed; opacity: 0; }
-        .page-hero { opacity: 0; }
-    </style>
+    <title>Ordini - Virtus Groane</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;700&display=block" rel="stylesheet">
     <link rel="stylesheet" href="../style.css?v=1.1">
 </head>
 <body>
-
-    <!-- HEADER / NAVIGATION -->
-    <header>
+    <header style="background-color: var(--bg-secondary); border-bottom: 1px solid var(--border-color);">
         <div class="container nav-container">
             <a href="../index.html" class="logo-link">
                 <img src="../logo.png" alt="Virtus Groane" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
                 <div class="logo-placeholder" style="display:none;">VG</div>
-                
             </a>
             
             <input type="checkbox" id="menu-toggle" class="menu-checkbox">
@@ -34,133 +26,99 @@
             
             <nav class="nav-menu">
                 <ul class="nav-list">
-                                        <li class="nav-item">
+                    <li class="nav-item">
                         <a href="../chi-siamo.html" class="nav-dropdown-trigger">Chi Siamo</a>
                         <ul class="dropdown-menu">
-                            <li><a href="../chi-siamo/storia.html">Storia e Valori</a></li>
-                            <li><a href="../chi-siamo/direttivo.html">Consiglio Direttivo</a></li>
-                            <li><a href="../chi-siamo/staff.html">Staff Tecnico</a></li>
+                            <li><a href="../chi-siamo/organigramma.html">Organigramma</a></li>
+                            <li><a href="../chi-siamo/allenatori.html">Allenatori</a></li>
+                            <li><a href="../chi-siamo/safeguarding.html">Safeguarding</a></li>
+                            <li><a href="../chi-siamo/record-societari.html">Record Societari</a></li>
+                            <li><a href="../chi-siamo/tesseramento.html">Tesseramento</a></li>
+                            <li><a href="../chi-siamo/golee.html">Golee</a></li>
+                            <li><a href="../chi-siamo/dove-siamo.html">Dove Siamo</a></li>
+                            <li><a href="../chi-siamo/convenzioni.html">Convenzioni</a></li>
+                            <li><a href="../chi-siamo/statuto-sociale.html">Statuto Sociale</a></li>
+                            <li><a href="../chi-siamo/associarsi.html">Associarsi?</a></li>
+                            <li><a href="../chi-siamo/regolamenti.html">Regolamenti</a></li>
+                            <li><a href="../chi-siamo/contatti.html">Contatti</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="../informazioni-iscrizioni.html" class="nav-dropdown-trigger">Iscrizioni</a>
+                        <a href="../info-iscrizioni.html" class="nav-dropdown-trigger">Iscrizioni</a>
                         <ul class="dropdown-menu">
-                            <li><a href="../informazioni-iscrizioni/orari.html">Orari e Sedi</a></li>
-                            <li><a href="../informazioni-iscrizioni/iscrizioni-tariffe.html">Quote e Moduli</a></li>
-                            <li><a href="../informazioni-iscrizioni/visita-medica.html">Visita Medica</a></li>
+                            <li><a href="../info-iscrizioni/atletica-leggera.html">Atletica Leggera</a></li>
+                            <li><a href="../info-iscrizioni/running-school.html">Running School</a></li>
+                            <li><a href="../info-iscrizioni/mamme-che-sport.html">Mamme che Sport!</a></li>
+                            <li><a href="../info-iscrizioni/nordic-walking.html">Nordic Walking</a></li>
+                            <li><a href="../info-iscrizioni/triathlon.html">Triathlon</a></li>
+                            <li><a href="../info-iscrizioni/visita-medica.html">Visita Medica</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="../abbigliamento.html" class="nav-dropdown-trigger">Abbigliamento</a>
+                        <a href="../abbigliamento.html" class="nav-dropdown-trigger" style="color: var(--color-green-light);">Abbigliamento</a>
                         <ul class="dropdown-menu">
-                            <li><a href="kit-ufficiale.html">Kit Ufficiale</a></li>
-                            <li><a href="ordini.html">Istruzioni Ordine</a></li>
+                            <li><a href="../abbigliamento/catalogo.html">Catalogo</a></li>
+                            <li><a href="../abbigliamento/ordini.html">Ordini</a></li>
+                            <li><a href="../abbigliamento/fornitori.html">Fornitori</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <a href="../eventi.html" class="nav-dropdown-trigger">Eventi</a>
                         <ul class="dropdown-menu">
-                            <li><a href="../eventi/calendario.html">Calendario Gare</a></li>
-                            <li><a href="../eventi/risultati-foto.html">Risultati & Foto</a></li>
+                            <li><a href="../eventi/gara-sociale.html">Gara Sociale</a></li>
+                            <li><a href="../eventi/24x1-ora.html">24x1 Ora</a></li>
+                            <li><a href="../eventi/prova-latletica.html">Prova l'Atletica</a></li>
+                            <li><a href="../eventi/estate-correndo.html">Estate Correndo</a></li>
+                            <li><a href="../eventi/fametta-run.html">Fametta Run</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <a href="../sponsor.html" class="nav-dropdown-trigger">Sponsor</a>
                         <ul class="dropdown-menu">
-                            <li><a href="../sponsor/nostri-partner.html">I nostri Partner</a></li>
-                            <li><a href="../sponsor/progetto-sponsor.html">Diventa Sponsor</a></li>
+                            <li><a href="../sponsor/donazioni.html">Donazioni</a></li>
+                            <li><a href="../sponsor/giocoatletica-2025.html">GiocoAtletica 2025</a></li>
+                            <li><a href="../sponsor/estate-correndo-2026.html">Estate Correndo 2026</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <a href="../campagne.html" class="nav-dropdown-trigger">Campagne</a>
                         <ul class="dropdown-menu">
-                            <li><a href="../campagne/5x1000.html">5 per Mille</a></li>
-                            <li><a href="../campagne/tesseramento-soci.html">Soci Sostenitori</a></li>
+                            <li><a href="../campagne/5x1000.html">5x1000</a></li>
+                            <li><a href="../campagne/tutti-in-campo.html">Tutti in Campo</a></li>
+                            <li><a href="../campagne/amici-dello-sport.html">Amici dello Sport</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../english.html">English</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- PAGE HERO -->
     <section class="page-hero">
         <div class="container">
-            <h1>Istruzioni Ordine</h1>
+            <h1>Ordini</h1>
             <div class="breadcrumbs">
-                <a href="../index.html">Home</a>
-                <span>&gt;</span>
-                <a href="../abbigliamento.html">Abbigliamento</a>
-                <span>&gt;</span>
-                <span>Istruzioni Ordine</span>
+                <a href="../index.html">Home</a> <span>/</span> Abbigliamento <span>/</span> Ordini
             </div>
         </div>
     </section>
 
-    <!-- CONTENT SECTION -->
     <section class="internal-layout">
         <div class="container">
             <div class="article-content">
-                <h2>Come Prenotare l'Abbigliamento Sociale</h2>
-                <p>Al fine di ottimizzare i costi di produzione e rispettare i minimi d'ordine imposti dal fornitore tecnico, la **ASD Virtus Groane** gestisce le prenotazioni dei capi tramite **finestre d'ordine stagionali** prefissate.</p>
-                
-                <h3>Finestre d'Ordine (Stagione 2026)</h3>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Blocco d'Ordine</th>
-                                <th>Apertura Prenotazioni</th>
-                                <th>Chiusura Prenotazioni</th>
-                                <th>Consegna Prevista</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Autunno / Inverno</strong></td>
-                                <td>1 Settembre</td>
-                                <td>30 Settembre</td>
-                                <td>Metà Novembre</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Primavera / Estate (Principale)</strong></td>
-                                <td>15 Gennaio</td>
-                                <td>15 Febbraio</td>
-                                <td>Fine Marzo (Inizio Gare)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Rifornimento Estivo</strong></td>
-                                <td>1 Maggio</td>
-                                <td>31 Maggio</td>
-                                <td>Inizio Luglio</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
 
-                <h3>Procedura per Effettuare l'Ordine</h3>
-                <ol style="margin-left: 2rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
-                    <li style="margin-bottom: 0.5rem;">**Verifica la Taglia:** Se hai dubbi sulle taglie, richiedi di provare i capi di campionario disponibili presso l'ufficio al campo di atletica durante gli orari di segreteria.</li>
-                    <li style="margin-bottom: 0.5rem;">**Compila il Modulo di Prenotazione:** Durante le finestre d'ordine, verrà inviato un link a un modulo online dedicato a tutti i soci via newsletter e WhatsApp.</li>
-                    <li style="margin-bottom: 0.5rem;">**Invia il Pagamento:** L'ordine sarà inoltrato al produttore solo dopo aver ricevuto copia del bonifico bancario di pagamento (o acconto del 50% per ordini superiori a € 100).</li>
-                </ol>
+<h2>Ordini Abbigliamento</h2>
+<p>Puoi effettuare gli ordini per il tuo abbigliamento sportivo direttamente dal nostro portale dedicato. Ricordati di verificare le taglie durante gli orari di segreteria prima di completare l'acquisto online.</p>
+<div style='margin-top: 2rem;'>
+    <a href='https://sites.google.com/virtusgroane.com/ordini-abbigliamento' class='btn btn-primary' target='_blank'>Effettua un Ordine</a>
+</div>
 
-                <div style="margin: 2rem 0; padding: 1.5rem; background-color: rgba(36, 178, 103, 0.15); border-left: 4px solid var(--color-green); border-radius: 4px;">
-                    <h4 style="color: white; margin-bottom: 0.5rem; text-transform: uppercase; font-family: var(--font-title);">Nota per i Nuovi Iscritti</h4>
-                    <p style="font-size: 0.95rem; margin-bottom: 0;">I nuovi iscritti che hanno diritto al Kit Base (incluso nella quota associativa annuale) devono compilare il modulo inserendo le proprie taglie entro 7 giorni dall'avvenuta iscrizione per consentire una consegna rapida.</p>
-                </div>
-
-                <h3>Contatti Responsabile Abbigliamento</h3>
-                <p>Per domande su taglie, resi o capi difettosi, contatta il responsabile all'indirizzo **abbigliamento@virtusgroane.it**.</p>
-                
-                <div style="margin-top: 2.5rem; text-align: center;">
-                    <a href="../abbigliamento.html" class="btn btn-secondary">Torna ad Abbigliamento</a>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-grid">
@@ -171,38 +129,25 @@
                 <div>
                     <h4 class="footer-title">Collegamenti Veloci</h4>
                     <ul class="footer-links">
-                        <li><a href="../chi-siamo/storia.html">La nostra Storia</a></li>
-                        <li><a href="../informazioni-iscrizioni/orari.html">Orari Allenamenti</a></li>
-                        <li><a href="kit-ufficiale.html">Kit Sociale</a></li>
-                        <li><a href="../eventi/calendario.html">Calendario Gare</a></li>
+                        <li><a href="../chi-siamo.html">La nostra Storia</a></li>
+                        <li><a href="../info-iscrizioni.html">Iscrizioni</a></li>
+                        <li><a href="../abbigliamento.html">Abbigliamento</a></li>
+                        <li><a href="../eventi.html">Eventi</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="footer-title">Campagne & Supporto</h4>
                     <ul class="footer-links">
-                        <li><a href="../campagne/5x1000.html">Codice Fiscale 5x1000</a></li>
-                        <li><a href="../campagne/tesseramento-soci.html">Diventa Socio Sostenitore</a></li>
-                        <li><a href="../sponsor/progetto-sponsor.html">Sponsorizzazione Aziende</a></li>
-                                            </ul>
+                        <li><a href="../campagne/5x1000.html">5x1000</a></li>
+                        <li><a href="../chi-siamo/associarsi.html">Diventa Socio Sostenitore</a></li>
+                        <li><a href="../sponsor.html">Diventa Sponsor</a></li>
+                    </ul>
                 </div>
             </div>
-            
             <div class="footer-bottom">
-                <p>&copy; 2026 ASD Virtus Groane. Tutti i diritti riservati. Codice Fiscale: 90012345678. P.IVA: 01234567890</p>
-                <div class="footer-socials">
-                    <a href="https://www.facebook.com/virtusgroane" class="social-btn facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                    </a>
-                    <a href="https://www.instagram.com/virtusgroane/" class="social-btn instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0 3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-                    </a>
-                    <a href="https://www.strava.com/clubs/340913" class="social-btn strava" target="_blank" rel="noopener noreferrer" aria-label="Strava">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.62h4.293L11.213 0 5.51 11.233h4.293z"/></svg>
-                    </a>
-                </div>
+                <p>&copy; 2026 ASD Virtus Groane. Tutti i diritti riservati.</p>
             </div>
         </div>
     </footer>
-
 </body>
 </html>
