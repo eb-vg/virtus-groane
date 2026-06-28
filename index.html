@@ -3,18 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtus Groane</title>
-    <!-- <link rel="icon" type="image/png" href="favicon.png"> -->
-    <!-- <link rel="stylesheet" href="style.css"> -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>ASD Virtus Groane - Atletica Leggera & Triathlon</title>
+    <meta name="description" content="Sito ufficiale dell'Associazione Sportiva Dilettantistica Virtus Groane. Attività di atletica leggera, triathlon, allenamenti e gare nel territorio delle Groane.">
+            <style>
+        html { overflow-y: scroll; }
+        header { position: fixed; opacity: 0; }
+        .hero { opacity: 0; }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;700&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=1.1">
 </head>
 <body>
 
-            <h1>Virtus Groane</h1>
-            <p>Questa è la base del nuovo sito.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p><a href="emiliano.html">Vai alla pagina di Emiliano</a></p>
+    <!-- HEADER / NAVIGATION -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo-link">
+                <img src="logo.png" alt="Virtus Groane" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="logo-placeholder" style="display:none;">VG</div>
+                
+            </a>
+            
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+            <label for="menu-toggle" class="menu-toggle-label">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                                        <li class="nav-item">
+                        <a href="chi-siamo.html" class="nav-dropdown-trigger">Chi Siamo</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="chi-siamo/storia.html">Storia e Valori</a></li>
+                            <li><a href="chi-siamo/direttivo.html">Consiglio Direttivo</a></li>
+                            <li><a href="chi-siamo/staff.html">Staff Tecnico</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="informazioni-iscrizioni.html" class="nav-dropdown-trigger">Iscrizioni</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="informazioni-iscrizioni/orari.html">Orari e Sedi</a></li>
+                            <li><a href="informazioni-iscrizioni/iscrizioni-tariffe.html">Quote e Moduli</a></li>
+                            <li><a href="informazioni-iscrizioni/visita-medica.html">Visita Medica</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="abbigliamento.html" class="nav-dropdown-trigger">Abbigliamento</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="abbigliamento/kit-ufficiale.html">Kit Ufficiale</a></li>
+                            <li><a href="abbigliamento/ordini.html">Istruzioni Ordine</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="eventi.html" class="nav-dropdown-trigger">Eventi</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="eventi/calendario.html">Calendario Gare</a></li>
+                            <li><a href="eventi/risultati-foto.html">Risultati & Foto</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="sponsor.html" class="nav-dropdown-trigger">Sponsor</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="sponsor/nostri-partner.html">I nostri Partner</a></li>
+                            <li><a href="sponsor/progetto-sponsor.html">Diventa Sponsor</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="campagne.html" class="nav-dropdown-trigger">Campagne</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="campagne/5x1000.html">5 per Mille</a></li>
+                            <li><a href="campagne/tesseramento-soci.html">Soci Sostenitori</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="hero-tagline">Passione • Velocità • Resistenza</div>
+                <h1 class="hero-title">
+                    ASD <span class="blue-highlight">Virtus</span> <span class="green-highlight">Groane</span>
+                </h1>
+                <p class="hero-description">
+                    Uniamo la passione per l'atletica leggera alla sfida multidisciplinare del triathlon. Allenati con tecnici qualificati nel cuore del Parco delle Groane. Scopri i nostri corsi per bambini, ragazzi e adulti.
+                </p>
+                <div class="hero-actions">
+                    <a href="informazioni-iscrizioni/iscrizioni-tariffe.html" class="btn btn-primary">Iscriviti Ora</a>
+                    <a href="#discipline" class="btn btn-secondary">Scopri le Discipline</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-shapes">
+                    <div class="shape-circle-1"></div>
+                    <div class="shape-circle-2"></div>
+                </div>
+                <div class="placeholder-card">
+                    <span class="badge-social blue">Atletica Leggera</span>
+                    <span class="badge-social green">Triathlon</span>
+                    <h3>Prossimo Evento</h3>
+                    <p>Campionato Sociale di Mezzofondo</p>
+                    <p style="color: var(--color-green); font-family: var(--font-title); font-size: 1.1rem; margin-top: 0.5rem; font-weight: bold;">
+                        12 LUGLIO 2026
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DISCIPLINE SECTION -->
+    <section id="discipline" class="section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Le Nostre Discipline</h2>
+                <p>Offriamo percorsi di allenamento mirati e differenziati per prepararti al meglio in pista, su strada e in acqua.</p>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-img-placeholder">
+                        <div class="card-img-pattern" style="background: linear-gradient(135deg, rgba(27, 88, 155, 0.4) 0%, rgba(27, 88, 155, 0.1) 100%);"></div>
+                        <span style="font-family: var(--font-title); font-size: 5rem; font-weight: 900; opacity: 0.15; color: white;">RUN</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Atletica Leggera</h3>
+                        <p>Dalla corsa di velocità alle campestri, dai salti ai lanci. Corsi di avviamento allo sport per bambini e ragazzi e tabelle avanzate per amatori ed élite.</p>
+                        <a href="informazioni-iscrizioni/orari.html" class="card-footer">Scopri i Corsi</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img-placeholder" style="border-left-color: var(--color-green);">
+                        <div class="card-img-pattern" style="background: linear-gradient(135deg, rgba(36, 178, 103, 0.4) 0%, rgba(36, 178, 103, 0.1) 100%);"></div>
+                        <span style="font-family: var(--font-title); font-size: 5rem; font-weight: 900; opacity: 0.15; color: white;">TRI</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Triathlon</h3>
+                        <p>Nuoto, ciclismo e corsa. Un percorso completo che unisce le tre discipline con allenamenti combinati specifici sia in piscina che su strada e sterrato.</p>
+                        <a href="informazioni-iscrizioni/orari.html" class="card-footer">Scopri il Team</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEMI PRINCIPALI (CATEGORIE) -->
+    <section id="aree">
+        <div class="container">
+            <div class="section-header">
+                <h2>Sezioni del Sito</h2>
+                <p>Esplora tutte le aree tematiche per rimanere aggiornato sulle attività, l'abbigliamento e il supporto all'associazione.</p>
+            </div>
+            
+            <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                <!-- Chi Siamo -->
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Chi Siamo</h3>
+                        <p>Scopri la storia di Virtus Groane, lo staff tecnico, gli allenatori e la dirigenza che guida l'associazione.</p>
+                        <a href="chi-siamo.html" class="card-footer">Entra</a>
+                    </div>
+                </div>
+                
+                <!-- Informazioni & Iscrizioni -->
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Iscrizioni & Orari</h3>
+                        <p>Tutte le informazioni su tariffe, sedi e orari degli allenamenti, documentazione e visita medica.</p>
+                        <a href="informazioni-iscrizioni.html" class="card-footer">Entra</a>
+                    </div>
+                </div>
+                
+                <!-- Abbigliamento -->
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Abbigliamento</h3>
+                        <p>Il kit ufficiale Virtus Groane da corsa, ciclismo e triathlon. Consulta la guida alle taglie e le modalità di ordine.</p>
+                        <a href="abbigliamento.html" class="card-footer">Entra</a>
+                    </div>
+                </div>
+                
+                <!-- Eventi -->
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Eventi & Gare</h3>
+                        <p>Il calendario delle competizioni societarie e federali, resoconti delle gare e la nostra galleria fotografica.</p>
+                        <a href="eventi.html" class="card-footer">Entra</a>
+                    </div>
+                </div>
+                
+                <!-- Sponsor -->
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Sponsor</h3>
+                        <p>I nostri partner commerciali e le opportunità per le aziende di promuovere il proprio brand con noi.</p>
+                        <a href="sponsor.html" class="card-footer">Entra</a>
+                    </div>
+                </div>
+                
+                <!-- Campagne -->
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Campagne</h3>
+                        <p>Sostienici tramite la donazione del 5x1000 o il tesseramento come Socio Sostenitore.</p>
+                        <a href="campagne.html" class="card-footer">Entra</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT FORM SECTION -->
+    <section id="contatti" class="section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contattaci</h2>
+                <p>Hai domande sui nostri corsi o vuoi richiedere informazioni? Scrivici un messaggio direttamente da qui.</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <div class="info-icon">✉</div>
+                        <div class="info-details">
+                            <h4>Email</h4>
+                            <p>info@virtusgroane.it</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">📍</div>
+                        <div class="info-details">
+                            <h4>Campo di Allenamento</h4>
+                            <p>Centro Sportivo Comunale, Area Groane (MB)</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">📝</div>
+                        <div class="info-details">
+                            <h4>Iscrizioni Ufficiali</h4>
+                            <p>Pronto per iscriverti? Accedi direttamente al modulo online.</p>
+                            <a href="https://forms.google.com" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1.2rem; font-size: 0.9rem; margin-top: 0.5rem; display: inline-flex;">Apri Google Form</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-container">
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Inserisci il tuo nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Indirizzo Email</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Inserisci la tua email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="discipline-select">Disciplina di Interesse</label>
+                            <select id="discipline-select" name="discipline" class="form-control">
+                                <option value="atletica">Atletica Leggera</option>
+                                <option value="triathlon">Triathlon</option>
+                                <option value="entrambe">Entrambe / Informazioni Generiche</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Messaggio</label>
+                            <textarea id="message" name="message" class="form-control" placeholder="Scrivi qui la tua richiesta..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Invia Messaggio</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 style="color: white; letter-spacing: 0.05em;">VIRTUS GROANE</h3>
+                    <p>Associazione Sportiva Dilettantistica affiliata FIDAL e FITRI. Promuoviamo lo sport giovanile e amatoriale sul territorio delle Groane.</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Collegamenti Veloci</h4>
+                    <ul class="footer-links">
+                        <li><a href="chi-siamo/storia.html">La nostra Storia</a></li>
+                        <li><a href="informazioni-iscrizioni/orari.html">Orari Allenamenti</a></li>
+                        <li><a href="abbigliamento/kit-ufficiale.html">Kit Sociale</a></li>
+                        <li><a href="eventi/calendario.html">Calendario Gare</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Campagne & Supporto</h4>
+                    <ul class="footer-links">
+                        <li><a href="campagne/5x1000.html">Codice Fiscale 5x1000</a></li>
+                        <li><a href="campagne/tesseramento-soci.html">Diventa Socio Sostenitore</a></li>
+                        <li><a href="sponsor/progetto-sponsor.html">Sponsorizzazione Aziende</a></li>
+                                            </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 ASD Virtus Groane. Tutti i diritti riservati. Codice Fiscale: 90012345678. P.IVA: 01234567890</p>
+                <div class="footer-socials">
+                    <a href="#" class="social-btn" aria-label="Facebook">FB</a>
+                    <a href="#" class="social-btn" aria-label="Instagram">IG</a>
+                    <a href="#" class="social-btn" aria-label="Strava">ST</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>
