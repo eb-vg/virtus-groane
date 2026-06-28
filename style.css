@@ -879,9 +879,23 @@ footer {
 }
 
 .social-btn:hover {
-    background-color: var(--color-green);
     color: white;
     transform: translateY(-2px);
+}
+
+.social-btn.facebook:hover {
+    background-color: #1877f2;
+    border-color: #1877f2;
+}
+
+.social-btn.instagram:hover {
+    background-color: #e1306c;
+    border-color: #e1306c;
+}
+
+.social-btn.strava:hover {
+    background-color: #fc5200;
+    border-color: #fc5200;
 }
 
 /* RESPONSIVE BREAKPOINTS */
