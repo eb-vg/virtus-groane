@@ -11,7 +11,7 @@
     --text-secondary: #a0aec0;
     --text-muted: #718096;
     --border-color: rgba(255, 255, 255, 0.08);
-    --font-title: 'Oswald', 'Arial Narrow', sans-serif;
+    --font-title: 'Barlow Condensed', 'Arial Narrow', sans-serif;
     --font-body: 'Inter', sans-serif;
     --transition-fast: 0.2s ease;
     --transition-normal: 0.3s ease;
@@ -70,6 +70,10 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.nocaps {
+    text-transform: none !important;
 }
 
 h2 {
