@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +8,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;700&display=block" rel="stylesheet">
     <link rel="stylesheet" href="../style.css?v=1.1">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <style>
+        .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+            background-color: var(--bg-secondary) !important;
+            color: var(--text-primary) !important;
+            border: 1px solid var(--border-color);
+        }
+        .leaflet-popup-content a {
+            color: var(--color-green-light) !important;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <header style="background-color: var(--bg-secondary); border-bottom: 1px solid var(--border-color);">
@@ -109,6 +121,36 @@
 <h2>Le nostre Sedi Operative</h2>
 <p>La nostra societ&agrave; svolge le attivit&agrave; principalmente nei comuni di Senago, Solaro e Limbiate. Sfruttiamo i centri sportivi del territorio e i bellissimi percorsi all'interno del Parco delle Groane.</p>
 
+<div id="map" style="height: 450px; border-radius: 12px; margin: 2rem 0; border: 1px solid var(--border-color); z-index: 1;"></div>
+
+<h3 style="margin-top: 2.5rem;">Calcola Percorso</h3>
+<p>Clicca sui pulsanti sottostanti per aprire le indicazioni stradali direttamente sul navigatore di Google Maps:</p>
+<div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
+    <div style="background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+            <h4 style="margin: 0; font-size: 1.1rem; color: #4da3ff;">Centro Sportivo Comunale di Senago</h4>
+            <p style="margin: 0.2rem 0 0; font-size: 0.9rem; color: var(--text-secondary);">Via Giovanni di Vittorio, 2 - 20030 Senago (MI)</p>
+        </div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=45.5615,9.1175" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1.2rem; font-size: 0.9rem; margin-top: 0;">Apri Navigatore</a>
+    </div>
+    
+    <div style="background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+            <h4 style="margin: 0; font-size: 1.1rem; color: var(--color-green-light);">Centro Sportivo Comunale di Solaro</h4>
+            <p style="margin: 0.2rem 0 0; font-size: 0.9rem; color: var(--text-secondary);">Corso Berlinguer, 2 - 20020 Solaro (MI)</p>
+        </div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=45.6120,9.0835" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1.2rem; font-size: 0.9rem; margin-top: 0;">Apri Navigatore</a>
+    </div>
+    
+    <div style="background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+            <h4 style="margin: 0; font-size: 1.1rem; color: #4da3ff;">Centro Sportivo Comunale di Limbiate</h4>
+            <p style="margin: 0.2rem 0 0; font-size: 0.9rem; color: var(--text-secondary);">Via Leone Tolstoi, 84 - 20812 Limbiate (MB)</p>
+        </div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=45.6033,9.1458" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1.2rem; font-size: 0.9rem; margin-top: 0;">Apri Navigatore</a>
+    </div>
+</div>
+
             </div>
         </div>
     </section>
@@ -143,5 +185,23 @@
             </div>
         </div>
     </footer>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        var map = L.map('map').setView([45.592, 9.115], 12);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+        
+        L.marker([45.5615, 9.1175]).addTo(map)
+            .bindPopup('<b>Centro Sportivo Comunale di Senago</b><br>Via Giovanni di Vittorio, 2<br><br><a href="https://www.google.com/maps/dir/?api=1&destination=45.5615,9.1175" target="_blank">Apri Navigatore &rarr;</a>');
+            
+        L.marker([45.6120, 9.0835]).addTo(map)
+            .bindPopup('<b>Centro Sportivo Comunale di Solaro</b><br>Corso Berlinguer, 2<br><br><a href="https://www.google.com/maps/dir/?api=1&destination=45.6120,9.0835" target="_blank">Apri Navigatore &rarr;</a>');
+            
+        L.marker([45.6033, 9.1458]).addTo(map)
+            .bindPopup('<b>Centro Sportivo Comunale di Limbiate</b><br>Via Leone Tolstoi, 84<br><br><a href="https://www.google.com/maps/dir/?api=1&destination=45.6033,9.1458" target="_blank">Apri Navigatore &rarr;</a>');
+    </script>
 </body>
 </html>
