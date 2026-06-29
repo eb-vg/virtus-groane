@@ -855,6 +855,16 @@ footer {
     max-width: 300px;
 }
 
+.footer-brand h3 a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.footer-brand h3 a:hover {
+    color: var(--color-green-light) !important;
+}
+
 .footer-title {
     font-size: 1.1rem;
     color: white;
