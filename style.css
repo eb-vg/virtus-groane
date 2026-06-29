@@ -518,29 +518,42 @@ section {
 /* PAGE HEADER (FOR INTERNAL PAGES) */
 .page-hero {
     background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     text-align: center;
     border-bottom: 1px solid var(--border-color);
     opacity: 1;
 }
 
 .page-hero h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    margin-bottom: 0.5rem;
+    font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
     background: linear-gradient(90deg, #ffffff 60%, var(--text-secondary) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.breadcrumbs {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--text-muted);
+.parent-link, .parent-separator {
+    font-size: 0.45em;
     font-family: var(--font-title);
     text-transform: uppercase;
+    font-weight: 500;
+    -webkit-text-fill-color: var(--text-muted);
+    color: var(--text-muted);
+}
+
+.parent-link:hover {
+    -webkit-text-fill-color: var(--color-green-light);
+    color: var(--color-green-light);
+}
+
+.breadcrumbs {
+    display: none;
 }
 
 .breadcrumbs a:hover {
