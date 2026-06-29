@@ -136,6 +136,7 @@ header {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    flex-shrink: 0;
 }
 
 .logo-placeholder {
@@ -157,6 +158,7 @@ header {
     height: 50px;
     width: 109px;
     object-fit: contain;
+    flex-shrink: 0;
 }
 
 .logo-text {
@@ -173,25 +175,33 @@ header {
 .nav-menu {
     display: flex;
     align-items: center;
-    height: 100%;
+    min-height: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .nav-list {
     display: flex;
     align-items: center;
-    height: 100%;
+    min-height: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .nav-item {
     position: relative;
-    height: 100%;
+    min-height: 100%;
     display: flex;
     align-items: center;
 }
 
+.nav-item img {
+    flex-shrink: 0;
+}
+
 .nav-item > a, .nav-dropdown-trigger {
-    padding: 0 1.2rem;
-    height: 100%;
+    padding: 0.5rem 1.2rem;
+    min-height: 100%;
     display: flex;
     align-items: center;
     font-family: var(--font-title);
@@ -899,6 +909,51 @@ footer {
 }
 
 /* RESPONSIVE BREAKPOINTS */
+@media (max-width: 1200px) and (min-width: 769px) {
+    header {
+        height: auto;
+        min-height: var(--header-height);
+    }
+    .nav-container {
+        height: auto;
+        min-height: var(--header-height);
+        flex-wrap: nowrap;
+        padding: 0.5rem 0;
+    }
+    .nav-menu {
+        flex-grow: 1;
+        flex-wrap: nowrap;
+    }
+    .nav-list {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr auto auto auto 1fr;
+        grid-template-rows: auto auto;
+        column-gap: 0.5rem;
+        row-gap: 0.2rem;
+        align-items: center;
+        justify-items: center;
+    }
+    
+    .nav-item:nth-child(1) { grid-area: 1 / 2; }
+    .nav-item:nth-child(2) { grid-area: 1 / 3; }
+    .nav-item:nth-child(3) { grid-area: 1 / 4; }
+    
+    .nav-item:nth-child(4) { grid-area: 2 / 2; }
+    .nav-item:nth-child(5) { grid-area: 2 / 3; }
+    .nav-item:nth-child(6) { grid-area: 2 / 4; }
+    
+    .nav-item:nth-child(7) { 
+        grid-area: 1 / 5 / 3 / 6; 
+        justify-self: right; 
+    }
+    
+    .nav-item > a, .nav-dropdown-trigger {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.95rem;
+    }
+}
+
 @media (max-width: 992px) {
     .hero-grid {
         grid-template-columns: 1fr;
@@ -972,6 +1027,20 @@ footer {
         align-items: flex-start;
         height: auto;
         border-bottom: 1px solid var(--border-color);
+    }
+    
+    /* Keep the English flag visible next to hamburger menu */
+    .nav-list .nav-item:nth-child(7) {
+        position: fixed;
+        top: 29px;
+        right: 4.5rem;
+        z-index: 1011;
+        border-bottom: none;
+    }
+    
+    .nav-list .nav-item:nth-child(7) > a {
+        padding: 0;
+        width: auto;
     }
     
     .nav-item > a, .nav-dropdown-trigger {
