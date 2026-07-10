@@ -1103,3 +1103,20 @@ footer {
         display: none !important;
     }
 }
+
+/* DESKTOP GRID LAYOUT OVERRIDE FOR DISCIPLINE CARDS */
+@media (min-width: 1025px) {
+    #discipline .card-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+    #discipline .card-grid .card:nth-child(1),
+    #discipline .card-grid .card:nth-child(2) {
+        grid-column: span 3;
+    }
+    #discipline .card-grid .card:nth-child(3),
+    #discipline .card-grid .card:nth-child(4),
+    #discipline .card-grid .card:nth-child(5) {
+        grid-column: span 2;
+    }
+}
+
