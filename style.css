@@ -1039,8 +1039,8 @@ footer {
         position: static;
         transform: none;
         width: 100%;
-        opacity: 1;
-        visibility: visible;
+        opacity: 0;
+        visibility: hidden;
         box-shadow: none;
         border: none;
         background-color: var(--bg-secondary);
@@ -1048,6 +1048,11 @@ footer {
         padding: 0.5rem 0;
         max-height: none;
         display: block;
+    }
+    
+    .menu-checkbox:checked ~ .nav-menu .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
     }
     
     .nav-item:hover .dropdown-menu {
