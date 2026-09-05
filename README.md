@@ -4,53 +4,46 @@
 Di seguito l'elenco delle pagine per il sito di Virtus Groane.
 In generale, per i soli contenuti e non per l'estetica, puoi prendere spunto da quanto in "www.virtusgroane.com". Ti indicherò io le singole pagine dell'attuale sito e cosa trarne. Se una pagina non c'è nel sito attuale, ti indico [].
 
-Home [https://www.virtusgroane.com/] teniamo il link a cui scaricare il pdf con l'elenco di tutti i corsi della stagione 2026/2027, teniamo i tile che linkano alle discipline (atletica leggera, triathlon, running school, mamme che sport, nordic walking)
-
-Chi Siamo [https://www.virtusgroane.com/chi-siamo] teniamo in generale il racconto di cosa fa la società, ma tranquillamente le frasi possono essere riscritte.
-	- Organigramma [https://www.virtusgroane.com/chi-siamo/organigramma] questa pagina racconta da chi è diretta la società
-	- Allenatori [https://www.virtusgroane.com/chi-siamo/allenatori] teniamo i nomi e il ruolo degli allenatori
-	- Safeguarding [https://www.virtusgroane.com/chi-siamo/safeguarding] teniamo il racconto di cos'è il safeguarding e di come possa riguardare tutti: direttivo/allenatori/atleti. Per gli atleti minorenni, riguarda i genitori.
-	- Record Societari [] Questa pagina non esiste, improntala e poi vediamo come popolarla.
-	- Tesseramento [] Inserire e descrivere gli enti con cui ci si tessera: FIDAL, FITRI, AICS
-	- Golee [] spieghiamo che Virtus ha scelto Golee come piattaforma per la gestione degli atleti
-	- Dove Siamo [https://www.virtusgroane.com/chi-siamo/dove-siamo] le nostre sedi operative
-	- Convenzioni [https://www.virtusgroane.com/chi-siamo/convenzioni] è l'elenco delle convenzioni, riordiniamolo e cerchiamo di fare, per ogni ente convenzionato, un riassunto di quel che si trova sul web
-	- Statuto Sociale [https://www.virtusgroane.com/chi-siamo/statuto-sociale] tenere i contenuti così come sono, dato che è l'esatta copia dello statuto costitutivo ufficiale
-	- Associarsi? [] inseriamo una motivazione per la quale associarsi
-	- Regolamenti [https://www.virtusgroane.com/chi-siamo/regolamento] teniamone il contenuto così com'è, poi vedremo
-	- Contatti [https://www.virtusgroane.com/chi-siamo/contatti]
-
-Info-Iscrizioni [https://www.virtusgroane.com/info-iscrizioni] Quel che c'è va mantenuto, tutti i link tra qualche giorno punteranno ad un modulo di iscrizione, diverso per categoria
-	- Atletica Leggera [https://www.virtusgroane.com/info-iscrizioni/atletica-leggera] descrive tutte le categorie dell'atletica leggera, puoi integrare quello che trovi qui con altre informazioni che trovi sul web per le singole categorie
-	- Triathlon [https://www.virtusgroane.com/info-iscrizioni/triathlon]
-	- Running School [https://www.virtusgroane.com/info-iscrizioni/running-school] teniamo le motivazioni che hanno portato all'introduzione di questo corso
-	- Mamme che Sport! [https://www.virtusgroane.com/info-iscrizioni/mamme-che-sport] teniamo le motivazioni che hanno portato all'introduzione di questo corso
-	- Nordic Walking [https://www.virtusgroane.com/info-iscrizioni/nordic-walking] teniamo le motivazioni dell'introduzione del nordic walking
-	- Visita Medica [] spieghiamo come ottenere la richiesta della società alla visita medica, dove andare a farla, perché è necessario prenotarla per tempo, perché oltre una certa età serve una visita col test di sforzo, perché è bene fareil test di sforzo anche per i più giovani, perché la società è tenuta alla verifica del certificato e alla conservazione dell'originale
-
-Abbigliamento [https://www.virtusgroane.com/abbigliamento]
-	- Catalogo [https://sites.google.com/virtusgroane.com/ordini-abbigliamento] deve essere un link a questo, oppure riprenderne il contenuto
-	- Ordini [] deve avere i link a quattro differenti moduli Google: https://docs.google.com/forms/d/e/1FAIpQLSdIzbSeodp62xJY3OkdsNeUd6iXLeQMZBcB4tIEXwnRxo31ng/viewform , https://docs.google.com/forms/d/e/1FAIpQLSd58x_8d8dODkdD-MA7GpfSl2aiP17ENz7OXPv-VZMWhIElPg/viewform , https://docs.google.com/forms/d/e/1FAIpQLSd596tD1dk0C-s-4k_7NiSIKxCQSLThlsIAT62D7WdiL6cetA/viewform , https://forms.gle/x7tMMiRVrXvUXB3o9
-	- Fornitori
-
-Eventi [https://www.virtusgroane.com/eventi] raccontare che qui si trovano eventi cui partecipiamo e eventi che organizziamo
-	- Gara Sociale [https://www.virtusgroane.com/eventi/gara-sociale] la facciamo tutti gli anni, per stimolare il confronto interno, c'è un algoritmo che prova ad equiparare persone di ovvia età diversa
-	- 24x1 Ora [https://www.virtusgroane.com/eventi/24x1ora]
-	- Estate Correndo [https://www.virtusgroane.com/eventi/estate-correndo] organizziamo noi una tappa di cinque
-	- Fametta Run [https://www.virtusgroane.com/eventi/fametta-run] organizziamo noi
-	- Prova l'Atletica [https://www.virtusgroane.com/eventi/vieni-a-provare] stimola nuovi giovani a venire a provare la nostra esperienza, per poi decidere se iscriversi
-
-Sponsor [https://www.virtusgroane.com/sponsor] deve invitare qualcuno a diventare nostro sponsor
-	- Donazioni [https://www.virtusgroane.com/sponsor/donazioni] la pagina vuole ringraziare chi ha fatto qualcosa per noi
-	- GiocoAtletica 2025 [https://www.virtusgroane.com/sponsor/evento-gioco-atletica-2025] chi ha sponsorizzato questo evento fatto in passato
-	- Estate Correndo 2026 [https://www.virtusgroane.com/sponsor/evento-estate-correndo-2025] chi ha sponsorizzato questo evento
-
-Campagne [https://www.virtusgroane.com/campagne] perché Virtus aderisce a queste importanti campagne
-	- 5x1000 [https://www.virtusgroane.com/campagne/5x1000]
-	- Tutti in Campo [https://www.virtusgroane.com/campagne/tutti-in-campo] deve raccontare la campagna in sè, chi la organizza e cosa fare per portare punti
-	- Amici dello Sport [https://www.virtusgroane.com/eventi/amici-dello-sport] deve raccontare la campagna in sè, chi la organizza e cosa fare per portare punti
-
-English [] questa pagine deve raccontare Virtus in inglese, in vista di collaborazioni internazionali
+- Home [https://www.virtusgroane.com/] teniamo il link a cui scaricare il pdf con l'elenco di tutti i corsi della stagione 2026/2027, teniamo i tile che linkano alle discipline (atletica leggera, triathlon, running school, mamme che sport, nordic walking)
+- Chi Siamo [https://www.virtusgroane.com/chi-siamo] teniamo in generale il racconto di cosa fa la società, ma tranquillamente le frasi possono essere riscritte.
+  - Organigramma [https://www.virtusgroane.com/chi-siamo/organigramma] questa pagina racconta da chi è diretta la società
+  - Allenatori [https://www.virtusgroane.com/chi-siamo/allenatori] teniamo i nomi e il ruolo degli allenatori
+  - Safeguarding [https://www.virtusgroane.com/chi-siamo/safeguarding] teniamo il racconto di cos'è il safeguarding e di come possa riguardare tutti: direttivo/allenatori/atleti. Per gli atleti minorenni, riguarda i genitori.
+  - Record Societari [] Questa pagina non esiste, improntala e poi vediamo come popolarla.
+  - Tesseramento [] Inserire e descrivere gli enti con cui ci si tessera: FIDAL, FITRI, AICS
+  - Golee [] spieghiamo che Virtus ha scelto Golee come piattaforma per la gestione degli atleti
+  - Dove Siamo [https://www.virtusgroane.com/chi-siamo/dove-siamo] le nostre sedi operative
+  - Convenzioni [https://www.virtusgroane.com/chi-siamo/convenzioni] è l'elenco delle convenzioni, riordiniamolo e cerchiamo di fare, per ogni ente convenzionato, un riassunto di quel che si trova sul web
+  - Statuto Sociale [https://www.virtusgroane.com/chi-siamo/statuto-sociale] tenere i contenuti così come sono, dato che è l'esatta copia dello statuto costitutivo ufficiale
+  - Associarsi? [] inseriamo una motivazione per la quale associarsi
+  - Regolamenti [https://www.virtusgroane.com/chi-siamo/regolamento] teniamone il contenuto così com'è, poi vedremo
+  - Contatti [https://www.virtusgroane.com/chi-siamo/contatti]
+- Info-Iscrizioni [https://www.virtusgroane.com/info-iscrizioni] Quel che c'è va mantenuto, tutti i link tra qualche giorno punteranno ad un modulo di iscrizione, diverso per categoria
+  - Atletica Leggera [https://www.virtusgroane.com/info-iscrizioni/atletica-leggera] descrive tutte le categorie dell'atletica leggera, puoi integrare quello che trovi qui con altre informazioni che trovi sul web per le singole categorie
+  - Triathlon [https://www.virtusgroane.com/info-iscrizioni/triathlon]
+  - Running School [https://www.virtusgroane.com/info-iscrizioni/running-school] teniamo le motivazioni che hanno portato all'introduzione di questo corso
+  - Mamme che Sport! [https://www.virtusgroane.com/info-iscrizioni/mamme-che-sport] teniamo le motivazioni che hanno portato all'introduzione di questo corso
+  - Nordic Walking [https://www.virtusgroane.com/info-iscrizioni/nordic-walking] teniamo le motivazioni dell'introduzione del nordic walking
+  - Visita Medica [] spieghiamo come ottenere la richiesta della società alla visita medica, dove andare a farla, perché è necessario prenotarla per tempo, perché oltre una certa età serve una visita col test di sforzo, perché è bene fareil test di sforzo anche per i più giovani, perché la società è tenuta alla verifica del certificato e alla conservazione dell'originale
+- Abbigliamento [https://www.virtusgroane.com/abbigliamento]
+  - Catalogo [https://sites.google.com/virtusgroane.com/ordini-abbigliamento] deve essere un link a questo, oppure riprenderne il contenuto
+  - Ordini [] deve avere i link a quattro differenti moduli Google: https://docs.google.com/forms/d/e/1FAIpQLSdIzbSeodp62xJY3OkdsNeUd6iXLeQMZBcB4tIEXwnRxo31ng/viewform , https://docs.google.com/forms/d/e/1FAIpQLSd58x_8d8dODkdD-MA7GpfSl2aiP17ENz7OXPv-VZMWhIElPg/viewform , https://docs.google.com/forms/d/e/1FAIpQLSd596tD1dk0C-s-4k_7NiSIKxCQSLThlsIAT62D7WdiL6cetA/viewform , https://forms.gle/x7tMMiRVrXvUXB3o9
+  - Fornitori
+- Eventi [https://www.virtusgroane.com/eventi] raccontare che qui si trovano eventi cui partecipiamo e eventi che organizziamo
+  - Gara Sociale [https://www.virtusgroane.com/eventi/gara-sociale] la facciamo tutti gli anni, per stimolare il confronto interno, c'è un algoritmo che prova ad equiparare persone di ovvia età diversa
+  - 24x1 Ora [https://www.virtusgroane.com/eventi/24x1ora]
+  - Estate Correndo [https://www.virtusgroane.com/eventi/estate-correndo] organizziamo noi una tappa di cinque
+  - Fametta Run [https://www.virtusgroane.com/eventi/fametta-run] organizziamo noi
+  - Prova l'Atletica [https://www.virtusgroane.com/eventi/vieni-a-provare] stimola nuovi giovani a venire a provare la nostra esperienza, per poi decidere se iscriversi
+- Sponsor [https://www.virtusgroane.com/sponsor] deve invitare qualcuno a diventare nostro sponsor
+  - Donazioni [https://www.virtusgroane.com/sponsor/donazioni] la pagina vuole ringraziare chi ha fatto qualcosa per noi
+  - GiocoAtletica 2025 [https://www.virtusgroane.com/sponsor/evento-gioco-atletica-2025] chi ha sponsorizzato questo evento fatto in passato
+  - Estate Correndo 2026 [https://www.virtusgroane.com/sponsor/evento-estate-correndo-2025] chi ha sponsorizzato questo evento
+- Campagne [https://www.virtusgroane.com/campagne] perché Virtus aderisce a queste importanti campagne
+  - 5x1000 [https://www.virtusgroane.com/campagne/5x1000]
+  - Tutti in Campo [https://www.virtusgroane.com/campagne/tutti-in-campo] deve raccontare la campagna in sè, chi la organizza e cosa fare per portare punti
+  - Amici dello Sport [https://www.virtusgroane.com/eventi/amici-dello-sport] deve raccontare la campagna in sè, chi la organizza e cosa fare per portare punti
+- English [] questa pagine deve raccontare Virtus in inglese, in vista di collaborazioni internazionali
 
 
 # Testo per le Pagine
