@@ -1,0 +1,5 @@
+# Regole di redirect e blocco di sicurezza per Cloudflare Pages
+
+# Forza risposta 404 per qualsiasi tentativo di accesso alla cartella data o a file di calcolo
+/data/* /404.html 404!
+/virtus-non-pubblico/* /404.html 404!
