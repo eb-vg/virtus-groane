@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record Societari - Virtus Groane</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css?v=1.1">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .records-container {
+            margin-top: 1.5rem;
+        }
+        .controls-card {
+            background-color: var(--bg-secondary, #f8f9fa);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            min-width: 250px;
+            flex: 1;
+        }
+        .control-group label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            color: var(--text-main, #1a202c);
+        }
+        .control-group select {
+            padding: 0.6rem 1rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color, #cbd5e0);
+            background-color: white;
+            color: var(--text-main, #2d3748);
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-section {
+            background: white;
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .chart-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--primary, #1f4e79);
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 420px;
+            width: 100%;
+        }
+        .table-wrapper {
+            max-height: 520px;
+            overflow: auto;
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 8px;
+            background: white;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        .records-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .records-table th, .records-table td {
+            padding: 0.6rem 0.75rem;
+            border-bottom: 1px solid #cbd5e0;
+            border-right: 1px solid #cbd5e0;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+        .records-table th {
+            position: sticky;
+            top: 0;
+            background-color: #1f4e79;
+            color: #ffffff;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            z-index: 3;
+        }
+        /* COLONNA 1: ATLETA */
+        .records-table th:nth-child(1), .records-table td:nth-child(1) {
+            position: sticky;
+            left: 0;
+            z-index: 2;
+            text-align: left;
+            font-weight: 700;
+            width: 170px;
+            min-width: 170px;
+            max-width: 170px;
+        }
+        /* COLONNA 2: RECORD (PB) */
+        .records-table th:nth-child(2), .records-table td:nth-child(2) {
+            position: sticky;
+            left: 170px;
+            z-index: 2;
+            text-align: center;
+            font-weight: 700;
+            width: 95px;
+            min-width: 95px;
+            max-width: 95px;
+            border-right: 2px solid #a0aec0;
+        }
+        .records-table th:nth-child(1), .records-table th:nth-child(2) {
+            position: sticky;
+            top: 0;
+            background-color: #153654;
+            color: #ffffff;
+            z-index: 5;
+        }
+        
+        /* RIGHE DISPARI (BIANCHE) - NERO SU BIANCO */
+        .records-table tr.row-odd td {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .records-table tr.row-odd td:nth-child(1) {
+            background-color: #ffffff;
+            color: #1f4e79;
+        }
+        .records-table tr.row-odd td:nth-child(2) {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+        }
+        .records-table tr.row-odd td.has-mark {
+            background-color: #e2eef9;
+            color: #000000;
+            font-weight: 700;
+        }
+
+        /* RIGHE PARI (SCURE) - BIANCO SU NERO */
+        .records-table tr.row-even td {
+            background-color: #1a202c;
+            color: #ffffff;
+        }
+        .records-table tr.row-even td:nth-child(1) {
+            background-color: #1a202c;
+            color: #ffffff;
+        }
+        .records-table tr.row-even td:nth-child(2) {
+            background-color: #2b3648;
+            color: #90cdf4;
+        }
+        .records-table tr.row-even td.has-mark {
+            background-color: #2d3748;
+            color: #ffffff;
+            font-weight: 700;
+        }
+        .bottom-tiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .info-tile {
+            background: var(--bg-secondary, #f8f9fa);
+            border: 1px solid var(--border-color, #e2e8f0);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .info-tile h4 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.4rem;
+            color: var(--primary, #1f4e79);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        .info-tile p {
+            font-size: 0.95rem;
+            color: var(--text-main, #4a5568);
+            line-height: 1.5;
+            margin-bottom: 1.2rem;
+        }
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: #276749;
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.03em;
+            transition: background-color 0.2s;
+            text-align: center;
+        }
+        .download-btn:hover {
+            background-color: #1c4532;
+            color: white;
+        }
+        .ex-athlete-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.65rem 0.9rem;
+            border: 1px solid var(--border-color, #cbd5e0);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+        }
+        .btn-scrivi {
+            width: 100%;
+            background-color: var(--primary, #1f4e79);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            transition: background-color 0.2s;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .btn-scrivi:hover {
+            background-color: #153654;
+        }
+        .meta-info {
+            font-size: 0.85rem;
+            color: #718096;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header style="background-color: var(--bg-secondary); border-bottom: 1px solid var(--border-color);">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo-link">
+                <img src="../logo.png" alt="Virtus Groane" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="logo-placeholder" style="display:none;">VG</div>
+            </a>
+            
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+            <label for="menu-toggle" class="menu-toggle-label">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../virtus.html" class="nav-dropdown-trigger">Virtus</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../virtus/organigramma.html">Organigramma</a></li>
+                            <li><a href="../virtus/allenatori.html">Allenatori</a></li>
+                            <li><a href="../virtus/safeguarding.html">Safeguarding</a></li>
+                            <li><a href="../virtus/tesseramento.html">Tesseramento</a></li>
+                            <li><a href="../virtus/statuto-sociale.html">Statuto Sociale</a></li>
+                            <li><a href="../virtus/associarsi.html">Associarsi</a></li>
+                            <li><a href="../virtus/regolamenti.html">Regolamenti</a></li>
+                            <li><a href="../virtus/collaborazioni.html">Collaborazioni</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../info-iscrizioni.html" class="nav-dropdown-trigger">Info-Iscrizioni</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../info-iscrizioni/atletica-leggera.html">Atletica Leggera</a></li>
+                            <li><a href="../info-iscrizioni/triathlon.html">Triathlon</a></li>
+                            <li><a href="../info-iscrizioni/running-school.html">Running School</a></li>
+                            <li><a href="../info-iscrizioni/mamme-che-sport.html">Mamme che Sport!</a></li>
+                            <li><a href="../info-iscrizioni/nordic-walking.html">Nordic Walking</a></li>
+                            <li><a href="../info-iscrizioni/visita-medica.html">Visita Medica</a></li>
+                            <li><a href="../info-iscrizioni/convenzioni.html">Convenzioni</a></li>
+                            <li><a href="../info-iscrizioni/golee.html">Golee</a></li>
+                            <li><a href="../info-iscrizioni/dove-ci-alleniamo.html">Dove ci Alleniamo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../abbigliamento.html" class="nav-dropdown-trigger">Abbigliamento</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../abbigliamento/catalogo.html">Catalogo</a></li>
+                            <li><a href="../abbigliamento/ordini.html">Ordini</a></li>
+                            <li><a href="../abbigliamento/fornitori.html">Fornitori</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../societa-ed-eventi.html" class="nav-dropdown-trigger">Società ed Eventi</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../societa-ed-eventi/record-societari.html">Record Societari</a></li>
+                            <li><a href="../societa-ed-eventi/gara-sociale.html">Gara Sociale</a></li>
+                            <li><a href="../societa-ed-eventi/24x1-ora.html">24x1 Ora</a></li>
+                            <li><a href="../societa-ed-eventi/estate-correndo.html">E...state Correndo</a></li>
+                            <li><a href="../societa-ed-eventi/fametta-run.html">Fametta Run</a></li>
+                            <li><a href="../societa-ed-eventi/prova-l-atletica.html">Prova l'Atletica</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../sostieni-virtus.html" class="nav-dropdown-trigger">Sostieni Virtus</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../sostieni-virtus/donazioni.html">Donazioni</a></li>
+                            <li><a href="../sostieni-virtus/giocoatletica-2025.html">GiocoAtletica 2025</a></li>
+                            <li><a href="../sostieni-virtus/estate-correndo-2026.html">E...state Correndo 2025</a></li>
+                            <li><a href="../sostieni-virtus/5x1000.html">5x1000</a></li>
+                            <li><a href="../sostieni-virtus/tutti-in-campo.html">Tutti in Campo</a></li>
+                            <li><a href="../sostieni-virtus/amici-dello-sport.html">Amici dello Sport</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../contatti.html">Contatti</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../english.html"><img src="../uk-flag.png" alt="English" style="width: 24px; height: auto; vertical-align: middle;"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1><a href="../societa-ed-eventi.html" class="parent-link">Società ed Eventi</a> <span class="parent-separator">/</span> Record Societari</h1>
+        </div>
+    </section>
+
+    <section class="internal-layout">
+        <div class="container">
+            <div class="article-content">
+                <h2>Albo d'Oro e Progressione Atletica</h2>
+                <p>Esplora i primati e le progressioni prestazionali degli atleti <strong>Virtus Groane ASD</strong>. I dati comprendono esclusivamente le prestazioni ottenute durante gli anni di tesseramento con la nostra società.</p>
+
+                <div class="controls-card">
+                    <div class="control-group">
+                        <label for="discipline-select">Disciplina:</label>
+                        <select id="discipline-select">
+                            <option value="">Caricamento discipline...</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="athlete-select">Filtra Atleta:</label>
+                        <select id="athlete-select">
+                            <option value="ALL">Tutti gli atleti</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <div class="chart-wrapper">
+                        <canvas id="recordsChart"></canvas>
+                    </div>
+                </div>
+
+                <h3 style="font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; color: #1f4e79; margin-top: 2rem;">Tabella Prestazioni per Età</h3>
+                <div class="table-wrapper">
+                    <table class="records-table" id="records-table">
+                        <thead>
+                            <tr id="table-header-row">
+                                <th>Atleta</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <tr><td colspan="68">Seleziona una disciplina per visualizzare i dati.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bottom-tiles-grid">
+                    <div class="info-tile">
+                        <div>
+                            <h4>Scarica il file completo dei Record</h4>
+                            <p>Puoi scaricare l'intero foglio di calcolo Excel con tutti i record societari, strutturato con un foglio dedicato per ciascuna delle 33 discipline e la matrice delle prestazioni di tutti gli atleti tesserati.</p>
+                        </div>
+                        <a href="../data/records/record_societari_virtus_groane.xlsx" class="download-btn" download>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            Scarica Excel Completo (.xlsx)
+                        </a>
+                    </div>
+
+                    <div class="info-tile">
+                        <div>
+                            <h4>Sei stato un atleta Virtus Groane in passato?</h4>
+                            <p>Se hai gareggiato per la Virtus Groane in passato e non sei più tesserato/a, inserisci il tuo nome qui sotto per inviarci una richiesta ed essere aggiunto/a all'albo d'oro dei record societari.</p>
+                        </div>
+                        <div class="ex-athlete-form">
+                            <input type="text" id="ex-athlete-name" placeholder="Il tuo Nome e Cognome" class="form-input">
+                            <button type="button" onclick="sendExAthleteMail()" class="btn-scrivi">Scrivi a info@virtusgroane.com</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 style="color: white; letter-spacing: 0.05em;"><a href="../virtus.html">VIRTUS GROANE</a></h3>
+                    <p>Associazione Sportiva Dilettantistica affiliata FIDAL e FITRI. Promuoviamo lo sport giovanile e amatoriale sul territorio delle Groane.</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Collegamenti Veloci</h4>
+                    <ul class="footer-links">
+                        <li><a href="../info-iscrizioni.html">Iscrizioni</a></li>
+                        <li><a href="../abbigliamento.html">Abbigliamento</a></li>
+                        <li><a href="../societa-ed-eventi.html">Eventi</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title footer-placeholder" style="visibility: hidden;">&nbsp;</h4>
+                    <ul class="footer-links">
+                        <li><a href="../sostieni-virtus/5x1000.html">5x1000</a></li>
+                        <li><a href="../virtus/associarsi.html">Diventa Socio Sostenitore</a></li>
+                        <li><a href="../sostieni-virtus.html">Diventa Sponsor</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Virtus Groane ASD. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../data/records/records-data.js"></script>
+
+    <script>
+        let recordsData = null;
+        let recordsChart = null;
+
+        const colorPalette = [
+            '#1f4e79', '#d97706', '#2563eb', '#16a34a', '#dc2626',
+            '#9333ea', '#0891b2', '#c05621', '#4d7c0f', '#be123c',
+            '#6b21a8', '#0369a1', '#854d0e', '#991b1b', '#065f46'
+        ];
+
+        function parseMarkToSecOrMeters(markStr) {
+            if (!markStr) return null;
+            let clean = markStr.replace(/\(.*?\)/g, '').trim().replace(/"/g, '').replace(/'/g, ':');
+            let parts = clean.split(':');
+            try {
+                if (parts.length === 1) return parseFloat(parts[0].replace(',', '.'));
+                if (parts.length === 2) return parseFloat(parts[0]) * 60 + parseFloat(parts[1].replace(',', '.'));
+                if (parts.length === 3) return parseFloat(parts[0]) * 3600 + parseFloat(parts[1]) * 60 + parseFloat(parts[2].replace(',', '.'));
+            } catch(e) {
+                return null;
+            }
+            return null;
+        }
+
+        function formatSecondsToTime(val) {
+            if (val === null || val === undefined || isNaN(val)) return '';
+            if (val < 60) {
+                return val.toFixed(2);
+            }
+            const hrs = Math.floor(val / 3600);
+            const mins = Math.floor((val % 3600) / 60);
+            const secs = (val % 60).toFixed(2);
+            const paddedSecs = parseFloat(secs) < 10 ? '0' + secs : secs;
+            
+            if (hrs > 0) {
+                const paddedMins = mins < 10 ? '0' + mins : mins;
+                return `${hrs}:${paddedMins}:${paddedSecs}`;
+            } else {
+                return `${mins}:${paddedSecs}`;
+            }
+        }
+
+        async function initRecords() {
+            try {
+                if (window.RECORDS_DATA) {
+                    recordsData = window.RECORDS_DATA;
+                } else {
+                    const response = await fetch('../data/records/records.json');
+                    if (!response.ok) throw new Error('Impossibile caricare i dati dei record');
+                    recordsData = await response.json();
+                }
+                
+                populateDisciplineSelect();
+            } catch (error) {
+                console.error(error);
+                document.getElementById('chart-discipline-title').innerText = "Errore durante il caricamento dei dati.";
+            }
+        }
+
+        function populateDisciplineSelect() {
+            const discSelect = document.getElementById('discipline-select');
+            discSelect.innerHTML = '';
+            
+            if (!recordsData || !recordsData.disciplines || !recordsData.disciplines.length) {
+                discSelect.innerHTML = '<option value="">Nessuna disciplina trovata</option>';
+                return;
+            }
+
+            // Find the discipline with the highest number of athletes
+            let maxDisc = recordsData.disciplines[0];
+            recordsData.disciplines.forEach(d => {
+                if (d.athletes.length > maxDisc.athletes.length) {
+                    maxDisc = d;
+                }
+            });
+
+            recordsData.disciplines.forEach((d) => {
+                const opt = document.createElement('option');
+                opt.value = d.name;
+                opt.innerText = `${d.name} (${d.athletes.length} atleti)`;
+                if (d.name === maxDisc.name) {
+                    opt.selected = true;
+                }
+                discSelect.appendChild(opt);
+            });
+
+            discSelect.value = maxDisc.name;
+
+            discSelect.addEventListener('change', () => onDisciplineChanged());
+            document.getElementById('athlete-select').addEventListener('change', () => updateChartAndTable());
+
+            onDisciplineChanged();
+        }
+
+        function onDisciplineChanged() {
+            const discName = document.getElementById('discipline-select').value;
+            const disc = recordsData.disciplines.find(d => d.name === discName);
+            if (!disc) return;
+
+            const athSelect = document.getElementById('athlete-select');
+            athSelect.innerHTML = '<option value="ALL">Tutti gli atleti</option>';
+            
+            disc.athletes.forEach(ath => {
+                const opt = document.createElement('option');
+                opt.value = ath.name;
+                opt.innerText = ath.name;
+                athSelect.appendChild(opt);
+            });
+
+            athSelect.value = 'ALL';
+
+            updateChartAndTable();
+        }
+
+        function getAthleteBest(ath, disc) {
+            let bestVal = null;
+            let bestMarkStr = "";
+            if (ath.marks) {
+                Object.keys(ath.marks).forEach(ageStr => {
+                    const markStr = ath.marks[ageStr];
+                    if (markStr) {
+                        const val = parseMarkToSecOrMeters(markStr);
+                        if (val !== null) {
+                            if (bestVal === null) {
+                                bestVal = val;
+                                bestMarkStr = markStr;
+                            } else if (disc.is_field) {
+                                if (val > bestVal) {
+                                    bestVal = val;
+                                    bestMarkStr = markStr;
+                                }
+                            } else {
+                                if (val < bestVal) {
+                                    bestVal = val;
+                                    bestMarkStr = markStr;
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            return { bestVal, bestMarkStr };
+        }
+
+        function updateChartAndTable() {
+            const discName = document.getElementById('discipline-select').value;
+            const selectedAth = document.getElementById('athlete-select').value;
+            const disc = recordsData.disciplines.find(d => d.name === discName);
+            if (!disc) return;
+
+            let athletesToDisplay = (selectedAth === 'ALL') 
+                ? [...disc.athletes]
+                : disc.athletes.filter(a => a.name === selectedAth);
+
+            athletesToDisplay = athletesToDisplay.map(ath => {
+                const b = getAthleteBest(ath, disc);
+                return {
+                    ...ath,
+                    bestVal: b.bestVal,
+                    bestMarkStr: b.bestMarkStr
+                };
+            });
+
+            athletesToDisplay.sort((a, b) => {
+                if (a.bestVal === null && b.bestVal === null) return 0;
+                if (a.bestVal === null) return 1;
+                if (b.bestVal === null) return -1;
+                
+                if (disc.is_field) {
+                    return b.bestVal - a.bestVal;
+                } else {
+                    return a.bestVal - b.bestVal;
+                }
+            });
+
+            renderTable(disc, athletesToDisplay);
+            renderChart(disc, athletesToDisplay);
+        }
+
+        function getUsedAges(athletes) {
+            const usedSet = new Set();
+            athletes.forEach(ath => {
+                if (ath.marks) {
+                    Object.keys(ath.marks).forEach(ageStr => {
+                        if (ath.marks[ageStr]) {
+                            usedSet.add(parseInt(ageStr, 10));
+                        }
+                    });
+                }
+            });
+            return Array.from(usedSet).sort((a, b) => a - b);
+        }
+
+        function renderTable(disc, athletes) {
+            const usedAges = getUsedAges(athletes);
+            const headerRow = document.getElementById('table-header-row');
+            headerRow.innerHTML = '<th>Atleta</th><th>Record</th>';
+            
+            usedAges.forEach(age => {
+                const th = document.createElement('th');
+                th.innerText = age;
+                headerRow.appendChild(th);
+            });
+
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+
+            if (usedAges.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="100">Nessuna prestazione registrata per la selezione.</td></tr>';
+                return;
+            }
+
+            let rowCounter = 0;
+            athletes.forEach(ath => {
+                const hasAnyMark = usedAges.some(age => ath.marks[age.toString()]);
+                if (!hasAnyMark) return;
+
+                const tr = document.createElement('tr');
+                tr.className = (rowCounter % 2 === 0) ? 'row-odd' : 'row-even';
+                rowCounter++;
+
+                const tdName = document.createElement('td');
+                tdName.innerText = ath.name;
+                tr.appendChild(tdName);
+
+                const tdBest = document.createElement('td');
+                tdBest.innerText = ath.bestMarkStr || '';
+                tr.appendChild(tdBest);
+
+                usedAges.forEach(age => {
+                    const td = document.createElement('td');
+                    const mark = ath.marks[age.toString()];
+                    if (mark) {
+                        td.innerText = mark;
+                        td.classList.add('has-mark');
+                    } else {
+                        td.innerText = '';
+                    }
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderChart(disc, athletes) {
+            const usedAges = getUsedAges(athletes);
+            let startAge = 4;
+            let endAge = 70;
+
+            if (usedAges.length > 0) {
+                const minAge = usedAges[0];
+                const maxAge = usedAges[usedAges.length - 1];
+                startAge = Math.max(4, minAge - 3);
+                endAge = Math.min(70, maxAge + 3);
+            }
+
+            const chartAges = [];
+            for (let age = startAge; age <= endAge; age++) {
+                chartAges.push(age);
+            }
+
+            const datasets = athletes.map((ath, idx) => {
+                const dataPoints = chartAges.map(age => {
+                    const markStr = ath.marks[age.toString()];
+                    return markStr ? parseMarkToSecOrMeters(markStr) : null;
+                });
+
+                const color = colorPalette[idx % colorPalette.length];
+                return {
+                    label: ath.name,
+                    data: dataPoints,
+                    borderColor: color,
+                    backgroundColor: color,
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    spanGaps: true,
+                    tension: 0.1
+                };
+            });
+
+            const ctx = document.getElementById('recordsChart').getContext('2d');
+            if (recordsChart) recordsChart.destroy();
+
+            recordsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartAges,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'nearest',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            display: (athletes.length <= 3),
+                            position: 'top',
+                            labels: {
+                                font: { family: 'Inter', size: 12 },
+                                usePointStyle: true
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const ath = athletes[context.datasetIndex];
+                                    const age = context.label;
+                                    const rawMark = ath.marks[age];
+                                    return `${ath.name} (Età ${age}): ${rawMark || context.raw}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Età dell\'atleta (anni)',
+                                font: { family: 'Barlow Condensed', size: 14, weight: 'bold' }
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            grace: '5%',
+                            reverse: !disc.is_field,
+                            title: {
+                                display: true,
+                                text: disc.is_field ? 'Misura / Punti' : 'Tempo',
+                                font: { family: 'Barlow Condensed', size: 14, weight: 'bold' }
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    if (disc.is_field) {
+                                        return value;
+                                    }
+                                    return formatSecondsToTime(value);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function sendExAthleteMail() {
+            const nameInput = document.getElementById('ex-athlete-name');
+            const name = nameInput ? nameInput.value.trim() : '';
+            if (!name) {
+                alert('Inserisci il tuo Nome e Cognome per inviare la richiesta.');
+                return;
+            }
+            const subject = encodeURIComponent("Richiesta inserimento record societari ex-atleta");
+            const body = encodeURIComponent(`Ciao Virtus Groane,\n\nSono l'ex atleta ${name} e vorrei richiedere l'inserimento delle mie prestazioni storiche nell'albo d'oro dei record societari.\n\nGrazie!`);
+            window.location.href = `mailto:info@virtusgroane.com?subject=${subject}&body=${body}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', initRecords);
+    </script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordini Abbigliamento - Virtus Groane</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css?v=1.1">
+    <style>
+        .orders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .order-card {
+            background-color: #ffffff !important;
+            border: 1px solid #cbd5e0;
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .order-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        }
+        .order-card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .order-card-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1f4e79 !important;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        .order-card-desc {
+            font-size: 0.95rem;
+            color: #2d3748 !important;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        .btn-order-form {
+            display: block;
+            text-align: center;
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background-color: #1f4e79;
+            color: #ffffff !important;
+            border-radius: 6px;
+            text-decoration: none;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            transition: background-color 0.2s;
+            box-sizing: border-box;
+        }
+        .btn-order-form:hover {
+            background-color: #153452;
+            color: #ffffff !important;
+        }
+        .info-box-ordini {
+            background-color: #f7fafc;
+            border-left: 4px solid #1f4e79;
+            padding: 1.25rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #2d3748;
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+        .info-box-ordini a {
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+        @media (max-width: 768px) {
+            .info-box-ordini {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header style="background-color: var(--bg-secondary); border-bottom: 1px solid var(--border-color);">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo-link">
+                <img src="../logo.png" alt="Virtus Groane" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="logo-placeholder" style="display:none;">VG</div>
+            </a>
+            
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+            <label for="menu-toggle" class="menu-toggle-label">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../virtus.html" class="nav-dropdown-trigger">Virtus</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../virtus/organigramma.html">Organigramma</a></li>
+                            <li><a href="../virtus/allenatori.html">Allenatori</a></li>
+                            <li><a href="../virtus/safeguarding.html">Safeguarding</a></li>
+                            <li><a href="../virtus/tesseramento.html">Tesseramento</a></li>
+                            <li><a href="../virtus/statuto-sociale.html">Statuto Sociale</a></li>
+                            <li><a href="../virtus/associarsi.html">Associarsi</a></li>
+                            <li><a href="../virtus/regolamenti.html">Regolamenti</a></li>
+                            <li><a href="../virtus/collaborazioni.html">Collaborazioni</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../info-iscrizioni.html" class="nav-dropdown-trigger">Info-Iscrizioni</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../info-iscrizioni/atletica-leggera.html">Atletica Leggera</a></li>
+                            <li><a href="../info-iscrizioni/triathlon.html">Triathlon</a></li>
+                            <li><a href="../info-iscrizioni/running-school.html">Running School</a></li>
+                            <li><a href="../info-iscrizioni/mamme-che-sport.html">Mamme che Sport!</a></li>
+                            <li><a href="../info-iscrizioni/nordic-walking.html">Nordic Walking</a></li>
+                            <li><a href="../info-iscrizioni/visita-medica.html">Visita Medica</a></li>
+                            <li><a href="../info-iscrizioni/convenzioni.html">Convenzioni</a></li>
+                            <li><a href="../info-iscrizioni/golee.html">Golee</a></li>
+                            <li><a href="../info-iscrizioni/dove-ci-alleniamo.html">Dove ci Alleniamo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../abbigliamento.html" class="nav-dropdown-trigger">Abbigliamento</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../abbigliamento/catalogo.html">Catalogo</a></li>
+                            <li><a href="../abbigliamento/ordini.html">Ordini</a></li>
+                            <li><a href="../abbigliamento/fornitori.html">Fornitori</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../societa-ed-eventi.html" class="nav-dropdown-trigger">Società ed Eventi</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../societa-ed-eventi/record-societari.html">Record Societari</a></li>
+                            <li><a href="../societa-ed-eventi/gara-sociale.html">Gara Sociale</a></li>
+                            <li><a href="../societa-ed-eventi/24x1-ora.html">24x1 Ora</a></li>
+                            <li><a href="../societa-ed-eventi/estate-correndo.html">E...state Correndo</a></li>
+                            <li><a href="../societa-ed-eventi/fametta-run.html">Fametta Run</a></li>
+                            <li><a href="../societa-ed-eventi/prova-l-atletica.html">Prova l'Atletica</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../sostieni-virtus.html" class="nav-dropdown-trigger">Sostieni Virtus</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../sostieni-virtus/donazioni.html">Donazioni</a></li>
+                            <li><a href="../sostieni-virtus/giocoatletica-2025.html">GiocoAtletica 2025</a></li>
+                            <li><a href="../sostieni-virtus/estate-correndo-2026.html">E...state Correndo 2025</a></li>
+                            <li><a href="../sostieni-virtus/5x1000.html">5x1000</a></li>
+                            <li><a href="../sostieni-virtus/tutti-in-campo.html">Tutti in Campo</a></li>
+                            <li><a href="../sostieni-virtus/amici-dello-sport.html">Amici dello Sport</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../contatti.html">Contatti</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../english.html"><img src="../uk-flag.png" alt="English" style="width: 24px; height: auto; vertical-align: middle;"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1><a href="../abbigliamento.html" class="parent-link">Abbigliamento</a> <span class="parent-separator">/</span> Ordini</h1>
+        </div>
+    </section>
+
+    <section class="internal-layout">
+        <div class="container">
+            <div class="article-content">
+
+                <h2>Moduli d'Ordine Abbigliamento</h2>
+                <p>Seleziona la categoria di abbigliamento desiderata per accedere al modulo Google dedicato alla compilazione dell'ordine societario.</p>
+
+                <div class="info-box-ordini">
+                    <p style="margin: 0 0 0.5rem 0; font-weight: 700; color: #1f4e79;">ℹ️ Informazioni utili prima di ordinare:</p>
+                    <p style="margin: 0;">Prima di inoltrare l'ordine, puoi consultare tutti i capi ed i prezzi nella pagina <a href="catalogo.html" style="color: #1f4e79; font-weight: 700; text-decoration: underline;">Catalogo Abbigliamento</a>. Per qualsiasi dubbio sulle taglie o per appuntamenti, scrivi a <a href="mailto:abbigliamento@virtusgroane.com" style="color: #1f4e79; font-weight: 700; text-decoration: underline;">abbigliamento@virtusgroane.com</a>.</p>
+                </div>
+
+                <div class="orders-grid">
+
+                    <!-- PULSANTE 1: RUNNING CAPI TECNICI -->
+                    <div class="order-card">
+                        <div>
+                            <div class="order-card-icon">🏃‍♂️</div>
+                            <div class="order-card-title">Running Capi Tecnici</div>
+                            <div class="order-card-desc">Modulo d'ordine per t-shirt, canotte, maglie a manica lunga, wintershirt e pantaloncini da corsa (Bioracer).</div>
+                        </div>
+                        <a href="https://forms.gle/Zm8ntoVA2UVPLWsr7" target="_blank" rel="noopener noreferrer" class="btn-order-form">Modulo Ordine Tecnici</a>
+                    </div>
+
+                    <!-- PULSANTE 2: RUNNING CAPI SPORTIVI -->
+                    <div class="order-card">
+                        <div>
+                            <div class="order-card-icon">🎽</div>
+                            <div class="order-card-title">Running Capi Sportivi</div>
+                            <div class="order-card-desc">Modulo d'ordine per magliette, canotte, maglie a manica lunga e top di allenamento (Mate.3).</div>
+                        </div>
+                        <a href="https://forms.gle/2of8E2rNauhkDLrV9" target="_blank" rel="noopener noreferrer" class="btn-order-form">Modulo Ordine Sportivi</a>
+                    </div>
+
+                    <!-- PULSANTE 3: TRIATHLON -->
+                    <div class="order-card">
+                        <div>
+                            <div class="order-card-icon">🏊‍♂️🚴‍♂️</div>
+                            <div class="order-card-title">Triathlon</div>
+                            <div class="order-card-desc">Modulo d'ordine per smanicati, body suit personalizzati da gara e cuffie da nuoto.</div>
+                        </div>
+                        <a href="https://forms.gle/4KeG5cSxbRqwZAzj9" target="_blank" rel="noopener noreferrer" class="btn-order-form">Modulo Ordine Triathlon</a>
+                    </div>
+
+                    <!-- PULSANTE 4: BIKE -->
+                    <div class="order-card">
+                        <div>
+                            <div class="order-card-icon">🚴‍♂️</div>
+                            <div class="order-card-title">Bike (Ciclismo)</div>
+                            <div class="order-card-desc">Modulo d'ordine per salopette estive/invernali, gilet antivento e jersey da ciclismo (Bioracer).</div>
+                        </div>
+                        <a href="https://forms.gle/8etkFDG4kcqET9nYA" target="_blank" rel="noopener noreferrer" class="btn-order-form">Modulo Ordine Bike</a>
+                    </div>
+
+                    <!-- PULSANTE 5: EXTRA -->
+                    <div class="order-card">
+                        <div>
+                            <div class="order-card-icon">🧥</div>
+                            <div class="order-card-title">Extra & Rappresentanza</div>
+                            <div class="order-card-desc">Modulo d'ordine per giacche softshell, tute felpate/garzate, polo e zaini societari (Bitre).</div>
+                        </div>
+                        <a href="https://forms.gle/x7tMMiRVrXvUXB3o9" target="_blank" rel="noopener noreferrer" class="btn-order-form">Modulo Ordine Extra</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 style="color: white; letter-spacing: 0.05em;"><a href="../virtus.html">VIRTUS GROANE</a></h3>
+                    <p>Associazione Sportiva Dilettantistica affiliata FIDAL e FITRI. Promuoviamo lo sport giovanile e amatoriale sul territorio delle Groane.</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Collegamenti Veloci</h4>
+                    <ul class="footer-links">
+                        <li><a href="../info-iscrizioni.html">Iscrizioni</a></li>
+                        <li><a href="../abbigliamento.html">Abbigliamento</a></li>
+                        <li><a href="../societa-ed-eventi.html">Eventi</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title footer-placeholder" style="visibility: hidden;">&nbsp;</h4>
+                    <ul class="footer-links">
+                        <li><a href="../sostieni-virtus/5x1000.html">5x1000</a></li>
+                        <li><a href="../virtus/associarsi.html">Diventa Socio Sostenitore</a></li>
+                        <li><a href="../sostieni-virtus.html">Diventa Sponsor</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Virtus Groane ASD. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

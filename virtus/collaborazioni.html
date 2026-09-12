@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaborazioni - Virtus Groane ASD</title>
+    <meta name="description" content="Le collaborazioni di Virtus Groane ASD per il settore Assoluti: tesseramento e gare con Bracco Atletica e Atletica 100 Torri Pavia.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css?v=1.2">
+    <style>
+        .partner-card {
+            background: #ffffff !important;
+            border: 1px solid #cbd5e0;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .partner-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .partner-badge {
+            display: inline-block;
+            background-color: #edf2f7;
+            color: #1f4e79 !important;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+        .partner-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f4e79 !important;
+            margin-bottom: 0.25rem;
+            line-height: 1.2;
+        }
+        .partner-subtitle {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #d97706 !important;
+            margin-bottom: 1rem;
+        }
+        .opportunity-box {
+            background-color: #f7fafc;
+            border-left: 4px solid #1f4e79;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #2d3748;
+        }
+        .btn-partner-link {
+            display: inline-block;
+            margin-top: 1.25rem;
+            padding: 0.7rem 1.4rem;
+            background-color: #1f4e79;
+            color: #ffffff !important;
+            border-radius: 6px;
+            text-decoration: none;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            transition: background-color 0.2s;
+            align-self: flex-start;
+        }
+        .btn-partner-link:hover {
+            background-color: #153452;
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER / NAVIGATION -->
+    <header>
+        <div class="container nav-container">
+            <a href="../index.html" class="logo-link">
+                <img src="../logo.png" alt="Virtus Groane ASD" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="logo-placeholder" style="display:none;">VG</div>
+            </a>
+
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+            <label for="menu-toggle" class="menu-toggle-label">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../virtus.html" class="nav-dropdown-trigger">Virtus</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../virtus/organigramma.html">Organigramma</a></li>
+                            <li><a href="../virtus/allenatori.html">Allenatori</a></li>
+                            <li><a href="../virtus/safeguarding.html">Safeguarding</a></li>
+                            <li><a href="../virtus/tesseramento.html">Tesseramento</a></li>
+                            <li><a href="../virtus/statuto-sociale.html">Statuto Sociale</a></li>
+                            <li><a href="../virtus/associarsi.html">Associarsi</a></li>
+                            <li><a href="../virtus/regolamenti.html">Regolamenti</a></li>
+                            <li><a href="../virtus/collaborazioni.html">Collaborazioni</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../info-iscrizioni.html" class="nav-dropdown-trigger">Info-Iscrizioni</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../info-iscrizioni/atletica-leggera.html">Atletica Leggera</a></li>
+                            <li><a href="../info-iscrizioni/triathlon.html">Triathlon</a></li>
+                            <li><a href="../info-iscrizioni/running-school.html">Running School</a></li>
+                            <li><a href="../info-iscrizioni/mamme-che-sport.html">Mamme che Sport!</a></li>
+                            <li><a href="../info-iscrizioni/nordic-walking.html">Nordic Walking</a></li>
+                            <li><a href="../info-iscrizioni/visita-medica.html">Visita Medica</a></li>
+                            <li><a href="../info-iscrizioni/convenzioni.html">Convenzioni</a></li>
+                            <li><a href="../info-iscrizioni/golee.html">Golee</a></li>
+                            <li><a href="../info-iscrizioni/dove-ci-alleniamo.html">Dove ci Alleniamo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../abbigliamento.html" class="nav-dropdown-trigger">Abbigliamento</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../abbigliamento/catalogo.html">Catalogo</a></li>
+                            <li><a href="../abbigliamento/ordini.html">Ordini</a></li>
+                            <li><a href="../abbigliamento/fornitori.html">Fornitori</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../societa-ed-eventi.html" class="nav-dropdown-trigger">Società ed Eventi</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../societa-ed-eventi/record-societari.html">Record Societari</a></li>
+                            <li><a href="../societa-ed-eventi/gara-sociale.html">Gara Sociale</a></li>
+                            <li><a href="../societa-ed-eventi/24x1-ora.html">24x1 Ora</a></li>
+                            <li><a href="../societa-ed-eventi/estate-correndo.html">E...state Correndo</a></li>
+                            <li><a href="../societa-ed-eventi/fametta-run.html">Fametta Run</a></li>
+                            <li><a href="../societa-ed-eventi/prova-l-atletica.html">Prova l'Atletica</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../sostieni-virtus.html" class="nav-dropdown-trigger">Sostieni Virtus</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../sostieni-virtus/donazioni.html">Donazioni</a></li>
+                            <li><a href="../sostieni-virtus/giocoatletica-2025.html">GiocoAtletica 2025</a></li>
+                            <li><a href="../sostieni-virtus/estate-correndo-2026.html">E...state Correndo 2025</a></li>
+                            <li><a href="../sostieni-virtus/5x1000.html">5x1000</a></li>
+                            <li><a href="../sostieni-virtus/tutti-in-campo.html">Tutti in Campo</a></li>
+                            <li><a href="../sostieni-virtus/amici-dello-sport.html">Amici dello Sport</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../contatti.html">Contatti</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../english.html"><img src="../uk-flag.png" alt="English" style="width: 24px; height: auto; vertical-align: middle;"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1><a href="../virtus.html" class="parent-link">Virtus</a> <span class="parent-separator">/</span> Collaborazioni</h1>
+        </div>
+    </section>
+
+    <section class="internal-layout">
+        <div class="container">
+            <div class="article-content">
+
+                <h2>Collaborazioni per il Settore Assoluti</h2>
+                <p>
+                    A partire dal 2026, Virtus Groane ASD offre alle ragazze e ai ragazzi del settore <strong>Assoluti</strong> una nuova e importante opportunità di crescita atletica e agonistica, stringendo sinergie con due tra le società di atletica leggera più prestigiose e strutturate a livello nazionale.
+                </p>
+
+                <div class="opportunity-box">
+                    <p style="margin: 0 0 0.75rem 0; font-weight: 700; color: #1f4e79; font-size: 1.1rem;">💙 Una scelta di cuore e di futuro per i nostri atleti</p>
+                    <p style="margin: 0 0 0.75rem 0;">
+                        Per Virtus Groane il momento di questa decisione è stato sicuramente <strong>sofferto</strong>. L'affetto profondo per i nostri ragazzi ci avrebbe spinto a volerli sempre con noi, custoditi nella società in cui sono cresciuti muovendo i primi passi in pista.
+                    </p>
+                    <p style="margin: 0;">
+                        Ma abbiamo compreso che la scelta migliore per il loro futuro sportivo e personale era offrire loro la possibilità di spiccare il volo. <strong>E i risultati ottenuti già da quest'anno hanno ampiamente dimostrato la bontà di questo percorso!</strong>
+                    </p>
+                </div>
+
+                <h3>Di che opportunità si tratta?</h3>
+                <ul style="line-height: 1.8; margin-bottom: 2.5rem; color: #2d3748;">
+                    <li style="margin-bottom: 0.75rem;">
+                        <strong>Continuità nel proprio ambiente:</strong> Gli atleti possono continuare ad allenarsi presso le nostre strutture di riferimento con gli allenatori e i compagni di sempre, preservando l'atmosfera familiare, sana e accogliente in cui sono cresciuti.
+                    </li>
+                    <li>
+                        <strong>Confronto ad alto livello:</strong> Possono tesserarsi e gareggiare nei Campionati di Società (CdS) e nei campionati nazionali con società più grandi e strutturate, misurandosi con compagni di squadra e avversari di primissimo piano.
+                    </li>
+                </ul>
+
+                <h2 style="margin-top: 3rem; margin-bottom: 1.5rem;">Le Nostre Società Partner</h2>
+
+                <!-- PARTNER 1: BRACCO ATLETICA -->
+                <div class="partner-card">
+                    <div>
+                        <span class="partner-badge">Settore Femminile</span>
+                        <div class="partner-title">Bracco Atletica</div>
+                        <div class="partner-subtitle">Eccellenza dell'atletica leggera femminile in Italia</div>
+                        <p style="line-height: 1.7; color: #4a5568;">
+                            Fondata nel 2000 (precedentemente nota come Camelot e Italgest), <strong>Bracco Atletica</strong> è una delle società sportive femminili più importanti e titolate d'Italia. Guidata dal Presidente Franco Angelotti e con la Dott.ssa Diana Bracco come Presidente Onoraria, la società vanta nel proprio palmarès numerosi <strong>scudetti nei Campionati Italiani di Società (CdS Assoluti, Indoor e Cross)</strong> e prestigiose affermazioni in <strong>Coppa Europa per Club</strong>.
+                        </p>
+                        <p style="line-height: 1.7; color: #4a5568; margin-top: 0.75rem;">
+                            La società ha vestito di azzurro decine di campionesse di livello nazionale ed internazionale: da icone dello sprint come <strong>Manuela Levorato</strong>, ad atlete olimpioniche e azzurre del calibro di <strong>Ludovica Cavalli</strong> (mezzofondo), <strong>Valentina Trapletti</strong> (marcia, vicecampionessa europea), <strong>Giancarla Trevisan</strong> (velocità, staffetta 4x400m) ed <strong>Erika Saraceni</strong> (campionessa europea U20 nel salto triplo). Grazie a questa collaborazione, le nostre atlete del settore Assoluti hanno la straordinaria opportunità di gareggiare al fianco delle migliori interpreti dell'atletica leggera italiana.
+                        </p>
+                    </div>
+                    <a href="https://www.braccoatletica.it/" target="_blank" rel="noopener noreferrer" class="btn-partner-link">Scopri Bracco Atletica ↗</a>
+                </div>
+
+                <!-- PARTNER 2: ATLETICA 100 TORRI PAVIA -->
+                <div class="partner-card">
+                    <div>
+                        <span class="partner-badge">Settore Maschile</span>
+                        <div class="partner-title">ASD Atletica 100 Torri Pavia</div>
+                        <div class="partner-subtitle">Una grande tradizione al vertice dell'atletica maschile</div>
+                        <p style="line-height: 1.7; color: #4a5568;">
+                            Fondata nel 1991, l'<strong>ASD Atletica 100 Torri Pavia</strong> è uno storico punto di riferimento dell'atletica leggera maschile in Lombardia e in Italia. Nata dall'iniziativa di grandi appassionati e cresciuta negli anni, la società è da sempre protagonista ai vertici nazionali nelle <strong>Finali Oro e Argento dei Campionati Italiani di Società (CdS)</strong>, conquistando anche importanti titoli italiani societari a livello giovanile.
+                        </p>
+                        <p style="line-height: 1.7; color: #4a5568; margin-top: 0.75rem;">
+                            Nel corso della sua storia, la 100 Torri Pavia ha accolto e valorizzato campioni azzurri del calibro di Gennaro Di Napoli, investendo costantemente nella formazione dei giovani atleti. Per i nostri ragazzi del settore Assoluti, tesserarsi con la 100 Torri Pavia significa entrare in una struttura organizzata e ambiziosa che permette loro di cimentarsi ai più alti livelli delle competizioni FIDAL.
+                        </p>
+                    </div>
+                    <a href="https://atletica100torri.com/" target="_blank" rel="noopener noreferrer" class="btn-partner-link">Scopri Atletica 100 Torri Pavia ↗</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 style="color: white; letter-spacing: 0.05em;"><a href="../virtus.html">VIRTUS GROANE</a></h3>
+                    <p>Associazione Sportiva Dilettantistica affiliata FIDAL e FITRI. Promuoviamo lo sport giovanile e amatoriale sul territorio delle Groane.</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Navigazione</h4>
+                    <ul class="footer-links">
+                        <li><a href="../virtus.html">Virtus</a></li>
+                        <li><a href="../info-iscrizioni.html">Info-Iscrizioni</a></li>
+                        <li><a href="../abbigliamento.html">Abbigliamento</a></li>
+                        <li><a href="../societa-ed-eventi.html">Società ed Eventi</a></li>
+                        <li><a href="../contatti.html">Contatti</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Sostienici</h4>
+                    <ul class="footer-links">
+                        <li><a href="../sostieni-virtus/5x1000.html">5x1000 (CF 93010720150)</a></li>
+                        <li><a href="../virtus/associarsi.html">Diventa Socio ASD</a></li>
+                        <li><a href="../sostieni-virtus.html">Diventa Sponsor</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Virtus Groane ASD. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

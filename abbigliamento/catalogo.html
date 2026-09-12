@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo Abbigliamento - Virtus Groane</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css?v=1.1">
+    <style>
+        .category-section {
+            margin-top: 3rem;
+            margin-bottom: 2.5rem;
+        }
+        .category-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1f4e79 !important;
+            text-transform: uppercase;
+            border-bottom: 2px solid #1f4e79;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+        .product-card {
+            background: #ffffff !important;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        }
+        .product-img-wrapper {
+            width: 100%;
+            height: 220px;
+            background-color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .product-img-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .product-body {
+            padding: 1.25rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #1f4e79 !important;
+            margin-bottom: 0.3rem;
+            line-height: 1.2;
+        }
+        .product-meta {
+            font-size: 0.85rem;
+            color: #718096 !important;
+            margin-bottom: 0.5rem;
+        }
+        .product-price-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px dashed #cbd5e0;
+        }
+        .price-tag {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #d97706 !important;
+        }
+        .supplier-tag {
+            font-size: 0.8rem;
+            font-weight: 600;
+            background-color: #edf2f7;
+            color: #4a5568 !important;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .btn-order-catalog {
+            display: block;
+            text-align: center;
+            width: 100%;
+            margin-top: 1rem;
+            padding: 0.6rem 1rem;
+            background-color: #1f4e79;
+            color: #ffffff !important;
+            border-radius: 6px;
+            text-decoration: none;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            transition: background-color 0.2s;
+            box-sizing: border-box;
+        }
+        .btn-order-catalog:hover {
+            background-color: #153452;
+            color: #ffffff !important;
+        }
+        .order-info-banner {
+            background-color: #f7fafc;
+            border-left: 4px solid #1f4e79;
+            padding: 1.25rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+            color: #2d3748;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+        .order-info-banner a {
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+        @media (max-width: 768px) {
+            .order-info-banner {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header style="background-color: var(--bg-secondary); border-bottom: 1px solid var(--border-color);">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo-link">
+                <img src="../logo.png" alt="Virtus Groane" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="logo-placeholder" style="display:none;">VG</div>
+            </a>
+            
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+            <label for="menu-toggle" class="menu-toggle-label">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../virtus.html" class="nav-dropdown-trigger">Virtus</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../virtus/organigramma.html">Organigramma</a></li>
+                            <li><a href="../virtus/allenatori.html">Allenatori</a></li>
+                            <li><a href="../virtus/safeguarding.html">Safeguarding</a></li>
+                            <li><a href="../virtus/tesseramento.html">Tesseramento</a></li>
+                            <li><a href="../virtus/statuto-sociale.html">Statuto Sociale</a></li>
+                            <li><a href="../virtus/associarsi.html">Associarsi</a></li>
+                            <li><a href="../virtus/regolamenti.html">Regolamenti</a></li>
+                            <li><a href="../virtus/collaborazioni.html">Collaborazioni</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../info-iscrizioni.html" class="nav-dropdown-trigger">Info-Iscrizioni</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../info-iscrizioni/atletica-leggera.html">Atletica Leggera</a></li>
+                            <li><a href="../info-iscrizioni/triathlon.html">Triathlon</a></li>
+                            <li><a href="../info-iscrizioni/running-school.html">Running School</a></li>
+                            <li><a href="../info-iscrizioni/mamme-che-sport.html">Mamme che Sport!</a></li>
+                            <li><a href="../info-iscrizioni/nordic-walking.html">Nordic Walking</a></li>
+                            <li><a href="../info-iscrizioni/visita-medica.html">Visita Medica</a></li>
+                            <li><a href="../info-iscrizioni/convenzioni.html">Convenzioni</a></li>
+                            <li><a href="../info-iscrizioni/golee.html">Golee</a></li>
+                            <li><a href="../info-iscrizioni/dove-ci-alleniamo.html">Dove ci Alleniamo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../abbigliamento.html" class="nav-dropdown-trigger">Abbigliamento</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../abbigliamento/catalogo.html">Catalogo</a></li>
+                            <li><a href="../abbigliamento/ordini.html">Ordini</a></li>
+                            <li><a href="../abbigliamento/fornitori.html">Fornitori</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../societa-ed-eventi.html" class="nav-dropdown-trigger">Società ed Eventi</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../societa-ed-eventi/record-societari.html">Record Societari</a></li>
+                            <li><a href="../societa-ed-eventi/gara-sociale.html">Gara Sociale</a></li>
+                            <li><a href="../societa-ed-eventi/24x1-ora.html">24x1 Ora</a></li>
+                            <li><a href="../societa-ed-eventi/estate-correndo.html">E...state Correndo</a></li>
+                            <li><a href="../societa-ed-eventi/fametta-run.html">Fametta Run</a></li>
+                            <li><a href="../societa-ed-eventi/prova-l-atletica.html">Prova l'Atletica</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../sostieni-virtus.html" class="nav-dropdown-trigger">Sostieni Virtus</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../sostieni-virtus/donazioni.html">Donazioni</a></li>
+                            <li><a href="../sostieni-virtus/giocoatletica-2025.html">GiocoAtletica 2025</a></li>
+                            <li><a href="../sostieni-virtus/estate-correndo-2026.html">E...state Correndo 2025</a></li>
+                            <li><a href="../sostieni-virtus/5x1000.html">5x1000</a></li>
+                            <li><a href="../sostieni-virtus/tutti-in-campo.html">Tutti in Campo</a></li>
+                            <li><a href="../sostieni-virtus/amici-dello-sport.html">Amici dello Sport</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../contatti.html">Contatti</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../english.html"><img src="../uk-flag.png" alt="English" style="width: 24px; height: auto; vertical-align: middle;"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1><a href="../abbigliamento.html" class="parent-link">Abbigliamento</a> <span class="parent-separator">/</span> Catalogo</h1>
+        </div>
+    </section>
+
+    <section class="internal-layout">
+        <div class="container">
+            <div class="article-content">
+
+                <h2>Catalogo Ufficiale Outfit Virtus Groane ASD</h2>
+                <p>Scopri l'abbigliamento tecnico e sportivo societario ufficiale per l'Atletica Leggera, il Triathlon, il Ciclismo e le attività di rappresentanza.</p>
+
+                <div class="order-info-banner">
+                    <p style="margin: 0 0 0.5rem 0; font-weight: 700; color: #1f4e79;">ℹ️ Come ordinare e richiedere informazioni:</p>
+                    <p style="margin: 0;">Per informazioni sulle taglie, prove o per effettuare un ordine, consulta la pagina <a href="ordini.html" style="color: #1f4e79; font-weight: 700; text-decoration: underline;">Ordini Abbigliamento</a> o scrivi a <a href="mailto:abbigliamento@virtusgroane.com" style="color: #1f4e79; font-weight: 700; text-decoration: underline;">abbigliamento@virtusgroane.com</a> per fissare un appuntamento.</p>
+                </div>
+
+                <!-- SEZIONE 1: RUNNING - CAPI TECNICI -->
+                <div class="category-section">
+                    <h3 class="category-title">Running - Capi Tecnici</h3>
+                    <div class="product-grid">
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-tech-tshirt-1.png" alt="T-Shirt Versione 1">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">T-Shirt</div>
+                                    <div class="product-meta">Versione 1 • Maglia tecnica da corsa</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">32 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-tech-tshirt-2.png" alt="T-Shirt Versione 2">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">T-Shirt</div>
+                                    <div class="product-meta">Versione 2 • Maglia tecnica da corsa</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">32 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-tech-long-sleeeves-1.png" alt="Shirt Long Sleeves Versione 1">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Shirt Long Sleeves</div>
+                                    <div class="product-meta">Versione 1 • Maglia manica lunga</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">43 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-tech-long-sleeeves-2.png" alt="Shirt Long Sleeves Versione 2">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Shirt Long Sleeves</div>
+                                    <div class="product-meta">Versione 2 • Maglia manica lunga</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">43 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-tech-singlet-1.png" alt="Singlet Versione 1">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Singlet</div>
+                                    <div class="product-meta">Versione 1 • Canotta gara tecnica</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">27 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-tech-singlet-2.png" alt="Singlet Versione 2">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Singlet</div>
+                                    <div class="product-meta">Versione 2 • Canotta gara tecnica</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">27 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-tech-winter-shirt-1.png" alt="Wintershirt Long Sleeves Versione 1">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Wintershirt Long Sleeves</div>
+                                    <div class="product-meta">Versione 1 • Maglia invernale manica lunga</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">57 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-tech-winter-shirt-2.png" alt="Wintershirt Long Sleeves Versione 2">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Wintershirt Long Sleeves</div>
+                                    <div class="product-meta">Versione 2 • Maglia invernale manica lunga</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">57 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-tech-short.png" alt="Short">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Short</div>
+                                    <div class="product-meta">Pantaloncini corti tecnici</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">43 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-tech-marathon.png" alt="Marathon Short">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Marathon</div>
+                                    <div class="product-meta">Pantaloncini specifici per maratona</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">61 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-tech-long-tights.png" alt="Long Tights">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Long Tights</div>
+                                    <div class="product-meta">Calzamaglia tecnica lunga</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">55 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SEZIONE 2: RUNNING - CAPI SPORTIVI -->
+                <div class="category-section">
+                    <h3 class="category-title">Running - Capi Sportivi</h3>
+                    <div class="product-grid">
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-sport-maglietta.jpg" alt="Maglietta Running">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Maglietta Running</div>
+                                    <div class="product-meta">Capi sportivi di allenamento</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">25 €</span>
+                                        <span class="supplier-tag">Mate.3</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-sport-canotta.jpg" alt="Canotta Running">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Canotta Running</div>
+                                    <div class="product-meta">Capi sportivi di allenamento</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">25 €</span>
+                                        <span class="supplier-tag">Mate.3</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-sport-manica-lunga.png" alt="Maglia Manica Lunga">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Maglia Manica Lunga</div>
+                                    <div class="product-meta">Capi sportivi di allenamento</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">33 €</span>
+                                        <span class="supplier-tag">Mate.3</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/running-sport-top.png" alt="Top Running">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Top Running</div>
+                                    <div class="product-meta">Top sportivo femminile</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">25 €</span>
+                                        <span class="supplier-tag">Mate.3</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SEZIONE 3: TRIATHLON -->
+                <div class="category-section">
+                    <h3 class="category-title">Triathlon</h3>
+                    <div class="product-grid">
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/triathlon-smanicato.png" alt="Smanicato Triathlon">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Smanicato Triathlon</div>
+                                    <div class="product-meta">Zip fronte o retro • Personalizzabile con nome</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">89 € <small style="font-size:0.8rem; font-weight:normal; color:#4a5568;">(95€ c/nome)</small></span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/triathlon-suit.png" alt="Body Suit Triathlon">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Body Suit</div>
+                                    <div class="product-meta">Body da gara Triathlon • Personalizzabile con nome</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">139 € <small style="font-size:0.8rem; font-weight:normal; color:#4a5568;">(145€ c/nome)</small></span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/triathlon-cuffia.png" alt="Cuffia Triathlon">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Cuffia Nuoto</div>
+                                    <div class="product-meta">Cuffia in silicone da nuoto/triathlon</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">6 €</span>
+                                        <span class="supplier-tag">Summer Shop</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SEZIONE 4: BIKE -->
+                <div class="category-section">
+                    <h3 class="category-title">Bike (Ciclismo)</h3>
+                    <div class="product-grid">
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/bike-salopette.png" alt="Salopette Estiva Bike">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Salopette Estiva</div>
+                                    <div class="product-meta">Abbigliamento ciclismo estivo</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">75 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/bike-gilet.png" alt="Gilet Estivo Bike">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Gilet Estivo</div>
+                                    <div class="product-meta">Gilet antivento da ciclismo</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">65 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/bike-jersey.png" alt="Jersey Estivo Bike">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Jersey Estivo</div>
+                                    <div class="product-meta">Maglia da ciclismo estiva</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">61 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/logo-bioracer.png" alt="Salopette Invernale Bike">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Salopette Invernale</div>
+                                    <div class="product-meta">Protezione termica (10° - 0°)</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">98 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/logo-bioracer.png" alt="Jersey Invernale 20-10 Bike">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Jersey Invernale</div>
+                                    <div class="product-meta">Protezione mezze stagioni (20° - 10°)</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">69 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/logo-bioracer.png" alt="Jersey Invernale 10-0 Bike">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Jersey Invernale</div>
+                                    <div class="product-meta">Protezione termica intensa (10° - 0°)</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">80 €</span>
+                                        <span class="supplier-tag">Bioracer</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SEZIONE 5: EXTRA & RAPPRESENTANZA -->
+                <div class="category-section">
+                    <h3 class="category-title">Extra & Rappresentanza</h3>
+                    <div class="product-grid">
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/extra-giacca-softshell.png" alt="Giacca Softshell">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Giacca Softshell</div>
+                                    <div class="product-meta">Giacca di rappresentanza</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">55 €</span>
+                                        <span class="supplier-tag">Bitre</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/extra-giacca-tuta-felpata.png" alt="Giacca Tuta Felpata">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Giacca Tuta Felpata</div>
+                                    <div class="product-meta">Tuta invernale calda</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">30 €</span>
+                                        <span class="supplier-tag">Bitre</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/extra-pantalone-tuta-felpato.png" alt="Pantalone Tuta Felpato">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Pantalone Tuta Felpato</div>
+                                    <div class="product-meta">Tuta invernale calda</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">25 €</span>
+                                        <span class="supplier-tag">Bitre</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/extra-giacca-tuta-garzata.png" alt="Giacca Tuta Garzata">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Giacca Tuta Garzata</div>
+                                    <div class="product-meta">Tuta mezza stagione fresca</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">30 €</span>
+                                        <span class="supplier-tag">Bitre</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/extra-pantaolone-tuta-garzato.png" alt="Pantalone Tuta Garzato">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Pantalone Tuta Garzato</div>
+                                    <div class="product-meta">Tuta mezza stagione fresca</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">25 €</span>
+                                        <span class="supplier-tag">Bitre</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/extra-polo.png" alt="Polo">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Polo</div>
+                                    <div class="product-meta">Polo societaria di rappresentanza</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">15 €</span>
+                                        <span class="supplier-tag">Bitre</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/extra-zaino-con-portascarpe.jpg" alt="Zaino con Portascarpe">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Zaino con Portascarpe</div>
+                                    <div class="product-meta">Zaino sportivo con scomparto rigido</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">30 €</span>
+                                        <span class="supplier-tag">Bitre</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-img-wrapper">
+                                <img src="../images/shop/extra-zaino.png" alt="Zaino">
+                            </div>
+                            <div class="product-body">
+                                <div>
+                                    <div class="product-name">Zaino</div>
+                                    <div class="product-meta">Zaino sportivo leggero</div>
+                                </div>
+                                <div>
+                                    <div class="product-price-bar">
+                                        <span class="price-tag">15 €</span>
+                                        <span class="supplier-tag">Bitre</span>
+                                    </div>
+                                    <a href="ordini.html" class="btn-order-catalog">Ordina</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 style="color: white; letter-spacing: 0.05em;"><a href="../virtus.html">VIRTUS GROANE</a></h3>
+                    <p>Associazione Sportiva Dilettantistica affiliata FIDAL e FITRI. Promuoviamo lo sport giovanile e amatoriale sul territorio delle Groane.</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Collegamenti Veloci</h4>
+                    <ul class="footer-links">
+                        <li><a href="../info-iscrizioni.html">Iscrizioni</a></li>
+                        <li><a href="../abbigliamento.html">Abbigliamento</a></li>
+                        <li><a href="../societa-ed-eventi.html">Eventi</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title footer-placeholder" style="visibility: hidden;">&nbsp;</h4>
+                    <ul class="footer-links">
+                        <li><a href="../sostieni-virtus/5x1000.html">5x1000</a></li>
+                        <li><a href="../virtus/associarsi.html">Diventa Socio Sostenitore</a></li>
+                        <li><a href="../sostieni-virtus.html">Diventa Sponsor</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Virtus Groane ASD. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

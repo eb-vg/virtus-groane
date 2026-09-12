@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atletica Leggera - Virtus Groane</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css?v=1.1">
+    <style>
+        .group-section {
+            margin-top: 3rem;
+            margin-bottom: 2.5rem;
+        }
+        .group-header {
+            border-bottom: 2px solid var(--primary, #1f4e79);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .group-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary, #1f4e79);
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .group-subtitle {
+            font-size: 0.95rem;
+            color: #718096;
+            margin-top: 0.25rem;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .course-card {
+            background-color: #ffffff !important;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .course-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+        .track-badge {
+            display: inline-block;
+            background-color: #1f4e79;
+            color: #ffffff !important;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+        }
+        .track-badge.solaro {
+            background-color: #d97706;
+        }
+        .course-years {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1f4e79 !important;
+            margin-bottom: 0.5rem;
+        }
+        .course-desc {
+            font-size: 0.95rem;
+            color: #2d3748 !important;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        .btn-golee {
+            display: block;
+            text-align: center;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: #1f4e79;
+            color: #ffffff !important;
+            border-radius: 6px;
+            text-decoration: none;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            transition: background-color 0.2s;
+            box-sizing: border-box;
+        }
+        .btn-golee:hover {
+            background-color: #153654;
+            color: #ffffff !important;
+        }
+        .btn-golee.solaro {
+            background-color: #d97706;
+        }
+        .btn-golee.solaro:hover {
+            background-color: #b45309;
+        }
+        .combo-note {
+            font-size: 0.85rem;
+            color: #718096 !important;
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+        .card-details {
+            margin-top: 1rem;
+            padding-top: 0.85rem;
+            border-top: 1px dashed #cbd5e0;
+            font-size: 0.88rem;
+            color: #2d3748 !important;
+            line-height: 1.5;
+        }
+        .card-details div {
+            margin-bottom: 0.35rem;
+        }
+        .card-details div:last-child {
+            margin-bottom: 0;
+        }
+        .card-details strong {
+            color: #1f4e79 !important;
+        }
+    </style>
+</head>
+<body>
+    <header style="background-color: var(--bg-secondary); border-bottom: 1px solid var(--border-color);">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo-link">
+                <img src="../logo.png" alt="Virtus Groane" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="logo-placeholder" style="display:none;">VG</div>
+            </a>
+            
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+            <label for="menu-toggle" class="menu-toggle-label">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../virtus.html" class="nav-dropdown-trigger">Virtus</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../virtus/organigramma.html">Organigramma</a></li>
+                            <li><a href="../virtus/allenatori.html">Allenatori</a></li>
+                            <li><a href="../virtus/safeguarding.html">Safeguarding</a></li>
+                            <li><a href="../virtus/tesseramento.html">Tesseramento</a></li>
+                            <li><a href="../virtus/statuto-sociale.html">Statuto Sociale</a></li>
+                            <li><a href="../virtus/associarsi.html">Associarsi</a></li>
+                            <li><a href="../virtus/regolamenti.html">Regolamenti</a></li>
+                            <li><a href="../virtus/collaborazioni.html">Collaborazioni</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../info-iscrizioni.html" class="nav-dropdown-trigger">Info-Iscrizioni</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../info-iscrizioni/atletica-leggera.html">Atletica Leggera</a></li>
+                            <li><a href="../info-iscrizioni/triathlon.html">Triathlon</a></li>
+                            <li><a href="../info-iscrizioni/running-school.html">Running School</a></li>
+                            <li><a href="../info-iscrizioni/mamme-che-sport.html">Mamme che Sport!</a></li>
+                            <li><a href="../info-iscrizioni/nordic-walking.html">Nordic Walking</a></li>
+                            <li><a href="../info-iscrizioni/visita-medica.html">Visita Medica</a></li>
+                            <li><a href="../info-iscrizioni/convenzioni.html">Convenzioni</a></li>
+                            <li><a href="../info-iscrizioni/golee.html">Golee</a></li>
+                            <li><a href="../info-iscrizioni/dove-ci-alleniamo.html">Dove ci Alleniamo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../abbigliamento.html" class="nav-dropdown-trigger">Abbigliamento</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../abbigliamento/catalogo.html">Catalogo</a></li>
+                            <li><a href="../abbigliamento/ordini.html">Ordini</a></li>
+                            <li><a href="../abbigliamento/fornitori.html">Fornitori</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../societa-ed-eventi.html" class="nav-dropdown-trigger">Società ed Eventi</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../societa-ed-eventi/record-societari.html">Record Societari</a></li>
+                            <li><a href="../societa-ed-eventi/gara-sociale.html">Gara Sociale</a></li>
+                            <li><a href="../societa-ed-eventi/24x1-ora.html">24x1 Ora</a></li>
+                            <li><a href="../societa-ed-eventi/estate-correndo.html">E...state Correndo</a></li>
+                            <li><a href="../societa-ed-eventi/fametta-run.html">Fametta Run</a></li>
+                            <li><a href="../societa-ed-eventi/prova-l-atletica.html">Prova l'Atletica</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../sostieni-virtus.html" class="nav-dropdown-trigger">Sostieni Virtus</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../sostieni-virtus/donazioni.html">Donazioni</a></li>
+                            <li><a href="../sostieni-virtus/giocoatletica-2025.html">GiocoAtletica 2025</a></li>
+                            <li><a href="../sostieni-virtus/estate-correndo-2026.html">E...state Correndo 2025</a></li>
+                            <li><a href="../sostieni-virtus/5x1000.html">5x1000</a></li>
+                            <li><a href="../sostieni-virtus/tutti-in-campo.html">Tutti in Campo</a></li>
+                            <li><a href="../sostieni-virtus/amici-dello-sport.html">Amici dello Sport</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../contatti.html">Contatti</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../english.html"><img src="../uk-flag.png" alt="English" style="width: 24px; height: auto; vertical-align: middle;"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1><a href="../info-iscrizioni.html" class="parent-link">Info-Iscrizioni</a> <span class="parent-separator">/</span> Atletica Leggera</h1>
+        </div>
+    </section>
+
+    <section class="internal-layout">
+        <div class="container">
+            <div class="article-content">
+
+                <h2>Corsi di Atletica Leggera</h2>
+                <img src="../images/atletica_leggera.png" style="width: 100%; height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 2rem;" alt="Atletica Leggera">
+
+                <p>Virtus Groane ASD declina le proprie attività e iscrizioni di Atletica Leggera suddivise per tre grandi settori (<strong>Giovanili</strong>, <strong>Assoluti</strong> e <strong>Master</strong>), organizzando gli allenamenti in base all'anno di nascita e presso i due centri sportivi di <strong>Limbiate</strong> e <strong>Solaro</strong>.</p>
+
+                <!-- GRUPPO 1: GIOVANILI -->
+                <div class="group-section">
+                    <div class="group-header">
+                        <h3 class="group-title">Giovanili</h3>
+                        <div class="group-subtitle">Esordienti, Ragazzi e Cadetti</div>
+                    </div>
+                    <p>I corsi giovanili hanno l'obiettivo di sviluppare gli schemi motori di base (corsa, salti, lanci) ed il lavoro di gruppo per i più piccoli, accompagnandoli poi verso la conoscenza ed il perfezionamento di tutte le specialità dell'atletica leggera.</p>
+
+                    <div class="cards-grid">
+                        <!-- Limbiate 2019-2021 -->
+                        <div class="course-card">
+                            <div>
+                                <span class="track-badge">📍 Pista di Limbiate</span>
+                                <div class="course-years">Nati 2019 - 2021</div>
+                                <div class="course-desc">Esordienti (Gioco-Atletica e sviluppo coordinativo)</div>
+                            </div>
+                            <a href="https://moduli.golee.it/virtus-groane-asd/atletica-limbiate-esordienti-a" target="_blank" rel="noopener noreferrer" class="btn-golee">Modulo Iscrizione Limbiate</a>
+                            <div class="card-details">
+                                <div><strong>⏱️ Frequenza:</strong> 1 gg (Monosettimanale) o 2 gg (Bisettimanale) a settimana (Lun / Gio)</div>
+                                <div><strong>💶 Quota Totale:</strong> € 180 (Monosettimanale) | € 250 (Bisettimanale)</div>
+                                <div><strong>💳 Rate:</strong> Unica soluzione oppure 2 rate per Bisettimanale (1ª rata € 150, 2ª rata € 100 entro 31/12/2026)</div>
+                            </div>
+                        </div>
+
+                        <!-- Limbiate 2016-2018 -->
+                        <div class="course-card">
+                            <div>
+                                <span class="track-badge">📍 Pista di Limbiate</span>
+                                <div class="course-years">Nati 2016 - 2018</div>
+                                <div class="course-desc">Esordienti (Avviamento all'atletica leggera)</div>
+                            </div>
+                            <a href="https://moduli.golee.it/virtus-groane-asd/atletica-limbiate-esordienti-b" target="_blank" rel="noopener noreferrer" class="btn-golee">Modulo Iscrizione Limbiate</a>
+                            <div class="card-details">
+                                <div><strong>⏱️ Frequenza:</strong> 1 gg (Monosettimanale) o 2 gg (Bisettimanale) a settimana (Lun / Mer jolly / Gio)</div>
+                                <div><strong>💶 Quota Totale:</strong> € 180 (Monosettimanale) | € 250 (Bisettimanale)</div>
+                                <div><strong>💳 Rate:</strong> Unica soluzione oppure 2 rate per Bisettimanale (1ª rata € 150, 2ª rata € 100 entro 31/12/2026)</div>
+                            </div>
+                        </div>
+
+                        <!-- Solaro 2016-2021 -->
+                        <div class="course-card">
+                            <div>
+                                <span class="track-badge solaro">📍 Pista di Solaro</span>
+                                <div class="course-years">Nati 2016 - 2021</div>
+                                <div class="course-desc">Esordienti (Gioco-Atletica e schemi motori di base)</div>
+                            </div>
+                            <a href="https://moduli.golee.it/virtus-groane-asd/atletica-solaro-esordienti" target="_blank" rel="noopener noreferrer" class="btn-golee solaro">Modulo Iscrizione Solaro</a>
+                            <div class="card-details">
+                                <div><strong>⏱️ Frequenza:</strong> 1 gg (Monosettimanale) o 2 gg (Bisettimanale) a settimana (Mar / Gio)</div>
+                                <div><strong>💶 Quota Totale:</strong> € 180 (Monosettimanale) | € 250 (Bisettimanale)</div>
+                                <div><strong>💳 Rate:</strong> Unica soluzione oppure 2 rate per Bisettimanale (1ª rata € 150, 2ª rata € 100 entro 31/12/2026)</div>
+                            </div>
+                        </div>
+
+                        <!-- Solaro 2012-2015 -->
+                        <div class="course-card">
+                            <div>
+                                <span class="track-badge solaro">📍 Pista di Solaro</span>
+                                <div class="course-years">Nati 2012 - 2015</div>
+                                <div class="course-desc">Ragazzi e Cadetti (Transizione alla pista e gare di categoria)</div>
+                            </div>
+                            <a href="https://moduli.golee.it/virtus-groane-asd/atletica-solaro-ragazzi-cadetti" target="_blank" rel="noopener noreferrer" class="btn-golee solaro">Modulo Iscrizione Solaro</a>
+                            <div class="card-details">
+                                <div><strong>⏱️ Frequenza:</strong> 1 gg (Monosettimanale) o 2 gg (Bisettimanale) a settimana (Mar / Gio)</div>
+                                <div><strong>💶 Quota Totale:</strong> € 180 (Monosettimanale) | € 250 (Bisettimanale)</div>
+                                <div><strong>💳 Rate:</strong> Unica soluzione oppure 2 rate per Bisettimanale (1ª rata € 150, 2ª rata € 100 entro 31/12/2026)</div>
+                            </div>
+                        </div>
+
+                        <!-- Limbiate 2012-2015 -->
+                        <div class="course-card">
+                            <div>
+                                <span class="track-badge">📍 Pista di Limbiate</span>
+                                <div class="course-years">Nati 2012 - 2015</div>
+                                <div class="course-desc">Ragazzi e Cadetti (Preparazione per discipline e gare in pista)</div>
+                            </div>
+                            <a href="https://moduli.golee.it/virtus-groane-asd/atletica-limbiate-ragazzi-cadetti" target="_blank" rel="noopener noreferrer" class="btn-golee">Modulo Iscrizione Limbiate</a>
+                            <div class="card-details">
+                                <div><strong>⏱️ Frequenza:</strong> 3 giorni a settimana (Ragazzi: Mar-Mer-Ven | Cadetti: Lun-Mer-Gio)</div>
+                                <div><strong>💶 Quota Totale:</strong> € 300 annuali</div>
+                                <div><strong>💳 Rate:</strong> Unica soluzione oppure 2 rate (1ª rata € 180, 2ª rata € 120 entro 31/12/2026)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem; padding: 1.25rem; background-color: #f7fafc; border-left: 4px solid #1f4e79; border-radius: 6px; font-size: 0.95rem; line-height: 1.6; color: #2d3748;">
+                        <p style="margin: 0 0 0.5rem 0; font-weight: 700; color: #1f4e79;">👨‍👩‍👧‍👦 Sconto Fratelli:</p>
+                        <p style="margin: 0;">Per le famiglie con più figli iscritti ai settori Giovanili ed Assoluti, è prevista la possibilità di usufruire di una riduzione sulla quota d'iscrizione a partire dal secondo fratello.</p>
+                    </div>
+                </div>
+
+                <!-- GRUPPO 2: ASSOLUTI -->
+                <div class="group-section">
+                    <div class="group-header">
+                        <h3 class="group-title">Assoluti</h3>
+                        <div class="group-subtitle">Allievi, Juniores, Promesse e Seniores</div>
+                    </div>
+                    <p>Corse veloci, ostacoli, mezzofondo, salti e lanci: un percorso dedicato alla pratica agonistica ed al perfezionamento nella propria specialità ideale.</p>
+
+                    <div class="cards-grid">
+                        <!-- Limbiate 1993-2011 -->
+                        <div class="course-card">
+                            <div>
+                                <span class="track-badge">📍 Pista di Limbiate</span>
+                                <div class="course-years">Nati 1993 - 2011</div>
+                                <div class="course-desc">Settore Assoluti (Preparazione specifica per gare e campionati agonistici)</div>
+                            </div>
+                            <a href="https://moduli.golee.it/virtus-groane-asd/atletica-limbiate-assoluti" target="_blank" rel="noopener noreferrer" class="btn-golee">Modulo Iscrizione Limbiate</a>
+                            <div class="card-details">
+                                <div><strong>⏱️ Frequenza:</strong> 3 gg a settimana (Lun-Mer-Gio) + giorno extra gare (Ven/Sab)</div>
+                                <div><strong>💶 Quota Totale:</strong> € 350 annuali</div>
+                                <div><strong>💳 Rate:</strong> Unica soluzione oppure 2 rate (1ª rata € 210, 2ª rata € 140 entro 31/12/2026)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem; padding: 1.25rem; background-color: #f7fafc; border-left: 4px solid #1f4e79; border-radius: 6px; font-size: 0.95rem; line-height: 1.6; color: #2d3748;">
+                        <p style="margin: 0 0 0.5rem 0; font-weight: 700; color: #1f4e79;">👨‍👩‍👧‍👦 Sconto Fratelli:</p>
+                        <p style="margin: 0;">È prevista la possibilità di usufruire di una riduzione sulla quota d'iscrizione a partire dal secondo fratello iscritto ai settori Giovanili o Assoluti.</p>
+                    </div>
+                </div>
+
+                <!-- GRUPPO 3: MASTER -->
+                <div class="group-section">
+                    <div class="group-header">
+                        <h3 class="group-title">Master</h3>
+                        <div class="group-subtitle">Atleti adulti ed amatori</div>
+                    </div>
+                    <p>Un gruppo unito dalla passione per la corsa e l'atletica. Offriamo tabelle di allenamento personalizzate, test di valutazione e sessioni in pista assistite dai nostri allenatori.</p>
+
+                    <div class="cards-grid">
+                        <!-- Solaro 1992 e precedenti (Solo Atletica) -->
+                        <div class="course-card">
+                            <div>
+                                <span class="track-badge solaro">📍 Pista di Solaro</span>
+                                <div class="course-years">Nati nel 1992 e precedenti</div>
+                                <div class="course-desc">Corso Master di Atletica Leggera (Frequenza sessioni atletica)</div>
+                            </div>
+                            <a href="https://moduli.golee.it/virtus-groane-asd/atletica-trimestre-solaro-master-nati-1992-prima" target="_blank" rel="noopener noreferrer" class="btn-golee solaro">Modulo Solo Atletica</a>
+                            <div class="card-details">
+                                <div><strong>⏱️ Frequenza:</strong> 2 giorni a settimana (Lun / Mer)</div>
+                                <div><strong>💶 Quota Totale:</strong> € 40 (Quadrimestre 2026) | € 110 (Annuale 2027)</div>
+                                <div><strong>💳 Rate:</strong> Unica soluzione ad ogni scadenza</div>
+                            </div>
+                        </div>
+
+                        <!-- Solaro 2008 e precedenti (Atletica + Triathlon) -->
+                        <div class="course-card">
+                            <div>
+                                <span class="track-badge solaro">📍 Pista di Solaro</span>
+                                <div class="course-years">Nati nel 2008 e precedenti</div>
+                                <div class="course-desc">Corso Integrato Atletica + Triathlon (*)</div>
+                                <div class="combo-note">(*) Il modulo consente di frequentare sia i corsi di Atletica Leggera che i corsi di Triathlon.</div>
+                            </div>
+                            <a href="https://moduli.golee.it/virtus-groane-asd/atleticatriathlon-trimestre-solaro-juniores-master-nati-2008-prima" target="_blank" rel="noopener noreferrer" class="btn-golee solaro" style="margin-top: 1rem;">Modulo Atletica + Triathlon</a>
+                            <div class="card-details">
+                                <div><strong>⏱️ Frequenza:</strong> 3 giorni a settimana (Lun / Mer / Sab) integrati</div>
+                                <div><strong>💶 Quota Totale:</strong> € 85 (Quadrimestre 2026) | € 160 (Annuale 2027)</div>
+                                <div><strong>💳 Rate:</strong> Unica soluzione ad ogni scadenza</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem; padding: 1.25rem; background-color: #f7fafc; border-left: 4px solid #1f4e79; border-radius: 6px; font-size: 0.95rem; line-height: 1.6; color: #2d3748;">
+                        <p style="margin: 0 0 0.5rem 0; font-weight: 700; color: #1f4e79;">ℹ️ Dettagli sull'iscrizione Master:</p>
+                        <p style="margin: 0 0 0.5rem 0;">L'iscrizione Master va normalmente da gennaio a dicembre, analogamente al tesseramento FIDAL. L'iscrizione annuale verrà proposta a tempo debito.</p>
+                        <p style="margin: 0;">L'iscrizione proposta dai due link sopra è quella per il periodo <strong>settembre-dicembre</strong>, scontata ma comprensiva di tesseramento FIDAL 2026.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 style="color: white; letter-spacing: 0.05em;"><a href="../virtus.html">VIRTUS GROANE</a></h3>
+                    <p>Associazione Sportiva Dilettantistica affiliata FIDAL e FITRI. Promuoviamo lo sport giovanile e amatoriale sul territorio delle Groane.</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Collegamenti Veloci</h4>
+                    <ul class="footer-links">
+                        <li><a href="../info-iscrizioni.html">Iscrizioni</a></li>
+                        <li><a href="../abbigliamento.html">Abbigliamento</a></li>
+                        <li><a href="../societa-ed-eventi.html">Eventi</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title footer-placeholder" style="visibility: hidden;">&nbsp;</h4>
+                    <ul class="footer-links">
+                        <li><a href="../sostieni-virtus/5x1000.html">5x1000</a></li>
+                        <li><a href="../virtus/associarsi.html">Diventa Socio Sostenitore</a></li>
+                        <li><a href="../sostieni-virtus.html">Diventa Sponsor</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Virtus Groane ASD. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

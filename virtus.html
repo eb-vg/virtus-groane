@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtus - Virtus Groane ASD</title>
+    <meta name="description" content="Scopri la storia, la missione e i valori di Virtus Groane ASD: la nostra associazione sportiva dilettantistica attiva dal 1978 nei comuni di Senago, Solaro e Limbiate.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=1.2">
+    <style>
+        .timeline { border-left: 3px solid var(--color-blue); padding-left: 2rem; margin-top: 2rem; }
+        .timeline-item { margin-bottom: 2rem; position: relative; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -2.6rem; top: 0; width: 15px; height: 15px;
+            border-radius: 50%; background-color: var(--color-green); border: 3px solid var(--bg-secondary);
+        }
+        .timeline-year { font-family: var(--font-title); color: var(--color-blue-light); font-weight: 700; font-size: 1.2rem; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER / NAVIGATION -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo-link">
+                <img src="logo.png" alt="Virtus Groane ASD" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="logo-placeholder" style="display:none;">VG</div>
+            </a>
+            
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+            <label for="menu-toggle" class="menu-toggle-label">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+                        <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="virtus.html" class="nav-dropdown-trigger">Virtus</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="virtus/organigramma.html">Organigramma</a></li>
+                            <li><a href="virtus/allenatori.html">Allenatori</a></li>
+                            <li><a href="virtus/safeguarding.html">Safeguarding</a></li>
+                            <li><a href="virtus/tesseramento.html">Tesseramento</a></li>
+                            <li><a href="virtus/statuto-sociale.html">Statuto Sociale</a></li>
+                            <li><a href="virtus/associarsi.html">Associarsi</a></li>
+                            <li><a href="virtus/regolamenti.html">Regolamenti</a></li>
+                            <li><a href="virtus/collaborazioni.html">Collaborazioni</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="info-iscrizioni.html" class="nav-dropdown-trigger">Info-Iscrizioni</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="info-iscrizioni/atletica-leggera.html">Atletica Leggera</a></li>
+                            <li><a href="info-iscrizioni/triathlon.html">Triathlon</a></li>
+                            <li><a href="info-iscrizioni/running-school.html">Running School</a></li>
+                            <li><a href="info-iscrizioni/mamme-che-sport.html">Mamme che Sport!</a></li>
+                            <li><a href="info-iscrizioni/nordic-walking.html">Nordic Walking</a></li>
+                            <li><a href="info-iscrizioni/visita-medica.html">Visita Medica</a></li>
+                            <li><a href="info-iscrizioni/convenzioni.html">Convenzioni</a></li>
+                            <li><a href="info-iscrizioni/golee.html">Golee</a></li>
+                            <li><a href="info-iscrizioni/dove-ci-alleniamo.html">Dove ci Alleniamo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="abbigliamento.html" class="nav-dropdown-trigger">Abbigliamento</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="abbigliamento/catalogo.html">Catalogo</a></li>
+                            <li><a href="abbigliamento/ordini.html">Ordini</a></li>
+                            <li><a href="abbigliamento/fornitori.html">Fornitori</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="societa-ed-eventi.html" class="nav-dropdown-trigger">Società ed Eventi</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="societa-ed-eventi/record-societari.html">Record Societari</a></li>
+                            <li><a href="societa-ed-eventi/gara-sociale.html">Gara Sociale</a></li>
+                            <li><a href="societa-ed-eventi/24x1-ora.html">24x1 Ora</a></li>
+                            <li><a href="societa-ed-eventi/estate-correndo.html">E...state Correndo</a></li>
+                            <li><a href="societa-ed-eventi/fametta-run.html">Fametta Run</a></li>
+                            <li><a href="societa-ed-eventi/prova-l-atletica.html">Prova l'Atletica</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="sostieni-virtus.html" class="nav-dropdown-trigger">Sostieni Virtus</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="sostieni-virtus/donazioni.html">Donazioni</a></li>
+                            <li><a href="sostieni-virtus/giocoatletica-2025.html">GiocoAtletica 2025</a></li>
+                            <li><a href="sostieni-virtus/estate-correndo-2026.html">E...state Correndo 2025</a></li>
+                            <li><a href="sostieni-virtus/5x1000.html">5x1000</a></li>
+                            <li><a href="sostieni-virtus/tutti-in-campo.html">Tutti in Campo</a></li>
+                            <li><a href="sostieni-virtus/amici-dello-sport.html">Amici dello Sport</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contatti.html">Contatti</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="english.html"><img src="uk-flag.png" alt="English" style="width: 24px; height: auto; vertical-align: middle;"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Virtus</h1>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem;">La storia, la passione e i valori di Virtus Groane ASD</p>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <section class="internal-layout">
+        <div class="container">
+            <div class="article-content">
+                <h2>La Nostra Visione</h2>
+                <p>
+                    La visione di <strong>Virtus Groane ASD</strong> è la promozione della pratica sportiva e dei valori educativi dello sport a tutte le età, attraverso l'<strong>Atletica Leggera</strong>, il <strong>Triathlon</strong>, la <strong>Running School</strong>, il fitness con <strong>Mamme che Sport!</strong> e il <strong>Nordic Walking</strong>.
+                </p>
+                <p>
+                    I nostri corsi sono guidati da tecnici qualificati ed entusiasti. Nel settore giovanile poniamo al centro dell'apprendimento i tre schemi motori fondamentali: <em>correr, saltare e lanciare</em>, coltivando parallelamente il rispetto reciproco, la crescita personale e l'amicizia tra ragazzi e istruttori.
+                </p>
+                
+                <div style="margin: 2.5rem 0;">
+                    <img src="images/chi_siamo_generazioni.jpg" alt="Virtus Groane - Passaggio di testimone generazionale" style="width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.4);">
+                    <p style="font-size: 0.9rem; font-style: italic; color: var(--text-muted); margin-top: 0.5rem; text-align: center;">Generazioni a confronto: il valore della continuità e della passione sportiva in Virtus Groane ASD.</p>
+                </div>
+
+                <h3>Il Nostro Impegno: Dal Settore Giovanile ai Master</h3>
+                <p>
+                    L'avviamento agonistico all'atletica leggera inizia dai 12 anni. Il nostro settore giovanile è il cuore pulsante della società: non solo per le soddisfazioni nei campionati provinciali e regionali, ma per lo straordinario spirito di squadra che unisce atleti, tecnici e famiglie.
+                </p>
+                <p>
+                    Il settore <strong>Amatori e Master</strong> accoglie podisti e triatleti di ogni livello, impegnati in prestigiose maratone e mezze maratone internazionali, gare su strada, trail immersi nella natura e competizioni multidisciplinari.
+                </p>
+                <p>
+                    A partire dal 2026, offriamo alle ragazze e ai ragazzi del settore <strong>Assoluti</strong> la preziosa opportunità — accolta finora con entusiasmo da tutti i nostri atleti — di continuare ad allenarsi presso i nostri centri e, contemporaneamente, di tesserarsi e gareggiare per due società più grandi e strutturate di Virtus Groane.
+                </p>
+
+                <h3 style="margin-top: 3rem;">Come Siamo Arrivati ad Oggi</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">1978</div>
+                        <p>Fondazione della società sportiva con l'obiettivo di diffondere la cultura dello sport e dell'atletica tra i giovani del territorio.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">Anni di Crescita</div>
+                        <p>La società promuove storiche manifestazioni podistiche sul territorio (tra cui la <em>"Mezza delle Groane"</em> e corse nel circuito provinciale), attirando migliaia di appassionati.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2021</div>
+                        <p>Avviene il rinnovo di denominazione ufficiale in <strong>Virtus Groane ASD</strong>: un progetto rinnovato che abbraccia l'intero territorio delle Groane (Senago, Solaro, Limbiate) e si apre al Triathlon, al Nordic Walking e al fitness outdoor.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">Oggi</div>
+                        <p>Iscritta al Registro Nazionale delle Attività Sportive Dilettantistiche (RASD) ed affiliata a <strong>FIDAL</strong>, <strong>FITRI</strong> ed <strong>AICS</strong>, Virtus Groane ASD continua a promuovere lo sport per tutte le età con energia, passione e trasparenza.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 style="margin-top: 4rem;">Sezioni e Approfondimenti</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Organigramma</h3>
+                        <p>Scopri i componenti del Consiglio Direttivo e chi guida la società.</p>
+                        <a href="virtus/organigramma.html" class="card-footer">Visualizza Organigramma &rarr;</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Staff Tecnico & Allenatori</h3>
+                        <p>Incontra gli allenatori e gli istruttori qualificati della società.</p>
+                        <a href="virtus/allenatori.html" class="card-footer">Visualizza Allenatori &rarr;</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Safeguarding</h3>
+                        <p>Politiche di tutela, codice di condotta e canale riservato per i soci.</p>
+                        <a href="virtus/safeguarding.html" class="card-footer">Leggi Safeguarding &rarr;</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Diventare Socio ASD</h3>
+                        <p>La differenza tra iscriversi ai corsi e diventare socio dell'associazione.</p>
+                        <a href="virtus/associarsi.html" class="card-footer">Scopri di più &rarr;</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Collaborazioni Assoluti</h3>
+                        <p>Le sinergie con Bracco Atletica e 100 Torri Pavia per i nostri ragazzi.</p>
+                        <a href="virtus/collaborazioni.html" class="card-footer">Scopri Collaborazioni &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 style="color: white; letter-spacing: 0.05em;"><a href="virtus.html">VIRTUS GROANE ASD</a></h3>
+                    <p>Associazione Sportiva Dilettantistica affiliata FIDAL, FITRI e AICS. Promuoviamo lo sport giovanile e amatoriale sul territorio delle Groane.</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Navigazione</h4>
+                    <ul class="footer-links">
+                        <li><a href="virtus.html">Virtus</a></li>
+                        <li><a href="info-iscrizioni.html">Info-Iscrizioni</a></li>
+                        <li><a href="abbigliamento.html">Abbigliamento</a></li>
+                        <li><a href="societa-ed-eventi.html">Società ed Eventi</a></li>
+                        <li><a href="contatti.html">Contatti</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Sostienici</h4>
+                    <ul class="footer-links">
+                        <li><a href="sostieni-virtus/5x1000.html">5x1000 (CF 93010720150)</a></li>
+                        <li><a href="virtus/associarsi.html">Diventa Socio ASD</a></li>
+                        <li><a href="sostieni-virtus.html">Diventa Sponsor</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Virtus Groane ASD. Tutti i diritti riservati. Codice Fiscale: 93010720150</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# Cartella dati privati e materiale non pubblico
+virtus-non-pubblico/
+
+# Esclusione di sicurezza per file di calcolo e dati riservati
+*.xlsx
+*.csv
+.env
+.DS_Store
+Thumbs.db
