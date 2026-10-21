@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Risorse e pagine non destinate all'indicizzazione diretta
+Disallow: /404.html
+Disallow: /virtus-non-pubblico/
+Disallow: /data/
+
+# Sitemap ufficiale del sito
+Sitemap: https://www.virtusgroane.com/sitemap.xml
