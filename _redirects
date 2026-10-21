@@ -12,53 +12,37 @@
 /data/*.csv /404.html 404!
 
 # ------------------------------------------------------------------------------
-# 2. Redirect 301 (Permanenti) dai percorsi del vecchio sito Wix al nuovo sito
+# 2. Redirect 301 dai percorsi del vecchio sito Wix al nuovo sito
+# Nota: Cloudflare Pages risolve già in automatico gli URL senza estensione .html
 # ------------------------------------------------------------------------------
 
 # Sezione Chi Siamo / Virtus
-/chi-siamo                       /virtus.html                            301
-/chi-siamo/organigramma          /virtus/organigramma.html               301
-/chi-siamo/allenatori            /virtus/allenatori.html                 301
-/chi-siamo/safeguarding          /virtus/safeguarding.html               301
-/chi-siamo/statuto-sociale       /virtus/statuto-sociale.html            301
-/chi-siamo/regolamento           /virtus/regolamenti.html                301
-/chi-siamo/convenzioni           /info-iscrizioni/convenzioni.html       301
-/chi-siamo/dove-siamo            /info-iscrizioni/dove-ci-alleniamo.html 301
-/chi-siamo/contatti              /contatti.html                          301
-
-# Sezione Info & Corsi
-/info-iscrizioni                 /info-iscrizioni.html                   301
-/info-iscrizioni/atletica-leggera /info-iscrizioni/atletica-leggera.html 301
-/info-iscrizioni/triathlon       /info-iscrizioni/triathlon.html         301
-/info-iscrizioni/running-school  /info-iscrizioni/running-school.html    301
-/info-iscrizioni/mamme-che-sport /info-iscrizioni/mamme-che-sport.html   301
-/info-iscrizioni/nordic-walking  /info-iscrizioni/nordic-walking.html    301
+/chi-siamo                       /virtus                                 301
+/chi-siamo/organigramma          /virtus/organigramma                    301
+/chi-siamo/allenatori            /virtus/allenatori                      301
+/chi-siamo/safeguarding          /virtus/safeguarding                    301
+/chi-siamo/statuto-sociale       /virtus/statuto-sociale                 301
+/chi-siamo/regolamento           /virtus/regolamenti                     301
+/chi-siamo/convenzioni           /info-iscrizioni/convenzioni            301
+/chi-siamo/dove-siamo            /info-iscrizioni/dove-ci-alleniamo      301
+/chi-siamo/contatti              /contatti                               301
 
 # Sezione Eventi
-/eventi                          /societa-ed-eventi.html                 301
-/eventi/gara-sociale             /societa-ed-eventi/gara-sociale.html    301
-/eventi/24x1ora                  /societa-ed-eventi/24x1-ora.html        301
-/eventi/estate-correndo          /societa-ed-eventi/estate-correndo.html 301
-/eventi/fametta-run              /societa-ed-eventi/fametta-run.html     301
-/eventi/vieni-a-provare          /societa-ed-eventi/prova-l-atletica.html 301
-/eventi/amici-dello-sport        /sostieni-virtus/amici-dello-sport.html 301
+/eventi                          /societa-ed-eventi                      301
+/eventi/gara-sociale             /societa-ed-eventi/gara-sociale         301
+/eventi/24x1ora                  /societa-ed-eventi/24x1-ora             301
+/eventi/estate-correndo          /societa-ed-eventi/estate-correndo      301
+/eventi/fametta-run              /societa-ed-eventi/fametta-run          301
+/eventi/vieni-a-provare          /societa-ed-eventi/prova-l-atletica     301
+/eventi/amici-dello-sport        /sostieni-virtus/amici-dello-sport      301
 
 # Sezione Sponsor & Campagne
-/sponsor                         /sostieni-virtus.html                   301
-/sponsor/donazioni               /sostieni-virtus/donazioni.html         301
-/sponsor/evento-gioco-atletica-2025 /sostieni-virtus/giocoatletica-2025.html 301
-/sponsor/evento-estate-correndo-2025 /sostieni-virtus/estate-correndo-2026.html 301
-/campagne                        /campagne.html                          301
-/campagne/5x1000                 /sostieni-virtus/5x1000.html            301
-/campagne/tutti-in-campo         /sostieni-virtus/tutti-in-campo.html    301
-
-# Pagine principali senza estensione .html
-/virtus                          /virtus.html                            301
-/societa-ed-eventi               /societa-ed-eventi.html                 301
-/sostieni-virtus                 /sostieni-virtus.html                   301
-/contatti                        /contatti.html                          301
-/abbigliamento                   /abbigliamento.html                     301
-/english                         /english.html                           301
+/sponsor                         /sostieni-virtus                        301
+/sponsor/donazioni               /sostieni-virtus/donazioni              301
+/sponsor/evento-gioco-atletica-2025 /sostieni-virtus/giocoatletica-2025  301
+/sponsor/evento-estate-correndo-2025 /sostieni-virtus/estate-correndo-2026 301
+/campagne/5x1000                 /sostieni-virtus/5x1000                 301
+/campagne/tutti-in-campo         /sostieni-virtus/tutti-in-campo         301
 
 # Vecchi allegati PDF ospitati su CDN Wix
 /_files/ugd/*                    /docs/info-corsi-virtus-groane-2026-09-07-2310.pdf 301
