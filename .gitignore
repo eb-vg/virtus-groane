@@ -7,3 +7,7 @@ virtus-non-pubblico/
 .env
 .DS_Store
 Thumbs.db
+
+# File di istruzioni e configurazione locale assistenti AI
+AGENTS.md
+GEMINI.md

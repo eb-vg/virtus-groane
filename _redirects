@@ -1,5 +1,10 @@
 # Regole di redirect e blocco di sicurezza per Cloudflare Pages
 
-# Forza risposta 404 per qualsiasi tentativo di accesso alla cartella data o a file di calcolo
-/data/* /404.html 404!
+# Cartella riservata
 /virtus-non-pubblico/* /404.html 404!
+
+# Blocco preventivo per file di calcolo e dati grezzi
+/*.xlsx /404.html 404!
+/*.csv /404.html 404!
+/data/*.xlsx /404.html 404!
+/data/*.csv /404.html 404!
