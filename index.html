@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -16,17 +16,24 @@
     <meta property="og:description" content="Sito ufficiale dell'Associazione Sportiva Dilettantistica Virtus Groane. Corsi per ragazzi e adulti a Senago, Solaro e, temporaneamente, Limbiate.">
     <meta property="og:image" content="https://www.virtusgroane.com/logo.png">
 
-    <!-- Dati Strutturati Schema.org (JSON-LD) -->
+    <!-- Dati Strutturati Schema.org (JSON-LD) - Ottimizzazione GEO & Knowledge Graph -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SportsClub",
       "name": "Virtus Groane ASD",
+      "alternateName": [
+        "Virtus Groane",
+        "Virtus Groane Associazione Sportiva Dilettantistica",
+        "Virtus Groane Atletica e Triathlon"
+      ],
       "legalName": "Virtus Groane Associazione Sportiva Dilettantistica",
       "url": "https://www.virtusgroane.com/",
       "logo": "https://www.virtusgroane.com/logo.png",
       "image": "https://www.virtusgroane.com/logo.png",
-      "description": "Sito ufficiale dell'Associazione Sportiva Dilettantistica Virtus Groane. Corsi di atletica leggera, triathlon, running school, mamme che sport e nordic walking a Senago, Solaro e, temporaneamente, Limbiate.",
+      "description": "Sito ufficiale dell'Associazione Sportiva Dilettantistica Virtus Groane. Corsi di atletica leggera giovanile, master, triathlon, running school, mamme che sport e nordic walking a Senago, Solaro e Limbiate nel Parco delle Groane.",
+      "foundingDate": "1978",
+      "taxID": "93010720150",
       "telephone": "+39-340-6274022",
       "email": "info@virtusgroane.com",
       "address": {
@@ -37,18 +44,126 @@
         "postalCode": "20030",
         "addressCountry": "IT"
       },
+      "leader": {
+        "@type": "Person",
+        "name": "Silvano Genesi",
+        "jobTitle": "Presidente"
+      },
+      "memberOf": [
+        {
+          "@type": "SportsOrganization",
+          "name": "FIDAL - Federazione Italiana di Atletica Leggera",
+          "url": "https://www.fidal.it/"
+        },
+        {
+          "@type": "SportsOrganization",
+          "name": "FITRI - Federazione Italiana Triathlon",
+          "url": "https://www.fitri.it/"
+        },
+        {
+          "@type": "SportsOrganization",
+          "name": "AICS - Associazione Italiana Cultura Sport",
+          "url": "https://www.aics.it/"
+        },
+        {
+          "@type": "SportsOrganization",
+          "name": "CONI - Comitato Olimpico Nazionale Italiano",
+          "url": "https://www.coni.it/"
+        }
+      ],
       "areaServed": [
-        "Senago",
-        "Solaro",
-        "Limbiate",
-        "Parco delle Groane"
+        {
+          "@type": "AdministrativeArea",
+          "name": "Senago"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Solaro"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Limbiate"
+        },
+        {
+          "@type": "Place",
+          "name": "Parco delle Groane"
+        }
+      ],
+      "location": [
+        {
+          "@type": "Place",
+          "name": "Centro Sportivo Comunale di Senago",
+          "description": "Impianto sportivo comunale con futura nuova pista di atletica a 6 corsie blu.",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Via Giovanni di Vittorio 2",
+            "addressLocality": "Senago",
+            "addressRegion": "MI",
+            "postalCode": "20030",
+            "addressCountry": "IT"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 45.570603,
+            "longitude": 9.126529
+          },
+          "hasMap": "https://www.google.com/maps/dir/?api=1&destination=45.57060335937907,9.126529230302417"
+        },
+        {
+          "@type": "Place",
+          "name": "Centro Sportivo Comunale di Solaro",
+          "description": "Impianto sportivo comunale con pista di atletica per corsi giovanili, master e sessioni tecniche.",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Corso Berlinguer 2",
+            "addressLocality": "Solaro",
+            "addressRegion": "MI",
+            "postalCode": "20020",
+            "addressCountry": "IT"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 45.610835,
+            "longitude": 9.077703
+          },
+          "hasMap": "https://www.google.com/maps/dir/?api=1&destination=45.61083455601392,9.077703220412346"
+        },
+        {
+          "@type": "Place",
+          "name": "Centro Sportivo Comunale di Limbiate",
+          "description": "Impianto sportivo comunale per sessioni di allenamento su pista.",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Via Leone Tolstoi 84",
+            "addressLocality": "Limbiate",
+            "addressRegion": "MB",
+            "postalCode": "20812",
+            "addressCountry": "IT"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 45.590946,
+            "longitude": 9.129508
+          },
+          "hasMap": "https://www.google.com/maps/dir/?api=1&destination=45.59094640366658,9.12950823511079"
+        }
       ],
       "sport": [
         "Atletica Leggera",
         "Triathlon",
+        "Duathlon",
         "Running",
         "Nordic Walking",
         "Fitness"
+      ],
+      "knowsAbout": [
+        "Atletica Leggera su Pista e Strada",
+        "Corsi di Atletica Giovanile per Bambini e Ragazzi",
+        "Triathlon e Nuoto-Bici-Corsa",
+        "Running School e Preparazione Podistica",
+        "Nordic Walking e Camminata Nordica",
+        "Fitness all'Aperto Mamme che Sport",
+        "Percorsi di Allenamento nel Parco delle Groane"
       ],
       "sameAs": [
         "https://www.facebook.com/virtusgroane",
