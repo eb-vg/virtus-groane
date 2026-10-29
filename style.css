@@ -687,12 +687,12 @@ section {
 }
 
 .article-content {
-    max-width: 800px;
+    max-width: 1040px;
     margin: 0 auto;
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: 16px;
-    padding: 3rem;
+    padding: 2.5rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -763,6 +763,104 @@ tr:last-child td {
 
 tr:hover td {
     background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* STRUTTURA TABELLA A DUE LIVELLI (Stile Cattura 2 - layout compatto con massima leggibilità) */
+.table-two-tier {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+    background-color: var(--bg-secondary);
+}
+
+.table-two-tier th,
+.table-two-tier td {
+    padding: 0.75rem 1rem;
+    border: none;
+    vertical-align: middle;
+    word-break: normal;
+    overflow-wrap: normal;
+}
+
+.table-two-tier thead th {
+    white-space: nowrap;
+}
+
+.table-two-tier tbody tr.details-row a {
+    white-space: nowrap;
+}
+
+/* Header Livello 1 (Titoli principali) */
+.table-two-tier thead tr:first-child th {
+    background-color: #0b0e14;
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    padding-top: 1rem;
+    padding-bottom: 0.75rem;
+}
+
+/* Header Livello 2 (Barra secondaria con evidenziazione verde) */
+.table-two-tier thead tr.sub-header th {
+    background-color: #222732;
+    color: #a3e635;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Righe Dati: Livello 1 (Dati primari: disciplina, destinatari, sedi) */
+.table-two-tier tbody tr.main-row td {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    padding-top: 0.9rem;
+    padding-bottom: 0.45rem;
+}
+
+.table-two-tier tbody tr.main-row td:first-child {
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* Righe Dati: Livello 2 (Dati secondari con fascia scura e testo evidenziato) */
+.table-two-tier tbody tr.details-row td {
+    background-color: #1a202c;
+    color: #a3e635;
+    font-size: 0.9rem;
+    padding-top: 0.45rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table-two-tier tbody tr.details-row a {
+    color: #a3e635;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: var(--transition-fast);
+}
+
+.table-two-tier tbody tr.details-row a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.table-two-tier tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-two-tier tbody tr.main-row:hover td,
+.table-two-tier tbody tr.details-row:hover td {
+    background-color: rgba(255, 255, 255, 0.06);
 }
 
 /* FORMS (Contact Form) */
@@ -973,6 +1071,123 @@ footer {
     }
     .section-header {
         margin-bottom: 2.5rem;
+    }
+
+    /* TRASFORMAZIONE TABELLA A DUE LIVELLI SU MOBILE (No scrollbar orizzontale) */
+    .table-responsive {
+        overflow-x: visible;
+        border: none;
+        background: transparent;
+        margin: 1.5rem 0;
+    }
+
+    .table-two-tier {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        background: transparent;
+    }
+
+    .table-two-tier thead {
+        display: none;
+    }
+
+    .table-two-tier tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        width: 100%;
+    }
+
+    .table-two-tier tbody tr.main-row {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-bottom: none;
+        border-radius: 12px 12px 0 0;
+        padding: 1rem 1rem 0.6rem 1rem;
+        width: 100%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .table-two-tier tbody tr.main-row td {
+        display: block;
+        padding: 0 0 0.4rem 0;
+        width: 100%;
+        white-space: normal;
+        border: none;
+    }
+
+    .table-two-tier tbody tr.main-row td:nth-child(1) {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #ffffff;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .table-two-tier tbody tr.main-row td:nth-child(2) {
+        font-size: 0.92rem;
+        color: var(--text-secondary);
+        line-height: 1.4;
+    }
+
+    .table-two-tier tbody tr.main-row td:nth-child(3) {
+        font-size: 0.92rem;
+        color: #ffffff;
+        font-weight: 500;
+        margin-top: 0.15rem;
+    }
+
+    .table-two-tier tbody tr.main-row td:nth-child(4) {
+        display: none;
+    }
+
+    .table-two-tier tbody tr.details-row {
+        display: flex;
+        flex-direction: column;
+        background-color: #1a202c;
+        border: 1px solid var(--border-color);
+        border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        border-radius: 0 0 12px 12px;
+        padding: 0.75rem 1rem 1rem 1rem;
+        width: 100%;
+        gap: 0.45rem;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    }
+
+    .table-two-tier tbody tr.details-row td {
+        display: block;
+        padding: 0;
+        width: 100%;
+        color: #a3e635;
+        font-size: 0.9rem;
+        white-space: normal;
+        border: none;
+    }
+
+    .table-two-tier tbody tr.details-row td:nth-child(1) {
+        display: none;
+    }
+
+    .table-two-tier tbody tr.details-row td:nth-child(4) {
+        margin-top: 0.5rem;
+        padding-top: 0.6rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        text-align: left;
+    }
+
+    .table-two-tier tbody tr.details-row a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        color: #a3e635;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-decoration: underline;
+        text-underline-offset: 3px;
     }
 }
 
