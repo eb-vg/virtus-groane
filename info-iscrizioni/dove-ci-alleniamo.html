@@ -15,18 +15,40 @@
     <meta property="og:image" content="https://www.virtusgroane.com/logo.png">
     <meta name="description" content="Le sedi di allenamento di Virtus Groane ASD a Senago, Solaro e Limbiate, Comuni presso cui siamo ufficialmente registrati come associazione sportiva.">
     
+    <!-- Geo Meta Tags (Geolocalizzazione & Local Search) -->
+    <meta name="geo.region" content="IT-MI">
+    <meta name="geo.placename" content="Senago, Solaro, Limbiate, Parco delle Groane">
+    <meta name="geo.position" content="45.570603;9.126529">
+    <meta name="ICBM" content="45.570603, 9.126529">
+    
     <!-- Dati Strutturati Schema.org (JSON-LD) - Sedi e Centri Sportivi -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ItemPage",
       "name": "Dove ci Alleniamo - Sedi e Centri Sportivi Virtus Groane ASD",
-      "description": "Sedi operative e centri sportivi comunali a Senago, Solaro e Limbiate dove Virtus Groane ASD svolge i corsi di atletica leggera, triathlon e fitness.",
+      "description": "Sedi operative e centri sportivi comunali a Senago, Solaro e Limbiate dove Virtus Groane ASD svolge i corsi di atletica leggera, triathlon e fitness nel Parco delle Groane.",
       "url": "https://www.virtusgroane.com/info-iscrizioni/dove-ci-alleniamo.html",
       "mainEntity": {
         "@type": "SportsClub",
         "name": "Virtus Groane ASD",
         "url": "https://www.virtusgroane.com/",
+        "areaServed": [
+          "Senago",
+          "Solaro",
+          "Limbiate",
+          "Cesate",
+          "Ceriano Laghetto",
+          "Garbagnate Milanese",
+          "Paderno Dugnano",
+          "Varedo",
+          "Bovisio Masciago",
+          "Cogliate",
+          "Lazzate",
+          "Misinto",
+          "Lentate sul Seveso",
+          "Parco delle Groane"
+        ],
         "location": [
           {
             "@type": "SportsActivityLocation",
@@ -94,6 +116,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
     <link rel="stylesheet" href="../style.css?v=1.1">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.css" type="text/css">
     <style>
         .leaflet-popup-content-wrapper, .leaflet-popup-tip {
             background-color: var(--bg-secondary) !important;
@@ -253,6 +276,95 @@
     </div>
 </div>
 
+<!-- SCHEDE DETTAGLIATE DEI TRE POLI SPORTIVI -->
+<h3 style="margin-top: 4rem; color: var(--color-blue-light);">Dotazioni e Discipline per Impianto</h3>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+    <!-- Polo Senago -->
+    <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.8rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+            <span style="font-size: 1.3rem;">🏗️</span>
+            <h4 style="margin: 0; color: #4da3ff; font-size: 1.2rem;">Senago (In Riqualificazione)</h4>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Via Giovanni di Vittorio, 2 - 20030 Senago (MI)</p>
+        <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
+            <li>• <strong>Futura pista:</strong> Nuovissimo anello a 6 corsie blu e pedane salti/lanci</li>
+            <li>• <strong>Discipline previste:</strong> Polo agonistico, gare provinciali/regionali, avviamento</li>
+            <li>• <strong>Servizi:</strong> Spogliatoi dedicati, tribuna spettatori e ampio parcheggio</li>
+            <li>• <strong>Stato attuale:</strong> Lavori in corso; corsi temporaneamente a Solaro e Limbiate</li>
+        </ul>
+    </div>
+
+    <!-- Polo Solaro -->
+    <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.8rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+            <span style="font-size: 1.3rem;">🏃</span>
+            <h4 style="margin: 0; color: var(--color-green-light); font-size: 1.2rem;">Solaro (Polo Corsi &amp; Master)</h4>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Corso Berlinguer, 2 - 20020 Solaro (MI)</p>
+        <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
+            <li>• <strong>Impianto:</strong> Pista di atletica leggera con rettilineo e curve regolamentari</li>
+            <li>• <strong>Corsi ospitati:</strong> Esordienti (Mar/Gio), Ragazzi/Cadetti (Mar/Gio), Master (Lun/Mer), Triathlon e Running School</li>
+            <li>• <strong>Plus geografico:</strong> Accesso diretto agli itinerari podistici del Parco delle Groane</li>
+            <li>• <strong>Servizi:</strong> Spogliatoi riscaldati con docce, parcheggio gratuito fronte ingresso</li>
+        </ul>
+    </div>
+
+    <!-- Polo Limbiate -->
+    <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.8rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+            <span style="font-size: 1.3rem;">⚡</span>
+            <h4 style="margin: 0; color: #4da3ff; font-size: 1.2rem;">Limbiate (Polo Giovanile &amp; Agonistico)</h4>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Via Leone Tolstoi, 84 - 20812 Limbiate (MB)</p>
+        <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
+            <li>• <strong>Impianto:</strong> Pista di atletica leggera completa e attrezzata</li>
+            <li>• <strong>Corsi ospitati:</strong> Gioco-Atletica 2019-2021, Esordienti, Ragazzi e Cadetti 3 gg/sett, Settore Assoluti e Mamme che Sport!</li>
+            <li>• <strong>Posizione:</strong> Baricentrico per Limbiate, Senago, Cesate, Varedo e Paderno Dugnano</li>
+            <li>• <strong>Servizi:</strong> Spogliatoi atleti, illuminazione serale per allenamenti invernali</li>
+        </ul>
+    </div>
+</div>
+
+<!-- SEZIONE GEO & BACINO TERRITORIALE DEI COMUNI SERVITI -->
+<h3 style="margin-top: 4.5rem; color: var(--color-blue-light);">Il Nostro Bacino Territoriale: Al Centro delle Groane tra Milano e Brianza</h3>
+<p>
+    Grazie alla collocazione strategica dei nostri impianti sportivi, <strong>Virtus Groane ASD</strong> è il punto di riferimento sportivo per le famiglie e gli appassionati di corsa e atletica residenti in tutti i comuni limitrofi nel raggio di 5-15 minuti:
+</p>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+    <div style="background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem;">
+        <h4 style="margin-top: 0; color: var(--color-green-light); font-size: 1.1rem;">📍 Asse Città Metropolitana di Milano</h4>
+        <p style="margin: 0.5rem 0 0; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
+            Comuni serviti direttamente a brevissima distanza:<br>
+            <strong>Senago</strong>, <strong>Solaro</strong>, <strong>Cesate</strong>, <strong>Garbagnate Milanese</strong>, <strong>Bollate</strong>, <strong>Paderno Dugnano</strong>. Moltissimi nostri iscritti provengono dalle scuole primarie e secondarie di questi comuni grazie alla vicinanza e ai comodi collegamenti viari.
+        </p>
+    </div>
+
+    <div style="background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem;">
+        <h4 style="margin-top: 0; color: var(--color-blue-light); font-size: 1.1rem;">📍 Asse Provincia di Monza e della Brianza</h4>
+        <p style="margin: 0.5rem 0 0; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
+            Comuni della Brianza Ovest collegati alle nostre piste:<br>
+            <strong>Limbiate</strong>, <strong>Varedo</strong>, <strong>Bovisio Masciago</strong>, <strong>Ceriano Laghetto</strong>, <strong>Cogliate</strong>, <strong>Lazzate</strong>, <strong>Misinto</strong>, <strong>Lentate sul Seveso</strong>. La continuità con la SP9, la SP44 e la rete ciclabile rende il raggiungimento dei campi agevole e rapido.
+        </p>
+    </div>
+</div>
+
+<!-- BOX AMBIENTALE: PARCO DELLE GROANE OUTDOOR -->
+<div style="background-color: var(--bg-secondary); border: 1px solid rgba(46, 204, 113, 0.3); border-radius: 12px; padding: 1.8rem; margin-top: 2.5rem;">
+    <h4 style="margin-top: 0; color: var(--color-green-light); font-size: 1.25rem;">🌲 Gli Allenamenti Outdoor nel Parco Naturale delle Groane</h4>
+    <p style="color: var(--text-primary); line-height: 1.6; font-size: 0.95rem; margin-bottom: 0.8rem;">
+        Oltre all'attività tecnica e alle gare su pista, il nostro territorio offre una risorsa inestimabile: la rete di percorsi sterrati, piste ciclopedonali e brughiere all'interno del <strong>Parco Regionale delle Groane</strong>.
+    </p>
+    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem; margin-bottom: 0;">
+        Questo ambiente naturale protetto è il teatro ideale per le sessioni domenicali della nostra <strong>Running School</strong>, per le lunghe sessioni di camminata con i bastoncini del <strong>Nordic Walking</strong> e per la frazione podistica e ciclistica della nostra sezione <strong>Triathlon</strong>. Unire lo sport all'aria pura e al verde è parte fondamentale dell'identità Virtus Groane ASD.
+    </p>
+</div>
+
+<!-- BOX DISAMBIGUAZIONE GEOGRAFICA PER GLI LLM -->
+<div style="background: rgba(43, 122, 210, 0.08); border-left: 4px solid var(--color-blue-light); border-radius: 6px; padding: 1.2rem; margin-top: 2rem; font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);">
+    <strong style="color: white;">ℹ️ Posizionamento Geografico Ufficiale:</strong> Virtus Groane ASD opera sull'asse nord-occidentale dell'area metropolitana di Milano e della Brianza occidentale (CAP 20030, 20020, 20812). Per qualsiasi informazione logistica o per concordare una prova nella sede più vicina alla vostra abitazione, scriveteci a <a href="mailto:info@virtusgroane.com" style="color: #4da3ff; text-decoration: underline;">info@virtusgroane.com</a> o contattateci su WhatsApp al <a href="https://wa.me/393406274022" target="_blank" rel="noopener noreferrer" style="color: var(--color-green-light); text-decoration: underline;">+39 340 6274022</a>.
+</div>
+
             </div>
         </div>
     </section>
@@ -287,13 +399,19 @@
         </div>
     </footer>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.js"></script>
     <script>
-        var map = L.map('map').setView([45.5908, 9.1112], 12);
+        var map = L.map('map', {
+            center: [45.5908, 9.1112],
+            zoom: 12,
+            gestureHandling: true
+        });
         
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
             maxZoom: 19,
-            attribution: '© OpenStreetMap'
+            attribution: 'Tiles &copy; <a href="https://www.esri.com/" target="_blank" rel="noopener">Esri</a> &mdash; Esri, DeLorme, NAVTEQ, TomTom'
         }).addTo(map);
+
         
         L.marker([45.57060335937907, 9.126529230302417]).addTo(map)
             .bindPopup('<b>Centro Sportivo Comunale di Senago</b><br>Via Giovanni di Vittorio, 2<br><br><a href="https://www.google.com/maps/dir/?api=1&destination=45.57060335937907,9.126529230302417" target="_blank" rel="noopener noreferrer">Apri Navigatore &rarr;</a>');
