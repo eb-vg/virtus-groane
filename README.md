@@ -874,64 +874,11 @@ All'edizione 2026 di Saronno, Virtus Groane partecipa schierando i propri atleti
 
 ##### Podisti per Caso
 *Un gruppo di amici capitanato dal carismatico Massimiliano Melegari, che Virtus Groane ringrazia calorosamente per la passione e lo spirito organizzativo.*
-
-| Orario | Atleta Staffettista |
-| :--- | :--- |
-| **10-11** | Andrea Soffientini |
-| **11-12** | Cristina Cozzi |
-| **12-13** | Alessia Brignoli |
-| **13-14** | Simone Roverato |
-| **14-15** | Antonio Ligori |
-| **15-16** | Linda Pollini |
-| **16-17** | Michael Bretterbauer |
-| **17-18** | Costantino Ruggiero |
-| **18-19** | Enzo Capacchione |
-| **19-20** | Angela Paviera |
-| **20-21** | Vincenzo Lamanna |
-| **21-22** | Diego Lamanna |
-| **22-23** | Giampiero Poggi |
-| **23-00** | Marco Lanzanova |
-| **00-01** | Simone Borgonovo |
-| **01-02** | Jacopla Moracci |
-| **02-03** | Nadia Gallo |
-| **03-04** | Davide Gentili |
-| **04-05** | Silvano Genesi |
-| **05-06** | Maurizio Lanzini |
-| **06-07** | Barbara Nebuloni |
-| **07-08** | Paolo Corsini |
-| **08-09** | Fernando Salimbeni |
-| **09-10** | Raffaella Preatoni |
+Ventiquattro atleti si sono alternati in pista ora dopo ora, coprendo il turno completo delle 24 ore con grandissimo entusiasmo e spirito di squadra.
 
 ##### Team Edil.D
 *"Da qualche anno partecipiamo a questo evento e non potremmo essere più entusiasti! È un momento speciale che amiamo profondamente e che ci offre l'opportunità di correre, divertirci e creare ricordi indimenticabili insieme."*
-
-| Orario | Atleta Staffettista |
-| :--- | :--- |
-| **10-11** | Valentina Isa Borsani |
-| **11-12** | Bruno Demasi |
-| **12-13** | Antonino Filetti |
-| **13-14** | Gennarino Cipriano |
-| **14-15** | Stefano Airoldi |
-| **15-16** | Fabio Mazzolini |
-| **16-17** | Elena Carnevale |
-| **17-18** | Tony Altomare |
-| **18-19** | Daniele Demasi |
-| **19-20** | Nadia Bonacci |
-| **20-21** | Marius Timis |
-| **21-22** | Gianluca Battista |
-| **22-23** | Emiliano Ceraulo |
-| **23-00** | Gabriele Bulgherini |
-| **00-01** | Lorenzo Ferraioli |
-| **01-02** | Fabio Ruggiero |
-| **02-03** | Lorenzo Guzzetti |
-| **03-04** | Emiliano Bina |
-| **04-05** | Luigi Versace |
-| **05-06** | Claudio Quartu |
-| **06-07** | Francesco Laratta |
-| **07-08** | Anna Gianfreda |
-| **08-09** | Cristina Turri |
-| **09-10** | Angela Aiola |
-
+Una seconda formazione affiatata che ha animato la notte e il giorno della staffetta saronnese con altri 24 atleti e sostenitori societari.
 
 ### Eventi Organizzati da Noi: E...state Correndo e Fametta Run
 
@@ -1047,11 +994,11 @@ Ringraziamo di cuore le aziende e le realtà commerciali che ci hanno sostenuto 
 Puoi sostenere Virtus Groane ASD a costo zero destinando il 5x1000 della tua dichiarazione dei redditi (730, Modello Redditi / Unico).
 
 **Codice Fiscale Virtus Groane ASD:**
-`93010720150`
+`04577740964`
 
 #### Come fare:
 1. Nel tuo modulo di dichiarazione dei redditi, individua la sezione *"Sostegno alle associazioni sportive dilettantistiche iscritte al registro nazionale delle attività sportive dilettantistiche"*.
-2. Inserisci il Codice Fiscale **93010720150**.
+2. Inserisci il Codice Fiscale **04577740964**.
 3. Apponi la tua firma.
 
 *I fondi raccolti tramite il 5x1000 vengono interamente destinati all'acquisto di attrezzature per i corsi giovanili e al mantenimento di quote sociali contenute.*
