@@ -1521,4 +1521,29 @@ footer {
     }
 }
 
+/* ==========================================================================
+   Accessibilità (A11y): Skip Link
+   ========================================================================== */
+.skip-link {
+    position: absolute;
+    top: -999px;
+    left: 1rem;
+    background-color: var(--color-blue);
+    color: #ffffff !important;
+    padding: 0.8rem 1.4rem;
+    z-index: 10001;
+    border-radius: 6px;
+    font-weight: 700;
+    font-family: var(--font-title, sans-serif);
+    text-decoration: none !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    transition: top 0.2s ease-in-out;
+}
+
+.skip-link:focus {
+    top: 1rem;
+    outline: 3px solid var(--color-green-light);
+}
+
+
 

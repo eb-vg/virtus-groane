@@ -23,8 +23,85 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
     <link rel="stylesheet" href="../style.css?v=1.1">
+
+    <!-- Dati Strutturati Schema.org (BreadcrumbList) -->
+    <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.virtusgroane.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Società ed Eventi",
+      "item": "https://www.virtusgroane.com/societa-ed-eventi.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Prova l'Atletica",
+      "item": "https://www.virtusgroane.com/societa-ed-eventi/prova-l-atletica.html"
+    }
+  ]
+}
+    </script>
+
+    <!-- Dati Strutturati Schema.org (SportsEvent) -->
+    <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "SportsEvent",
+  "name": "Open Day - Prova l'Atletica con Virtus Groane",
+  "description": "Sessioni di prova gratuita di atletica leggera in pista per bambini e ragazzi con i tecnici qualificati FIDAL di Virtus Groane ASD.",
+  "url": "https://www.virtusgroane.com/societa-ed-eventi/prova-l-atletica.html",
+  "sport": "Track and Field",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "isAccessibleForFree": true,
+  "location": [
+    {
+      "@type": "Place",
+      "name": "Centro Sportivo Comunale di Solaro",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Corso Berlinguer 2",
+        "addressLocality": "Solaro",
+        "addressRegion": "MI",
+        "postalCode": "20020",
+        "addressCountry": "IT"
+      }
+    },
+    {
+      "@type": "Place",
+      "name": "Centro Sportivo Comunale di Limbiate",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Via Leone Tolstoi 84",
+        "addressLocality": "Limbiate",
+        "addressRegion": "MB",
+        "postalCode": "20812",
+        "addressCountry": "IT"
+      }
+    }
+  ],
+  "organizer": {
+    "@type": "SportsOrganization",
+    "name": "Virtus Groane ASD",
+    "url": "https://www.virtusgroane.com/"
+  }
+}
+    </script>
 </head>
 <body>
+    <!-- Accessibilità (A11y): Skip Link -->
+    <a href="#main-content" class="skip-link">Salta al contenuto principale</a>
+
     <header style="background-color: var(--bg-secondary); border-bottom: 1px solid var(--border-color);">
         <div class="container nav-container">
             <a href="../index.html" class="logo-link">
@@ -32,8 +109,8 @@
                 <div class="logo-placeholder" style="display:none;">VG</div>
             </a>
             
-            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
-            <label for="menu-toggle" class="menu-toggle-label">
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox" aria-label="Menu di navigazione">
+            <label for="menu-toggle" class="menu-toggle-label" aria-label="Apri o chiudi il menu di navigazione" role="button" tabindex="0">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -111,7 +188,7 @@
         </div>
     </header>
 
-    <section class="page-hero">
+    <section id="main-content" class="page-hero">
         <div class="container">
             <h1><a href="../societa-ed-eventi.html" class="parent-link">Società ed Eventi</a> <span class="parent-separator">/</span> Prova l'Atletica</h1>
         </div>

@@ -24,8 +24,33 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=1.2">
+
+    <!-- Dati Strutturati Schema.org (BreadcrumbList) -->
+    <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.virtusgroane.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Privacy & Cookie Policy",
+      "item": "https://www.virtusgroane.com/privacy-policy.html"
+    }
+  ]
+}
+    </script>
 </head>
 <body>
+    <!-- Accessibilità (A11y): Skip Link -->
+    <a href="#main-content" class="skip-link">Salta al contenuto principale</a>
+
 
     <!-- HEADER / NAVIGATION -->
     <header>
@@ -35,8 +60,8 @@
                 <div class="logo-placeholder" style="display:none;">VG</div>
             </a>
             
-            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
-            <label for="menu-toggle" class="menu-toggle-label">
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox" aria-label="Menu di navigazione">
+            <label for="menu-toggle" class="menu-toggle-label" aria-label="Apri o chiudi il menu di navigazione" role="button" tabindex="0">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -115,7 +140,7 @@
     </header>
 
     <!-- MAIN CONTENT -->
-    <section class="section" style="padding-top: 3rem; padding-bottom: 5rem;">
+    <section id="main-content" class="section" style="padding-top: 3rem; padding-bottom: 5rem;">
         <div class="container">
             <div class="article-content" style="max-width: 860px; margin: 0 auto; line-height: 1.7;">
 
