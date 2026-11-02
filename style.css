@@ -1541,7 +1541,8 @@ footer {
 }
 
 .skip-link:focus {
-    top: 1rem;
+    top: 1rem !important;
+    left: 1rem !important;
     outline: 3px solid var(--color-green-light);
 }
 
