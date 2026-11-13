@@ -10,6 +10,8 @@
 /*.csv /404.html 404!
 /data/*.xlsx /404.html 404!
 /data/*.csv /404.html 404!
+/data/google-apps-script-code.js /404.html 404!
+/serve.js /404.html 404!
 
 # ------------------------------------------------------------------------------
 # 2. Redirect 301 dai percorsi del vecchio sito Wix al nuovo sito

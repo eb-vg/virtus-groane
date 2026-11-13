@@ -4,6 +4,9 @@ virtus-non-pubblico/
 # Esclusione di sicurezza per file di calcolo e dati riservati
 *.xlsx
 *.csv
+# File e script di sviluppo locale
+serve.js
+data/google-apps-script-code.js
 .env
 .DS_Store
 Thumbs.db

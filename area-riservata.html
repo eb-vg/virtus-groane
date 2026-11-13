@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Riservata Staff - Gestione Ordini & Magazzino - Virtus Groane ASD</title>
+    <!-- Privacy & Sicurezza: Esclusione assoluta dai motori di ricerca -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <link rel="canonical" href="https://www.virtusgroane.com/area-riservata.html">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <!-- Google Identity Services SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Font Ufficiali & Foglio di Stile -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=1.3">
+
+    <style>
+        /* ==================================================================== */
+        /* STILI DEDICATI GESTIONALE AREA RISERVATA */
+        /* ==================================================================== */
+        .auth-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            max-width: 540px;
+            margin: 2rem auto;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .auth-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(36, 178, 103, 0.15);
+            border: 1px solid var(--color-green);
+            color: var(--color-green-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .user-panel-bar {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.2rem 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--color-green);
+            object-fit: cover;
+            background: var(--bg-tertiary);
+        }
+
+        .user-details h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            color: white;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .user-details p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--color-green-light);
+        }
+
+        /* Selettore rapido ruoli (per test e simulazione) */
+        .role-tester-bar {
+            background: rgba(43, 122, 210, 0.1);
+            border: 1px dashed rgba(43, 122, 210, 0.35);
+            border-radius: 8px;
+            padding: 0.9rem 1.2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            font-size: 0.88rem;
+        }
+
+        .role-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .role-btn:hover, .role-btn.active {
+            background: var(--color-blue);
+            color: white;
+            border-color: var(--color-blue-light);
+        }
+
+        /* Sezioni e Tabelle Operative */
+        .workflow-section {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .workflow-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .workflow-title {
+            margin: 0;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: white;
+        }
+
+        .workflow-subtitle {
+            margin: 0.3rem 0 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+
+        .orders-table th {
+            background-color: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-family: var(--font-title);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.8rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        .orders-table td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+
+        .orders-table tr:hover td {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Badge di stato */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-gray { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
+        .badge-yellow { background: rgba(255, 209, 0, 0.15); color: #ffd100; border: 1px solid rgba(255, 209, 0, 0.3); }
+        .badge-blue { background: rgba(43, 122, 210, 0.15); color: #4da3ff; border: 1px solid rgba(43, 122, 210, 0.3); }
+        .badge-green { background: rgba(46, 204, 113, 0.15); color: var(--color-green-light); border: 1px solid rgba(46, 204, 113, 0.3); }
+
+        /* Bottoni Azione Tabella */
+        .btn-table-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.45rem 0.85rem;
+            border-radius: 6px;
+            font-family: var(--font-title);
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .btn-table-action:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .btn-da-ordinare { background: #34495e; color: #fff; }
+        .btn-da-ordinare:hover:not(:disabled) { background: #4a627a; }
+
+        .btn-ordinato { background: #1b589b; color: #fff; }
+        .btn-ordinato:hover:not(:disabled) { background: #2b7ad2; }
+
+        .btn-in-virtus { background: #d35400; color: #fff; }
+        .btn-in-virtus:hover:not(:disabled) { background: #e67e22; }
+
+        .btn-pagato { background: #27ae60; color: #fff; }
+        .btn-pagato:hover:not(:disabled) { background: #2ecc71; }
+
+        .btn-consegnato { background: #24b267; color: #fff; }
+        .btn-consegnato:hover:not(:disabled) { background: #2ecc71; }
+
+        /* Finestra Modale Popup */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 1.5rem;
+        }
+
+        .modal-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            max-width: 500px;
+            width: 100%;
+            padding: 2rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        .modal-box h3 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            color: white;
+        }
+
+        .modal-input-group {
+            margin: 1.2rem 0;
+        }
+
+        .modal-input-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .modal-input-group input, .modal-input-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: white;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Notifiche Toast in tempo reale */
+        .toast-notification {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--bg-tertiary);
+            border-left: 4px solid var(--color-green);
+            color: white;
+            padding: 1rem 1.4rem;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 3000;
+            max-width: 400px;
+            font-size: 0.92rem;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: var(--text-muted);
+        }
+
+        .empty-state span {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Accessibilità: Skip Link -->
+    <a href="#main-content" class="skip-link" style="position: absolute; top: -9999px; left: -9999px;">Salta al contenuto principale</a>
+
+    <!-- HEADER / NAVIGATION -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo-link">
+                <img src="logo.webp" alt="Virtus Groane ASD" class="logo-img"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="logo-placeholder" style="display:none;">VG</div>
+            </a>
+
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox" aria-label="Menu di navigazione">
+            <label for="menu-toggle" class="menu-toggle-label" aria-label="Apri o chiudi il menu di navigazione" role="button" tabindex="0">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="virtus.html">Chi Siamo</a></li>
+                    <li class="nav-item"><a href="info-iscrizioni.html">Info-Iscrizioni</a></li>
+                    <li class="nav-item"><a href="abbigliamento.html">Abbigliamento</a></li>
+                    <li class="nav-item"><a href="societa-ed-eventi.html">Società ed Eventi</a></li>
+                    <li class="nav-item"><a href="contatti.html">Contatti</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section id="main-content" class="page-hero">
+        <div class="container">
+            <h1><a href="index.html" class="parent-link">Home</a> <span class="parent-separator">/</span> Gestione Ordini & Magazzino</h1>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem;">Piattaforma operativa interna Virtus Groane ASD &bull; Sincronizzata in tempo reale con il foglio <strong>GestioneAutomatizzata</strong></p>
+        </div>
+    </section>
+
+    <!-- CONTENUTO PRINCIPALE -->
+    <section class="internal-layout" style="padding: 2.5rem 0 5rem;">
+        <div class="container">
+
+            <!-- ============================================================== -->
+            <!-- STATO 1: NON AUTENTICATO (LOGIN FORM) -->
+            <!-- ============================================================== -->
+            <div id="login-container">
+                <div class="auth-card">
+                    <div class="auth-badge">
+                        🔒 Portale Interno Virtus Groane
+                    </div>
+                    <h2 style="font-size: 1.8rem; margin-bottom: 0.8rem;">Accesso Riservato Staff</h2>
+                    <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 2rem;">
+                        Accedi con il tuo account istituzionale <strong>@virtusgroane.com</strong> per gestire ordini, pagamenti e consegne.
+                    </p>
+
+                    <!-- Alert di errore -->
+                    <div id="login-error-alert" style="display:none; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #fca5a5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: left;">
+                        <strong>❌ Accesso Negato:</strong>
+                        <div id="login-error-message" style="margin-top: 0.3rem;"></div>
+                    </div>
+
+                    <!-- Pulsante Ufficiale Google Sign-In -->
+                    <div id="google-btn-wrapper" style="display: flex; justify-content: center; min-height: 48px; margin-bottom: 1rem;">
+                        <div id="g_id_signin_button"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- STATO 2: AUTENTICATO (DASHBOARD RUOLI) -->
+            <!-- ============================================================== -->
+            <div id="dashboard-container" style="display: none;">
+
+                <!-- Barra Profilo Utente -->
+                <div class="user-panel-bar">
+                    <div class="user-info">
+                        <img id="user-avatar-img" class="user-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232ecc71'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" alt="Avatar">
+                        <div class="user-details">
+                            <h3 id="user-display-name">Nome Utente</h3>
+                            <p id="user-display-email">email@virtusgroane.com</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
+                        <button type="button" id="btn-refresh" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;" title="Ricarica i dati dal Foglio Google">
+                            🔄 Aggiorna Dati
+                        </button>
+                        <button type="button" id="btn-logout" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                            Esci
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Barra Cambia Ruolo per Super Admin (Emiliano / Silvano) -->
+                <div id="admin-role-switcher" class="role-tester-bar" style="display:none;">
+                    <strong style="color: #4da3ff;">👑 Vista Amministratore (Vedi tutto):</strong>
+                    <span>Filtra visuale come:</span>
+                    <button type="button" class="role-btn active" onclick="switchFilterView('all')">Tutto (Panoramica Completa)</button>
+                    <button type="button" class="role-btn" onclick="switchFilterView('marco')">Solo Ordini (Marco)</button>
+                    <button type="button" class="role-btn" onclick="switchFilterView('teresa')">Solo Pagamenti (Teresa)</button>
+                    <button type="button" class="role-btn" onclick="switchFilterView('fattorini')">Solo Consegne (Fattorini)</button>
+                </div>
+
+                <!-- Stato di caricamento dati -->
+                <div id="data-loading-indicator" style="text-align: center; padding: 2rem 0; color: var(--color-blue-light); display: none;">
+                    <p style="font-size: 1.1rem; margin: 0;">⏳ Sincronizzazione con il foglio Google in corso...</p>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- SEZIONE 1: MARCO LOCATELLI (GESTIONE ORDINI & MAGAZZINO) -->
+                <!-- ========================================================== -->
+                <div id="section-marco" class="workflow-section" style="display: none;">
+                    <div class="workflow-header">
+                        <div>
+                            <h2 class="workflow-title">📦 Gestione Ordini & Magazzino</h2>
+                            <p class="workflow-subtitle">Competenza: <strong>Marco Locatelli</strong> &bull; Aggiorna lo stato di avanzamento e notifica il tesserato via email.</p>
+                        </div>
+                        <span id="badge-count-marco" class="status-badge badge-blue">0 Ordini Totali</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tesserato</th>
+                                    <th>Capo & Taglia</th>
+                                    <th>Giacenza</th>
+                                    <th>Stato Attuale</th>
+                                    <th style="text-align: right;">Azioni Marco</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-marco">
+                                <!-- Popolato via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- SEZIONE 2: TERESA MARCHESE (VERIFICA BONIFICI & PAGAMENTI) -->
+                <!-- ========================================================== -->
+                <div id="section-teresa" class="workflow-section" style="display: none;">
+                    <div class="workflow-header">
+                        <div>
+                            <h2 class="workflow-title">💶 Verifica Pagamenti & Assegnazione Consegna</h2>
+                            <p class="workflow-subtitle">Competenza: <strong>Teresa Marchese</strong> &bull; Capi arrivati "In Virtus": verifica l'accredito del bonifico e assegna il fattorino.</p>
+                        </div>
+                        <span id="badge-count-teresa" class="status-badge badge-yellow">0 In Attesa Pagamento</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tesserato</th>
+                                    <th>Capo & Taglia</th>
+                                    <th>Importo da Versare</th>
+                                    <th>Stato Pagamento</th>
+                                    <th style="text-align: right;">Azione Teresa</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-teresa">
+                                <!-- Popolato via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- SEZIONE 3: FATTORINI (CONSEGNE AL CAMPO) -->
+                <!-- ========================================================== -->
+                <div id="section-fattorini" class="workflow-section" style="display: none;">
+                    <div class="workflow-header">
+                        <div>
+                            <h2 class="workflow-title">🚴 Consegne Materiale Assegnate</h2>
+                            <p class="workflow-subtitle">Competenza: <strong>Fattorini (Marc, Luigi, Linda)</strong> &bull; Capi pagati e pronti per essere consegnati ai tesserati.</p>
+                        </div>
+                        <span id="badge-count-fattorini" class="status-badge badge-green">0 Da Consegnare</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tesserato</th>
+                                    <th>Capo & Taglia</th>
+                                    <th>Fattorino Incaricato</th>
+                                    <th>Stato Consegna</th>
+                                    <th style="text-align: right;">Azione Fattorino</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-fattorini">
+                                <!-- Popolato via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- SEZIONE 4: PANORAMICA GENERALE (SOLO PER ADMIN) -->
+                <!-- ========================================================== -->
+                <div id="section-all" class="workflow-section" style="display: none; border-color: rgba(43, 122, 210, 0.4);">
+                    <div class="workflow-header">
+                        <div>
+                            <h2 class="workflow-title" style="color: #4da3ff;">📋 Master View: Tutti gli Ordini del Foglio</h2>
+                            <p class="workflow-subtitle">Riepilogo completo di tutte le 13 colonne della scheda <strong>Ordini</strong>.</p>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tesserato</th>
+                                    <th>Capo Ordinato</th>
+                                    <th>Taglia</th>
+                                    <th>Da Ordinare</th>
+                                    <th>Ordinato</th>
+                                    <th>In Virtus</th>
+                                    <th>Importo</th>
+                                    <th>Pagato</th>
+                                    <th>Fattorino</th>
+                                    <th>Consegnato</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-all">
+                                <!-- Popolato via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- MODALI POPUP INTERATTIVE -->
+    <!-- ============================================================== -->
+
+    <!-- Modal 1: Inserimento Importo (Marco Locatelli - In Virtus) -->
+    <div id="modal-importo" class="modal-overlay">
+        <div class="modal-box">
+            <h3>🏢 Capo Arrivato "In Virtus"</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem;">
+                Inserisci l'importo in Euro da comunicare al tesserato per il bonifico. Verrà inviata una mail a <strong id="modal-tesserato-name"></strong> e a <strong>Teresa Marchese</strong> con la causale generata automaticamente.
+            </p>
+            <div class="modal-input-group">
+                <label for="input-importo-euro"><strong>Importo in Euro (€):</strong></label>
+                <input type="number" id="input-importo-euro" min="1" step="0.5" placeholder="Es: 22" required>
+            </div>
+            <div style="background: rgba(43, 122, 210, 0.1); border: 1px solid rgba(43, 122, 210, 0.3); border-radius: 6px; padding: 0.8rem; font-size: 0.85rem; color: #4da3ff;">
+                <strong>Causale Bonifico generata:</strong><br>
+                <code id="modal-causale-preview">Nome - Capo - Importo€</code>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('modal-importo')" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Annulla</button>
+                <button type="button" id="btn-confirm-in-virtus" class="btn btn-primary" style="padding: 0.5rem 1.2rem; font-size: 0.9rem;">Conferma & Invia Email</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Selezione Fattorino (Teresa Marchese - Pagato) -->
+    <div id="modal-fattorino" class="modal-overlay">
+        <div class="modal-box">
+            <h3>💶 Conferma Pagamento & Consegna</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem;">
+                Conferma che il bonifico di <strong id="modal-pagato-importo"></strong> è stato ricevuto per l'ordine di <strong id="modal-pagato-name"></strong>. Seleziona il fattorino incaricato della consegna:
+            </p>
+            <div class="modal-input-group">
+                <label for="select-fattorino"><strong>Fattorino Incaricato:</strong></label>
+                <select id="select-fattorino">
+                    <option value="marc.cassini@virtusgroane.com">Marc Cassini (marc.cassini@virtusgroane.com)</option>
+                    <option value="luigi.versace@virtusgroane.com">Luigi Versace (luigi.versace@virtusgroane.com)</option>
+                    <option value="linda.pollini@virtusgroane.com">Linda Pollini (linda.pollini@virtusgroane.com)</option>
+                </select>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+                ℹ️ Verranno inviate automaticamente due email: una al tesserato con il nome del fattorino, e una al fattorino con i dettagli del capo da consegnare.
+            </p>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('modal-fattorino')" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Annulla</button>
+                <button type="button" id="btn-confirm-pagato" class="btn btn-primary" style="background: var(--color-green); border-color: var(--color-green); padding: 0.5rem 1.2rem; font-size: 0.9rem;">Conferma Pagamento & Assegna</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifica Flottante -->
+    <div id="toast-notification" class="toast-notification"></div>
+
+    <!-- FOOTER CONDIVISO -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 style="color: white; letter-spacing: 0.05em;"><a href="virtus.html">VIRTUS GROANE ASD</a></h3>
+                    <p>Associazione Sportiva Dilettantistica affiliata FIDAL, FITRI e AICS. Promuoviamo lo sport giovanile, amatoriale ed agonistico a nord-ovest di Milano, nel territorio del Parco delle Groane (Senago, Solaro e Limbiate).</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Navigazione</h4>
+                    <ul class="footer-links">
+                        <li><a href="virtus.html">Virtus</a></li>
+                        <li><a href="info-iscrizioni.html">Info-Iscrizioni</a></li>
+                        <li><a href="abbigliamento.html">Abbigliamento</a></li>
+                        <li><a href="societa-ed-eventi.html">Società ed Eventi</a></li>
+                        <li><a href="contatti.html">Contatti</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Sostienici</h4>
+                    <ul class="footer-links">
+                        <li><a href="sostieni-virtus/5x1000.html">5x1000 (CF 04577740964)</a></li>
+                        <li><a href="virtus/associarsi.html">Diventa Socio ASD</a></li>
+                        <li><a href="sostieni-virtus.html">Diventa Sponsor</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Virtus Groane ASD. Tutti i diritti riservati. CF e P.IVA: 04577740964 &bull; <a href="privacy-policy.html" style="color: var(--text-muted); text-decoration: underline;">Privacy &amp; Cookie Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT GESTIONALE -->
+    <script>
+        // =====================================================================
+        // CONFIGURAZIONE APPLICATIVO & ENDPOINT
+        // =====================================================================
+        const DOMINIO_AUTORIZZATO = 'virtusgroane.com';
+        const SPREADSHEET_ID = '1OUMiHO_HW2l5BXiNFjUMFdRgw5scxhJ6FQX1CV_xWtU';
+        
+        // Google OAuth Client ID ufficiale
+        const GOOGLE_CLIENT_ID = '430736319015-ogb4t5t2tkn4r5nn3mgnn7pelbqmgiea.apps.googleusercontent.com';
+
+        // URL Ufficiale della Web App Google Apps Script
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyDBL59DZLcAfoFYEfuyRKfcRR1dBLUGNfm-UXKT6lisfi3tL7Xjxa596Hfs1zJ9zVRDA/exec';
+
+        // Super Admin che vedono tutte le tabelle
+        const SUPER_ADMINS = [
+            'emiliano.bina@virtusgroane.com',
+            'silvano.genesi@virtusgroane.com'
+        ];
+
+        // Mappa fattorini
+        const FATTORINI_MAP = {
+            'marc.cassini@virtusgroane.com': 'Marc Cassini',
+            'luigi.versace@virtusgroane.com': 'Luigi Versace',
+            'linda.pollini@virtusgroane.com': 'Linda Pollini'
+        };
+
+        // Stato applicativo
+        let currentUser = null;
+        let allOrders = [];
+        let activeAdminFilter = 'all';
+
+        // Variabili d'appoggio per modali
+        let pendingActionRow = null;
+
+        // Elementi DOM principali
+        const loginContainer = document.getElementById('login-container');
+        const dashboardContainer = document.getElementById('dashboard-container');
+        const loginErrorAlert = document.getElementById('login-error-alert');
+        const loginErrorMessage = document.getElementById('login-error-message');
+        const userDisplayName = document.getElementById('user-display-name');
+        const userDisplayEmail = document.getElementById('user-display-email');
+        const userAvatarImg = document.getElementById('user-avatar-img');
+        const adminRoleSwitcher = document.getElementById('admin-role-switcher');
+        const dataLoadingIndicator = document.getElementById('data-loading-indicator');
+        const btnRefresh = document.getElementById('btn-refresh');
+        const btnLogout = document.getElementById('btn-logout');
+
+        // Sezioni
+        const sectionMarco = document.getElementById('section-marco');
+        const sectionTeresa = document.getElementById('section-teresa');
+        const sectionFattorini = document.getElementById('section-fattorini');
+        const sectionAll = document.getElementById('section-all');
+
+        // =====================================================================
+        // AUTENTICAZIONE GOOGLE IDENTITY SERVICES
+        // =====================================================================
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+                return JSON.parse(jsonPayload);
+            } catch (err) {
+                return null;
+            }
+        }
+
+        window.handleCredentialResponse = function(response) {
+            loginErrorAlert.style.display = 'none';
+            const payload = parseJwt(response.credential);
+            if (!payload || !payload.email) {
+                showLoginError("Impossibile verificare l'account Google.");
+                return;
+            }
+
+            const email = payload.email.toLowerCase();
+            const emailDomain = email.split('@')[1] || '';
+
+            if (emailDomain === DOMINIO_AUTORIZZATO) {
+                loginSuccess({
+                    name: payload.name || email,
+                    email: email,
+                    picture: payload.picture || '',
+                    idToken: response.credential
+                });
+            } else {
+                showLoginError(`L'account <strong>${email}</strong> non è autorizzato. Accesso riservato esclusivamente a <strong>@${DOMINIO_AUTORIZZATO}</strong>.`);
+            }
+        };
+
+        function showLoginError(msg) {
+            loginErrorMessage.innerHTML = msg;
+            loginErrorAlert.style.display = 'block';
+        }
+
+        function simulateLogin(email, name) {
+            loginSuccess({
+                name: name,
+                email: email,
+                picture: '',
+                idToken: 'simulated-token'
+            });
+        }
+
+        function loginSuccess(user) {
+            currentUser = user;
+            sessionStorage.setItem('vg_staff_user', JSON.stringify(user));
+
+            userDisplayName.textContent = user.name;
+            userDisplayEmail.textContent = user.email;
+            if (user.picture) userAvatarImg.src = user.picture;
+
+            loginContainer.style.display = 'none';
+            dashboardContainer.style.display = 'block';
+
+            // Mostra selettore viste se Super Admin
+            const isSuperAdmin = SUPER_ADMINS.includes(user.email);
+            adminRoleSwitcher.style.display = isSuperAdmin ? 'flex' : 'none';
+
+            // Carica dati dal foglio
+            fetchOrdersFromSheet();
+        }
+
+        function logout() {
+            currentUser = null;
+            sessionStorage.removeItem('vg_staff_user');
+            loginContainer.style.display = 'block';
+            dashboardContainer.style.display = 'none';
+        }
+
+        btnLogout.addEventListener('click', logout);
+        btnRefresh.addEventListener('click', fetchOrdersFromSheet);
+
+        // =====================================================================
+        // CARICAMENTO DATI DAL FOGLIO GOOGLE (GViz API in tempo reale)
+        // =====================================================================
+        async function fetchOrdersFromSheet() {
+            dataLoadingIndicator.style.display = 'block';
+            btnRefresh.disabled = true;
+
+            const gvizUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=Ordini&t=${Date.now()}`;
+
+            try {
+                const response = await fetch(gvizUrl);
+                const text = await response.text();
+                // Estrae il JSON avvolto da google.visualization.Query.setResponse(...)
+                const jsonStr = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+                const data = JSON.parse(jsonStr);
+
+                const rows = data.table.rows || [];
+                allOrders = rows.map((r, idx) => {
+                    const c = r.c || [];
+                    const getVal = (i) => c[i] ? (c[i].f !== undefined ? c[i].f : c[i].v) : '';
+                    const getBool = (i) => c[i] ? (c[i].v === true || String(c[i].v).toUpperCase() === 'TRUE') : false;
+
+                    return {
+                        rowNumber: idx + 2, // riga 1 sono le intestazioni
+                        mail: getVal(0),
+                        nome: getVal(1),
+                        capo: getVal(2),
+                        taglia: getVal(3) || 'N/A',
+                        aMagazzino: getVal(4),
+                        inOrdine: getVal(5),
+                        daOrdinare: getBool(6),
+                        ordinato: getBool(7),
+                        importo: getVal(8),
+                        inVirtus: getBool(9),
+                        pagato: getBool(10),
+                        daConsegnare: getVal(11),
+                        consegnato: getBool(12)
+                    };
+                }).filter(o => o.nome || o.capo); // ignora righe vuote
+
+                renderDashboard();
+            } catch (err) {
+                console.error("Errore lettura foglio:", err);
+                showToast("Errore durante il caricamento dei dati dal Foglio Google.", true);
+            } finally {
+                dataLoadingIndicator.style.display = 'none';
+                btnRefresh.disabled = false;
+            }
+        }
+
+        // =====================================================================
+        // RENDERING DELLA DASHBOARD IN BASE AL RUOLO
+        // =====================================================================
+        function renderDashboard() {
+            if (!currentUser) return;
+
+            const email = currentUser.email.toLowerCase();
+            const isSuperAdmin = SUPER_ADMINS.includes(email);
+            const isMarco = email === 'marco.locatelli@virtusgroane.com' || isSuperAdmin;
+            const isTeresa = email === 'teresa.marchese@virtusgroane.com' || isSuperAdmin;
+            const isFattorino = Object.keys(FATTORINI_MAP).includes(email) || isSuperAdmin;
+
+            // Nascondi tutte le sezioni prima di abilitare quelle pertinenti
+            sectionMarco.style.display = 'none';
+            sectionTeresa.style.display = 'none';
+            sectionFattorini.style.display = 'none';
+            sectionAll.style.display = 'none';
+
+            // Controllo filtro SuperAdmin
+            if (isSuperAdmin) {
+                if (activeAdminFilter === 'all') {
+                    sectionMarco.style.display = 'block';
+                    sectionTeresa.style.display = 'block';
+                    sectionFattorini.style.display = 'block';
+                    sectionAll.style.display = 'block';
+                } else if (activeAdminFilter === 'marco') {
+                    sectionMarco.style.display = 'block';
+                } else if (activeAdminFilter === 'teresa') {
+                    sectionTeresa.style.display = 'block';
+                } else if (activeAdminFilter === 'fattorini') {
+                    sectionFattorini.style.display = 'block';
+                }
+            } else {
+                if (isMarco) sectionMarco.style.display = 'block';
+                if (isTeresa) sectionTeresa.style.display = 'block';
+                if (isFattorino) sectionFattorini.style.display = 'block';
+            }
+
+            // Popola Sezione 1: Marco Locatelli
+            renderMarcoTable();
+
+            // Popola Sezione 2: Teresa Marchese
+            renderTeresaTable();
+
+            // Popola Sezione 3: Fattorini
+            renderFattoriniTable(email, isSuperAdmin);
+
+            // Popola Sezione 4: Vista Master
+            if (isSuperAdmin) renderAllTable();
+        }
+
+        function switchFilterView(filter) {
+            activeAdminFilter = filter;
+            document.querySelectorAll('#admin-role-switcher .role-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderDashboard();
+        }
+
+        // ---------------------------------------------------------------------
+        // TABELLA 1: MARCO LOCATELLI
+        // ---------------------------------------------------------------------
+        function renderMarcoTable() {
+            const tbody = document.getElementById('tbody-marco');
+            tbody.innerHTML = '';
+            document.getElementById('badge-count-marco').textContent = `${allOrders.length} Ordini`;
+
+            if (allOrders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><span>📦</span>Nessun ordine presente nel foglio.</td></tr>`;
+                return;
+            }
+
+            allOrders.forEach(o => {
+                const tr = document.createElement('tr');
+                
+                // Badge di avanzamento
+                let statusHtml = '';
+                if (o.inVirtus) {
+                    statusHtml = `<span class="status-badge badge-green">✔ In Virtus (${o.importo ? o.importo + '€' : ''})</span>`;
+                } else if (o.ordinato) {
+                    statusHtml = `<span class="status-badge badge-blue">🚚 Ordinato</span>`;
+                } else if (o.daOrdinare) {
+                    statusHtml = `<span class="status-badge badge-yellow">⏳ Da Ordinare</span>`;
+                } else {
+                    statusHtml = `<span class="status-badge badge-gray">Da Valutare</span>`;
+                }
+
+                tr.innerHTML = `
+                    <td><strong style="color:var(--text-muted);">${o.rowNumber}</strong></td>
+                    <td>
+                        <strong>${escapeHtml(o.nome)}</strong><br>
+                        <small style="color:var(--text-secondary);">${escapeHtml(o.mail)}</small>
+                    </td>
+                    <td>
+                        <strong>${escapeHtml(o.capo)}</strong><br>
+                        <small style="color:var(--text-muted);">Taglia: ${escapeHtml(o.taglia)}</small>
+                    </td>
+                    <td>
+                        <span title="A magazzino">${o.aMagazzino || 0} mag.</span> / 
+                        <span title="In ordine">${o.inOrdine || 0} ord.</span>
+                    </td>
+                    <td>${statusHtml}</td>
+                    <td style="text-align: right;">
+                        <div style="display: inline-flex; gap: 0.4rem; justify-content: flex-end; flex-wrap: wrap;">
+                            <button type="button" class="btn-table-action btn-da-ordinare" 
+                                onclick="executeAction('SET_DA_ORDINARE', ${o.rowNumber})"
+                                ${o.daOrdinare ? 'disabled title="Già segnato Da Ordinare"' : ''}>
+                                Da Ordinare
+                            </button>
+                            <button type="button" class="btn-table-action btn-ordinato" 
+                                onclick="executeAction('SET_ORDINATO', ${o.rowNumber})"
+                                ${o.ordinato ? 'disabled title="Già Ordinato al fornitore"' : ''}>
+                                Ordinato
+                            </button>
+                            <button type="button" class="btn-table-action btn-in-virtus" 
+                                onclick="openModalInVirtus(${o.rowNumber})">
+                                In Virtus &euro;
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ---------------------------------------------------------------------
+        // TABELLA 2: TERESA MARCHESE
+        // ---------------------------------------------------------------------
+        function renderTeresaTable() {
+            const tbody = document.getElementById('tbody-teresa');
+            tbody.innerHTML = '';
+
+            // Filtra solo gli ordini "In Virtus" che NON sono ancora stati pagati
+            const ordersTeresa = allOrders.filter(o => o.inVirtus && !o.pagato);
+            document.getElementById('badge-count-teresa').textContent = `${ordersTeresa.length} In Attesa Pagamento`;
+
+            if (ordersTeresa.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><span>✅</span>Nessun bonifico in attesa di verifica al momento!</td></tr>`;
+                return;
+            }
+
+            ordersTeresa.forEach(o => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong style="color:var(--text-muted);">${o.rowNumber}</strong></td>
+                    <td>
+                        <strong>${escapeHtml(o.nome)}</strong><br>
+                        <small style="color:var(--text-secondary);">${escapeHtml(o.mail)}</small>
+                    </td>
+                    <td>
+                        <strong>${escapeHtml(o.capo)}</strong><br>
+                        <small style="color:var(--text-muted);">Taglia: ${escapeHtml(o.taglia)}</small>
+                    </td>
+                    <td>
+                        <span style="font-size: 1.15rem; font-weight: bold; color: var(--color-green-light);">${escapeHtml(o.importo)} €</span>
+                    </td>
+                    <td>
+                        <span class="status-badge badge-yellow">Attesa Bonifico</span>
+                    </td>
+                    <td style="text-align: right;">
+                        <button type="button" class="btn-table-action btn-pagato" onclick="openModalFattorino(${o.rowNumber})">
+                            💶 Segna come Pagato &rarr;
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ---------------------------------------------------------------------
+        // TABELLA 3: FATTORINI
+        // ---------------------------------------------------------------------
+        function renderFattoriniTable(currentEmail, isSuperAdmin) {
+            const tbody = document.getElementById('tbody-fattorini');
+            tbody.innerHTML = '';
+
+            // Ordini pagati e NON ancora consegnati
+            // Se l'utente è un fattorino specifico, vede solo quelli assegnati a lui; se SuperAdmin vede tutti quelli da consegnare
+            const ordersFattorini = allOrders.filter(o => {
+                if (!o.pagato || o.consegnato) return false;
+                if (isSuperAdmin) return true;
+                return (o.daConsegnare || '').toLowerCase() === currentEmail;
+            });
+
+            document.getElementById('badge-count-fattorini').textContent = `${ordersFattorini.length} Da Consegnare`;
+
+            if (ordersFattorini.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><span>🎉</span>Nessun capo in attesa di consegna! Tutte le consegne sono state effettuate.</td></tr>`;
+                return;
+            }
+
+            ordersFattorini.forEach(o => {
+                const tr = document.createElement('tr');
+                const fattorinoNome = FATTORINI_MAP[o.daConsegnare] || o.daConsegnare || 'Non assegnato';
+
+                tr.innerHTML = `
+                    <td><strong style="color:var(--text-muted);">${o.rowNumber}</strong></td>
+                    <td>
+                        <strong>${escapeHtml(o.nome)}</strong><br>
+                        <small style="color:var(--text-secondary);">${escapeHtml(o.mail)}</small>
+                    </td>
+                    <td>
+                        <strong>${escapeHtml(o.capo)}</strong><br>
+                        <small style="color:var(--text-muted);">Taglia: ${escapeHtml(o.taglia)}</small>
+                    </td>
+                    <td>
+                        <span class="status-badge badge-blue">🚴 ${escapeHtml(fattorinoNome)}</span>
+                    </td>
+                    <td>
+                        <span class="status-badge badge-green">Pagato &bull; Pronto al ritiro</span>
+                    </td>
+                    <td style="text-align: right;">
+                        <button type="button" class="btn-table-action btn-consegnato" onclick="executeAction('SET_CONSEGNATO', ${o.rowNumber})">
+                            ✔ Consegnato
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ---------------------------------------------------------------------
+        // TABELLA 4: VISTA MASTER (SUPER ADMIN)
+        // ---------------------------------------------------------------------
+        function renderAllTable() {
+            const tbody = document.getElementById('tbody-all');
+            tbody.innerHTML = '';
+
+            allOrders.forEach(o => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${o.rowNumber}</td>
+                    <td><strong>${escapeHtml(o.nome)}</strong><br><small>${escapeHtml(o.mail)}</small></td>
+                    <td>${escapeHtml(o.capo)}</td>
+                    <td>${escapeHtml(o.taglia)}</td>
+                    <td>${o.daOrdinare ? '✅' : '❌'}</td>
+                    <td>${o.ordinato ? '✅' : '❌'}</td>
+                    <td>${o.inVirtus ? '✅' : '❌'}</td>
+                    <td><strong>${escapeHtml(o.importo)} €</strong></td>
+                    <td>${o.pagato ? '✅' : '❌'}</td>
+                    <td><small>${escapeHtml(FATTORINI_MAP[o.daConsegnare] || o.daConsegnare || '-')}</small></td>
+                    <td>${o.consegnato ? '✅' : '❌'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // =====================================================================
+        // GESTIONE MODALI INTERATTIVE
+        // =====================================================================
+        function openModalInVirtus(rowNumber) {
+            const order = allOrders.find(o => o.rowNumber === rowNumber);
+            if (!order) return;
+
+            pendingActionRow = order;
+            document.getElementById('modal-tesserato-name').textContent = `${order.nome} (${order.capo})`;
+            document.getElementById('input-importo-euro').value = order.importo || '';
+            updateCausalePreview();
+
+            document.getElementById('modal-importo').style.display = 'flex';
+        }
+
+        document.getElementById('input-importo-euro').addEventListener('input', updateCausalePreview);
+
+        function updateCausalePreview() {
+            if (!pendingActionRow) return;
+            const imp = document.getElementById('input-importo-euro').value || '0';
+            document.getElementById('modal-causale-preview').textContent = `${pendingActionRow.nome} - ${pendingActionRow.capo} - ${imp}€`;
+        }
+
+        document.getElementById('btn-confirm-in-virtus').addEventListener('click', async () => {
+            const importo = document.getElementById('input-importo-euro').value.trim();
+            if (!importo || parseFloat(importo) <= 0) {
+                alert("Inserisci un importo valido in Euro.");
+                return;
+            }
+
+            closeModal('modal-importo');
+            await executeAction('SET_IN_VIRTUS', pendingActionRow.rowNumber, { importo: importo });
+        });
+
+        function openModalFattorino(rowNumber) {
+            const order = allOrders.find(o => o.rowNumber === rowNumber);
+            if (!order) return;
+
+            pendingActionRow = order;
+            document.getElementById('modal-pagato-name').textContent = `${order.nome} (${order.capo})`;
+            document.getElementById('modal-pagato-importo').textContent = `${order.importo} €`;
+
+            // Se Marco aveva già selezionato un fattorino, pre-selezionalo
+            const select = document.getElementById('select-fattorino');
+            if (order.daConsegnare && select.querySelector(`option[value="${order.daConsegnare}"]`)) {
+                select.value = order.daConsegnare;
+            }
+
+            document.getElementById('modal-fattorino').style.display = 'flex';
+        }
+
+        document.getElementById('btn-confirm-pagato').addEventListener('click', async () => {
+            const fattorinoEmail = document.getElementById('select-fattorino').value;
+            closeModal('modal-fattorino');
+            await executeAction('SET_PAGATO', pendingActionRow.rowNumber, { fattorinoEmail: fattorinoEmail });
+        });
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        // =====================================================================
+        // ESECUZIONE AZIONI VERSO GOOGLE APPS SCRIPT
+        // =====================================================================
+        async function executeAction(action, rowNumber, extraParams = {}) {
+            if (!currentUser) return;
+
+            showToast("⏳ Invio richiesta al foglio Google in corso...");
+
+            const payload = {
+                action: action,
+                rowNumber: rowNumber,
+                userEmail: currentUser.email,
+                userName: currentUser.name,
+                ...extraParams
+            };
+
+            try {
+                // Invio con text/plain per compatibilità CORS assoluta
+                await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+
+                showToast("✔ Azione registrata con successo sul Foglio Google!");
+                // Ricarica subito i dati aggiornati
+                setTimeout(fetchOrdersFromSheet, 1200);
+
+            } catch (err) {
+                console.error("Errore esecuzione:", err);
+                showToast("❌ Errore di connessione a Google Apps Script.", true);
+            }
+        }
+
+        // Helper Toast
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast-notification');
+            toast.textContent = message;
+            toast.style.borderColor = isError ? '#ef4444' : 'var(--color-green)';
+            toast.style.display = 'block';
+
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 4500);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // Inizializzazione automatica
+        window.addEventListener('load', () => {
+            const saved = sessionStorage.getItem('vg_staff_user');
+            if (saved) {
+                try {
+                    const u = JSON.parse(saved);
+                    if (u && u.email && u.email.endsWith('@' + DOMINIO_AUTORIZZATO)) {
+                        loginSuccess(u);
+                        return;
+                    }
+                } catch(e) {}
+            }
+
+            // Inizializzazione Google Identity Services se disponibile
+            if (window.google && google.accounts && google.accounts.id) {
+                try {
+                    google.accounts.id.initialize({
+                        client_id: GOOGLE_CLIENT_ID,
+                        callback: handleCredentialResponse,
+                        auto_select: false
+                    });
+                    google.accounts.id.renderButton(
+                        document.getElementById("g_id_signin_button"),
+                        { theme: "outline", size: "large", text: "signin_with", shape: "rectangular" }
+                    );
+                } catch(e) {}
+            }
+        });
+    </script>
+</body>
+</html>
