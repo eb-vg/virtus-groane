@@ -9,6 +9,7 @@ Questo documento definisce il perimetro di autorizzazione, l'architettura tecnic
 - **Pieno Accesso**: L'assistente AI ha piena facoltà di leggere, creare e modificare file, nonché eseguire comandi locali (PowerShell, Node.js, server locali) su tutti i file del repository `virtus-groane`.
 - **Autonomia di Esecuzione**: Condurre le attività in autonomia dall'analisi al completamento finale, minimizzando le interazioni non necessarie. Richiedere input all'utente solo in caso di requisiti mancanti o scelte di business non deducibili.
 - **Integrità Architetturale**: Mantenere l'architettura statica pura (HTML5/CSS3/JS vanilla) senza introdurre framework o dipendenze esterne non necessarie (niente React/Vue, Tailwind, Bootstrap, jQuery o bundler complessi).
+- **Sicurezza e Protezione Dati (GDPR-by-Design)**: È fatto tassativo e assoluto divieto all'assistente AI di implementare o committare codice contenente vulnerabilità di sicurezza, credenziali, segreti, ID di risorse private o dati personali/sensibili (PII) di tesserati o staff. Ogni operazione deve rispettare le regole di sicurezza e la policy di verifica pre-commit descritte nella Sezione 6.
 - **Risposte Finali Chiare e Sintetiche**: Fornire riscontri concisi, evidenziando le azioni intraprese e includendo i link diretti `file:///` ai file esaminati o modificati.
 
 ---
@@ -191,3 +192,31 @@ Prima di considerare conclusa qualsiasi modifica o aggiunta al sito:
 - [ ] In caso di nuova pagina, è stato inserito il relativo link nei menu a tendina (`header`) e nel `footer` di tutte le pagine collegate.
 - [ ] È stato aggiornato [sitemap.xml](file:///c:/Emiliano/virtus-groane/sitemap.xml) con il nuovo URL e la data odierna.
 - [ ] In caso di percorsi eliminati o rinominati, è stata creata la corrispondente regola di redirect 301 in [_redirects](file:///c:/Emiliano/virtus-groane/_redirects).
+- [ ] **Verifica di Sicurezza e Privacy Pre-Commit superata**: nessun dato personale (PII), email/nominativi interni di staff o atleti, ID di fogli privati, API key o client secret presenti nel codice frontend o committati.
+
+---
+
+## 6. Sicurezza, Privacy e Protezione Dati Sensibili (GDPR-by-Design)
+
+Al fine di garantire la totale riservatezza dei dati societari e dei tesserati (inclusi minori) e prevenire qualsiasi data leak o violazione della privacy:
+
+1. **Divieto Assoluto di Esposizione Dati nel Codice Client-Side**:
+   - **Nessuna lista di ruoli o email personali**: Non cablare mai nel codice HTML o JavaScript destinato al browser (`area-riservata.html` o altri file pubblici) elenchi di indirizzi email, assegnazioni di ruoli o nominativi interni. Tutto ciò che è scritto nel client è pubblicamente leggibile tramite *"Visualizza sorgente pagina"*.
+   - **Nessun dato di tesserati nel frontend**: Nomi, email, numeri di telefono, ordini, quote o informazioni personali dei tesserati non devono mai transitare o essere memorizzati in chiaro nel client-side se non a seguito di autenticazione verificata e filtrata.
+   - **Nessun ID di foglio Google o risorsa aperta**: Non inserire mai nel frontend URL o ID di Google Sheets che abbiano condivisione aperta ("Chiunque abbia il link").
+
+2. **Controllo Accessi e Filtraggio dei Dati Esclusivamente Server-Side**:
+   - Qualsiasi logica di autorizzazione (*"chi può vedere cosa"*) **deve risiedere sempre nel backend** (Google Apps Script o endpoint server protetti).
+   - Quando il client effettua una richiesta dopo il login, il server valida l'identità dell'utente e gli restituisce **esclusivamente i dati strettamente pertinenti al suo ruolo**. Se l'utente non è autorizzato, il server restituisce errore e zero record.
+   - I fogli Google aziendali (es. `GestioneAutomatizzata`) **devono rimanere con accesso PRIVATO/limitato** su Google Drive. L'accesso applicativo da web avviene tramite la Web App di Apps Script (eseguita come amministratore), senza mai richiedere la condivisione pubblica del file.
+
+3. **Protezione dei File Locali, Script di Backend e Git**:
+   - I file contenenti logiche di backend, indirizzi operativi, IBAN o codice Apps Script (es. `data/google-apps-script-code.js`, file `.env`, file `.xlsx`, `.csv`) **devono essere rigorosamente esclusi in `.gitignore`** e bloccati con risposta `404!` in `_redirects`.
+   - È fatto divieto assoluto all'agente AI di committare o inviare verso repository pubblici o CDN di produzione file contenenti dati riservati o configurazioni interne.
+
+4. **Policy Obbligatoria Pre-Commit (Zero Data Leak & Security Gate)**:
+   - Prima di proporre o finalizzare qualsiasi operazione di `git commit`, l'agente AI ha l'obbligo tassativo di verificare con `git diff` e `git status` che:
+     a) Nessun file tracciato contenga chiavi API, password, Client Secret, ID di database/fogli privati o IBAN riservati.
+     b) Nessun file frontend (HTML, JS, CSS) contenga elenchi di email, ruoli, numeri di telefono o dati personali di tesserati e collaboratori.
+     c) Tutti i file di backend, script di automazione o fogli operativi (`data/google-apps-script-code.js`, `.env`, fogli `.xlsx`/`.csv`) siano protetti in `.gitignore` e con regola di blocco `404!` in `_redirects`.
+   - In caso di dubbio o violazione anche parziale, l'agente deve bloccare immediatamente l'operazione, sanitizzare il codice alla radice ed eliminare qualsiasi traccia di dati sensibili prima di procedere.

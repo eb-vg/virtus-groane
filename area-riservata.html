@@ -412,7 +412,7 @@
                              data-callback="handleCredentialResponse"
                              data-auto_prompt="false">
                         </div>
-                        <div class="g_id_signin"
+                        <div id="g_id_signin_button" class="g_id_signin"
                              data-type="standard"
                              data-shape="rectangular"
                              data-theme="outline"
@@ -464,13 +464,13 @@
                 </div>
 
                 <!-- ========================================================== -->
-                <!-- SEZIONE 1: MARCO LOCATELLI (GESTIONE ORDINI & MAGAZZINO) -->
+                <!-- SEZIONE 1: GESTIONE ORDINI & MAGAZZINO -->
                 <!-- ========================================================== -->
                 <div id="section-marco" class="workflow-section" style="display: none;">
                     <div class="workflow-header">
                         <div>
                             <h2 class="workflow-title">📦 Gestione Ordini & Magazzino</h2>
-                            <p class="workflow-subtitle">Competenza: <strong>Marco Locatelli</strong> &bull; Aggiorna lo stato di avanzamento e notifica il tesserato via email.</p>
+                            <p class="workflow-subtitle">Fase 1: Aggiornamento stato di lavorazione degli ordini e notifiche ai tesserati.</p>
                         </div>
                         <span id="badge-count-marco" class="status-badge badge-blue">0 Ordini Totali</span>
                     </div>
@@ -484,7 +484,7 @@
                                     <th>Capo & Taglia</th>
                                     <th>Giacenza</th>
                                     <th>Stato Attuale</th>
-                                    <th style="text-align: right;">Azioni Marco</th>
+                                    <th style="text-align: right;">Azioni Gestione</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody-marco">
@@ -495,13 +495,13 @@
                 </div>
 
                 <!-- ========================================================== -->
-                <!-- SEZIONE 2: TERESA MARCHESE (VERIFICA BONIFICI & PAGAMENTI) -->
+                <!-- SEZIONE 2: VERIFICA BONIFICI & PAGAMENTI -->
                 <!-- ========================================================== -->
                 <div id="section-teresa" class="workflow-section" style="display: none;">
                     <div class="workflow-header">
                         <div>
                             <h2 class="workflow-title">💶 Verifica Pagamenti & Assegnazione Consegna</h2>
-                            <p class="workflow-subtitle">Competenza: <strong>Teresa Marchese</strong> &bull; Capi arrivati "In Virtus": verifica l'accredito del bonifico e assegna il fattorino.</p>
+                            <p class="workflow-subtitle">Fase 2: Capi arrivati in sede: verifica accredito bonifico e incarico consegna.</p>
                         </div>
                         <span id="badge-count-teresa" class="status-badge badge-yellow">0 In Attesa Pagamento</span>
                     </div>
@@ -515,7 +515,7 @@
                                     <th>Capo & Taglia</th>
                                     <th>Importo da Versare</th>
                                     <th>Stato Pagamento</th>
-                                    <th style="text-align: right;">Azione Teresa</th>
+                                    <th style="text-align: right;">Azione Contabile</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody-teresa">
@@ -526,13 +526,13 @@
                 </div>
 
                 <!-- ========================================================== -->
-                <!-- SEZIONE 3: FATTORINI (CONSEGNE AL CAMPO) -->
+                <!-- SEZIONE 3: REFERENTI CONSEGNE AL CAMPO -->
                 <!-- ========================================================== -->
                 <div id="section-fattorini" class="workflow-section" style="display: none;">
                     <div class="workflow-header">
                         <div>
                             <h2 class="workflow-title">🚴 Consegne Materiale Assegnate</h2>
-                            <p class="workflow-subtitle">Competenza: <strong>Fattorini (Marc, Luigi, Linda)</strong> &bull; Capi pagati e pronti per essere consegnati ai tesserati.</p>
+                            <p class="workflow-subtitle">Fase 3: Capi pagati e pronti per essere consegnati ai tesserati.</p>
                         </div>
                         <span id="badge-count-fattorini" class="status-badge badge-green">0 Da Consegnare</span>
                     </div>
@@ -544,9 +544,9 @@
                                     <th>#</th>
                                     <th>Tesserato</th>
                                     <th>Capo & Taglia</th>
-                                    <th>Fattorino Incaricato</th>
+                                    <th>Referente Consegna</th>
                                     <th>Stato Consegna</th>
-                                    <th style="text-align: right;">Azione Fattorino</th>
+                                    <th style="text-align: right;">Azione Consegna</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody-fattorini">
@@ -599,12 +599,12 @@
     <!-- MODALI POPUP INTERATTIVE -->
     <!-- ============================================================== -->
 
-    <!-- Modal 1: Inserimento Importo (Marco Locatelli - In Virtus) -->
+    <!-- Modal 1: Inserimento Importo (Capo In Virtus) -->
     <div id="modal-importo" class="modal-overlay">
         <div class="modal-box">
             <h3>🏢 Capo Arrivato "In Virtus"</h3>
             <p style="color: var(--text-secondary); font-size: 0.92rem;">
-                Inserisci l'importo in Euro da comunicare al tesserato per il bonifico. Verrà inviata una mail a <strong id="modal-tesserato-name"></strong> e a <strong>Teresa Marchese</strong> con la causale generata automaticamente.
+                Inserisci l'importo in Euro da comunicare al tesserato per il bonifico bancario. Verrà inviata una notifica via email con le coordinate e la causale generata.
             </p>
             <div class="modal-input-group">
                 <label for="input-importo-euro"><strong>Importo in Euro (€):</strong></label>
@@ -621,23 +621,21 @@
         </div>
     </div>
 
-    <!-- Modal 2: Selezione Fattorino (Teresa Marchese - Pagato) -->
+    <!-- Modal 2: Selezione Referente Consegna (Pagato) -->
     <div id="modal-fattorino" class="modal-overlay">
         <div class="modal-box">
             <h3>💶 Conferma Pagamento & Consegna</h3>
             <p style="color: var(--text-secondary); font-size: 0.92rem;">
-                Conferma che il bonifico di <strong id="modal-pagato-importo"></strong> è stato ricevuto per l'ordine di <strong id="modal-pagato-name"></strong>. Seleziona il fattorino incaricato della consegna:
+                Conferma che il bonifico di <strong id="modal-pagato-importo"></strong> è stato ricevuto per l'ordine di <strong id="modal-pagato-name"></strong>. Seleziona il referente incaricato della consegna al campo:
             </p>
             <div class="modal-input-group">
-                <label for="select-fattorino"><strong>Fattorino Incaricato:</strong></label>
+                <label for="select-fattorino"><strong>Referente Incaricato Consegna:</strong></label>
                 <select id="select-fattorino">
-                    <option value="marc.cassini@virtusgroane.com">Marc Cassini (marc.cassini@virtusgroane.com)</option>
-                    <option value="luigi.versace@virtusgroane.com">Luigi Versace (luigi.versace@virtusgroane.com)</option>
-                    <option value="linda.pollini@virtusgroane.com">Linda Pollini (linda.pollini@virtusgroane.com)</option>
+                    <option value="">Caricamento referenti in corso...</option>
                 </select>
             </div>
             <p style="font-size: 0.85rem; color: var(--text-muted);">
-                ℹ️ Verranno inviate automaticamente due email: una al tesserato con il nome del fattorino, e una al fattorino con i dettagli del capo da consegnare.
+                ℹ️ Verranno inviate automaticamente le email di notifica al tesserato e al referente con i dettagli del capo da consegnare.
             </p>
             <div class="modal-actions">
                 <button type="button" class="btn btn-secondary" onclick="closeModal('modal-fattorino')" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Annulla</button>
@@ -685,33 +683,28 @@
     <!-- JAVASCRIPT GESTIONALE -->
     <script>
         // =====================================================================
+        // REINDIRIZZAMENTO CANONICO WWW (Previene origin mismatch su OAuth)
+        // =====================================================================
+        if (window.location.hostname === 'virtusgroane.com') {
+            window.location.replace('https://www.virtusgroane.com' + window.location.pathname + window.location.search);
+        }
+
+        // =====================================================================
         // CONFIGURAZIONE APPLICATIVO & ENDPOINT
         // =====================================================================
         const DOMINIO_AUTORIZZATO = 'virtusgroane.com';
-        const SPREADSHEET_ID = '1OUMiHO_HW2l5BXiNFjUMFdRgw5scxhJ6FQX1CV_xWtU';
         
-        // Google OAuth Client ID ufficiale
+        // Google OAuth Client ID ufficiale (perfezionato in Google Cloud Console)
         const GOOGLE_CLIENT_ID = '430736319015-ogb4t5t2tkn4r5nn3mgnn7pelbqmgiea.apps.googleusercontent.com';
 
         // URL Ufficiale della Web App Google Apps Script
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyDBL59DZLcAfoFYEfuyRKfcRR1dBLUGNfm-UXKT6lisfi3tL7Xjxa596Hfs1zJ9zVRDA/exec';
 
-        // Super Admin che vedono tutte le tabelle
-        const SUPER_ADMINS = [
-            'emiliano.bina@virtusgroane.com',
-            'silvano.genesi@virtusgroane.com'
-        ];
-
-        // Mappa fattorini
-        const FATTORINI_MAP = {
-            'marc.cassini@virtusgroane.com': 'Marc Cassini',
-            'luigi.versace@virtusgroane.com': 'Luigi Versace',
-            'linda.pollini@virtusgroane.com': 'Linda Pollini'
-        };
-
-        // Stato applicativo
+        // Stato applicativo (Tutti i ruoli e i permessi sono determinati server-side da Apps Script)
         let currentUser = null;
+        let currentUserRole = null; // 'admin', 'marco', 'teresa', 'fattorino'
         let allOrders = [];
+        let fattoriniList = [];
         let activeAdminFilter = 'all';
 
         // Variabili d'appoggio per modali
@@ -769,22 +762,13 @@
                     idToken: response.credential
                 });
             } else {
-                showLoginError(`L'account <strong>${email}</strong> non è autorizzato. Accesso riservato esclusivamente a <strong>@${DOMINIO_AUTORIZZATO}</strong>.`);
+                showLoginError(`L'account <strong>${escapeHtml(email)}</strong> non appartiene al dominio societario (@${DOMINIO_AUTORIZZATO}).`);
             }
         };
 
         function showLoginError(msg) {
             loginErrorMessage.innerHTML = msg;
             loginErrorAlert.style.display = 'block';
-        }
-
-        function simulateLogin(email, name) {
-            loginSuccess({
-                name: name,
-                email: email,
-                picture: '',
-                idToken: 'simulated-token'
-            });
         }
 
         function loginSuccess(user) {
@@ -798,16 +782,15 @@
             loginContainer.style.display = 'none';
             dashboardContainer.style.display = 'block';
 
-            // Mostra selettore viste se Super Admin
-            const isSuperAdmin = SUPER_ADMINS.includes(user.email);
-            adminRoleSwitcher.style.display = isSuperAdmin ? 'flex' : 'none';
-
-            // Carica dati dal foglio
+            // Carica i dati profilati e autorizzati lato server
             fetchOrdersFromSheet();
         }
 
         function logout() {
             currentUser = null;
+            currentUserRole = null;
+            allOrders = [];
+            fattoriniList = [];
             sessionStorage.removeItem('vg_staff_user');
             loginContainer.style.display = 'block';
             dashboardContainer.style.display = 'none';
@@ -817,49 +800,37 @@
         btnRefresh.addEventListener('click', fetchOrdersFromSheet);
 
         // =====================================================================
-        // CARICAMENTO DATI DAL FOGLIO GOOGLE (GViz API in tempo reale)
+        // CARICAMENTO DATI DAL BACKEND APPS SCRIPT (Server-Side RBAC & Privacy)
         // =====================================================================
         async function fetchOrdersFromSheet() {
+            if (!currentUser || !currentUser.email) return;
             dataLoadingIndicator.style.display = 'block';
             btnRefresh.disabled = true;
 
-            const gvizUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=Ordini&t=${Date.now()}`;
+            const url = `${APPS_SCRIPT_URL}?action=GET_DASHBOARD_DATA&userEmail=${encodeURIComponent(currentUser.email)}&_t=${Date.now()}`;
 
             try {
-                const response = await fetch(gvizUrl);
-                const text = await response.text();
-                // Estrae il JSON avvolto da google.visualization.Query.setResponse(...)
-                const jsonStr = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
-                const data = JSON.parse(jsonStr);
+                const response = await fetch(url);
+                const result = await response.json();
 
-                const rows = data.table.rows || [];
-                allOrders = rows.map((r, idx) => {
-                    const c = r.c || [];
-                    const getVal = (i) => c[i] ? (c[i].f !== undefined ? c[i].f : c[i].v) : '';
-                    const getBool = (i) => c[i] ? (c[i].v === true || String(c[i].v).toUpperCase() === 'TRUE') : false;
-
-                    return {
-                        rowNumber: idx + 2, // riga 1 sono le intestazioni
-                        mail: getVal(0),
-                        nome: getVal(1),
-                        capo: getVal(2),
-                        taglia: getVal(3) || 'N/A',
-                        aMagazzino: getVal(4),
-                        inOrdine: getVal(5),
-                        daOrdinare: getBool(6),
-                        ordinato: getBool(7),
-                        importo: getVal(8),
-                        inVirtus: getBool(9),
-                        pagato: getBool(10),
-                        daConsegnare: getVal(11),
-                        consegnato: getBool(12)
-                    };
-                }).filter(o => o.nome || o.capo); // ignora righe vuote
-
-                renderDashboard();
+                if (result.status === 'SUCCESS') {
+                    currentUserRole = result.role;
+                    allOrders = result.orders || [];
+                    fattoriniList = result.fattoriniList || [];
+                    if (result.userName) {
+                        userDisplayName.textContent = result.userName;
+                    }
+                    renderDashboard();
+                } else if (result.status === 'UNAUTHORIZED') {
+                    showToast("Accesso negato: utenza priva di ruoli operativi.", true);
+                    showLoginError(result.message || "Account non autorizzato alle funzionalità di gestione.");
+                    logout();
+                } else {
+                    showToast(result.message || "Errore durante il caricamento dei dati.", true);
+                }
             } catch (err) {
-                console.error("Errore lettura foglio:", err);
-                showToast("Errore durante il caricamento dei dati dal Foglio Google.", true);
+                console.error("Errore fetch ordini:", err);
+                showToast("Errore di connessione al server gestionale.", true);
             } finally {
                 dataLoadingIndicator.style.display = 'none';
                 btnRefresh.disabled = false;
@@ -867,25 +838,21 @@
         }
 
         // =====================================================================
-        // RENDERING DELLA DASHBOARD IN BASE AL RUOLO
+        // RENDERING DELLA DASHBOARD IN BASE AL RUOLO ASSEGNATO DAL SERVER
         // =====================================================================
         function renderDashboard() {
-            if (!currentUser) return;
-
-            const email = currentUser.email.toLowerCase();
-            const isSuperAdmin = SUPER_ADMINS.includes(email);
-            const isMarco = email === 'marco.locatelli@virtusgroane.com' || isSuperAdmin;
-            const isTeresa = email === 'teresa.marchese@virtusgroane.com' || isSuperAdmin;
-            const isFattorino = Object.keys(FATTORINI_MAP).includes(email) || isSuperAdmin;
+            if (!currentUser || !currentUserRole) return;
 
             // Nascondi tutte le sezioni prima di abilitare quelle pertinenti
             sectionMarco.style.display = 'none';
             sectionTeresa.style.display = 'none';
             sectionFattorini.style.display = 'none';
             sectionAll.style.display = 'none';
+            adminRoleSwitcher.style.display = 'none';
 
-            // Controllo filtro SuperAdmin
-            if (isSuperAdmin) {
+            if (currentUserRole === 'admin') {
+                adminRoleSwitcher.style.display = 'flex';
+
                 if (activeAdminFilter === 'all') {
                     sectionMarco.style.display = 'block';
                     sectionTeresa.style.display = 'block';
@@ -898,46 +865,48 @@
                 } else if (activeAdminFilter === 'fattorini') {
                     sectionFattorini.style.display = 'block';
                 }
-            } else {
-                if (isMarco) sectionMarco.style.display = 'block';
-                if (isTeresa) sectionTeresa.style.display = 'block';
-                if (isFattorino) sectionFattorini.style.display = 'block';
+
+                renderMarcoTable(allOrders);
+                renderTeresaTable(allOrders.filter(o => o.inVirtus && !o.pagato));
+                renderFattoriniTable(allOrders.filter(o => o.pagato && !o.consegnato));
+                renderAllTable(allOrders);
+
+            } else if (currentUserRole === 'marco') {
+                sectionMarco.style.display = 'block';
+                renderMarcoTable(allOrders);
+
+            } else if (currentUserRole === 'teresa') {
+                sectionTeresa.style.display = 'block';
+                renderTeresaTable(allOrders);
+
+            } else if (currentUserRole === 'fattorino') {
+                sectionFattorini.style.display = 'block';
+                renderFattoriniTable(allOrders);
             }
-
-            // Popola Sezione 1: Marco Locatelli
-            renderMarcoTable();
-
-            // Popola Sezione 2: Teresa Marchese
-            renderTeresaTable();
-
-            // Popola Sezione 3: Fattorini
-            renderFattoriniTable(email, isSuperAdmin);
-
-            // Popola Sezione 4: Vista Master
-            if (isSuperAdmin) renderAllTable();
         }
 
         function switchFilterView(filter) {
             activeAdminFilter = filter;
             document.querySelectorAll('#admin-role-switcher .role-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if (event && event.target) event.target.classList.add('active');
             renderDashboard();
         }
 
         // ---------------------------------------------------------------------
-        // TABELLA 1: MARCO LOCATELLI
+        // TABELLA 1: GESTIONE ORDINI & MAGAZZINO
         // ---------------------------------------------------------------------
-        function renderMarcoTable() {
+        function renderMarcoTable(orders) {
+            const list = orders || [];
             const tbody = document.getElementById('tbody-marco');
             tbody.innerHTML = '';
-            document.getElementById('badge-count-marco').textContent = `${allOrders.length} Ordini`;
+            document.getElementById('badge-count-marco').textContent = `${list.length} Ordini`;
 
-            if (allOrders.length === 0) {
+            if (list.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><span>📦</span>Nessun ordine presente nel foglio.</td></tr>`;
                 return;
             }
 
-            allOrders.forEach(o => {
+            list.forEach(o => {
                 const tr = document.createElement('tr');
                 
                 // Badge di avanzamento
@@ -991,22 +960,20 @@
         }
 
         // ---------------------------------------------------------------------
-        // TABELLA 2: TERESA MARCHESE
+        // TABELLA 2: VERIFICA PAGAMENTI
         // ---------------------------------------------------------------------
-        function renderTeresaTable() {
+        function renderTeresaTable(orders) {
+            const list = orders || [];
             const tbody = document.getElementById('tbody-teresa');
             tbody.innerHTML = '';
+            document.getElementById('badge-count-teresa').textContent = `${list.length} In Attesa Pagamento`;
 
-            // Filtra solo gli ordini "In Virtus" che NON sono ancora stati pagati
-            const ordersTeresa = allOrders.filter(o => o.inVirtus && !o.pagato);
-            document.getElementById('badge-count-teresa').textContent = `${ordersTeresa.length} In Attesa Pagamento`;
-
-            if (ordersTeresa.length === 0) {
+            if (list.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><span>✅</span>Nessun bonifico in attesa di verifica al momento!</td></tr>`;
                 return;
             }
 
-            ordersTeresa.forEach(o => {
+            list.forEach(o => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td><strong style="color:var(--text-muted);">${o.rowNumber}</strong></td>
@@ -1035,30 +1002,22 @@
         }
 
         // ---------------------------------------------------------------------
-        // TABELLA 3: FATTORINI
+        // TABELLA 3: REFERENTI CONSEGNE AL CAMPO
         // ---------------------------------------------------------------------
-        function renderFattoriniTable(currentEmail, isSuperAdmin) {
+        function renderFattoriniTable(orders) {
+            const list = orders || [];
             const tbody = document.getElementById('tbody-fattorini');
             tbody.innerHTML = '';
+            document.getElementById('badge-count-fattorini').textContent = `${list.length} Da Consegnare`;
 
-            // Ordini pagati e NON ancora consegnati
-            // Se l'utente è un fattorino specifico, vede solo quelli assegnati a lui; se SuperAdmin vede tutti quelli da consegnare
-            const ordersFattorini = allOrders.filter(o => {
-                if (!o.pagato || o.consegnato) return false;
-                if (isSuperAdmin) return true;
-                return (o.daConsegnare || '').toLowerCase() === currentEmail;
-            });
-
-            document.getElementById('badge-count-fattorini').textContent = `${ordersFattorini.length} Da Consegnare`;
-
-            if (ordersFattorini.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><span>🎉</span>Nessun capo in attesa di consegna! Tutte le consegne sono state effettuate.</td></tr>`;
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><span>🎉</span>Nessun capo in attesa di consegna! Tutte le consegne sono state completate.</td></tr>`;
                 return;
             }
 
-            ordersFattorini.forEach(o => {
+            list.forEach(o => {
                 const tr = document.createElement('tr');
-                const fattorinoNome = FATTORINI_MAP[o.daConsegnare] || o.daConsegnare || 'Non assegnato';
+                const referenteNome = o.daConsegnareNome || o.daConsegnare || 'Incaricato assegnato';
 
                 tr.innerHTML = `
                     <td><strong style="color:var(--text-muted);">${o.rowNumber}</strong></td>
@@ -1071,7 +1030,7 @@
                         <small style="color:var(--text-muted);">Taglia: ${escapeHtml(o.taglia)}</small>
                     </td>
                     <td>
-                        <span class="status-badge badge-blue">🚴 ${escapeHtml(fattorinoNome)}</span>
+                        <span class="status-badge badge-blue">🚴 ${escapeHtml(referenteNome)}</span>
                     </td>
                     <td>
                         <span class="status-badge badge-green">Pagato &bull; Pronto al ritiro</span>
@@ -1089,11 +1048,12 @@
         // ---------------------------------------------------------------------
         // TABELLA 4: VISTA MASTER (SUPER ADMIN)
         // ---------------------------------------------------------------------
-        function renderAllTable() {
+        function renderAllTable(orders) {
+            const list = orders || [];
             const tbody = document.getElementById('tbody-all');
             tbody.innerHTML = '';
 
-            allOrders.forEach(o => {
+            list.forEach(o => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${o.rowNumber}</td>
@@ -1105,7 +1065,7 @@
                     <td>${o.inVirtus ? '✅' : '❌'}</td>
                     <td><strong>${escapeHtml(o.importo)} €</strong></td>
                     <td>${o.pagato ? '✅' : '❌'}</td>
-                    <td><small>${escapeHtml(FATTORINI_MAP[o.daConsegnare] || o.daConsegnare || '-')}</small></td>
+                    <td><small>${escapeHtml(o.daConsegnareNome || o.daConsegnare || '-')}</small></td>
                     <td>${o.consegnato ? '✅' : '❌'}</td>
                 `;
                 tbody.appendChild(tr);
@@ -1154,10 +1114,24 @@
             document.getElementById('modal-pagato-name').textContent = `${order.nome} (${order.capo})`;
             document.getElementById('modal-pagato-importo').textContent = `${order.importo} €`;
 
-            // Se Marco aveva già selezionato un fattorino, pre-selezionalo
+            // Popola il menu a tendina dinamico ricevuto dal server
             const select = document.getElementById('select-fattorino');
-            if (order.daConsegnare && select.querySelector(`option[value="${order.daConsegnare}"]`)) {
-                select.value = order.daConsegnare;
+            select.innerHTML = '';
+            if (fattoriniList && fattoriniList.length > 0) {
+                fattoriniList.forEach(f => {
+                    const opt = document.createElement('option');
+                    opt.value = f.email;
+                    opt.textContent = `${f.nome} (${f.email})`;
+                    if (order.daConsegnare && order.daConsegnare.toLowerCase() === f.email.toLowerCase()) {
+                        opt.selected = true;
+                    }
+                    select.appendChild(opt);
+                });
+            } else {
+                const opt = document.createElement('option');
+                opt.value = "";
+                opt.textContent = "Nessun referente censito";
+                select.appendChild(opt);
             }
 
             document.getElementById('modal-fattorino').style.display = 'flex';
@@ -1165,6 +1139,10 @@
 
         document.getElementById('btn-confirm-pagato').addEventListener('click', async () => {
             const fattorinoEmail = document.getElementById('select-fattorino').value;
+            if (!fattorinoEmail) {
+                alert("Seleziona il referente incaricato della consegna.");
+                return;
+            }
             closeModal('modal-fattorino');
             await executeAction('SET_PAGATO', pendingActionRow.rowNumber, { fattorinoEmail: fattorinoEmail });
         });
@@ -1225,7 +1203,34 @@
             return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         }
 
-        // Inizializzazione automatica
+        // =====================================================================
+        // INIZIALIZZAZIONE GOOGLE IDENTITY SERVICES
+        // =====================================================================
+        function initGoogleAuth() {
+            if (window.google && google.accounts && google.accounts.id) {
+                try {
+                    google.accounts.id.initialize({
+                        client_id: GOOGLE_CLIENT_ID,
+                        callback: handleCredentialResponse,
+                        auto_select: false
+                    });
+                    const btnEl = document.getElementById("g_id_signin_button");
+                    if (btnEl) {
+                        google.accounts.id.renderButton(btnEl, {
+                            theme: "outline",
+                            size: "large",
+                            text: "signin_with",
+                            shape: "rectangular",
+                            width: 280
+                        });
+                    }
+                } catch(err) {
+                    console.error("GIS init error:", err);
+                }
+            }
+        }
+
+        // Avvio applicazione
         window.addEventListener('load', () => {
             const saved = sessionStorage.getItem('vg_staff_user');
             if (saved) {
@@ -1238,20 +1243,18 @@
                 } catch(e) {}
             }
 
-            // Inizializzazione Google Identity Services se disponibile
-            if (window.google && google.accounts && google.accounts.id) {
-                try {
-                    google.accounts.id.initialize({
-                        client_id: GOOGLE_CLIENT_ID,
-                        callback: handleCredentialResponse,
-                        auto_select: false
-                    });
-                    google.accounts.id.renderButton(
-                        document.getElementById("g_id_signin_button"),
-                        { theme: "outline", size: "large", text: "signin_with", shape: "rectangular" }
-                    );
-                } catch(e) {}
-            }
+            // Inizializza Google Sign-in e ritenta se il caricamento asincrono è in corso
+            initGoogleAuth();
+            let gisCheckCount = 0;
+            const gisInterval = setInterval(() => {
+                gisCheckCount++;
+                if (window.google && google.accounts && google.accounts.id) {
+                    initGoogleAuth();
+                    clearInterval(gisInterval);
+                } else if (gisCheckCount > 20) {
+                    clearInterval(gisInterval);
+                }
+            }, 150);
         });
     </script>
 </body>
