@@ -12,7 +12,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.virtusgroane.com/societa-ed-eventi/prova-l-atletica.html">
     <meta property="og:title" content="Prova l'Atletica - Virtus Groane">
-    <meta property="og:description" content="Vieni a provare l">
+    <meta property="og:description" content="Vieni a provare l'atletica leggera con Virtus Groane ASD! Scopri le date degli Open Day e partecipa alle lezioni di prova gratuite su pista.">
     <meta property="og:image" content="https://www.virtusgroane.com/logo.png">
     <!-- Geo Meta Tags (Geolocalizzazione & Local Search) -->
     <meta name="geo.region" content="IT-MI">
@@ -23,6 +23,124 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
     <link rel="stylesheet" href="../style.css?v=1.3">
+
+    <style>
+        /* Card Prova l'Atletica (Layout Sovrapposto) */
+        .prova-cards-stacked {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+            margin-top: 2.5rem;
+        }
+        .prova-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem 2.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            transition: border-color var(--transition-fast, 0.2s), box-shadow var(--transition-fast, 0.2s);
+        }
+        .prova-card:hover {
+            border-color: rgba(255, 255, 255, 0.16);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+        .prova-card-content {
+            flex: 1 1 520px;
+        }
+        .prova-badge {
+            display: inline-block;
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .prova-badge.giovanile {
+            background: rgba(43, 122, 210, 0.15);
+            color: #4da3ff;
+        }
+        .prova-badge.per-tutti,
+        .prova-badge.adulti {
+            background: rgba(46, 204, 113, 0.15);
+            color: var(--color-green-light);
+        }
+        .prova-badge.golee {
+            background: rgba(255, 209, 0, 0.15);
+            color: #ffd100;
+            border: 1px solid rgba(255, 209, 0, 0.3);
+        }
+        .prova-card-title {
+            margin: 0.8rem 0 0.5rem;
+            color: white;
+            font-size: 1.35rem;
+        }
+        .prova-card-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+        }
+        .prova-card-note {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .prova-card-action {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 250px;
+        }
+        .prova-card-action .btn {
+            width: 100%;
+            white-space: nowrap;
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn-arrow {
+            display: inline-block;
+            font-size: 1.35rem;
+            line-height: 1;
+            margin-left: 0.35rem;
+            transition: transform 0.2s ease;
+        }
+        .prova-card-action .btn:hover .btn-arrow {
+            transform: translateY(4px);
+        }
+        .prova-action-subtext {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 0.45rem;
+            text-align: center;
+        }
+        @keyframes pulseHighlight {
+            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(36, 178, 103, 0.25); }
+            50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(46, 204, 113, 0.85); }
+            100% { transform: scale(1); box-shadow: 0 4px 15px rgba(36, 178, 103, 0.25); }
+        }
+        .btn-highlight-pulse {
+            animation: pulseHighlight 0.7s ease-in-out 2;
+        }
+        @media (max-width: 820px) {
+            .prova-card {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+            .prova-card-action {
+                width: 100%;
+                min-width: auto;
+            }
+        }
+    </style>
 
     <!-- Dati Strutturati Schema.org (BreadcrumbList) -->
     <script type="application/ld+json">
@@ -206,34 +324,70 @@
     <em>"Da noi si corre per s&eacute; stessi ma non contro gli altri: si corre insieme."</em>
 </p>
 
-<div class="card-grid" style="margin-top: 2.5rem;">
-    <div class="card" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.8rem;">
-        <span style="background: rgba(43, 122, 210, 0.15); color: #4da3ff; padding: 0.25rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 700;">SETTORE GIOVANILE</span>
-        <h3 style="margin: 0.8rem 0 0.5rem; color: white; font-size: 1.3rem;">Settembre &amp; Prove Tutto l'Anno</h3>
-        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1rem;">
-            Per bambini e ragazzi (dai 5 anni in su), da tradizione l'intero mese di settembre &egrave; gratuito e senza impegno. Ma le porte della pista sono aperte anche durante il resto dell'anno: puoi concordare una o pi&ugrave; sessioni di prova gratuita in qualunque momento scrivendoci su WhatsApp.
-        </p>
-        <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">👟 Bastano scarpe da ginnastica e abbigliamento sportivo comodo.</p>
+<div class="prova-cards-stacked">
+    <!-- SETTORE GIOVANILE -->
+    <div class="prova-card">
+        <div class="prova-card-content">
+            <span class="prova-badge giovanile">SETTORE GIOVANILE</span>
+            <h3 class="prova-card-title">Settembre di Prova</h3>
+            <p class="prova-card-desc">
+                Per bambini e ragazzi (dai 5 anni in su), da tradizione l'intero mese di settembre &egrave; gratuito e senza impegno. Ma le porte della pista sono aperte anche durante il resto dell'anno: puoi concordare due lezioni di prova gratuita in qualunque momento.
+            </p>
+            <p class="prova-card-note">👟 Bastano scarpe da ginnastica e abbigliamento sportivo comodo.</p>
+        </div>
+        <div class="prova-card-action">
+            <a href="#btn-modulo-golee" id="btn-prova-giovanile" class="btn btn-primary" title="Scorri alle istruzioni e al modulo di registrazione su Golee">
+                <span>Registrati alla prova</span>
+                <span id="giovanile-arrow" class="btn-arrow" aria-hidden="true">&darr;</span>
+            </a>
+            <small id="giovanile-note" class="prova-action-subtext">Prove aperte a settembre &bull; Vedi modulo sotto</small>
+        </div>
     </div>
 
-    <div class="card" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.8rem;">
-        <span style="background: rgba(46, 204, 113, 0.15); color: var(--color-green-light); padding: 0.25rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 700;">ADULTI & RUNNING</span>
-        <h3 style="margin: 0.8rem 0 0.5rem; color: white; font-size: 1.3rem;">Due Lezioni di Prova Gratuite</h3>
-        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1rem;">
-            Vuoi provare la <strong>Running School</strong>, <strong>Mamme che Sport!</strong> o il <strong>Nordic Walking</strong>? Ti offriamo 2 lezioni gratuite di prova durante tutto l'anno sportivo: potrai conoscere i coach, valutare il gruppo e scegliere il ritmo pi&ugrave; adatto a te.
-        </p>
-        <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">👥 Nessuna ansia da prestazione: ciascuno trova il suo gruppo di passo.</p>
+    <!-- PER TUTTI -->
+    <div class="prova-card">
+        <div class="prova-card-content">
+            <span class="prova-badge per-tutti">PER TUTTI</span>
+            <h3 class="prova-card-title">Due Lezioni di Prova Gratuite</h3>
+            <p class="prova-card-desc">
+                Vuoi provare la <strong>Running School</strong>, <strong>Mamme che Sport!</strong> o il <strong>Nordic Walking</strong>? Ti offriamo 2 lezioni gratuite di prova durante tutto l'anno sportivo: potrai conoscere i coach e valutare il gruppo.
+            </p>
+            <p class="prova-card-note">👥 Nessuna ansia da prestazione: ciascuno trova il suo gruppo di passo.</p>
+        </div>
+        <div class="prova-card-action">
+            <a href="#btn-modulo-golee" id="btn-prova-per-tutti" class="btn btn-primary" title="Scorri alle istruzioni e al modulo di registrazione su Golee">
+                <span>Registrati alla prova</span>
+                <span class="btn-arrow" aria-hidden="true">&darr;</span>
+            </a>
+            <small class="prova-action-subtext">Vedi dettagli e modulo sotto</small>
+        </div>
     </div>
-</div>
 
-<div style="background-color: var(--bg-tertiary); border-left: 4px solid var(--color-green-light); border-radius: 8px; padding: 1.5rem; margin-top: 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
-    <div>
-        <h3 style="margin: 0; color: white; font-size: 1.2rem;">Prenota la tua prova in pochi secondi</h3>
-        <p style="margin: 0.3rem 0 0; color: var(--text-secondary); font-size: 0.95rem;">Contattaci via WhatsApp o inviaci un'email indicando la fascia d'età e il corso desiderato.</p>
-    </div>
-    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-        <a href="https://wa.me/393406274022?text=Ciao%20Virtus%20Groane,%20vorrei%20prenotare%20una%20sessione%20di%20prova%20gratuita" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.7rem 1.4rem;">💬 Scrivici su WhatsApp</a>
-        <a href="mailto:info@virtusgroane.com?subject=Richiesta%20Prova%20Gratuita" class="btn btn-secondary" style="padding: 0.7rem 1.4rem;">✉️ Invia un'Email</a>
+    <!-- ISCRIZIONI SU GOLEE -->
+    <div class="prova-card" id="card-modulo-golee" style="border-left: 4px solid #ffd100;">
+        <div class="prova-card-content">
+            <span class="prova-badge golee">ISCRIZIONI SU GOLEE</span>
+            <h3 class="prova-card-title">Iscrizioni su Golee</h3>
+            <p class="prova-card-desc">
+                La compilazione del modulo online &egrave; <strong>necessaria ai fini assicurativi</strong> per consentire la partecipazione alle lezioni di prova in totale sicurezza. Se l'iscrizione non viene finalizzata al termine del periodo di prova, i tuoi dati personali verranno <strong>automaticamente cancellati dopo 6 mesi</strong>.
+            </p>
+            <div class="prova-golee-info" style="margin-top: 1rem; background: var(--bg-tertiary); padding: 1.1rem 1.3rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                <strong style="color: white; font-size: 0.95rem; display: block; margin-bottom: 0.5rem;">📋 Cosa preparare per la compilazione del modulo:</strong>
+                <ul style="margin: 0; padding-left: 1.2rem; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                    <li><strong>Dati anagrafici dell'atleta:</strong> Nome, Cognome, Data di Nascita e Codice Fiscale</li>
+                    <li><strong>Documenti da allegare:</strong> Foto o scansione del Documento di Identit&agrave; e del Certificato Medico in corso di validit&agrave;</li>
+                </ul>
+                <p style="margin: 0.7rem 0 0; font-size: 0.85rem; color: #ffd100; font-weight: 500;">
+                    ⚠️ <em>Nota bene: il Documento di Identità e il Certificato Medico dovranno essere portati in originale al campo il giorno della prova.</em>
+                </p>
+            </div>
+        </div>
+        <div class="prova-card-action">
+            <a href="https://moduli.golee.it/virtus-groane-asd/prova-2-lezioni" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="btn-modulo-golee">
+                <span>Registrati alla prova</span>
+            </a>
+            <small class="prova-action-subtext">Modulo online Golee &bull; 2 lezioni gratuite</small>
+        </div>
     </div>
 </div>
 
@@ -272,9 +426,46 @@
     </footer>
 
     <!-- Pulsante Flottante WhatsApp (Mobile UX & Contatto Rapido) -->
-    <a href="https://wa.me/393406274022?text=Ciao%20Virtus%20Groane,%20vorrei%20prenotare%20una%20sessione%20di%20prova%20gratuita" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Prenota una prova gratuita su WhatsApp">
+    <a href="https://wa.me/393406274022?text=Ciao%20Virtus%20Groane,%20vorrei%20informazioni%20sulle%20prove%20gratuite%20e%20sui%20corsi" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contatta Virtus Groane su WhatsApp">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.25-3.858l.412.245c1.554.923 3.393 1.41 5.289 1.411 5.922 0 10.741-4.812 10.745-10.739.002-2.872-1.116-5.573-3.149-7.608C17.573 1.419 14.878.3 12.01.3 6.086.3 1.267 5.111 1.263 11.039c-.001 1.986.518 3.926 1.503 5.64l.269.467-1.002 3.659 3.774-.989zm11.238-7.79c-.31-.155-1.832-.903-2.112-1.004-.28-.101-.483-.153-.687.153-.203.305-.788 1.004-.966 1.207-.178.203-.355.228-.665.074-1.636-.818-2.695-1.442-3.772-3.287-.285-.488.285-.453.818-1.517.089-.178.045-.33-.022-.483-.067-.152-.574-1.385-.787-1.894-.207-.498-.418-.43-.574-.438-.148-.008-.317-.008-.487-.008-.17 0-.446.064-.68.315-.233.251-.892.871-.892 2.122 0 1.25.909 2.457 1.036 2.628.127.172 1.79 2.732 4.336 3.829.605.261 1.077.417 1.445.534.609.193 1.164.166 1.603.1.489-.073 1.832-.749 2.088-1.474.255-.724.255-1.346.178-1.473-.076-.127-.275-.203-.585-.358z"/></svg>
-        <span>Prenota prova su WhatsApp</span>
+        <span>Scrivici su WhatsApp</span>
     </a>
+
+    <script>
+        (function() {
+            var now = new Date();
+            var isSeptember = now.getMonth() === 8; // 8 = Settembre (0-indexed)
+            var btnGiovanile = document.getElementById('btn-prova-giovanile');
+            var arrowGiovanile = document.getElementById('giovanile-arrow');
+            var noteGiovanile = document.getElementById('giovanile-note');
+            var btnPerTutti = document.getElementById('btn-prova-per-tutti');
+            var targetGolee = document.getElementById('btn-modulo-golee');
+
+            function scrollToGolee(e) {
+                if (targetGolee) {
+                    e.preventDefault();
+                    targetGolee.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    targetGolee.classList.add('btn-highlight-pulse');
+                    setTimeout(function() {
+                        targetGolee.classList.remove('btn-highlight-pulse');
+                    }, 1800);
+                }
+            }
+
+            if (btnPerTutti) {
+                btnPerTutti.addEventListener('click', scrollToGolee);
+            }
+
+            if (btnGiovanile) {
+                if (isSeptember) {
+                    // Mese di Settembre: periodo di prova giovanile attivo
+                    if (arrowGiovanile) arrowGiovanile.style.display = 'none';
+                    if (noteGiovanile) noteGiovanile.textContent = "Prove gratuite attive per tutto settembre!";
+                    btnGiovanile.title = "Iscriviti alle prove gratuite di settembre per il settore giovanile";
+                }
+                btnGiovanile.addEventListener('click', scrollToGolee);
+            }
+        })();
+    </script>
 </body>
 </html>

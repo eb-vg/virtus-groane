@@ -749,12 +749,14 @@ th, td {
 }
 
 th {
-    background-color: var(--bg-tertiary);
+    background-color: #18385e;
     font-family: var(--font-title);
     font-weight: 700;
+    font-size: 1.05rem;
     text-transform: uppercase;
-    color: white;
+    color: #ffffff;
     letter-spacing: 0.05em;
+    border-bottom: 2px solid var(--color-green);
 }
 
 tr:last-child td {
@@ -793,29 +795,30 @@ tr:hover td {
 
 /* Header Livello 1 (Titoli principali) */
 .table-two-tier thead tr:first-child th {
-    background-color: #0b0e14;
+    background-color: #18385e;
     color: #ffffff;
-    font-family: var(--font-body);
+    font-family: var(--font-title);
     font-weight: 700;
-    font-size: 0.95rem;
-    text-transform: none;
-    letter-spacing: 0.02em;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     padding-top: 1rem;
-    padding-bottom: 0.75rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Header Livello 2 (Barra secondaria con evidenziazione verde) */
+/* Header Livello 2 (Barra secondaria con evidenziazione azzurra e bordo verde) */
 .table-two-tier thead tr.sub-header th {
-    background-color: #222732;
-    color: #a3e635;
+    background-color: #10243d;
+    color: #7dd3fc;
     font-family: var(--font-body);
     font-weight: 600;
-    font-size: 0.9rem;
-    text-transform: none;
-    letter-spacing: 0.02em;
-    padding-top: 0.6rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 1px solid var(--border-color);
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding-top: 0.55rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 2px solid var(--color-green);
 }
 
 /* Righe Dati: Livello 1 (Dati primari: disciplina, destinatari, sedi) */
