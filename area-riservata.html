@@ -1336,17 +1336,17 @@
                     `;
                 } else {
                     let buttons = [];
-                    // Se "Da Ordinare" NON è spuntato, mostra il tasto
+                    // Logica sequenziale ed esclusiva: Da Ordinare -> Ordinato
                     if (!o.daOrdinare) {
+                        // 1. Se NON è ancora "Da Ordinare", mostra solo il tasto "Da Ordinare"
                         buttons.push(`
                             <button type="button" class="btn-table-action btn-da-ordinare"
                                 onclick="stageAction(${o.rowNumber}, 'SET_DA_ORDINARE', {}, 'Da Ordinare', 'Email di presa in carico al tesserato')">
                                 Da Ordinare
                             </button>
                         `);
-                    }
-                    // Se "Ordinato" NON è spuntato, mostra il tasto
-                    if (!o.ordinato) {
+                    } else if (!o.ordinato) {
+                        // 2. Se "Da Ordinare" è già spuntato ma NON è ancora "Ordinato", mostra il tasto "Ordinato" (e nasconde "Da Ordinare")
                         buttons.push(`
                             <button type="button" class="btn-table-action btn-ordinato"
                                 onclick="stageAction(${o.rowNumber}, 'SET_ORDINATO', {}, 'Ordinato', 'Email inoltro fornitore al tesserato')">
@@ -1354,14 +1354,17 @@
                             </button>
                         `);
                     }
-                    // Tasto "In Virtus"
+                    // (Se l'ordine è già stato ordinato, entrambi i pulsanti Da Ordinare/Ordinato rimangono nascosti)
+
+                    // 3. Tasto "In Virtus": per registrare l'arrivo merce o assegnare disponibilità da magazzino
                     buttons.push(`
                         <button type="button" class="btn-table-action btn-in-virtus"
                             onclick="openModalInVirtus(${o.rowNumber})">
                             In Virtus &euro;
                         </button>
                     `);
-                    // Tasto "Annulla Ordine"
+
+                    // 4. Tasto "Annulla Ordine": sempre presente per consentire l'annullamento tempestivo
                     buttons.push(`
                         <button type="button" class="btn-table-action btn-annulla"
                             onclick="openModalAnnulla(${o.rowNumber})" title="Annulla questo ordine">
