@@ -7,6 +7,7 @@ virtus-non-pubblico/
 # File e script di sviluppo locale
 serve.js
 data/google-apps-script-code.js
+data/script-mailing-vecchio.js
 .env
 .DS_Store
 Thumbs.db
