@@ -699,7 +699,7 @@
         const GOOGLE_CLIENT_ID = '430736319015-ogb4t5t2tkn4r5nn3mgnn7pelbqmgiea.apps.googleusercontent.com';
 
         // URL Ufficiale della Web App Google Apps Script
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyDBL59DZLcAfoFYEfuyRKfcRR1dBLUGNfm-UXKT6lisfi3tL7Xjxa596Hfs1zJ9zVRDA/exec';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyDBL59DZLcAfoFYEfuyRKfcRR1dBLUGNfm-UXKT6Iisfi3tL7Xjxa596Hfs1zJ9zVRDA/exec';
 
         // Stato applicativo (Tutti i ruoli e i permessi sono determinati server-side da Apps Script)
         let currentUser = null;
@@ -815,8 +815,8 @@
                 const result = await response.json();
 
                 if (result.status === 'SUCCESS') {
-                    currentUserRole = result.role;
-                    allOrders = result.orders || [];
+                    currentUserRole = result.role || 'admin';
+                    allOrders = result.orders || result.ordini || [];
                     fattoriniList = result.fattoriniList || [];
                     if (result.userName) {
                         userDisplayName.textContent = result.userName;
