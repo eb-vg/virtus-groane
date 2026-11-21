@@ -573,6 +573,67 @@
                         <span id="badge-count-marco" class="status-badge badge-blue">0 Ordini Totali</span>
                     </div>
 
+                    <!-- CARD DEDICATA: RICEZIONE CONSEGNA FORNITORE (CARICO MAGAZZINO) -->
+                    <div class="supplier-delivery-card" style="background: rgba(27, 88, 155, 0.08); border: 1px solid rgba(43, 122, 210, 0.35); border-radius: 12px; padding: 1.4rem; margin-bottom: 2rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.2rem; color: #4da3ff; display: flex; align-items: center; gap: 0.6rem;">
+                                    <span>🚚</span> Ricezione Consegna Fornitore &bull; Carico Magazzino
+                                </h3>
+                                <p style="margin: 0.35rem 0 0 0; font-size: 0.88rem; color: var(--text-secondary);">
+                                    Registra i capi consegnati dal corriere/fornitore per caricare la disponibilità a magazzino in un'unica transazione.
+                                </p>
+                            </div>
+                            <button type="button" id="btn-toggle-carico" class="btn btn-primary" style="font-size: 0.88rem; padding: 0.5rem 1.1rem; background: var(--color-blue); border-color: var(--color-blue-light);" onclick="toggleCaricoPanel()">
+                                ➕ Registra Nuovo Carico Fornitore
+                            </button>
+                        </div>
+
+                        <!-- Pannello Modulo Inserimento Lotti (a comparsa) -->
+                        <div id="carico-panel-content" style="display: none; border-top: 1px solid var(--border-color); padding-top: 1.4rem; margin-top: 1.2rem;">
+                            <div style="margin-bottom: 1.2rem; max-width: 500px;">
+                                <label style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.4rem;">
+                                    📝 <strong>Riferimento Consegna / Fornitore / DDT (opzionale):</strong>
+                                </label>
+                                <input type="text" id="carico-note-input" placeholder="Es. Consegna Bioracer DDT n. 1042 o Pacco Bitre..." style="width: 100%; padding: 0.55rem 0.9rem; font-size: 0.9rem; background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 6px;">
+                            </div>
+
+                            <div class="table-responsive" style="margin-bottom: 1.2rem;">
+                                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                                    <thead>
+                                        <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-secondary); text-align: left;">
+                                            <th style="padding: 0.6rem 0.8rem;">Capo Ricevuto</th>
+                                            <th style="padding: 0.6rem 0.8rem; width: 140px;">Taglia</th>
+                                            <th style="padding: 0.6rem 0.8rem; width: 120px;">Quantità</th>
+                                            <th style="padding: 0.6rem 0.8rem; width: 60px; text-align: center;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody-carico-items">
+                                        <!-- Righe dinamiche create via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-top: 1rem; border-top: 1px dashed var(--border-color);">
+                                <button type="button" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.45rem 1rem;" onclick="addCaricoRow()">
+                                    ➕ Aggiungi un altro capo al carico
+                                </button>
+                                
+                                <div style="display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap;">
+                                    <span id="carico-total-counter" style="font-weight: bold; color: var(--color-green-light); font-size: 1rem;">
+                                        Totale: 0 pezzi da caricare
+                                    </span>
+                                    <button type="button" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.45rem 0.9rem;" onclick="resetCaricoForm()">
+                                        Annulla
+                                    </button>
+                                    <button type="button" class="btn btn-primary" style="background: var(--color-green); border-color: var(--color-green-light); font-weight: bold; padding: 0.55rem 1.4rem;" onclick="openModalConfirmCarico()">
+                                        💾 OK, Salva Carico Magazzino
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="orders-table">
                             <thead>
@@ -789,6 +850,30 @@
         </div>
     </div>
 
+    <!-- Modal 5: Conferma Carico Magazzino da Fornitore -->
+    <div id="modal-confirm-carico" class="modal-overlay">
+        <div class="modal-box" style="max-width: 600px;">
+            <h3 style="color: #4da3ff; display: flex; align-items: center; gap: 0.5rem;">
+                <span>🚚</span> Conferma Carico Magazzino da Fornitore
+            </h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 1rem;">
+                Stai per registrare la ricezione dei seguenti capi. I quantitativi verranno sommati alla disponibilità nel foglio <strong>Prodotti</strong> e registrati nel log societario:
+            </p>
+            <div id="modal-carico-summary-box" style="max-height: 250px; overflow-y: auto; margin: 1rem 0; border: 1px solid var(--border-color); border-radius: 8px; padding: 0.9rem; background: var(--bg-primary);">
+                <!-- Popolato via JS -->
+            </div>
+            <p style="font-size: 0.85rem; color: #a0aec0; margin: 0 0 1.2rem;">
+                ℹ️ <em>L'operazione decrementa automaticamente le quantità 'In Ordine' per i capi corrispondenti, allineando le scorte.</em>
+            </p>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('modal-confirm-carico')" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Torna indietro</button>
+                <button type="button" id="btn-submit-carico-execute" class="btn btn-primary" style="background: var(--color-green); border-color: var(--color-green); padding: 0.5rem 1.3rem; font-size: 0.9rem; font-weight: bold;" onclick="submitCaricoFornitore()">
+                    ✔ Conferma e Salva a Magazzino
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Barra Flottante Sticky Inferiore (Appare se ci sono modifiche in sospeso) -->
     <div id="sticky-confirmation-bar" class="sticky-action-bar" style="display: none;">
         <div class="container sticky-bar-content">
@@ -871,6 +956,8 @@
         let currentUserRole = null; // 'admin', 'marco', 'teresa', 'fattorino'
         let allOrders = [];
         let fattoriniList = [];
+        let catalogItems = [];
+        let caricoRows = [];
         let activeAdminFilter = 'all';
 
         // Modifiche in sospeso preparate (Mappate per rowNumber)
@@ -998,6 +1085,9 @@
                     currentUserRole = result.role || 'admin';
                     allOrders = result.orders || result.ordini || [];
                     fattoriniList = result.fattoriniList || [];
+                    if (result.catalogItems && result.catalogItems.length > 0) {
+                        catalogItems = result.catalogItems;
+                    }
                     if (result.userName) {
                         userDisplayName.textContent = result.userName;
                     }
@@ -1626,6 +1716,230 @@
         function escapeHtml(str) {
             if (!str) return '';
             return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // =====================================================================
+        // GESTIONE CARICO MAGAZZINO DA FORNITORE (RICEZIONE MERCI)
+        // =====================================================================
+        const DEFAULT_CATALOG = [
+            "T-shirt", "Singlet", "Short", "Marathon", "Long Tights", "Shirt Long Sleeves",
+            "Wintershirt Long Sleeves", "Maglietta", "Canotta", "Top", "Maglia Manica Lunga",
+            "Tri Suit", "Tri Smanicato", "Tri Suit+nome", "Tri Smanicato+nome", "Cuffia",
+            "Salopette Estiva", "Jersey Estiva", "Gilet Bici", "Salopette Invernale 10°/0°C",
+            "Jersey Invernale 20°/10°C", "Jacket Invernale 10°/0°C", "Giacca Softshell",
+            "Giacca Tuta Felpata", "Pantalone Tuta Felpato", "Giacca Tuta Garzata",
+            "Pantalone Tuta Garzato", "Polo", "Zaino con Portascarpe", "Zaino"
+        ];
+        const ALL_SIZES = ["N/A", "XS", "S", "M", "L", "XL", "XXL"];
+
+        function toggleCaricoPanel() {
+            const panel = document.getElementById('carico-panel-content');
+            const btn = document.getElementById('btn-toggle-carico');
+            if (!panel || !btn) return;
+            if (panel.style.display === 'none' || panel.style.display === '') {
+                panel.style.display = 'block';
+                btn.textContent = '▲ Chiudi Modulo Carico';
+                if (caricoRows.length === 0) {
+                    addCaricoRow();
+                }
+            } else {
+                panel.style.display = 'none';
+                btn.textContent = '➕ Registra Nuovo Carico Fornitore';
+            }
+        }
+
+        function getAvailableProductsList() {
+            if (catalogItems && catalogItems.length > 0) {
+                return catalogItems;
+            }
+            return DEFAULT_CATALOG.map(c => ({ capo: c, taglie: ALL_SIZES }));
+        }
+
+        function addCaricoRow(capoDefault = '', tagliaDefault = 'M', qtaDefault = 1) {
+            const products = getAvailableProductsList();
+            const firstCapo = capoDefault || (products.length > 0 ? products[0].capo : 'T-shirt');
+            
+            caricoRows.push({
+                capo: firstCapo,
+                taglia: tagliaDefault,
+                quantita: qtaDefault
+            });
+            renderCaricoTable();
+        }
+
+        function removeCaricoRow(index) {
+            caricoRows.splice(index, 1);
+            if (caricoRows.length === 0) {
+                addCaricoRow();
+            } else {
+                renderCaricoTable();
+            }
+        }
+
+        function renderCaricoTable() {
+            const tbody = document.getElementById('tbody-carico-items');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            const products = getAvailableProductsList();
+
+            caricoRows.forEach((row, index) => {
+                const tr = document.createElement('tr');
+                tr.style.borderBottom = '1px solid var(--border-color)';
+
+                // Trova taglie per questo capo
+                const prodObj = products.find(p => p.capo === row.capo);
+                const taglieDisponibili = prodObj && prodObj.taglie && prodObj.taglie.length > 0 ? prodObj.taglie : ALL_SIZES;
+                if (!taglieDisponibili.includes(row.taglia)) {
+                    row.taglia = taglieDisponibili[0];
+                }
+
+                // Opzioni Capo
+                let optionsCapo = '';
+                products.forEach(p => {
+                    const sel = p.capo === row.capo ? 'selected' : '';
+                    optionsCapo += `<option value="${escapeHtml(p.capo)}" ${sel}>${escapeHtml(p.capo)}</option>`;
+                });
+
+                // Opzioni Taglia
+                let optionsTaglia = '';
+                taglieDisponibili.forEach(t => {
+                    const sel = t === row.taglia ? 'selected' : '';
+                    optionsTaglia += `<option value="${t}" ${sel}>${t}</option>`;
+                });
+
+                tr.innerHTML = `
+                    <td style="padding: 0.6rem 0.8rem;">
+                        <select class="form-input" style="width: 100%; padding: 0.45rem 0.7rem; font-size: 0.88rem; background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 6px;" onchange="onCaricoCapoChange(${index}, this.value)">
+                            ${optionsCapo}
+                        </select>
+                    </td>
+                    <td style="padding: 0.6rem 0.8rem;">
+                        <select id="select-taglia-${index}" class="form-input" style="width: 100%; padding: 0.45rem 0.7rem; font-size: 0.88rem; background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 6px;" onchange="onCaricoTagliaChange(${index}, this.value)">
+                            ${optionsTaglia}
+                        </select>
+                    </td>
+                    <td style="padding: 0.6rem 0.8rem;">
+                        <input type="number" min="1" step="1" value="${row.quantita}" class="form-input" style="width: 100%; padding: 0.45rem 0.7rem; font-size: 0.88rem; background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 6px; text-align: center;" onchange="onCaricoQtaChange(${index}, this.value)">
+                    </td>
+                    <td style="padding: 0.6rem 0.8rem; text-align: center;">
+                        <button type="button" class="btn btn-secondary" style="padding: 0.35rem 0.6rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.4); font-size: 0.85rem;" title="Rimuovi riga" onclick="removeCaricoRow(${index})">
+                            🗑️
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            updateCaricoCounter();
+        }
+
+        function onCaricoCapoChange(index, newCapo) {
+            if (caricoRows[index]) {
+                caricoRows[index].capo = newCapo;
+                renderCaricoTable();
+            }
+        }
+
+        function onCaricoTagliaChange(index, newTaglia) {
+            if (caricoRows[index]) {
+                caricoRows[index].taglia = newTaglia;
+                updateCaricoCounter();
+            }
+        }
+
+        function onCaricoQtaChange(index, newQta) {
+            const q = parseInt(newQta, 10);
+            if (caricoRows[index]) {
+                caricoRows[index].quantita = (!isNaN(q) && q > 0) ? q : 1;
+                updateCaricoCounter();
+            }
+        }
+
+        function updateCaricoCounter() {
+            const total = caricoRows.reduce((acc, r) => acc + (parseInt(r.quantita, 10) || 0), 0);
+            const counterEl = document.getElementById('carico-total-counter');
+            if (counterEl) {
+                counterEl.textContent = `Totale: ${total} pezzi da caricare`;
+            }
+            return total;
+        }
+
+        function resetCaricoForm() {
+            caricoRows = [];
+            const noteInput = document.getElementById('carico-note-input');
+            if (noteInput) noteInput.value = '';
+            toggleCaricoPanel();
+        }
+
+        function openModalConfirmCarico() {
+            const validItems = caricoRows.filter(r => r.capo && r.quantita > 0);
+            if (validItems.length === 0) {
+                showToast("Inserisci almeno un capo con quantità maggiore di zero.", true);
+                return;
+            }
+
+            const total = updateCaricoCounter();
+            const note = (document.getElementById('carico-note-input').value || '').trim();
+
+            const summaryBox = document.getElementById('modal-carico-summary-box');
+            let html = `
+                <div style="margin-bottom: 0.8rem; font-weight: bold; color: var(--color-green-light); font-size: 1rem;">
+                    📦 Totale Lotti: ${validItems.length} tipologie &bull; ${total} pezzi totali
+                </div>
+            `;
+            if (note) {
+                html += `<div style="font-size: 0.85rem; color: #a0aec0; margin-bottom: 0.8rem;">📝 Nota/DDT: <em>${escapeHtml(note)}</em></div>`;
+            }
+            html += '<ul style="margin: 0; padding-left: 1.2rem; line-height: 1.6;">';
+            validItems.forEach(item => {
+                html += `<li><strong>${escapeHtml(item.capo)}</strong> (Taglia: <em>${escapeHtml(item.taglia)}</em>) &rarr; <span style="color: var(--color-green-light); font-weight: bold;">+${item.quantita} pz</span></li>`;
+            });
+            html += '</ul>';
+
+            summaryBox.innerHTML = html;
+            document.getElementById('modal-confirm-carico').style.display = 'flex';
+        }
+
+        async function submitCaricoFornitore() {
+            const validItems = caricoRows.filter(r => r.capo && r.quantita > 0);
+            if (validItems.length === 0) return;
+
+            const note = (document.getElementById('carico-note-input').value || '').trim();
+            closeModal('modal-confirm-carico');
+
+            showToast("⏳ Salvataggio carico merce su Google Sheets in corso...");
+            dataLoadingIndicator.style.display = 'block';
+
+            const payload = {
+                action: 'CARICO_FORNITORE',
+                userEmail: currentUser.email,
+                note: note,
+                items: validItems
+            };
+
+            try {
+                await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+
+                const totalPezzi = validItems.reduce((acc, r) => acc + r.quantita, 0);
+                showToast(`✔ Carico fornitore registrato con successo! (+${totalPezzi} pezzi aggiunti a magazzino)`);
+                caricoRows = [];
+                const noteInput = document.getElementById('carico-note-input');
+                if (noteInput) noteInput.value = '';
+                toggleCaricoPanel();
+
+                setTimeout(fetchOrdersFromSheet, 1200);
+            } catch (err) {
+                console.error("Errore submitCaricoFornitore:", err);
+                showToast("❌ Errore durante il salvataggio del carico fornitore.", true);
+            } finally {
+                dataLoadingIndicator.style.display = 'none';
+            }
         }
 
         // =====================================================================
