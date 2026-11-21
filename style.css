@@ -242,7 +242,9 @@ header {
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    width: 240px;
+    min-width: 240px;
+    width: max-content;
+    max-width: 320px;
     opacity: 0;
     visibility: hidden;
     transition: all var(--transition-normal);
@@ -256,6 +258,7 @@ header {
     padding: 0.75rem 1.5rem;
     font-size: 0.95rem;
     font-weight: 500;
+    white-space: nowrap;
     border-left: 3px solid transparent;
     color: var(--text-secondary) !important;
 }
