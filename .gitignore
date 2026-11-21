@@ -9,6 +9,8 @@ serve.js
 scratch/
 data/google-apps-script-code.js
 data/script-mailing-vecchio.js
+data/records/SCRIPT-*.js
+data/records/GUIDA-*.md
 .env
 .DS_Store
 Thumbs.db

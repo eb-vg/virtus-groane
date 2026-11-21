@@ -12,6 +12,8 @@
 /data/*.csv /404.html 404!
 /data/google-apps-script-code.js /404.html 404!
 /data/script-mailing-vecchio.js /404.html 404!
+/data/records/SCRIPT-* /404.html 404!
+/data/records/GUIDA-* /404.html 404!
 /serve.js /404.html 404!
 
 # ------------------------------------------------------------------------------
