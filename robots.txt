@@ -6,6 +6,8 @@ Disallow: /404.html
 Disallow: /virtus-non-pubblico/
 Disallow: /data/
 Disallow: /area-riservata.html
+Disallow: /ordini-vestiario.html
+Disallow: /cena-di-natale.html
 Disallow: /docs/guida-operativa-staff*
 
 # Sitemap ufficiale del sito

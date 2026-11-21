@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordini Vestiario & Magazzino - Area Riservata - Virtus Groane ASD</title>
+    <!-- Privacy & Sicurezza: Esclusione assoluta dai motori di ricerca -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <link rel="canonical" href="https://www.virtusgroane.com/area-riservata.html">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <!-- Google Identity Services SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Font Ufficiali & Foglio di Stile -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=1.3">
+
+    <style>
+        /* ==================================================================== */
+        /* STILI DEDICATI GESTIONALE AREA RISERVATA */
+        /* ==================================================================== */
+        .auth-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            max-width: 540px;
+            margin: 2rem auto;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .auth-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(36, 178, 103, 0.15);
+            border: 1px solid var(--color-green);
+            color: var(--color-green-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .user-panel-bar {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.2rem 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--color-green);
+            object-fit: cover;
+            background: var(--bg-tertiary);
+        }
+
+        .user-details h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            color: white;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .user-details p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--color-green-light);
+        }
+
+        /* Selettore rapido ruoli (per test e simulazione) */
+        .role-tester-bar {
+            background: rgba(43, 122, 210, 0.1);
+            border: 1px dashed rgba(43, 122, 210, 0.35);
+            border-radius: 8px;
+            padding: 0.9rem 1.2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            font-size: 0.88rem;
+        }
+
+        .role-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .role-btn:hover, .role-btn.active {
+            background: var(--color-blue);
+            color: white;
+            border-color: var(--color-blue-light);
+        }
+
+        /* Sezioni e Tabelle Operative */
+        .workflow-section {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .workflow-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .workflow-title {
+            margin: 0;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: white;
+        }
+
+        .workflow-subtitle {
+            margin: 0.3rem 0 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+
+        .orders-table th {
+            background-color: #18385e;
+            color: #ffffff;
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.8rem 1rem;
+            border-bottom: 2px solid var(--color-green);
+            white-space: nowrap;
+        }
+
+        .orders-table td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+
+        .orders-table tr:hover td {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Badge di stato */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-gray { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
+        .badge-yellow { background: rgba(255, 209, 0, 0.15); color: #ffd100; border: 1px solid rgba(255, 209, 0, 0.3); }
+        .badge-blue { background: rgba(43, 122, 210, 0.15); color: #4da3ff; border: 1px solid rgba(43, 122, 210, 0.3); }
+        .badge-green { background: rgba(46, 204, 113, 0.15); color: var(--color-green-light); border: 1px solid rgba(46, 204, 113, 0.3); }
+        .badge-red { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.35); }
+        .badge-pending { background: rgba(255, 209, 0, 0.2); color: #ffd100; border: 1px solid rgba(255, 209, 0, 0.4); }
+
+        /* Bottoni Azione Tabella */
+        .btn-table-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.45rem 0.85rem;
+            border-radius: 6px;
+            font-family: var(--font-title);
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .btn-table-action:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .btn-da-ordinare { background: #34495e; color: #fff; }
+        .btn-da-ordinare:hover:not(:disabled) { background: #4a627a; }
+
+        .btn-ordinato { background: #1b589b; color: #fff; }
+        .btn-ordinato:hover:not(:disabled) { background: #2b7ad2; }
+
+        .btn-in-virtus { background: #d35400; color: #fff; }
+        .btn-in-virtus:hover:not(:disabled) { background: #e67e22; }
+
+        .btn-pagato { background: #27ae60; color: #fff; }
+        .btn-pagato:hover:not(:disabled) { background: #2ecc71; }
+
+        .btn-consegnato { background: #24b267; color: #fff; }
+        .btn-consegnato:hover:not(:disabled) { background: #2ecc71; }
+
+        .btn-annulla { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.35); }
+        .btn-annulla:hover:not(:disabled) { background: rgba(239, 68, 68, 0.3); color: #fff; }
+
+        .btn-revert-row {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 0.35rem 0.65rem;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        .btn-revert-row:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
+
+        .row-pending-change {
+            background: rgba(255, 209, 0, 0.08) !important;
+            border-left: 4px solid #ffd100;
+        }
+
+        .select-fattorino-table {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 0.4rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        /* Barra Flottante Sticky per Salvataggio Modifiche */
+        .sticky-action-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #141922;
+            border-top: 2px solid var(--color-green);
+            padding: 0.9rem 1.2rem;
+            box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.75);
+            z-index: 1500;
+            animation: slideUp 0.25s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .sticky-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .sticky-bar-info {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .sticky-bar-icon {
+            font-size: 1.6rem;
+        }
+
+        .sticky-bar-sub {
+            margin: 0;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .sticky-bar-buttons {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        .btn-confirm-save {
+            background: var(--color-green);
+            border-color: var(--color-green);
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(36, 178, 103, 0.3);
+            cursor: pointer;
+        }
+
+        .btn-confirm-save:hover {
+            background: var(--color-green-light);
+            border-color: var(--color-green-light);
+            transform: translateY(-1px);
+        }
+
+        /* Finestra Modale Popup */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 1.5rem;
+        }
+
+        .modal-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            max-width: 500px;
+            width: 100%;
+            padding: 2rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        .modal-box h3 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            color: white;
+        }
+
+        .modal-input-group {
+            margin: 1.2rem 0;
+        }
+
+        .modal-input-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .modal-input-group input, .modal-input-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: white;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Notifiche Toast in tempo reale */
+        .toast-notification {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--bg-tertiary);
+            border-left: 4px solid var(--color-green);
+            color: white;
+            padding: 1rem 1.4rem;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 3000;
+            max-width: 400px;
+            font-size: 0.92rem;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: var(--text-muted);
+        }
+
+        .empty-state span {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Accessibilità: Skip Link -->
+    <a href="#main-content" class="skip-link" style="position: absolute; top: -9999px; left: -9999px;">Salta al contenuto principale</a>
+
+    <!-- HEADER / NAVIGATION -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo-link">
+                <img src="logo.webp" alt="Virtus Groane ASD" class="logo-img"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="logo-placeholder" style="display:none;">VG</div>
+            </a>
+
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox" aria-label="Menu di navigazione">
+            <label for="menu-toggle" class="menu-toggle-label" aria-label="Apri o chiudi il menu di navigazione" role="button" tabindex="0">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="virtus.html">Chi Siamo</a></li>
+                    <li class="nav-item"><a href="info-iscrizioni.html">Info-Iscrizioni</a></li>
+                    <li class="nav-item"><a href="abbigliamento.html">Abbigliamento</a></li>
+                    <li class="nav-item"><a href="societa-ed-eventi.html">Società ed Eventi</a></li>
+                    <li class="nav-item"><a href="contatti.html">Contatti</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section id="main-content" class="page-hero">
+        <div class="container">
+            <h1><a href="area-riservata.html" class="parent-link">Area Riservata</a> <span class="parent-separator">/</span> Ordini Vestiario & Magazzino</h1>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem;">Piattaforma operativa interna Virtus Groane ASD &bull; Sincronizzata in tempo reale con il foglio <strong>GestioneAutomatizzata</strong></p>
+        </div>
+    </section>
+
+    <!-- CONTENUTO PRINCIPALE -->
+    <section class="internal-layout" style="padding: 2.5rem 0 5rem;">
+        <div class="container">
+
+            <!-- ============================================================== -->
+            <!-- STATO 1: NON AUTENTICATO (LOGIN FORM) -->
+            <!-- ============================================================== -->
+            <div id="login-container">
+                <div class="auth-card">
+                    <div class="auth-badge">
+                        🔒 Portale Interno Virtus Groane
+                    </div>
+                    <h2 style="font-size: 1.8rem; margin-bottom: 0.8rem;">Accesso Riservato Staff</h2>
+                    <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 2rem;">
+                        Accedi con il tuo account istituzionale <strong>@virtusgroane.com</strong> per gestire ordini, pagamenti e consegne.
+                    </p>
+
+                    <!-- Alert di errore -->
+                    <div id="login-error-alert" style="display:none; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #fca5a5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: left;">
+                        <strong>❌ Accesso Negato:</strong>
+                        <div id="login-error-message" style="margin-top: 0.3rem;"></div>
+                    </div>
+
+                    <!-- Pulsante Ufficiale Google Sign-In (Dichiarativo + Programmatico) -->
+                    <div id="google-btn-wrapper" style="display: flex; justify-content: center; min-height: 48px; margin-bottom: 1.5rem;">
+                        <div id="g_id_onload"
+                             data-client_id="430736319015-ogb4t5t2tkn4r5nn3mgnn7pelbqmgiea.apps.googleusercontent.com"
+                             data-context="signin"
+                             data-ux_mode="popup"
+                             data-callback="handleCredentialResponse"
+                             data-auto_prompt="false">
+                        </div>
+                        <div id="g_id_signin_button" class="g_id_signin"
+                             data-type="standard"
+                             data-shape="rectangular"
+                             data-theme="outline"
+                             data-text="signin_with"
+                             data-size="large"
+                             data-logo_alignment="left">
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1rem; font-size: 0.85rem; color: var(--text-secondary); text-align: center;">
+                        📖 Serve aiuto? Consulta la <a href="docs/guida-operativa-staff.pdf" target="_blank" rel="noopener noreferrer" style="color: #4da3ff; text-decoration: underline; font-weight: 500;">Guida Operativa Staff (PDF)</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- STATO 2: AUTENTICATO (DASHBOARD RUOLI) -->
+            <!-- ============================================================== -->
+            <div id="dashboard-container" style="display: none;">
+
+                <!-- Barra Profilo Utente -->
+                <div class="user-panel-bar">
+                    <div class="user-info">
+                        <img id="user-avatar-img" class="user-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232ecc71'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" alt="Avatar">
+                        <div class="user-details">
+                            <h3 id="user-display-name">Nome Utente</h3>
+                            <p id="user-display-email">email@virtusgroane.com</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
+                        <a href="area-riservata.html" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;" title="Torna al menu principale dell'Area Riservata">
+                            ⬅️ Menu Riservato
+                        </a>
+                        <a href="docs/guida-operativa-staff.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; color: #ffd100; border-color: rgba(255, 209, 0, 0.4);" title="Scarica o visualizza la guida per lo staff">
+                            📖 Guida Operativa (PDF)
+                        </a>
+                        <button type="button" id="btn-refresh" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;" title="Ricarica i dati dal Foglio Google">
+                            🔄 Aggiorna Dati
+                        </button>
+                        <button type="button" id="btn-logout" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                            Esci
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Barra Cambia Ruolo per Super Admin (Emiliano / Silvano) -->
+                <div id="admin-role-switcher" class="role-tester-bar" style="display:none;">
+                    <strong style="color: #4da3ff;">👑 Vista Amministratore (Vedi tutto):</strong>
+                    <span>Filtra visuale come:</span>
+                    <button type="button" class="role-btn active" onclick="switchFilterView('all')">Tutto (Panoramica Completa)</button>
+                    <button type="button" class="role-btn" onclick="switchFilterView('marco')">Solo Ordini (Marco)</button>
+                    <button type="button" class="role-btn" onclick="switchFilterView('teresa')">Solo Pagamenti (Teresa)</button>
+                    <button type="button" class="role-btn" onclick="switchFilterView('fattorini')">Solo Consegne (Fattorini)</button>
+                </div>
+
+                <!-- Stato di caricamento dati -->
+                <div id="data-loading-indicator" style="text-align: center; padding: 2rem 0; color: var(--color-blue-light); display: none;">
+                    <p style="font-size: 1.1rem; margin: 0;">⏳ Sincronizzazione con il foglio Google in corso...</p>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- SEZIONE 1: GESTIONE ORDINI & MAGAZZINO -->
+                <!-- ========================================================== -->
+                <div id="section-marco" class="workflow-section" style="display: none;">
+                    <div class="workflow-header">
+                        <div>
+                            <h2 class="workflow-title">📦 Gestione Ordini & Magazzino</h2>
+                            <p class="workflow-subtitle">Fase 1: Aggiornamento stato di lavorazione degli ordini e notifiche ai tesserati.</p>
+                        </div>
+                        <span id="badge-count-marco" class="status-badge badge-blue">0 Ordini Totali</span>
+                    </div>
+
+                    <!-- CARD DEDICATA: RICEZIONE CONSEGNA FORNITORE (CARICO MAGAZZINO) -->
+                    <div class="supplier-delivery-card" style="background: rgba(27, 88, 155, 0.08); border: 1px solid rgba(43, 122, 210, 0.35); border-radius: 12px; padding: 1.4rem; margin-bottom: 2rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <h3 style="margin: 0; font-size: 1.2rem; color: #4da3ff; display: flex; align-items: center; gap: 0.6rem;">
+                                    <span>🚚</span> Ricezione Consegna Fornitore &bull; Carico Magazzino
+                                </h3>
+                                <p style="margin: 0.35rem 0 0 0; font-size: 0.88rem; color: var(--text-secondary);">
+                                    Registra i capi consegnati dal corriere/fornitore per caricare la disponibilità a magazzino in un'unica transazione.
+                                </p>
+                            </div>
+                            <button type="button" id="btn-toggle-carico" class="btn btn-primary" style="font-size: 0.88rem; padding: 0.5rem 1.1rem; background: var(--color-blue); border-color: var(--color-blue-light);" onclick="toggleCaricoPanel()">
+                                ➕ Registra Nuovo Carico Fornitore
+                            </button>
+                        </div>
+
+                        <!-- Pannello Modulo Inserimento Lotti (a comparsa) -->
+                        <div id="carico-panel-content" style="display: none; border-top: 1px solid var(--border-color); padding-top: 1.4rem; margin-top: 1.2rem;">
+                            <div style="margin-bottom: 1.2rem; max-width: 500px;">
+                                <label style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.4rem;">
+                                    📝 <strong>Riferimento Consegna / Fornitore / DDT (opzionale):</strong>
+                                </label>
+                                <input type="text" id="carico-note-input" placeholder="Es. Consegna Bioracer DDT n. 1042 o Pacco Bitre..." style="width: 100%; padding: 0.55rem 0.9rem; font-size: 0.9rem; background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 6px;">
+                            </div>
+
+                            <div class="table-responsive" style="margin-bottom: 1.2rem;">
+                                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                                    <thead>
+                                        <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-secondary); text-align: left;">
+                                            <th style="padding: 0.6rem 0.8rem;">Capo Ricevuto</th>
+                                            <th style="padding: 0.6rem 0.8rem; width: 140px;">Taglia</th>
+                                            <th style="padding: 0.6rem 0.8rem; width: 120px;">Quantità</th>
+                                            <th style="padding: 0.6rem 0.8rem; width: 60px; text-align: center;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody-carico-items">
+                                        <!-- Righe dinamiche create via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-top: 1rem; border-top: 1px dashed var(--border-color);">
+                                <button type="button" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.45rem 1rem;" onclick="addCaricoRow()">
+                                    ➕ Aggiungi un altro capo al carico
+                                </button>
+                                
+                                <div style="display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap;">
+                                    <span id="carico-total-counter" style="font-weight: bold; color: var(--color-green-light); font-size: 1rem;">
+                                        Totale: 0 pezzi da caricare
+                                    </span>
+                                    <button type="button" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.45rem 0.9rem;" onclick="resetCaricoForm()">
+                                        Annulla
+                                    </button>
+                                    <button type="button" class="btn btn-primary" style="background: var(--color-green); border-color: var(--color-green-light); font-weight: bold; padding: 0.55rem 1.4rem;" onclick="openModalConfirmCarico()">
+                                        💾 OK, Salva Carico Magazzino
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tesserato</th>
+                                    <th>Capo & Taglia</th>
+                                    <th>Giacenza</th>
+                                    <th>Stato Attuale</th>
+                                    <th style="text-align: right;">Azioni Gestione</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-marco">
+                                <!-- Popolato via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- SEZIONE 2: VERIFICA BONIFICI & PAGAMENTI -->
+                <!-- ========================================================== -->
+                <div id="section-teresa" class="workflow-section" style="display: none;">
+                    <div class="workflow-header">
+                        <div>
+                            <h2 class="workflow-title">💶 Verifica Pagamenti & Assegnazione Consegna</h2>
+                            <p class="workflow-subtitle">Fase 2: Capi arrivati in sede: verifica accredito bonifico e incarico consegna.</p>
+                        </div>
+                        <span id="badge-count-teresa" class="status-badge badge-yellow">0 In Attesa Pagamento</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tesserato</th>
+                                    <th>Capo & Taglia</th>
+                                    <th>Importo da Versare</th>
+                                    <th>Referente Consegna (Fattorino)</th>
+                                    <th style="text-align: right;">Azione Contabile</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-teresa">
+                                <!-- Popolato via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- SEZIONE 3: REFERENTI CONSEGNE AL CAMPO -->
+                <!-- ========================================================== -->
+                <div id="section-fattorini" class="workflow-section" style="display: none;">
+                    <div class="workflow-header">
+                        <div>
+                            <h2 class="workflow-title">🚴 Consegne Materiale Assegnate</h2>
+                            <p class="workflow-subtitle">Fase 3: Capi pagati e pronti per essere consegnati ai tesserati.</p>
+                        </div>
+                        <span id="badge-count-fattorini" class="status-badge badge-green">0 Da Consegnare</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tesserato</th>
+                                    <th>Capo & Taglia</th>
+                                    <th>Referente Consegna</th>
+                                    <th>Stato Consegna</th>
+                                    <th style="text-align: right;">Azione Consegna</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-fattorini">
+                                <!-- Popolato via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- SEZIONE 4: PANORAMICA GENERALE (SOLO PER ADMIN) -->
+                <!-- ========================================================== -->
+                <div id="section-all" class="workflow-section" style="display: none; border-color: rgba(43, 122, 210, 0.4);">
+                    <div class="workflow-header">
+                        <div>
+                            <h2 class="workflow-title" style="color: #4da3ff;">📋 Master View: Tutti gli Ordini del Foglio</h2>
+                            <p class="workflow-subtitle">Riepilogo completo di tutte le 13 colonne della scheda <strong>Ordini</strong>.</p>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tesserato</th>
+                                    <th>Capo Ordinato</th>
+                                    <th>Taglia</th>
+                                    <th>Da Ordinare</th>
+                                    <th>Ordinato</th>
+                                    <th>In Virtus</th>
+                                    <th>Importo</th>
+                                    <th>Pagato</th>
+                                    <th>Fattorino</th>
+                                    <th>Consegnato</th>
+                                    <th>Stato / Note</th>
+                                    <th style="text-align: right;">Azioni</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-all">
+                                <!-- Popolato via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- MODALI POPUP INTERATTIVE -->
+    <!-- ============================================================== -->
+
+    <!-- Modal 1: Inserimento / Conferma Importo (Capo In Virtus) -->
+    <div id="modal-importo" class="modal-overlay">
+        <div class="modal-box">
+            <h3>🏢 Capo Arrivato "In Virtus"</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem;">
+                Ordine di <strong id="modal-tesserato-name">Tesserato</strong>. Conferma l'importo in Euro da comunicare per il bonifico bancario (prelevato da listino Prodotti o modificabile).
+            </p>
+            <div class="modal-input-group">
+                <label for="input-importo-euro"><strong>Importo in Euro (€):</strong></label>
+                <input type="number" id="input-importo-euro" min="1" step="0.5" placeholder="Es: 22" required>
+            </div>
+            <div style="background: rgba(43, 122, 210, 0.1); border: 1px solid rgba(43, 122, 210, 0.3); border-radius: 6px; padding: 0.8rem; font-size: 0.85rem; color: #4da3ff;">
+                <strong>Causale Bonifico generata:</strong><br>
+                <code id="modal-causale-preview">Nome - Capo - Importo€</code>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('modal-importo')" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Annulla</button>
+                <button type="button" id="btn-confirm-in-virtus" class="btn btn-primary" style="padding: 0.5rem 1.2rem; font-size: 0.9rem;">Prepara Modifica</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Selezione Referente Consegna (Pagato) -->
+    <div id="modal-fattorino" class="modal-overlay">
+        <div class="modal-box">
+            <h3>💶 Conferma Pagamento & Consegna</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem;">
+                Conferma che il bonifico di <strong id="modal-pagato-importo"></strong> è stato ricevuto per l'ordine di <strong id="modal-pagato-name"></strong>. Seleziona il referente incaricato della consegna al campo:
+            </p>
+            <div class="modal-input-group">
+                <label for="select-fattorino"><strong>Referente Incaricato Consegna:</strong></label>
+                <select id="select-fattorino">
+                    <option value="">Caricamento referenti in corso...</option>
+                </select>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+                ℹ️ Verranno preparate le email di notifica al tesserato e al referente con i dettagli del capo da consegnare.
+            </p>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('modal-fattorino')" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Annulla</button>
+                <button type="button" id="btn-confirm-pagato" class="btn btn-primary" style="background: var(--color-green); border-color: var(--color-green); padding: 0.5rem 1.2rem; font-size: 0.9rem;">Prepara Pagamento</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Annullamento Ordine (Tutti i ruoli) -->
+    <div id="modal-annulla-ordine" class="modal-overlay">
+        <div class="modal-box">
+            <h3 style="color: #ef4444;">❌ Annullamento Ordine</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem;">
+                Stai per annullare l'ordine <strong id="modal-annulla-rif">#</strong> di <strong id="modal-annulla-nome">Tesserato</strong> (<span id="modal-annulla-capo">Capo</span>).
+            </p>
+            <div id="modal-annulla-reso-warning" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 6px; padding: 0.8rem; color: #fca5a5; font-size: 0.88rem; margin: 0.8rem 0;">
+                ⚠️ <strong>ATTENZIONE:</strong> Questo ordine risulta <strong>GIÀ PAGATO</strong> con bonifico. Verrà inviata una segnalazione urgente all'amministrazione (Teresa Marchese) per disporre il bonifico di rimborso al tesserato.
+            </div>
+            <div class="modal-input-group">
+                <label for="input-motivo-annullamento"><strong>Motivo dell'annullamento:</strong></label>
+                <input type="text" id="input-motivo-annullamento" placeholder="Es: Taglia errata / Richiesta del tesserato" required>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('modal-annulla-ordine')" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Indietro</button>
+                <button type="button" id="btn-confirm-annulla" class="btn btn-primary" style="background: #ef4444; border-color: #ef4444; padding: 0.5rem 1.2rem; font-size: 0.9rem;">
+                    Conferma Annullamento
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: Riepilogo Modifiche in Sospeso & Invio Batch -->
+    <div id="modal-confirm-batch" class="modal-overlay">
+        <div class="modal-box" style="max-width: 620px;">
+            <h3>📝 Conferma Modifiche & Invio Email</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem;">
+                Ricontrolla l'elenco delle azioni che stai per salvare nel foglio Google e le relative notifiche email:
+            </p>
+            <div id="batch-summary-list" style="max-height: 280px; overflow-y: auto; margin: 1.2rem 0; border: 1px solid var(--border-color); border-radius: 8px; padding: 0.8rem; background: var(--bg-primary);">
+                <!-- Popolato via JS -->
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0 0 1rem;">
+                ℹ️ Cliccando su "Salva ed Invia", le modifiche diventeranno definitive e partiranno le notifiche email.
+            </p>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('modal-confirm-batch')" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Torna indietro</button>
+                <button type="button" id="btn-submit-batch-execute" class="btn btn-primary" style="background: var(--color-green); border-color: var(--color-green); padding: 0.5rem 1.3rem; font-size: 0.9rem; font-weight: bold;">
+                    🚀 Salva su Foglio ed Invia Email
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5: Conferma Carico Magazzino da Fornitore -->
+    <div id="modal-confirm-carico" class="modal-overlay">
+        <div class="modal-box" style="max-width: 600px;">
+            <h3 style="color: #4da3ff; display: flex; align-items: center; gap: 0.5rem;">
+                <span>🚚</span> Conferma Carico Magazzino da Fornitore
+            </h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 1rem;">
+                Stai per registrare la ricezione dei seguenti capi. I quantitativi verranno sommati alla disponibilità nel foglio <strong>Prodotti</strong> e registrati nel log societario:
+            </p>
+            <div id="modal-carico-summary-box" style="max-height: 250px; overflow-y: auto; margin: 1rem 0; border: 1px solid var(--border-color); border-radius: 8px; padding: 0.9rem; background: var(--bg-primary);">
+                <!-- Popolato via JS -->
+            </div>
+            <p style="font-size: 0.85rem; color: #a0aec0; margin: 0 0 1.2rem;">
+                ℹ️ <em>L'operazione decrementa automaticamente le quantità 'In Ordine' per i capi corrispondenti, allineando le scorte.</em>
+            </p>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('modal-confirm-carico')" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Torna indietro</button>
+                <button type="button" id="btn-submit-carico-execute" class="btn btn-primary" style="background: var(--color-green); border-color: var(--color-green); padding: 0.5rem 1.3rem; font-size: 0.9rem; font-weight: bold;" onclick="submitCaricoFornitore()">
+                    ✔ Conferma e Salva a Magazzino
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra Flottante Sticky Inferiore (Appare se ci sono modifiche in sospeso) -->
+    <div id="sticky-confirmation-bar" class="sticky-action-bar" style="display: none;">
+        <div class="container sticky-bar-content">
+            <div class="sticky-bar-info">
+                <span class="sticky-bar-icon">⚡</span>
+                <div>
+                    <strong id="sticky-count-text">0 modifiche pronte</strong>
+                    <p class="sticky-bar-sub">Nessuna email è ancora partita. Puoi correggere o salvare.</p>
+                </div>
+            </div>
+            <div class="sticky-bar-buttons">
+                <button type="button" class="btn btn-secondary" onclick="discardAllPendingChanges()" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">
+                    Annulla Tutto
+                </button>
+                <button type="button" class="btn btn-primary btn-confirm-save" onclick="openBatchConfirmModal()" style="padding: 0.55rem 1.3rem; font-size: 0.92rem;">
+                    Conferma & Salva Modifiche (<span id="sticky-btn-count">0</span>)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifica Flottante -->
+    <div id="toast-notification" class="toast-notification"></div>
+
+    <!-- FOOTER CONDIVISO -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 style="color: white; letter-spacing: 0.05em;"><a href="virtus.html">VIRTUS GROANE ASD</a></h3>
+                    <p>Associazione Sportiva Dilettantistica affiliata FIDAL, FITRI e AICS. Promuoviamo lo sport giovanile, amatoriale ed agonistico a nord-ovest di Milano, nel territorio del Parco delle Groane (Senago, Solaro e Limbiate).</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Navigazione</h4>
+                    <ul class="footer-links">
+                        <li><a href="virtus.html">Virtus</a></li>
+                        <li><a href="info-iscrizioni.html">Info-Iscrizioni</a></li>
+                        <li><a href="abbigliamento.html">Abbigliamento</a></li>
+                        <li><a href="societa-ed-eventi.html">Società ed Eventi</a></li>
+                        <li><a href="contatti.html">Contatti</a></li>
+                        <li><a href="area-riservata.html" style="color: var(--color-green-light);">Area Riservata</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Sostienici</h4>
+                    <ul class="footer-links">
+                        <li><a href="sostieni-virtus/5x1000.html">5x1000 (CF 04577740964)</a></li>
+                        <li><a href="virtus/associarsi.html">Diventa Socio ASD</a></li>
+                        <li><a href="sostieni-virtus.html">Diventa Sponsor</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Virtus Groane ASD. Tutti i diritti riservati. CF e P.IVA: 04577740964 &bull; <a href="privacy-policy.html" style="color: var(--text-muted); text-decoration: underline;">Privacy &amp; Cookie Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT GESTIONALE -->
+    <script>
+        // =====================================================================
+        // REINDIRIZZAMENTO CANONICO WWW (Previene origin mismatch su OAuth)
+        // =====================================================================
+        if (window.location.hostname === 'virtusgroane.com') {
+            window.location.replace('https://www.virtusgroane.com' + window.location.pathname + window.location.search);
+        }
+
+        // =====================================================================
+        // CONFIGURAZIONE APPLICATIVO & ENDPOINT
+        // =====================================================================
+        const DOMINIO_AUTORIZZATO = 'virtusgroane.com';
+        
+        // Google OAuth Client ID ufficiale (perfezionato in Google Cloud Console)
+        const GOOGLE_CLIENT_ID = '430736319015-ogb4t5t2tkn4r5nn3mgnn7pelbqmgiea.apps.googleusercontent.com';
+
+        // URL Ufficiale della Web App Google Apps Script
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyDBL59DZLcAfoFYEfuyRKfcRR1dBLUGNfm-UXKT6Iisfi3tL7Xjxa596Hfs1zJ9zVRDA/exec';
+
+        // Stato applicativo (Tutti i ruoli e i permessi sono determinati server-side da Apps Script)
+        let currentUser = null;
+        let currentUserRole = null; // 'admin', 'marco', 'teresa', 'fattorino'
+        let allOrders = [];
+        let fattoriniList = [];
+        let catalogItems = [];
+        let caricoRows = [];
+        let activeAdminFilter = 'all';
+
+        // Modifiche in sospeso preparate (Mappate per rowNumber)
+        // pendingActions[rowNumber] = { action, rowNumber, params, summaryText, emailPreviewText, order }
+        let pendingActions = {};
+
+        // Variabili d'appoggio per modali
+        let pendingActionRow = null;
+
+        // Elementi DOM principali
+        const loginContainer = document.getElementById('login-container');
+        const dashboardContainer = document.getElementById('dashboard-container');
+        const loginErrorAlert = document.getElementById('login-error-alert');
+        const loginErrorMessage = document.getElementById('login-error-message');
+        const userDisplayName = document.getElementById('user-display-name');
+        const userDisplayEmail = document.getElementById('user-display-email');
+        const userAvatarImg = document.getElementById('user-avatar-img');
+        const adminRoleSwitcher = document.getElementById('admin-role-switcher');
+        const dataLoadingIndicator = document.getElementById('data-loading-indicator');
+        const btnRefresh = document.getElementById('btn-refresh');
+        const btnLogout = document.getElementById('btn-logout');
+
+        // Sezioni
+        const sectionMarco = document.getElementById('section-marco');
+        const sectionTeresa = document.getElementById('section-teresa');
+        const sectionFattorini = document.getElementById('section-fattorini');
+        const sectionAll = document.getElementById('section-all');
+
+        // =====================================================================
+        // AUTENTICAZIONE GOOGLE IDENTITY SERVICES
+        // =====================================================================
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+                return JSON.parse(jsonPayload);
+            } catch (err) {
+                return null;
+            }
+        }
+
+        window.handleCredentialResponse = function(response) {
+            loginErrorAlert.style.display = 'none';
+            const payload = parseJwt(response.credential);
+            if (!payload || !payload.email) {
+                showLoginError("Impossibile verificare l'account Google.");
+                return;
+            }
+
+            const email = payload.email.toLowerCase();
+            const emailDomain = email.split('@')[1] || '';
+
+            if (emailDomain === DOMINIO_AUTORIZZATO) {
+                loginSuccess({
+                    name: payload.name || email,
+                    email: email,
+                    picture: payload.picture || '',
+                    idToken: response.credential
+                });
+            } else {
+                showLoginError(`L'account <strong>${escapeHtml(email)}</strong> non appartiene al dominio societario (@${DOMINIO_AUTORIZZATO}).`);
+            }
+        };
+
+        function showLoginError(msg) {
+            loginErrorMessage.innerHTML = msg;
+            loginErrorAlert.style.display = 'block';
+        }
+
+        function loginSuccess(user) {
+            currentUser = user;
+            sessionStorage.setItem('vg_staff_user', JSON.stringify(user));
+
+            userDisplayName.textContent = user.name;
+            userDisplayEmail.textContent = user.email;
+            if (user.picture) userAvatarImg.src = user.picture;
+
+            loginContainer.style.display = 'none';
+            dashboardContainer.style.display = 'block';
+
+            // Carica i dati profilati e autorizzati lato server
+            fetchOrdersFromSheet();
+        }
+
+        function logout() {
+            currentUser = null;
+            currentUserRole = null;
+            allOrders = [];
+            fattoriniList = [];
+            pendingActions = {};
+            updateStickyBar();
+            sessionStorage.removeItem('vg_staff_user');
+            loginContainer.style.display = 'block';
+            dashboardContainer.style.display = 'none';
+        }
+
+        btnLogout.addEventListener('click', logout);
+        btnRefresh.addEventListener('click', () => {
+            if (Object.keys(pendingActions).length > 0) {
+                if (!confirm("Attenzione: ci sono modifiche in sospeso non ancora salvate. Ricaricando i dati andranno perse. Continuare?")) {
+                    return;
+                }
+            }
+            pendingActions = {};
+            updateStickyBar();
+            fetchOrdersFromSheet();
+        });
+
+        // =====================================================================
+        // CARICAMENTO DATI DAL BACKEND APPS SCRIPT (Server-Side RBAC & Privacy)
+        // =====================================================================
+        async function fetchOrdersFromSheet() {
+            if (!currentUser || !currentUser.email) return;
+            dataLoadingIndicator.style.display = 'block';
+            btnRefresh.disabled = true;
+
+            const url = `${APPS_SCRIPT_URL}?action=GET_DASHBOARD_DATA&userEmail=${encodeURIComponent(currentUser.email)}&_t=${Date.now()}`;
+
+            try {
+                const response = await fetch(url);
+                const result = await response.json();
+
+                if (result.status === 'SUCCESS') {
+                    currentUserRole = result.role || 'admin';
+                    allOrders = result.orders || result.ordini || [];
+                    fattoriniList = result.fattoriniList || [];
+                    if (result.catalogItems && result.catalogItems.length > 0) {
+                        catalogItems = result.catalogItems;
+                    }
+                    if (result.userName) {
+                        userDisplayName.textContent = result.userName;
+                    }
+                    renderDashboard();
+                } else if (result.status === 'UNAUTHORIZED') {
+                    showToast("Accesso negato: utenza priva di ruoli operativi.", true);
+                    showLoginError(result.message || "Account non autorizzato alle funzionalità di gestione.");
+                    logout();
+                } else {
+                    showToast(result.message || "Errore durante il caricamento dei dati.", true);
+                }
+            } catch (err) {
+                console.error("Errore fetch ordini:", err);
+                showToast("Errore di connessione al server gestionale.", true);
+            } finally {
+                dataLoadingIndicator.style.display = 'none';
+                btnRefresh.disabled = false;
+            }
+        }
+
+        // =====================================================================
+        // RENDERING DELLA DASHBOARD IN BASE AL RUOLO ASSEGNATO DAL SERVER
+        // =====================================================================
+        function renderDashboard() {
+            if (!currentUser || !currentUserRole) return;
+
+            // Nascondi tutte le sezioni prima di abilitare quelle pertinenti
+            sectionMarco.style.display = 'none';
+            sectionTeresa.style.display = 'none';
+            sectionFattorini.style.display = 'none';
+            sectionAll.style.display = 'none';
+            adminRoleSwitcher.style.display = 'none';
+
+            if (currentUserRole === 'admin') {
+                adminRoleSwitcher.style.display = 'flex';
+
+                if (activeAdminFilter === 'all') {
+                    sectionMarco.style.display = 'block';
+                    sectionTeresa.style.display = 'block';
+                    sectionFattorini.style.display = 'block';
+                    sectionAll.style.display = 'block';
+                } else if (activeAdminFilter === 'marco') {
+                    sectionMarco.style.display = 'block';
+                } else if (activeAdminFilter === 'teresa') {
+                    sectionTeresa.style.display = 'block';
+                } else if (activeAdminFilter === 'fattorini') {
+                    sectionFattorini.style.display = 'block';
+                }
+
+                renderMarcoTable(allOrders.filter(o => !o.inVirtus && !o.annullato));
+                renderTeresaTable(allOrders.filter(o => o.inVirtus && !o.pagato && !o.annullato));
+                renderFattoriniTable(allOrders.filter(o => o.pagato && !o.consegnato && !o.annullato));
+                renderAllTable(allOrders);
+
+            } else if (currentUserRole === 'marco') {
+                sectionMarco.style.display = 'block';
+                renderMarcoTable(allOrders.filter(o => !o.inVirtus && !o.annullato));
+
+            } else if (currentUserRole === 'teresa') {
+                sectionTeresa.style.display = 'block';
+                renderTeresaTable(allOrders.filter(o => o.inVirtus && !o.pagato && !o.annullato));
+
+            } else if (currentUserRole === 'fattorino') {
+                sectionFattorini.style.display = 'block';
+                renderFattoriniTable(allOrders.filter(o => o.pagato && !o.consegnato && !o.annullato && o.daConsegnare === currentUser.email));
+            }
+
+            updateStickyBar();
+        }
+
+        function switchFilterView(filter) {
+            activeAdminFilter = filter;
+            document.querySelectorAll('#admin-role-switcher .role-btn').forEach(btn => btn.classList.remove('active'));
+            if (event && event.target) event.target.classList.add('active');
+            renderDashboard();
+        }
+
+        // =====================================================================
+        // STAGING DELLE MODIFICHE IN SOSPESO (PATTERN A DUE STADI)
+        // =====================================================================
+        function stageAction(rowNumber, action, params, summaryText, emailPreviewText) {
+            const order = allOrders.find(o => o.rowNumber === rowNumber);
+            if (!order) return;
+
+            pendingActions[rowNumber] = {
+                action: action,
+                rowNumber: rowNumber,
+                params: params || {},
+                summaryText: summaryText,
+                emailPreviewText: emailPreviewText,
+                order: order
+            };
+
+            updateStickyBar();
+            renderDashboard();
+            showToast(`⚡ Modifica per riga #${rowNumber} pronta in sospeso. Ricordati di salvare in basso.`);
+        }
+
+        function revertPendingAction(rowNumber) {
+            delete pendingActions[rowNumber];
+            updateStickyBar();
+            renderDashboard();
+            showToast(`Modifica per riga #${rowNumber} ripristinata allo stato iniziale.`);
+        }
+
+        function discardAllPendingChanges() {
+            if (confirm("Vuoi davvero annullare tutte le modifiche preparate e non salvate?")) {
+                pendingActions = {};
+                updateStickyBar();
+                renderDashboard();
+                showToast("Tutte le modifiche in sospeso sono state annullate.");
+            }
+        }
+
+        function updateStickyBar() {
+            const count = Object.keys(pendingActions).length;
+            const bar = document.getElementById('sticky-confirmation-bar');
+            if (count > 0) {
+                bar.style.display = 'block';
+                document.getElementById('sticky-count-text').textContent = `${count} ${count === 1 ? 'modifica in sospeso' : 'modifiche in sospeso'}`;
+                document.getElementById('sticky-btn-count').textContent = count;
+            } else {
+                bar.style.display = 'none';
+            }
+        }
+
+        function openBatchConfirmModal() {
+            const list = Object.values(pendingActions);
+            if (list.length === 0) return;
+
+            const container = document.getElementById('batch-summary-list');
+            container.innerHTML = '';
+
+            list.forEach(item => {
+                const o = item.order;
+                const card = document.createElement('div');
+                card.style.cssText = 'padding: 0.75rem 0.9rem; margin-bottom: 0.6rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.9rem;';
+                card.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;">
+                        <strong>Riga #${item.rowNumber}: ${escapeHtml(o.nome)}</strong>
+                        <span class="status-badge badge-pending">${escapeHtml(item.summaryText)}</span>
+                    </div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.2rem;">
+                        Capo: <strong>${escapeHtml(o.capo)}</strong> (Taglia: ${escapeHtml(o.taglia)}) &bull; Email: ${escapeHtml(o.mail)}
+                    </div>
+                    <div style="font-size: 0.82rem; color: #ffd100;">
+                        ✉️ <em>Notifiche: ${escapeHtml(item.emailPreviewText)}</em>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('modal-confirm-batch').style.display = 'flex';
+        }
+
+        document.getElementById('btn-submit-batch-execute').addEventListener('click', async () => {
+            const actionsList = Object.values(pendingActions).map(it => ({
+                action: it.action,
+                rowNumber: it.rowNumber,
+                params: it.params
+            }));
+
+            if (actionsList.length === 0) return;
+
+            closeModal('modal-confirm-batch');
+            showToast("⏳ Salvataggio sul foglio Google e invio notifiche in corso...");
+            dataLoadingIndicator.style.display = 'block';
+
+            const payload = {
+                action: "EXECUTE_BATCH",
+                userEmail: currentUser.email,
+                userName: currentUser.name,
+                actions: actionsList
+            };
+
+            try {
+                await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+
+                showToast(`✔ Salvate con successo ${actionsList.length} modifiche!`);
+                pendingActions = {};
+                updateStickyBar();
+                setTimeout(fetchOrdersFromSheet, 1200);
+
+            } catch (err) {
+                console.error("Errore executeBatch:", err);
+                showToast("❌ Errore durante l'invio del salvataggio.", true);
+            } finally {
+                dataLoadingIndicator.style.display = 'none';
+            }
+        });
+
+        // ---------------------------------------------------------------------
+        // TABELLA 1: GESTIONE ORDINI & MAGAZZINO (MARCO LOCATELLI)
+        // ---------------------------------------------------------------------
+        function renderMarcoTable(orders) {
+            const list = orders || [];
+            const tbody = document.getElementById('tbody-marco');
+            tbody.innerHTML = '';
+            document.getElementById('badge-count-marco').textContent = `${list.length} Ordini In Corso`;
+
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><span>📦</span>Nessun ordine in attesa di lavorazione fornitore.</td></tr>`;
+                return;
+            }
+
+            list.forEach(o => {
+                const tr = document.createElement('tr');
+                const isPending = !!pendingActions[o.rowNumber];
+                const pendingItem = pendingActions[o.rowNumber];
+
+                if (isPending) {
+                    tr.classList.add('row-pending-change');
+                }
+
+                // Badge di avanzamento attuale
+                let statusHtml = '';
+                if (o.ordinato) {
+                    statusHtml = `<span class="status-badge badge-blue">🚚 Ordinato</span>`;
+                } else if (o.daOrdinare) {
+                    statusHtml = `<span class="status-badge badge-yellow">⏳ Da Ordinare</span>`;
+                } else {
+                    statusHtml = `<span class="status-badge badge-gray">Da Valutare</span>`;
+                }
+
+                // Colonna Azioni
+                let actionsHtml = '';
+                if (isPending) {
+                    actionsHtml = `
+                        <div style="display: flex; gap: 0.4rem; justify-content: flex-end; align-items: center;">
+                            <span class="status-badge badge-pending">⚡ ${escapeHtml(pendingItem.summaryText)}</span>
+                            <button type="button" class="btn-revert-row" onclick="revertPendingAction(${o.rowNumber})" title="Annulla questa modifica">✖ Annulla</button>
+                        </div>
+                    `;
+                } else {
+                    let buttons = [];
+                    // Logica sequenziale ed esclusiva: Da Ordinare -> Ordinato
+                    if (!o.daOrdinare) {
+                        // 1. Se NON è ancora "Da Ordinare", mostra solo il tasto "Da Ordinare"
+                        buttons.push(`
+                            <button type="button" class="btn-table-action btn-da-ordinare"
+                                onclick="stageAction(${o.rowNumber}, 'SET_DA_ORDINARE', {}, 'Da Ordinare', 'Email di presa in carico al tesserato')">
+                                Da Ordinare
+                            </button>
+                        `);
+                    } else if (!o.ordinato) {
+                        // 2. Se "Da Ordinare" è già spuntato ma NON è ancora "Ordinato", mostra il tasto "Ordinato" (e nasconde "Da Ordinare")
+                        buttons.push(`
+                            <button type="button" class="btn-table-action btn-ordinato"
+                                onclick="stageAction(${o.rowNumber}, 'SET_ORDINATO', {}, 'Ordinato', 'Email inoltro fornitore al tesserato')">
+                                Ordinato
+                            </button>
+                        `);
+                    }
+                    // (Se l'ordine è già stato ordinato, entrambi i pulsanti Da Ordinare/Ordinato rimangono nascosti)
+
+                    // 3. Tasto "In Virtus": per registrare l'arrivo merce o assegnare disponibilità da magazzino
+                    buttons.push(`
+                        <button type="button" class="btn-table-action btn-in-virtus"
+                            onclick="openModalInVirtus(${o.rowNumber})">
+                            In Virtus &euro;
+                        </button>
+                    `);
+
+                    // 4. Tasto "Annulla Ordine": sempre presente per consentire l'annullamento tempestivo
+                    buttons.push(`
+                        <button type="button" class="btn-table-action btn-annulla"
+                            onclick="openModalAnnulla(${o.rowNumber})" title="Annulla questo ordine">
+                            ❌ Annulla
+                        </button>
+                    `);
+
+                    actionsHtml = `<div style="display: inline-flex; gap: 0.4rem; justify-content: flex-end; flex-wrap: wrap;">${buttons.join('')}</div>`;
+                }
+
+                tr.innerHTML = `
+                    <td><strong style="color:var(--text-muted);">${o.rowNumber}</strong></td>
+                    <td>
+                        <strong>${escapeHtml(o.nome)}</strong><br>
+                        <small style="color:var(--text-secondary);">${escapeHtml(o.mail)}</small>
+                    </td>
+                    <td>
+                        <strong>${escapeHtml(o.capo)}</strong><br>
+                        <small style="color:var(--text-muted);">Taglia: ${escapeHtml(o.taglia)}</small>
+                    </td>
+                    <td>
+                        <span title="A magazzino">${o.aMagazzino || 0} mag.</span> / 
+                        <span title="In ordine">${o.inOrdine || 0} ord.</span>
+                    </td>
+                    <td>${statusHtml}</td>
+                    <td style="text-align: right;">${actionsHtml}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ---------------------------------------------------------------------
+        // TABELLA 2: VERIFICA PAGAMENTI (TERESA MARCHESE)
+        // ---------------------------------------------------------------------
+        function renderTeresaTable(orders) {
+            const list = orders || [];
+            const tbody = document.getElementById('tbody-teresa');
+            tbody.innerHTML = '';
+            document.getElementById('badge-count-teresa').textContent = `${list.length} In Attesa Pagamento`;
+
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><span>✅</span>Nessun bonifico in attesa di verifica al momento!</td></tr>`;
+                return;
+            }
+
+            list.forEach(o => {
+                const tr = document.createElement('tr');
+                const isPending = !!pendingActions[o.rowNumber];
+                const pendingItem = pendingActions[o.rowNumber];
+
+                if (isPending) {
+                    tr.classList.add('row-pending-change');
+                }
+
+                // Genera opzioni dropdown per fattorino
+                let fattorinoSelectHtml = '';
+                if (fattoriniList && fattoriniList.length > 0) {
+                    const opts = fattoriniList.map(f => {
+                        const sel = (o.daConsegnare && o.daConsegnare.toLowerCase() === f.email.toLowerCase()) ? 'selected' : '';
+                        return `<option value="${escapeHtml(f.email)}" ${sel}>${escapeHtml(f.nome)}</option>`;
+                    }).join('');
+                    fattorinoSelectHtml = `
+                        <select class="select-fattorino-table" id="select-fattorino-${o.rowNumber}">
+                            <option value="">-- Assegna Referente --</option>
+                            ${opts}
+                        </select>
+                    `;
+                } else {
+                    fattorinoSelectHtml = `<small style="color:var(--text-muted);">${escapeHtml(o.daConsegnareNome || o.daConsegnare || 'Nessun fattorino')}</small>`;
+                }
+
+                let actionsHtml = '';
+                if (isPending) {
+                    actionsHtml = `
+                        <div style="display: flex; gap: 0.4rem; justify-content: flex-end; align-items: center;">
+                            <span class="status-badge badge-pending">⚡ ${escapeHtml(pendingItem.summaryText)}</span>
+                            <button type="button" class="btn-revert-row" onclick="revertPendingAction(${o.rowNumber})" title="Annulla questa modifica">✖ Annulla</button>
+                        </div>
+                    `;
+                } else {
+                    actionsHtml = `
+                        <div style="display: inline-flex; gap: 0.4rem; justify-content: flex-end; flex-wrap: wrap;">
+                            <button type="button" class="btn-table-action btn-pagato" onclick="stageTeresaPagato(${o.rowNumber})">
+                                💶 Pagato &rarr;
+                            </button>
+                            <button type="button" class="btn-table-action btn-annulla" onclick="openModalAnnulla(${o.rowNumber})" title="Annulla questo ordine">
+                                ❌ Annulla
+                            </button>
+                        </div>
+                    `;
+                }
+
+                tr.innerHTML = `
+                    <td><strong style="color:var(--text-muted);">${o.rowNumber}</strong></td>
+                    <td>
+                        <strong>${escapeHtml(o.nome)}</strong><br>
+                        <small style="color:var(--text-secondary);">${escapeHtml(o.mail)}</small>
+                    </td>
+                    <td>
+                        <strong>${escapeHtml(o.capo)}</strong><br>
+                        <small style="color:var(--text-muted);">Taglia: ${escapeHtml(o.taglia)}</small>
+                    </td>
+                    <td>
+                        <span style="font-size: 1.15rem; font-weight: bold; color: var(--color-green-light);">${escapeHtml(o.importo)} €</span>
+                    </td>
+                    <td>${fattorinoSelectHtml}</td>
+                    <td style="text-align: right;">${actionsHtml}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function stageTeresaPagato(rowNumber) {
+            const order = allOrders.find(o => o.rowNumber === rowNumber);
+            if (!order) return;
+
+            const selectEl = document.getElementById('select-fattorino-' + rowNumber);
+            const selectedEmail = selectEl ? selectEl.value : (order.daConsegnare || '');
+            const fattorinoObj = fattoriniList.find(f => f.email === selectedEmail);
+            const fattorinoNome = fattorinoObj ? fattorinoObj.nome : selectedEmail || 'Incaricato assegnato';
+
+            stageAction(
+                rowNumber,
+                'SET_PAGATO',
+                { fattorinoEmail: selectedEmail },
+                `Segna Pagato (${selectedEmail ? fattorinoNome : 'Da Assegnare'})`,
+                `Email ricevuta pagamento al tesserato ed email incarico consegna a ${selectedEmail || 'referente'}`
+            );
+        }
+
+        // ---------------------------------------------------------------------
+        // TABELLA 3: REFERENTI CONSEGNE AL CAMPO (FATTORINI)
+        // ---------------------------------------------------------------------
+        function renderFattoriniTable(orders) {
+            const list = orders || [];
+            const tbody = document.getElementById('tbody-fattorini');
+            tbody.innerHTML = '';
+            document.getElementById('badge-count-fattorini').textContent = `${list.length} Da Consegnare`;
+
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="empty-state"><span>🎉</span>Nessun capo in attesa di consegna! Tutte le consegne sono state completate.</td></tr>`;
+                return;
+            }
+
+            list.forEach(o => {
+                const tr = document.createElement('tr');
+                const isPending = !!pendingActions[o.rowNumber];
+                const pendingItem = pendingActions[o.rowNumber];
+
+                if (isPending) {
+                    tr.classList.add('row-pending-change');
+                }
+
+                const referenteNome = o.daConsegnareNome || o.daConsegnare || 'Incaricato assegnato';
+
+                let actionsHtml = '';
+                if (isPending) {
+                    actionsHtml = `
+                        <div style="display: flex; gap: 0.4rem; justify-content: flex-end; align-items: center;">
+                            <span class="status-badge badge-pending">⚡ ${escapeHtml(pendingItem.summaryText)}</span>
+                            <button type="button" class="btn-revert-row" onclick="revertPendingAction(${o.rowNumber})" title="Annulla questa modifica">✖ Annulla</button>
+                        </div>
+                    `;
+                } else {
+                    actionsHtml = `
+                        <div style="display: inline-flex; gap: 0.4rem; justify-content: flex-end; flex-wrap: wrap;">
+                            <button type="button" class="btn-table-action btn-consegnato"
+                                onclick="stageAction(${o.rowNumber}, 'SET_CONSEGNATO', {}, 'Consegnato', 'Email conferma consegna al tesserato e decremento magazzino')">
+                                ✔ Consegnato
+                            </button>
+                            <button type="button" class="btn-table-action btn-annulla"
+                                onclick="openModalAnnulla(${o.rowNumber})" title="Annulla e richiedi reso bonifico">
+                                ❌ Annulla (Reso)
+                            </button>
+                        </div>
+                    `;
+                }
+
+                tr.innerHTML = `
+                    <td><strong style="color:var(--text-muted);">${o.rowNumber}</strong></td>
+                    <td>
+                        <strong>${escapeHtml(o.nome)}</strong><br>
+                        <small style="color:var(--text-secondary);">${escapeHtml(o.mail)}</small>
+                    </td>
+                    <td>
+                        <strong>${escapeHtml(o.capo)}</strong><br>
+                        <small style="color:var(--text-muted);">Taglia: ${escapeHtml(o.taglia)}</small>
+                    </td>
+                    <td>
+                        <span class="status-badge badge-blue">🚴 ${escapeHtml(referenteNome)}</span>
+                    </td>
+                    <td>
+                        <span class="status-badge badge-green">Pagato &bull; Pronto al ritiro</span>
+                    </td>
+                    <td style="text-align: right;">${actionsHtml}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ---------------------------------------------------------------------
+        // TABELLA 4: VISTA MASTER (SUPER ADMIN: SILVANO ED EMILIANO)
+        // ---------------------------------------------------------------------
+        function renderAllTable(orders) {
+            const list = orders || [];
+            const tbody = document.getElementById('tbody-all');
+            tbody.innerHTML = '';
+
+            list.forEach(o => {
+                const tr = document.createElement('tr');
+                const isPending = !!pendingActions[o.rowNumber];
+                const pendingItem = pendingActions[o.rowNumber];
+
+                if (isPending) tr.classList.add('row-pending-change');
+
+                let noteStatoHtml = '';
+                if (o.annullato) {
+                    noteStatoHtml = `<span class="status-badge badge-red">❌ ANNULLATO</span><br><small style="color:var(--text-muted);">${escapeHtml(o.noteAnnullamento)}</small>`;
+                } else if (o.consegnato) {
+                    noteStatoHtml = `<span class="status-badge badge-green">✔ Concluso</span>`;
+                } else if (o.pagato) {
+                    noteStatoHtml = `<span class="status-badge badge-blue">In Consegna</span>`;
+                } else if (o.inVirtus) {
+                    noteStatoHtml = `<span class="status-badge badge-yellow">In Virtus (Attesa Bonifico)</span>`;
+                } else if (o.ordinato) {
+                    noteStatoHtml = `<span class="status-badge badge-blue">Ordinato Fornitore</span>`;
+                } else if (o.daOrdinare) {
+                    noteStatoHtml = `<span class="status-badge badge-yellow">Da Ordinare</span>`;
+                } else {
+                    noteStatoHtml = `<span class="status-badge badge-gray">In Inserimento</span>`;
+                }
+
+                let actionColHtml = '';
+                if (isPending) {
+                    actionColHtml = `
+                        <div style="display: flex; gap: 0.3rem; align-items: center; justify-content: flex-end;">
+                            <span class="status-badge badge-pending">⚡ ${escapeHtml(pendingItem.summaryText)}</span>
+                            <button type="button" class="btn-revert-row" onclick="revertPendingAction(${o.rowNumber})">✖</button>
+                        </div>
+                    `;
+                } else if (!o.annullato && !o.consegnato) {
+                    actionColHtml = `
+                        <button type="button" class="btn-table-action btn-annulla" style="padding: 0.3rem 0.6rem; font-size: 0.78rem;"
+                            onclick="openModalAnnulla(${o.rowNumber})">❌ Annulla</button>
+                    `;
+                } else {
+                    actionColHtml = `<small style="color:var(--text-muted);">-</small>`;
+                }
+
+                tr.innerHTML = `
+                    <td>${o.rowNumber}</td>
+                    <td><strong>${escapeHtml(o.nome)}</strong><br><small>${escapeHtml(o.mail)}</small></td>
+                    <td>${escapeHtml(o.capo)}</td>
+                    <td>${escapeHtml(o.taglia)}</td>
+                    <td>${o.daOrdinare ? '✅' : '❌'}</td>
+                    <td>${o.ordinato ? '✅' : '❌'}</td>
+                    <td>${o.inVirtus ? '✅' : '❌'}</td>
+                    <td><strong>${escapeHtml(o.importo)} €</strong></td>
+                    <td>${o.pagato ? '✅' : '❌'}</td>
+                    <td><small>${escapeHtml(o.daConsegnareNome || o.daConsegnare || '-')}</small></td>
+                    <td>${o.consegnato ? '✅' : '❌'}</td>
+                    <td>${noteStatoHtml}</td>
+                    <td style="text-align: right;">${actionColHtml}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // =====================================================================
+        // MODALI: GESTIONE IN VIRTUS & ANNULLAMENTO
+        // =====================================================================
+        function openModalInVirtus(rowNumber) {
+            const order = allOrders.find(o => o.rowNumber === rowNumber);
+            if (!order) return;
+
+            pendingActionRow = order;
+            document.getElementById('modal-tesserato-name').textContent = `${order.nome} - ${order.capo} (${order.taglia})`;
+            document.getElementById('input-importo-euro').value = order.importo || '';
+            updateCausalePreview();
+
+            document.getElementById('modal-importo').style.display = 'flex';
+        }
+
+        document.getElementById('input-importo-euro').addEventListener('input', updateCausalePreview);
+
+        function updateCausalePreview() {
+            if (!pendingActionRow) return;
+            const imp = document.getElementById('input-importo-euro').value || '0';
+            document.getElementById('modal-causale-preview').textContent = `${pendingActionRow.nome} - ${pendingActionRow.capo} - ${imp}€`;
+        }
+
+        document.getElementById('btn-confirm-in-virtus').addEventListener('click', () => {
+            const importo = document.getElementById('input-importo-euro').value.trim();
+            if (!importo || parseFloat(importo) <= 0) {
+                alert("Inserisci un importo valido in Euro.");
+                return;
+            }
+
+            closeModal('modal-importo');
+            stageAction(
+                pendingActionRow.rowNumber,
+                'SET_IN_VIRTUS',
+                { importo: importo },
+                `In Virtus (${importo}€)`,
+                `Email bonifico al tesserato (${pendingActionRow.mail}) ed email a Teresa Marchese`
+            );
+        });
+
+        // Modal Annulla Ordine
+        function openModalAnnulla(rowNumber) {
+            const order = allOrders.find(o => o.rowNumber === rowNumber);
+            if (!order) return;
+
+            pendingActionRow = order;
+            document.getElementById('modal-annulla-rif').textContent = `#${order.rowNumber}`;
+            document.getElementById('modal-annulla-nome').textContent = order.nome;
+            document.getElementById('modal-annulla-capo').textContent = `${order.capo} (${order.taglia})`;
+            document.getElementById('input-motivo-annullamento').value = '';
+
+            const warningEl = document.getElementById('modal-annulla-reso-warning');
+            if (order.pagato === true) {
+                warningEl.style.display = 'block';
+            } else {
+                warningEl.style.display = 'none';
+            }
+
+            document.getElementById('modal-annulla-ordine').style.display = 'flex';
+        }
+
+        document.getElementById('btn-confirm-annulla').addEventListener('click', () => {
+            const motivo = document.getElementById('input-motivo-annullamento').value.trim() || 'Richiesta di annullamento';
+            closeModal('modal-annulla-ordine');
+
+            const isPaid = pendingActionRow.pagato === true;
+            stageAction(
+                pendingActionRow.rowNumber,
+                'CANCEL_ORDER',
+                { motivo: motivo },
+                `Annulla Ordine (${motivo})`,
+                isPaid ? `Email annullamento al tesserato (${pendingActionRow.mail}) ed email RESO BONIFICO a Teresa` : `Email conferma annullamento al tesserato (${pendingActionRow.mail})`
+            );
+        });
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        // Helper Toast
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast-notification');
+            toast.textContent = message;
+            toast.style.borderColor = isError ? '#ef4444' : 'var(--color-green)';
+            toast.style.display = 'block';
+
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 4500);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // =====================================================================
+        // GESTIONE CARICO MAGAZZINO DA FORNITORE (RICEZIONE MERCI)
+        // =====================================================================
+        const DEFAULT_CATALOG = [
+            "T-shirt", "Singlet", "Short", "Marathon", "Long Tights", "Shirt Long Sleeves",
+            "Wintershirt Long Sleeves", "Maglietta", "Canotta", "Top", "Maglia Manica Lunga",
+            "Tri Suit", "Tri Smanicato", "Tri Suit+nome", "Tri Smanicato+nome", "Cuffia",
+            "Salopette Estiva", "Jersey Estiva", "Gilet Bici", "Salopette Invernale 10°/0°C",
+            "Jersey Invernale 20°/10°C", "Jacket Invernale 10°/0°C", "Giacca Softshell",
+            "Giacca Tuta Felpata", "Pantalone Tuta Felpato", "Giacca Tuta Garzata",
+            "Pantalone Tuta Garzato", "Polo", "Zaino con Portascarpe", "Zaino"
+        ];
+        const ALL_SIZES = ["N/A", "XS", "S", "M", "L", "XL", "XXL"];
+
+        function toggleCaricoPanel() {
+            const panel = document.getElementById('carico-panel-content');
+            const btn = document.getElementById('btn-toggle-carico');
+            if (!panel || !btn) return;
+            if (panel.style.display === 'none' || panel.style.display === '') {
+                panel.style.display = 'block';
+                btn.textContent = '▲ Chiudi Modulo Carico';
+                if (caricoRows.length === 0) {
+                    addCaricoRow();
+                }
+            } else {
+                panel.style.display = 'none';
+                btn.textContent = '➕ Registra Nuovo Carico Fornitore';
+            }
+        }
+
+        function getAvailableProductsList() {
+            if (catalogItems && catalogItems.length > 0) {
+                return catalogItems;
+            }
+            return DEFAULT_CATALOG.map(c => ({ capo: c, taglie: ALL_SIZES }));
+        }
+
+        function addCaricoRow(capoDefault = '', tagliaDefault = 'M', qtaDefault = 1) {
+            const products = getAvailableProductsList();
+            const firstCapo = capoDefault || (products.length > 0 ? products[0].capo : 'T-shirt');
+            
+            caricoRows.push({
+                capo: firstCapo,
+                taglia: tagliaDefault,
+                quantita: qtaDefault
+            });
+            renderCaricoTable();
+        }
+
+        function removeCaricoRow(index) {
+            caricoRows.splice(index, 1);
+            if (caricoRows.length === 0) {
+                addCaricoRow();
+            } else {
+                renderCaricoTable();
+            }
+        }
+
+        function renderCaricoTable() {
+            const tbody = document.getElementById('tbody-carico-items');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            const products = getAvailableProductsList();
+
+            caricoRows.forEach((row, index) => {
+                const tr = document.createElement('tr');
+                tr.style.borderBottom = '1px solid var(--border-color)';
+
+                // Trova taglie per questo capo
+                const prodObj = products.find(p => p.capo === row.capo);
+                const taglieDisponibili = prodObj && prodObj.taglie && prodObj.taglie.length > 0 ? prodObj.taglie : ALL_SIZES;
+                if (!taglieDisponibili.includes(row.taglia)) {
+                    row.taglia = taglieDisponibili[0];
+                }
+
+                // Opzioni Capo
+                let optionsCapo = '';
+                products.forEach(p => {
+                    const sel = p.capo === row.capo ? 'selected' : '';
+                    optionsCapo += `<option value="${escapeHtml(p.capo)}" ${sel}>${escapeHtml(p.capo)}</option>`;
+                });
+
+                // Opzioni Taglia
+                let optionsTaglia = '';
+                taglieDisponibili.forEach(t => {
+                    const sel = t === row.taglia ? 'selected' : '';
+                    optionsTaglia += `<option value="${t}" ${sel}>${t}</option>`;
+                });
+
+                tr.innerHTML = `
+                    <td style="padding: 0.6rem 0.8rem;">
+                        <select class="form-input" style="width: 100%; padding: 0.45rem 0.7rem; font-size: 0.88rem; background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 6px;" onchange="onCaricoCapoChange(${index}, this.value)">
+                            ${optionsCapo}
+                        </select>
+                    </td>
+                    <td style="padding: 0.6rem 0.8rem;">
+                        <select id="select-taglia-${index}" class="form-input" style="width: 100%; padding: 0.45rem 0.7rem; font-size: 0.88rem; background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 6px;" onchange="onCaricoTagliaChange(${index}, this.value)">
+                            ${optionsTaglia}
+                        </select>
+                    </td>
+                    <td style="padding: 0.6rem 0.8rem;">
+                        <input type="number" min="1" step="1" value="${row.quantita}" class="form-input" style="width: 100%; padding: 0.45rem 0.7rem; font-size: 0.88rem; background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 6px; text-align: center;" onchange="onCaricoQtaChange(${index}, this.value)">
+                    </td>
+                    <td style="padding: 0.6rem 0.8rem; text-align: center;">
+                        <button type="button" class="btn btn-secondary" style="padding: 0.35rem 0.6rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.4); font-size: 0.85rem;" title="Rimuovi riga" onclick="removeCaricoRow(${index})">
+                            🗑️
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            updateCaricoCounter();
+        }
+
+        function onCaricoCapoChange(index, newCapo) {
+            if (caricoRows[index]) {
+                caricoRows[index].capo = newCapo;
+                renderCaricoTable();
+            }
+        }
+
+        function onCaricoTagliaChange(index, newTaglia) {
+            if (caricoRows[index]) {
+                caricoRows[index].taglia = newTaglia;
+                updateCaricoCounter();
+            }
+        }
+
+        function onCaricoQtaChange(index, newQta) {
+            const q = parseInt(newQta, 10);
+            if (caricoRows[index]) {
+                caricoRows[index].quantita = (!isNaN(q) && q > 0) ? q : 1;
+                updateCaricoCounter();
+            }
+        }
+
+        function updateCaricoCounter() {
+            const total = caricoRows.reduce((acc, r) => acc + (parseInt(r.quantita, 10) || 0), 0);
+            const counterEl = document.getElementById('carico-total-counter');
+            if (counterEl) {
+                counterEl.textContent = `Totale: ${total} pezzi da caricare`;
+            }
+            return total;
+        }
+
+        function resetCaricoForm() {
+            caricoRows = [];
+            const noteInput = document.getElementById('carico-note-input');
+            if (noteInput) noteInput.value = '';
+            toggleCaricoPanel();
+        }
+
+        function openModalConfirmCarico() {
+            const validItems = caricoRows.filter(r => r.capo && r.quantita > 0);
+            if (validItems.length === 0) {
+                showToast("Inserisci almeno un capo con quantità maggiore di zero.", true);
+                return;
+            }
+
+            const total = updateCaricoCounter();
+            const note = (document.getElementById('carico-note-input').value || '').trim();
+
+            const summaryBox = document.getElementById('modal-carico-summary-box');
+            let html = `
+                <div style="margin-bottom: 0.8rem; font-weight: bold; color: var(--color-green-light); font-size: 1rem;">
+                    📦 Totale Lotti: ${validItems.length} tipologie &bull; ${total} pezzi totali
+                </div>
+            `;
+            if (note) {
+                html += `<div style="font-size: 0.85rem; color: #a0aec0; margin-bottom: 0.8rem;">📝 Nota/DDT: <em>${escapeHtml(note)}</em></div>`;
+            }
+            html += '<ul style="margin: 0; padding-left: 1.2rem; line-height: 1.6;">';
+            validItems.forEach(item => {
+                html += `<li><strong>${escapeHtml(item.capo)}</strong> (Taglia: <em>${escapeHtml(item.taglia)}</em>) &rarr; <span style="color: var(--color-green-light); font-weight: bold;">+${item.quantita} pz</span></li>`;
+            });
+            html += '</ul>';
+
+            summaryBox.innerHTML = html;
+            document.getElementById('modal-confirm-carico').style.display = 'flex';
+        }
+
+        async function submitCaricoFornitore() {
+            const validItems = caricoRows.filter(r => r.capo && r.quantita > 0);
+            if (validItems.length === 0) return;
+
+            const note = (document.getElementById('carico-note-input').value || '').trim();
+            closeModal('modal-confirm-carico');
+
+            showToast("⏳ Salvataggio carico merce su Google Sheets in corso...");
+            dataLoadingIndicator.style.display = 'block';
+
+            const payload = {
+                action: 'CARICO_FORNITORE',
+                userEmail: currentUser.email,
+                note: note,
+                items: validItems
+            };
+
+            try {
+                await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+
+                const totalPezzi = validItems.reduce((acc, r) => acc + r.quantita, 0);
+                showToast(`✔ Carico fornitore registrato con successo! (+${totalPezzi} pezzi aggiunti a magazzino)`);
+                caricoRows = [];
+                const noteInput = document.getElementById('carico-note-input');
+                if (noteInput) noteInput.value = '';
+                toggleCaricoPanel();
+
+                setTimeout(fetchOrdersFromSheet, 1200);
+            } catch (err) {
+                console.error("Errore submitCaricoFornitore:", err);
+                showToast("❌ Errore durante il salvataggio del carico fornitore.", true);
+            } finally {
+                dataLoadingIndicator.style.display = 'none';
+            }
+        }
+
+        // =====================================================================
+        // INIZIALIZZAZIONE GOOGLE IDENTITY SERVICES
+        // =====================================================================
+        function initGoogleAuth() {
+            if (window.google && google.accounts && google.accounts.id) {
+                try {
+                    google.accounts.id.initialize({
+                        client_id: GOOGLE_CLIENT_ID,
+                        callback: handleCredentialResponse,
+                        auto_select: false
+                    });
+                    const btnEl = document.getElementById("g_id_signin_button");
+                    if (btnEl) {
+                        google.accounts.id.renderButton(btnEl, {
+                            theme: "outline",
+                            size: "large",
+                            text: "signin_with",
+                            shape: "rectangular",
+                            width: 280
+                        });
+                    }
+                } catch(err) {
+                    console.error("GIS init error:", err);
+                }
+            }
+        }
+
+        // Avvio applicazione
+        window.addEventListener('load', () => {
+            const saved = sessionStorage.getItem('vg_staff_user');
+            if (saved) {
+                try {
+                    const u = JSON.parse(saved);
+                    if (u && u.email && u.email.endsWith('@' + DOMINIO_AUTORIZZATO)) {
+                        loginSuccess(u);
+                        return;
+                    }
+                } catch(e) {}
+            }
+
+            // Inizializza Google Sign-in e ritenta se il caricamento asincrono è in corso
+            initGoogleAuth();
+            let gisCheckCount = 0;
+            const gisInterval = setInterval(() => {
+                gisCheckCount++;
+                if (window.google && google.accounts && google.accounts.id) {
+                    initGoogleAuth();
+                    clearInterval(gisInterval);
+                } else if (gisCheckCount > 20) {
+                    clearInterval(gisInterval);
+                }
+            }, 150);
+        });
+    </script>
+</body>
+</html>

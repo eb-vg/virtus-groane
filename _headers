@@ -1,6 +1,12 @@
 /docs/guida-operativa-staff*
   X-Robots-Tag: noindex, nofollow, noarchive
 
+/ordini-vestiario.html
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/cena-di-natale.html
+  X-Robots-Tag: noindex, nofollow, noarchive
+
 /*
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
