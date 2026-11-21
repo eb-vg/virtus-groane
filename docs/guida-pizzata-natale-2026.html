@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Manuale Operativo Check-in Serata Pizzata di Natale 2026 - Virtus Groane ASD</title>
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 8mm 12mm 8mm 12mm;
+            @bottom-right {
+                content: counter(page) " / " counter(pages);
+                font-family: 'Inter', sans-serif;
+                font-size: 8pt;
+                color: #718096;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            color: #1a202c;
+            background: #ffffff;
+            margin: 0;
+            padding: 0;
+            font-size: 9.1pt;
+            line-height: 1.5;
+        }
+
+        /* HEADER DOCUMENTO */
+        .doc-header {
+            background-color: #0c0f12;
+            color: #ffffff;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-bottom: 3px solid #24b267;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .doc-header h1 {
+            margin: 0;
+            font-family: 'Barlow Condensed', Arial Narrow, sans-serif;
+            font-size: 17pt;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #ffffff;
+            line-height: 1.1;
+        }
+
+        .doc-header p {
+            margin: 4px 0 0 0;
+            color: #2ecc71;
+            font-size: 9.5pt;
+            font-weight: 600;
+        }
+
+        .header-badge {
+            background: rgba(36, 178, 103, 0.2);
+            border: 1px solid #24b267;
+            color: #2ecc71;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 8pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        /* SEZIONI E TITOLI */
+        h2 {
+            font-family: 'Barlow Condensed', Arial Narrow, sans-serif;
+            font-size: 13pt;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: #1b589b;
+            border-bottom: 1.5px solid #e2e8f0;
+            padding-bottom: 4px;
+            margin: 10px 0 6px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        h3 {
+            font-size: 10.5pt;
+            color: #2d3748;
+            margin: 12px 0 6px 0;
+            font-weight: 700;
+        }
+
+        /* CALLOUT & BOX */
+        .info-box {
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #1b589b;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            font-size: 9.2pt;
+        }
+
+        .tip-box {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-left: 4px solid #22c55e;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            font-size: 9.2pt;
+        }
+
+        .warning-box {
+            background-color: #fffaf0;
+            border: 1px solid #feebc8;
+            border-left: 4px solid #dd6b20;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            font-size: 9.2pt;
+        }
+
+        /* STEPS GRID */
+        .step-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background-color: #1b589b;
+            color: white;
+            font-weight: 800;
+            font-size: 11pt;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .step-content {
+            flex-grow: 1;
+        }
+
+        .step-content strong {
+            color: #1a202c;
+        }
+
+        /* SCHEDE SIMULATE UI */
+        .ui-mock {
+            background-color: #0c0f12;
+            color: #e2e8f0;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin: 8px 0;
+            font-family: monospace;
+            font-size: 8.5pt;
+            border: 1px solid #2d3748;
+        }
+
+        .ui-btn-mock {
+            display: inline-block;
+            background-color: #24b267;
+            color: #000000;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 8pt;
+            text-transform: uppercase;
+        }
+
+        /* TABELLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.8pt;
+            margin: 10px 0;
+        }
+
+        th {
+            background-color: #edf2f7;
+            color: #2d3748;
+            font-weight: 700;
+            text-align: left;
+            padding: 6px 10px;
+            border-bottom: 1.5px solid #cbd5e0;
+        }
+
+        td {
+            padding: 6px 10px;
+            border-bottom: 1px solid #edf2f7;
+            vertical-align: middle;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 8pt;
+            color: #718096;
+            margin-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGINA 1 -->
+    <div class="doc-header">
+        <div>
+            <h1>🎄 GUIDA OPERATIVA: CHECK-IN &amp; GESTIONE SERATA</h1>
+            <p>Pizzata Sociale di Natale Virtus Groane ASD &bull; Giovedì 17 Dicembre 2026</p>
+        </div>
+        <div class="header-badge">Uso Interno Staff</div>
+    </div>
+
+    <div class="info-box">
+        <strong>📍 Coordinate della Serata:</strong><br>
+        &bull; <strong>Data &amp; Luogo:</strong> Giovedì 17 Dicembre 2026 &ndash; Salone Parrocchiale Oratorio di Senago, Via Repubblica 7.<br>
+        &bull; <strong>Orari Accoglienza:</strong> Dalle ore 19:00 alle 19:30 &bull; <strong>Inizio Cena:</strong> Ore 20:00.<br>
+        &bull; <strong>Obiettivo:</strong> Velocizzare l'ingresso evitando code e fogli volanti, convalidando le presenze in 1 secondo tramite fotocamera smartphone.
+    </div>
+
+    <h2>1. Cosa Serve allo Staff per la Serata</h2>
+    <p>
+        Tutti i componenti del Direttivo e i collaboratori autorizzati possono operare contemporaneamente all'ingresso senza conflitti:
+    </p>
+    <ul>
+        <li><strong>Smartphone o Tablet</strong> personale connesso a Internet (Wi-Fi o rete dati 4G/5G).</li>
+        <li><strong>Account Google Istituzionale</strong> con dominio <code>@virtusgroane.com</code> (es. Emiliano, Silvano, Marco, Teresa, Marc, Luigi, o collaboratori).</li>
+        <li><strong>Link Diretto all'Applicazione:</strong> salvare tra i preferiti o aprire dal browser:
+            <br><code style="background: #edf2f7; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #1b589b;">https://www.virtusgroane.com/cena-di-natale.html</code>
+            (oppure dall'Area Riservata cliccando su <em>"Cena di Natale"</em>).</li>
+    </ul>
+
+    <h2>2. Procedura di Check-in all'Ingresso (Fase 19:00 &ndash; 19:30)</h2>
+    <p>
+        All'ingresso del salone, gli atleti e i familiari mostrano il proprio smartphone con il <strong>QR Code univoco</strong> ricevuto via email al momento dell'iscrizione.
+    </p>
+
+    <div class="step-container">
+        <div class="step-number">1</div>
+        <div class="step-content">
+            <strong>Accesso alla Piattaforma:</strong><br>
+            Apri <code>cena-di-natale.html</code> sul tuo smartphone ed esegui l'accesso rapido con il pulsante <em>"Accedi con Google"</em> inserendo la tua email <code>@virtusgroane.com</code>.
+        </div>
+    </div>
+
+    <div class="step-container">
+        <div class="step-number">2</div>
+        <div class="step-content">
+            <strong>Avvio della Fotocamera:</strong><br>
+            Nella schermata principale, tocca il pulsante verde <span class="ui-btn-mock">📷 Avvia Scanner Fotocamera</span>. 
+            Se compare la richiesta del browser, tocca <em>"Consenti"</em> per abilitare la fotocamera.
+        </div>
+    </div>
+
+    <div class="step-container">
+        <div class="step-number">3</div>
+        <div class="step-content">
+            <strong>Inquadra il QR Code del Tesserato:</strong><br>
+            Punta l'obiettivo verso lo schermo del telefono del referente. Il sistema lo riconosce istantaneamente:
+            <ul>
+                <li>Viene emesso un segnale acustico di conferma (<strong>bip</strong>).</li>
+                <li>Compare un avviso verde: <em>"🎉 Check-in confermato: Famiglia ... (N persone)!"</em>.</li>
+                <li>La presenza viene spuntata automaticamente sul foglio Google e la barra degli arrivati si incrementa in tempo reale.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="step-container">
+        <div class="step-number">4</div>
+        <div class="step-content">
+            <strong>Se il tesserato non ha con sé il telefono (Check-in Manuale):</strong><br>
+            Se l'atleta ha la batteria scarica o non trova l'email, non c'è problema:
+            nella casella di testo <em>"Es. VG-NAT-2026-001 oppure Cognome..."</em> scrivi il cognome della famiglia e premi <strong>"Conferma Presenza ✓"</strong>.
+        </div>
+    </div>
+
+    <div class="tip-box">
+        💡 <strong>Consiglio Operativo:</strong> Se all'ingresso ci sono 2 persone dello staff con lo smartphone aperto sullo scanner, la fila scorre all'istante anche con più di 100 partecipanti!
+    </div>
+
+    <!-- PAGINA 2 -->
+    <div class="page-break"></div>
+
+    <div class="doc-header">
+        <div>
+            <h1>🎄 GESTIONE TAVOLI, CUCINA &amp; MONITORAGGIO MANCANTI</h1>
+            <p>Piattaforma Gestionale Cena di Natale &bull; Istruzioni di Supporto Operativo</p>
+        </div>
+        <div class="header-badge">Uso Interno Staff</div>
+    </div>
+
+    <h2>3. Monitoraggio Arrivi &amp; Elenco Mancanti</h2>
+    <p>
+        Durante tutta la fase di accoglienza, la testata della pagina mostra la <strong>Barra di Avanzamento Presenze</strong>:
+    </p>
+    <div class="ui-mock">
+        📍 Presenze in Tempo Reale &bull; 17 Dicembre<br>
+        ARRIVI &amp; CHECK-IN: <span style="color: #2ecc71; font-weight: bold;">45 / 80 persone (56%)</span><br>
+        🟢 Arrivati: 45 &nbsp;&bull;&nbsp; 🔴 Mancanti: 35
+    </div>
+
+    <h3>Come Sapere Chi Manca Ancora all'Appello:</h3>
+    <ul>
+        <li>Sopra la tabella dei partecipanti sono presenti 3 filtri rapidi:
+            <strong>"Tutte le Prenotazioni"</strong>, <strong>"⏳ Da Arrivare"</strong> e <strong>"✅ Già Presenti"</strong>.</li>
+        <li>Toccando il filtro <strong>"⏳ Da Arrivare"</strong>, la tabella mostrerà unicamente i nominativi che non si sono ancora presentati all'ingresso, con relativo settore e recapito telefonico/email per eventuali verifiche.</li>
+    </ul>
+
+    <h2>4. Coordinamento Fornitori &amp; Servizio Pizze</h2>
+    <p>
+        Nel pannello <strong>"Riepilogo Totali per Ordini ai Fornitori"</strong>, i referenti del servizio possono visualizzare in tempo reale i conteggi aggregati esatti per la cucina:
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Elemento</th>
+                <th>Cosa Indica</th>
+                <th>Azione Operativa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>🍕 Tranci Margherita</strong></td>
+                <td>Totale porzioni di pizza margherita</td>
+                <td>Comunicare ai volontari ai forni/consegna</td>
+            </tr>
+            <tr>
+                <td><strong>🍅 Tranci Rossa</strong></td>
+                <td>Totale porzioni pomodoro semplice</td>
+                <td>Verificare la divisione delle teglie calde</td>
+            </tr>
+            <tr>
+                <td><strong>🍺 Birre alla Spina</strong></td>
+                <td>Bicchieri extra richiesti (+4 €)</td>
+                <td>Servizio allo spillatore riservato a maggiorenni</td>
+            </tr>
+            <tr>
+                <td><strong>⭐ Pandoro / 🍞 Panettone</strong></td>
+                <td>Totale fette dolci tradizionali</td>
+                <td>Disposizione vassoi per il momento del brindisi</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>5. Gestione Speciale Allergie &amp; Intolleranze</h2>
+    <div class="warning-box">
+        <strong>⚠️ Protocollo Sicurezza Alimentare (Celiachia &amp; Intolleranze):</strong><br>
+        Quando nel modulo un tesserato segnala intolleranze, la piattaforma attiva automaticamente il box rosso in evidenza: <strong>"Attenzione: Allergie e Intolleranze Alimentari Segnalate"</strong>.<br>
+        &bull; Verificare subito l'elenco nominativo: per ciascun atleta intollerante è riportato il settore del tavolo e la specifica (es. <em>"Celiachia - pizza gluten-free in teglia separata"</em> o <em>"Senza lattosio"</em>).<br>
+        &bull; Consegnare le confezioni sigillate o separate prima di servire le altre pizze per evitare qualsiasi contaminazione crociata.
+    </div>
+
+    <h2>6. Come Eseguire le Prove di Collaudo Pre-Serata</h2>
+    <p>
+        Tutti i membri del Direttivo possono testare fin da subito l'intero meccanismo:
+    </p>
+    <ol>
+        <li>Apri la pagina pubblica <a href="https://www.virtusgroane.com/societa-ed-eventi/pizza-di-natale-2026.html">pizza-di-natale-2026.html</a>.</li>
+        <li>Compila il modulo inserendo la tua email <code>@virtusgroane.com</code>.</li>
+        <li>Conferma: riceverai istantaneamente il <strong>QR Code di Prova</strong> a video e sulla tua casella di posta.</li>
+        <li>Apri con lo smartphone <a href="https://www.virtusgroane.com/cena-di-natale.html">cena-di-natale.html</a> e inquadra il QR Code: vedrai scattare il bip sonoro e comparire la conferma di check-in!</li>
+    </ol>
+
+    <div class="footer-note">
+        Virtus Groane ASD &bull; Codice Fiscale: 04577740964 &bull; www.virtusgroane.com &bull; Documento ad uso esclusivo dello staff direttivo
+    </div>
+
+</body>
+</html>

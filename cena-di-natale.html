@@ -457,6 +457,9 @@
                         </div>
                     </div>
                     <div style="display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
+                        <a href="docs/guida-pizzata-natale-2026.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; border-color: rgba(255, 209, 0, 0.4); color: #ffd100;" title="Manuale istruzioni operative per la serata della pizzata">
+                            📖 Guida Check-in (PDF) &nearr;
+                        </a>
                         <a href="https://docs.google.com/spreadsheets/d/1Ujp8wzckT8iql7nsGLjbCH8s-fTEK95ATOSorLIwliQ/edit" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem;" title="Apri il foglio Google con le risposte">
                             📊 Foglio Risposte &nearr;
                         </a>
@@ -1096,6 +1099,45 @@
             }, 3500);
         }
 
+        // Gestione QR Code o Codici di Prova per il Direttivo (@virtusgroane.com)
+        function handleTestQrCode(code) {
+            playBeep();
+            const existing = allOrders.find(o => o.bookingCode && o.bookingCode.toUpperCase() === code.toUpperCase());
+            if (existing) {
+                toggleCheckin(existing.bookingCode, true);
+                return;
+            }
+
+            // Inserisce al volo una riga dimostrativa per il collaudo
+            const testOrder = {
+                rowNumber: allOrders.length + 2,
+                bookingCode: code,
+                cognome: "Collaudo Direttivo",
+                nome: (currentStaffUser && currentStaffUser.name) ? currentStaffUser.name : "Staff Virtus",
+                settore: "Staff Direttivo",
+                partecipantiCount: 2,
+                margherita: 1,
+                rossa: 1,
+                acqua: 1,
+                coca: 1,
+                aranciata: 0,
+                birre: 1,
+                pandoro: 1,
+                panettone: 1,
+                note: "QR Code di Prova Direttivo",
+                email: (currentStaffUser && currentStaffUser.email) ? currentStaffUser.email : "staff@virtusgroane.com",
+                quota: 34,
+                statoPagamento: "Collaudo",
+                presente: true,
+                checkinTime: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })
+            };
+
+            allOrders.unshift(testOrder);
+            localStorage.setItem('vg_christmas_orders', JSON.stringify(allOrders));
+            recalculateAndRender();
+            showToast(`🎉 [TEST COLLAUDO] Check-in convalidato per ${code}!`);
+        }
+
         // Check-in Manuale Rapido
         btnManualCheckin.addEventListener('click', () => {
             const val = manualCodeInput.value.trim().toUpperCase();
@@ -1108,6 +1150,10 @@
 
             if (order) {
                 toggleCheckin(order.bookingCode, true);
+                manualCodeInput.value = '';
+                manualCodeInput.focus();
+            } else if (val.includes('TEST') || val.includes('VG-')) {
+                handleTestQrCode(val);
                 manualCodeInput.value = '';
                 manualCodeInput.focus();
             } else {
@@ -1144,13 +1190,15 @@
                 (decodedText) => {
                     // QR Code Riconosciuto
                     const cleanCode = decodedText.trim();
-                    const order = allOrders.find(o => o.bookingCode && cleanCode.includes(o.bookingCode));
+                    const order = allOrders.find(o => o.bookingCode && cleanCode.toUpperCase().includes(o.bookingCode.toUpperCase()));
                     if (order) {
                         if (!order.presente) {
                             toggleCheckin(order.bookingCode, true);
                         } else {
                             showToast(`ℹ️ ${order.cognome} ${order.nome} è già stato registrato come presente.`);
                         }
+                    } else if (cleanCode.toUpperCase().includes('TEST') || cleanCode.toUpperCase().includes('VG-')) {
+                        handleTestQrCode(cleanCode);
                     } else {
                         showToast(`⚠️ QR Code non riconosciuto nel sistema: ${cleanCode}`);
                     }

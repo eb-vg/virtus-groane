@@ -681,10 +681,10 @@
                                 <div class="price-summary-total" id="price-total-display">15,00 €</div>
                             </div>
                             <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem;">
-                                <button type="submit" id="btn-submit-booking" class="btn btn-secondary" style="padding: 0.9rem 1.8rem; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.03em; opacity: 0.65; cursor: not-allowed; background: var(--bg-tertiary); border: 1.5px solid var(--border-color); color: var(--text-muted);" disabled title="Adesioni in fase di apertura">
-                                    🔒 Prenotazioni Aperte a Breve
+                                <button type="submit" id="btn-submit-booking" class="btn btn-primary" style="padding: 0.9rem 1.8rem; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.03em;">
+                                    Procedi alla Conferma 🎄 &rarr;
                                 </button>
-                                <span style="font-size: 0.78rem; color: #ffd100; font-weight: 600;">Modulo in anteprima &bull; Apertura adesioni a breve</span>
+                                <span style="font-size: 0.78rem; color: #ffd100; font-weight: 600;">🔒 Anteprima &bull; Test attivo per @virtusgroane.com</span>
                             </div>
                         </div>
                     </div>
@@ -1064,11 +1064,9 @@
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        // Apertura modale di verifica (disabilitata temporaneamente in fase di anteprima)
+        // Apertura modale di verifica (con controllo accesso di prova riservato al direttivo)
         bookingForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            alert("🔒 Le prenotazioni online per la Pizzata Natalizia 2026 apriranno a breve! Stiamo ultimando gli ultimi dettagli organizzativi con la sede.");
-            return;
 
             const refCognome = document.getElementById('ref-cognome').value.trim();
             const refNome = document.getElementById('ref-nome').value.trim();
@@ -1077,6 +1075,13 @@
 
             if (!refCognome || !refNome || !refEmail || !refTel) {
                 alert("Compila tutti i campi obbligatori del referente (Nome, Cognome, Email e Telefono).");
+                return;
+            }
+
+            // CONTROLLO ANTEPRIMA / COLLAUDO DIRETTIVO:
+            const isStaffDirettivo = refEmail.toLowerCase().endsWith('@virtusgroane.com');
+            if (!isStaffDirettivo) {
+                alert("🔒 Adesioni in fase di apertura!\n\nLe prenotazioni online per tutti i tesserati e famiglie apriranno ufficialmente a breve.\n\nIn questa fase di pre-lancio, l'invio di prova con emissione del QR Code è abilitato esclusivamente per gli indirizzi istituzionali del direttivo (@virtusgroane.com).");
                 return;
             }
 
@@ -1092,9 +1097,13 @@
 
             // Costruzione riepilogo nel modale
             let html = `
+                <div style="background: rgba(43, 122, 210, 0.15); border: 1px solid #3b82f6; border-radius: 8px; padding: 0.8rem 1rem; margin-bottom: 1.2rem; color: #93c5fd; font-size: 0.88rem; line-height: 1.5;">
+                    🛠️ <strong>Modalità Collaudo Direttivo Attiva:</strong><br>
+                    Stai provando l'invio con l'account societario <strong>${escapeHtml(refEmail)}</strong>. Verrà emesso un <strong>Codice QR di Prova</strong> e inviata la relativa notifica di test alla tua email per consentire di provare la verifica da smartphone nell'Area Riservata!
+                </div>
                 <div style="margin-bottom: 1rem;">
                     <strong>Referente:</strong> ${escapeHtml(refCognome)} ${escapeHtml(refNome)}<br>
-                    <strong>Email di conferma:</strong> ${escapeHtml(refEmail)} &bull; <strong>Telefono:</strong> ${escapeHtml(refTel)}
+                    <strong>Email di prova:</strong> ${escapeHtml(refEmail)} &bull; <strong>Telefono:</strong> ${escapeHtml(refTel)}
                 </div>
                 <div style="font-weight: 600; color: white; margin-bottom: 0.5rem; border-top: 1px solid var(--border-color); padding-top: 0.8rem;">
                     Partecipanti Selezionati (${info.count}):
@@ -1138,59 +1147,48 @@
 
             const info = calculateTotal();
 
+            // Codice univoco di prova per il collaudo direttivo
+            const randomSuffix = Math.floor(100 + Math.random() * 900);
+            const assignedCode = `VG-TEST-2026-${randomSuffix}`;
+            const qrUrl = `https://quickchart.io/qr?text=${encodeURIComponent(assignedCode)}&size=220&margin=2`;
+
             const payload = {
                 action: 'REGISTER_CHRISTMAS_BOOKING',
+                isTest: true,
+                testCode: assignedCode,
                 referente: {
                     cognome: refCognome,
                     nome: refNome,
                     email: refEmail,
                     telefono: refTel,
                     dataNascita: refDataNascita,
-                    note: refNote,
+                    note: refNote ? `[TEST COLLAUDO DIRETTIVO] ${refNote}` : '[TEST COLLAUDO DIRETTIVO]',
                     settore: participantsList[0] ? participantsList[0].settore : 'Masters Atletica e Triathlon'
                 },
                 partecipanti: participantsList
             };
 
-            // Generazione codice fallback locale nel caso di no-cors o network timeout
-            const fallbackProgressivo = Math.floor(100 + Math.random() * 900);
-            const fallbackCode = `VG-NAT-2026-${fallbackProgressivo}`;
-            let assignedCode = fallbackCode;
-            let qrUrl = `https://quickchart.io/qr?text=${encodeURIComponent(fallbackCode)}&size=220&margin=2`;
-
             try {
-                // Tentativo chiamata diretta Web App Google Apps Script
-                const response = await fetch(APPS_SCRIPT_URL, {
+                // Invio a Google Apps Script per spedire l'email reale con il QR Code all'indirizzo @virtusgroane.com
+                await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(payload)
                 });
-
-                if (response.ok) {
-                    try {
-                        const result = await response.json();
-                        if (result && result.bookingCode) {
-                            assignedCode = result.bookingCode;
-                            if (result.qrUrl) qrUrl = result.qrUrl;
-                        }
-                    } catch (e) {
-                        // Se non è stato possibile parsare il json, mantieni codice generato
-                    }
-                }
             } catch (err) {
-                console.warn("Invio Web App eseguito con fallback:", err);
+                console.warn("Invio test Apps Script:", err);
             }
 
             // Mostra la schermata finale con ricevuta e QR Code
             confirmModal.style.display = 'none';
             bookingWizardContainer.style.display = 'none';
 
-            receiptBookingCode.textContent = assignedCode;
+            receiptBookingCode.innerHTML = `<span style="color: #60a5fa;">${assignedCode}</span> <br><small style="font-size: 0.85rem; color: #ffd100; font-weight: normal; font-family: var(--font-body);">[QR CODE DI PROVA &bull; COLLAUDO DIRETTIVO]</small>`;
             receiptQrImg.src = qrUrl;
             receiptTotalBadge.textContent = info.total.toFixed(2).replace('.', ',') + ' €';
             receiptEmailDisplay.textContent = refEmail;
             
-            const causaleStr = `Cena Natale 2026 - ${assignedCode} - ${refCognome} ${refNome}`;
+            const causaleStr = `[PROVA] Cena Natale 2026 - ${assignedCode} - ${refCognome} ${refNome}`;
             receiptCausaleText.textContent = causaleStr;
             btnCopyCausale.onclick = function() { copyToClipboard(causaleStr, this); };
 

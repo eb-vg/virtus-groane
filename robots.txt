@@ -9,6 +9,7 @@ Disallow: /area-riservata.html
 Disallow: /ordini-vestiario.html
 Disallow: /cena-di-natale.html
 Disallow: /docs/guida-operativa-staff*
+Disallow: /docs/guida-pizzata-natale*
 
 # Sitemap ufficiale del sito
 Sitemap: https://www.virtusgroane.com/sitemap.xml
