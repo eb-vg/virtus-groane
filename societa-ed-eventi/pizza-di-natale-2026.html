@@ -680,9 +680,12 @@
                                 <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Totale da Versare</div>
                                 <div class="price-summary-total" id="price-total-display">15,00 €</div>
                             </div>
-                            <button type="submit" id="btn-submit-booking" class="btn btn-primary" style="padding: 0.9rem 1.8rem; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.03em;">
-                                Procedi alla Conferma 🎄 &rarr;
-                            </button>
+                            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem;">
+                                <button type="submit" id="btn-submit-booking" class="btn btn-secondary" style="padding: 0.9rem 1.8rem; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.03em; opacity: 0.65; cursor: not-allowed; background: var(--bg-tertiary); border: 1.5px solid var(--border-color); color: var(--text-muted);" disabled title="Adesioni in fase di apertura">
+                                    🔒 Prenotazioni Aperte a Breve
+                                </button>
+                                <span style="font-size: 0.78rem; color: #ffd100; font-weight: 600;">Modulo in anteprima &bull; Apertura adesioni a breve</span>
+                            </div>
                         </div>
                     </div>
 
@@ -1061,9 +1064,11 @@
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        // Apertura modale di verifica
+        // Apertura modale di verifica (disabilitata temporaneamente in fase di anteprima)
         bookingForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            alert("🔒 Le prenotazioni online per la Pizzata Natalizia 2026 apriranno a breve! Stiamo ultimando gli ultimi dettagli organizzativi con la sede.");
+            return;
 
             const refCognome = document.getElementById('ref-cognome').value.trim();
             const refNome = document.getElementById('ref-nome').value.trim();
