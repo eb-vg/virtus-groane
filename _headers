@@ -6,6 +6,7 @@
 
 /cena-di-natale.html
   X-Robots-Tag: noindex, nofollow, noarchive
+  Permissions-Policy: camera=(self)
 
 /*
   X-Frame-Options: SAMEORIGIN

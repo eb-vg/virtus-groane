@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cena di Natale 2026 - Area Riservata - Virtus Groane ASD</title>
-    <meta name="description" content="Gestione organizzativa della Cena Sociale di Natale Virtus Groane ASD.">
+    <title>Cena di Natale 2026 - Gestione & Check-in - Virtus Groane ASD</title>
+    <meta name="description" content="Piattaforma organizzativa interna per la Cena Sociale di Natale Virtus Groane ASD: totali fornitori, gestione prenotazioni e scanner QR code check-in.">
     <meta name="robots" content="noindex, nofollow, noarchive">
     
     <!-- Google Identity Services (GIS) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Libreria Scanner QR Code Fotocamera Smartphone -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     
     <!-- Fonts & Stile Ufficiale Virtus Groane -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +28,7 @@
             background-color: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 1.8rem 2rem;
             margin-bottom: 2rem;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
         }
@@ -97,6 +100,268 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
+
+        /* KPI Cards Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .kpi-card {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.2rem;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .kpi-card:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .kpi-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .kpi-value {
+            font-family: var(--font-title);
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.1;
+            margin: 0.2rem 0;
+        }
+
+        .kpi-label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        /* Check-in Progress Bar */
+        .checkin-progress-card {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, #152233 100%);
+            border: 1.5px solid var(--color-blue);
+            border-radius: 12px;
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar-container {
+            background: rgba(255, 255, 255, 0.1);
+            height: 18px;
+            border-radius: 9px;
+            overflow: hidden;
+            margin: 0.8rem 0 0.5rem;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, var(--color-green) 0%, var(--color-green-light) 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+
+        /* QR Scanner Section */
+        .scanner-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        #qr-reader {
+            width: 100%;
+            max-width: 480px;
+            margin: 1rem auto;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px dashed var(--color-green);
+            background: #000;
+        }
+
+        /* Orders Table */
+        .orders-table-wrapper {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow-x: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+
+        .table-custom th {
+            background-color: var(--bg-tertiary);
+            color: var(--text-secondary);
+            padding: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        .table-custom td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: middle;
+        }
+
+        .table-custom tr:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .table-custom tr.row-presente {
+            background-color: rgba(36, 178, 103, 0.06);
+        }
+
+        /* Filter Pills */
+        .filter-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .filter-btn.active {
+            background: var(--color-green);
+            color: black;
+            border-color: var(--color-green);
+            font-weight: 700;
+        }
+
+        .search-input {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 0.55rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            min-width: 240px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-green);
+        }
+
+        /* Badge Status */
+        .badge-status {
+            display: inline-block;
+            padding: 0.3rem 0.65rem;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .badge-presente {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ecc71;
+            border: 1px solid rgba(46, 204, 113, 0.35);
+        }
+
+        .badge-mancante {
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.35);
+        }
+
+        /* Checkin Action Buttons */
+        .btn-checkin {
+            background: rgba(36, 178, 103, 0.2);
+            border: 1px solid var(--color-green);
+            color: var(--color-green-light);
+            padding: 0.45rem 0.9rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .btn-checkin:hover {
+            background: var(--color-green);
+            color: black;
+        }
+
+        .btn-checkin-cancel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-muted);
+            padding: 0.45rem 0.9rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-checkin-cancel:hover {
+            color: #f87171;
+            border-color: #ef4444;
+        }
+
+        /* Toast Feedback */
+        .toast-banner {
+            display: none;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #10b981;
+            color: black;
+            padding: 1rem 1.6rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            z-index: 99999;
+            transition: opacity 0.3s;
+        }
     </style>
 </head>
 <body>
@@ -134,8 +399,8 @@
     <!-- PAGE HERO -->
     <section id="main-content" class="page-hero">
         <div class="container">
-            <h1><a href="area-riservata.html" class="parent-link">Area Riservata</a> <span class="parent-separator">/</span> 🎄 Cena di Natale 2026</h1>
-            <p style="color: var(--text-secondary); margin-top: 0.5rem;">Modulo organizzativo interno Virtus Groane ASD per la Cena Sociale di Natale</p>
+            <h1><a href="area-riservata.html" class="parent-link">Area Riservata</a> <span class="parent-separator">/</span> 🎄 Gestione Cena di Natale 2026</h1>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem;">Pannello di controllo ordini fornitori &bull; Check-in presenze la sera dell'evento</p>
         </div>
     </section>
 
@@ -151,7 +416,7 @@
                     </div>
                     <h2 style="font-size: 1.8rem; margin-bottom: 0.8rem;">Accesso Riservato Staff</h2>
                     <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 2rem;">
-                        Accedi con il tuo account istituzionale <strong>@virtusgroane.com</strong> per accedere alla gestione della Cena di Natale.
+                        Accedi con il tuo account istituzionale <strong>@virtusgroane.com</strong> per accedere alla gestione e al check-in della Cena di Natale.
                     </p>
 
                     <div id="login-error-alert" style="display:none; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #fca5a5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: left;">
@@ -187,12 +452,15 @@
                     <div class="user-info">
                         <img id="user-avatar-img" class="user-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232ecc71'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" alt="Avatar">
                         <div class="user-details">
-                            <h3 id="user-display-name">Nome Utente</h3>
+                            <h3 id="user-display-name">Nome Operatore</h3>
                             <p id="user-display-email">email@virtusgroane.com</p>
                         </div>
                     </div>
                     <div style="display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
-                        <a href="area-riservata.html" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;" title="Torna al menu principale dell'Area Riservata">
+                        <a href="https://docs.google.com/spreadsheets/d/1Ujp8wzckT8iql7nsGLjbCH8s-fTEK95ATOSorLIwliQ/edit" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem;" title="Apri il foglio Google con le risposte">
+                            📊 Foglio Risposte &nearr;
+                        </a>
+                        <a href="area-riservata.html" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem;">
                             ⬅️ Menu Riservato
                         </a>
                         <button type="button" id="btn-logout" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
@@ -201,25 +469,176 @@
                     </div>
                 </div>
 
-                <!-- CONTENITORE MODULO CENA DI NATALE (Pronto per requisiti) -->
-                <div class="event-card">
-                    <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem;">
-                        <span style="font-size: 2.2rem;">🎄</span>
+                <!-- AVANZAMENTO CHECK-IN DELLA SERATA -->
+                <div class="checkin-progress-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 0.5rem;">
                         <div>
-                            <h2 style="margin: 0; font-size: 1.6rem; color: white;">Cena di Natale Virtus Groane ASD</h2>
-                            <p style="margin: 0.2rem 0 0; color: var(--text-secondary); font-size: 0.95rem;">
-                                Gestione partecipanti, adesioni e organizzazione evento.
-                            </p>
+                            <span style="font-size: 0.82rem; color: var(--color-green-light); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">
+                                📍 Presenze in Tempo Reale &bull; 17 Dicembre
+                            </span>
+                            <h2 style="margin: 0.2rem 0 0; font-size: 1.5rem; color: white;">
+                                Arrivi &amp; Check-in all'Ingresso
+                            </h2>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="font-size: 1.8rem; font-weight: 800; color: white;" id="kpi-presenti-display">0</span>
+                            <span style="font-size: 1.1rem; color: var(--text-secondary);"> / <span id="kpi-totale-display">0</span> persone</span>
+                            <span style="margin-left: 0.8rem; background: var(--color-green); color: black; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: bold; font-size: 0.85rem;" id="kpi-perc-display">0%</span>
                         </div>
                     </div>
-                    
-                    <div style="background: rgba(239, 68, 68, 0.08); border: 1px dashed rgba(239, 68, 68, 0.35); border-radius: 8px; padding: 1.5rem; text-align: center; color: var(--text-secondary); margin-top: 1.5rem;">
-                        <p style="font-size: 1.1rem; color: white; margin-bottom: 0.5rem;">
-                            ⚙️ <strong>Modulo in fase di configurazione</strong>
-                        </p>
-                        <p style="margin: 0; font-size: 0.9rem;">
-                            Descrivi le specifiche della Cena di Natale (campi, foglio di calcolo, partecipanti, quote, opzioni menu) per attivare le funzionalità desiderate!
-                        </p>
+
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.4rem;">
+                        <span>🟢 Arrivati: <strong id="kpi-presenti-sub" style="color: white;">0</strong></span>
+                        <span>🔴 Mancanti: <strong id="kpi-mancanti-sub" style="color: #fca5a5;">0</strong></span>
+                    </div>
+                </div>
+
+                <!-- STRUMENTO CHECK-IN: SCANNER QR CODE & MANUALE -->
+                <div class="scanner-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem;">
+                        <div>
+                            <h3 style="margin: 0; font-size: 1.3rem; color: white; display: flex; align-items: center; gap: 0.5rem;">
+                                <span>📷</span> Scanner QR Code Fotocamera
+                            </h3>
+                            <p style="margin: 0.2rem 0 0; color: var(--text-secondary); font-size: 0.88rem;">
+                                Inquadra il QR code mostrato dallo smartphone dell'atleta o digita il codice di prenotazione
+                            </p>
+                        </div>
+                        <div style="display: flex; gap: 0.8rem;">
+                            <button type="button" id="btn-toggle-scanner" class="btn btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+                                📷 Avvia Scanner Fotocamera
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Reader Video Scanner Fotocamera -->
+                    <div id="qr-reader" style="display: none;"></div>
+
+                    <!-- Input Check-in Rapido Manuale -->
+                    <div style="display: flex; gap: 0.8rem; max-width: 540px; margin-top: 1rem;">
+                        <input type="text" id="manual-code-input" class="search-input" style="flex: 1;" placeholder="Es. VG-NAT-2026-001 oppure Cognome...">
+                        <button type="button" id="btn-manual-checkin" class="btn btn-secondary" style="padding: 0.6rem 1.2rem; font-size: 0.9rem; font-weight: 600;">
+                            Conferma Presenza ✓
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TOTALI FORNITORI & CATERING (KPI) -->
+                <div class="event-card">
+                    <h3 style="margin: 0 0 1.2rem 0; font-size: 1.3rem; color: white; display: flex; align-items: center; gap: 0.5rem;">
+                        <span>📦</span> Riepilogo Totali per Ordini ai Fornitori
+                    </h3>
+
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-icon">👥</div>
+                            <div class="kpi-value" id="kpi-tot-posti">0</div>
+                            <div class="kpi-label">Posti a Tavola</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon">🍕</div>
+                            <div class="kpi-value" id="kpi-tot-margherita">0</div>
+                            <div class="kpi-label">Tranci Margherita</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon">🍅</div>
+                            <div class="kpi-value" id="kpi-tot-rossa">0</div>
+                            <div class="kpi-label">Tranci Rossa</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon">💧</div>
+                            <div class="kpi-value" id="kpi-tot-acqua">0</div>
+                            <div class="kpi-label">Bottiglie Acqua</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon">🥤</div>
+                            <div class="kpi-value" id="kpi-tot-coca">0</div>
+                            <div class="kpi-label">Coca-Cola</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon">🍊</div>
+                            <div class="kpi-value" id="kpi-tot-aranciata">0</div>
+                            <div class="kpi-label">Aranciata</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon">🍺</div>
+                            <div class="kpi-value" id="kpi-tot-birre">0</div>
+                            <div class="kpi-label">Birre alla Spina</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon">⭐</div>
+                            <div class="kpi-value" id="kpi-tot-pandoro">0</div>
+                            <div class="kpi-label">Fette Pandoro</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon">🍞</div>
+                            <div class="kpi-value" id="kpi-tot-panettone">0</div>
+                            <div class="kpi-label">Fette Panettone</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon">💶</div>
+                            <div class="kpi-value" style="color: var(--color-green-light);" id="kpi-tot-euro">€ 0</div>
+                            <div class="kpi-label">Totale Quote Previste</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEZIONE SPECIALE: ALLERGIE & INTOLLERANZE -->
+                <div class="event-card" id="allergies-box" style="display: none; border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.04);">
+                    <h3 style="margin: 0 0 0.8rem 0; font-size: 1.25rem; color: #fca5a5; display: flex; align-items: center; gap: 0.5rem;">
+                        <span>⚠️</span> Attenzione: Allergie e Intolleranze Alimentari Segnalate
+                    </h3>
+                    <p style="margin: 0 0 1rem; color: var(--text-secondary); font-size: 0.88rem;">
+                        Verifica queste richieste con la cucina per pizze senza glutine (celiachia) o prodotti senza lattosio:
+                    </p>
+                    <div id="allergies-list-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.8rem;">
+                        <!-- Elenco note intolleranze -->
+                    </div>
+                </div>
+
+                <!-- TABELLA COMPLETA PRENOTAZIONI -->
+                <div class="event-card" style="padding: 1.5rem;">
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <button type="button" class="filter-btn active" data-filter="all" onclick="setFilter('all', this)">
+                                Tutte le Prenotazioni (<span id="count-filter-all">0</span>)
+                            </button>
+                            <button type="button" class="filter-btn" data-filter="missing" onclick="setFilter('missing', this)">
+                                ⏳ Da Arrivare (<span id="count-filter-missing">0</span>)
+                            </button>
+                            <button type="button" class="filter-btn" data-filter="present" onclick="setFilter('present', this)">
+                                ✅ Già Presenti (<span id="count-filter-present">0</span>)
+                            </button>
+                        </div>
+                        <input type="text" id="table-search" class="search-input" placeholder="🔍 Cerca nome, codice o settore..." oninput="filterTable()">
+                    </div>
+
+                    <div class="orders-table-wrapper">
+                        <table class="table-custom">
+                            <thead>
+                                <tr>
+                                    <th>Codice</th>
+                                    <th>Referente</th>
+                                    <th>Settore</th>
+                                    <th>Persone</th>
+                                    <th>Pizze &amp; Bibite</th>
+                                    <th>Dolce</th>
+                                    <th>Quota</th>
+                                    <th>Presenza Check-in</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-tbody">
+                                <tr>
+                                    <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                                        Caricamento dati dal foglio in corso... ⏳
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -227,6 +646,30 @@
 
         </div>
     </section>
+
+    <!-- TOAST NOTIFICA CHECK-IN -->
+    <div id="toast-banner" class="toast-banner">
+        ✅ Check-in convalidato!
+    </div>
+
+    <!-- AUDIO FEEDBACK (Beep con Web Audio API) -->
+    <script>
+        function playBeep() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = "sine";
+                osc.frequency.value = 880; // A5
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.25);
+            } catch(e) {}
+        }
+    </script>
 
     <!-- FOOTER -->
     <footer>
@@ -265,15 +708,22 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2026 Virtus Groane ASD. Tutti i diritti riservati. CF e P.IVA: 04577740964 &bull; <a href="privacy-policy.html" style="color: var(--text-muted); text-decoration: underline;">Privacy &amp; Cookie Policy</a> &bull; <a href="area-riservata.html" style="color: var(--text-muted); text-decoration: underline;">Area Riservata</a> &bull; <span style="color: var(--color-green-light); font-weight: 500;">🔒 Privacy-First (zero cookie di profilazione)</span></p>
+                <p>&copy; 2026 Virtus Groane ASD. CF e P.IVA: 04577740964 &bull; <a href="area-riservata.html" style="color: var(--color-green-light);">Area Riservata</a> &bull; Uso esclusivo staff societario</p>
             </div>
         </div>
     </footer>
 
-    <!-- SCRIPT CLIENT LOGIC -->
+    <!-- LOGICA DASHBOARD & QR SCANNER -->
     <script>
         const DOMINIO_AUTORIZZATO = 'virtusgroane.com';
-        
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyDBL59DZLcAfoFYEfuyRKfcRR1dBLUGNfm-UXKT6Iisfi3tL7Xjxa596Hfs1zJ9zVRDA/exec';
+
+        let currentStaffUser = null;
+        let allOrders = [];
+        let currentFilter = 'all';
+        let html5QrCode = null;
+        let isScannerRunning = false;
+
         const loginContainer = document.getElementById('login-container');
         const dashboardContainer = document.getElementById('dashboard-container');
         const loginErrorAlert = document.getElementById('login-error-alert');
@@ -282,6 +732,82 @@
         const userDisplayEmail = document.getElementById('user-display-email');
         const userAvatarImg = document.getElementById('user-avatar-img');
         const btnLogout = document.getElementById('btn-logout');
+
+        const toastBanner = document.getElementById('toast-banner');
+        const btnToggleScanner = document.getElementById('btn-toggle-scanner');
+        const qrReaderDiv = document.getElementById('qr-reader');
+        const manualCodeInput = document.getElementById('manual-code-input');
+        const btnManualCheckin = document.getElementById('btn-manual-checkin');
+
+        // Dati iniziali dimostrativi di fallback (anonimi e privi di dati personali)
+        const INITIAL_MOCK_ORDERS = [
+            {
+                rowNumber: 2,
+                bookingCode: "VG-NAT-2026-001",
+                cognome: "Atleta Dimostrativo",
+                nome: "Mario",
+                settore: "Masters Atletica e Triathlon",
+                partecipantiCount: 5,
+                margherita: 3,
+                rossa: 2,
+                acqua: 1,
+                coca: 1,
+                aranciata: 1,
+                birre: 2,
+                pandoro: 3,
+                panettone: 2,
+                note: "Opzione pizza senza glutine",
+                email: "mario.rossi@esempio.com",
+                quota: 83,
+                statoPagamento: "In attesa di pagamento",
+                presente: false,
+                checkinTime: ""
+            },
+            {
+                rowNumber: 3,
+                bookingCode: "VG-NAT-2026-002",
+                cognome: "Famiglia Sportiva",
+                nome: "Giulia",
+                settore: "Mamme che Sport!",
+                partecipantiCount: 5,
+                margherita: 1,
+                rossa: 4,
+                acqua: 0,
+                coca: 0,
+                aranciata: 2,
+                birre: 2,
+                pandoro: 1,
+                panettone: 1,
+                note: "",
+                email: "giulia.bianchi@esempio.com",
+                quota: 83,
+                statoPagamento: "In attesa di pagamento",
+                presente: false,
+                checkinTime: ""
+            },
+            {
+                rowNumber: 4,
+                bookingCode: "VG-NAT-2026-003",
+                cognome: "Gruppo Giovanile",
+                nome: "Luca",
+                settore: "Atletica giovanile",
+                partecipantiCount: 5,
+                margherita: 1,
+                rossa: 0,
+                acqua: 1,
+                coca: 0,
+                aranciata: 0,
+                birre: 0,
+                pandoro: 1,
+                panettone: 0,
+                note: "",
+                email: "luca.verdi@esempio.com",
+                quota: 75,
+                statoPagamento: "In attesa di pagamento",
+                presente: false,
+                checkinTime: ""
+            }
+        ];
 
         function parseJwt(token) {
             try {
@@ -321,6 +847,7 @@
         }
 
         function loginSuccess(user) {
+            currentStaffUser = user;
             sessionStorage.setItem('vg_staff_user', JSON.stringify(user));
 
             userDisplayName.textContent = user.name;
@@ -329,16 +856,334 @@
 
             loginContainer.style.display = 'none';
             dashboardContainer.style.display = 'block';
+
+            loadDashboardData();
         }
 
         function logout() {
             sessionStorage.removeItem('vg_staff_user');
+            if (isScannerRunning) stopScanner();
             loginContainer.style.display = 'block';
             dashboardContainer.style.display = 'none';
         }
 
         btnLogout.addEventListener('click', logout);
 
+        // Caricamento dati da Google Apps Script
+        async function loadDashboardData() {
+            try {
+                const url = `${APPS_SCRIPT_URL}?action=GET_CHRISTMAS_DASHBOARD&userEmail=${encodeURIComponent(currentStaffUser.email)}`;
+                const response = await fetch(url);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && data.status === 'SUCCESS' && Array.isArray(data.orders) && data.orders.length > 0) {
+                        allOrders = data.orders;
+                        renderDashboard(data.kpi, allOrders, data.allergies);
+                        return;
+                    }
+                }
+            } catch (err) {
+                console.warn("Chiamata Web App fallita, uso dati memorizzati/locali:", err);
+            }
+
+            // Fallback con dati iniziali
+            allOrders = JSON.parse(localStorage.getItem('vg_christmas_orders')) || INITIAL_MOCK_ORDERS;
+            recalculateAndRender();
+        }
+
+        function recalculateAndRender() {
+            let totPosti = 0, totM = 0, totR = 0, totAcqua = 0, totCoca = 0, totAranc = 0, totBirre = 0, totPandoro = 0, totPanettone = 0, totEuro = 0, totPresenti = 0;
+            const allergies = [];
+
+            allOrders.forEach(o => {
+                const p = parseInt(o.partecipantiCount, 10) || 1;
+                totPosti += p;
+                totM += parseInt(o.margherita, 10) || 0;
+                totR += parseInt(o.rossa, 10) || 0;
+                totAcqua += parseInt(o.acqua, 10) || 0;
+                totCoca += parseInt(o.coca, 10) || 0;
+                totAranc += parseInt(o.aranciata, 10) || 0;
+                totBirre += parseInt(o.birre, 10) || 0;
+                totPandoro += parseInt(o.pandoro, 10) || 0;
+                totPanettone += parseInt(o.panettone, 10) || 0;
+                totEuro += parseFloat(o.quota) || (p * 15 + (parseInt(o.birre, 10) || 0) * 4);
+
+                if (o.presente) {
+                    totPresenti += p;
+                }
+
+                if (o.note && o.note.trim()) {
+                    allergies.push({
+                        bookingCode: o.bookingCode,
+                        referente: o.cognome + ' ' + o.nome,
+                        settore: o.settore,
+                        note: o.note
+                    });
+                }
+            });
+
+            const kpi = {
+                totalePosti: totPosti,
+                totaleMargherita: totM,
+                totaleRossa: totR,
+                totaleAcqua: totAcqua,
+                totaleCoca: totCoca,
+                totaleAranciata: totAranc,
+                totaleBirre: totBirre,
+                totalePandoro: totPandoro,
+                totalePanettone: totPanettone,
+                totaleQuotePreviste: totEuro,
+                totalePresentiPersone: totPresenti,
+                totaleMancantiPersone: Math.max(0, totPosti - totPresenti),
+                percentualePresenti: totPosti > 0 ? Math.round((totPresenti / totPosti) * 100) : 0
+            };
+
+            renderDashboard(kpi, allOrders, allergies);
+        }
+
+        function renderDashboard(kpi, orders, allergies) {
+            // Aggiorna KPI Box
+            document.getElementById('kpi-tot-posti').textContent = kpi.totalePosti;
+            document.getElementById('kpi-tot-margherita').textContent = kpi.totaleMargherita;
+            document.getElementById('kpi-tot-rossa').textContent = kpi.totaleRossa;
+            document.getElementById('kpi-tot-acqua').textContent = kpi.totaleAcqua;
+            document.getElementById('kpi-tot-coca').textContent = kpi.totaleCoca;
+            document.getElementById('kpi-tot-aranciata').textContent = kpi.totaleAranciata;
+            document.getElementById('kpi-tot-birre').textContent = kpi.totaleBirre;
+            document.getElementById('kpi-tot-pandoro').textContent = kpi.totalePandoro;
+            document.getElementById('kpi-tot-panettone').textContent = kpi.totalePanettone;
+            document.getElementById('kpi-tot-euro').textContent = '€ ' + Number(kpi.totaleQuotePreviste).toFixed(2).replace('.', ',');
+
+            // Barra avanzamento
+            document.getElementById('kpi-presenti-display').textContent = kpi.totalePresentiPersone;
+            document.getElementById('kpi-totale-display').textContent = kpi.totalePosti;
+            document.getElementById('kpi-perc-display').textContent = kpi.percentualePresenti + '%';
+            document.getElementById('progress-bar-fill').style.width = kpi.percentualePresenti + '%';
+            document.getElementById('kpi-presenti-sub').textContent = kpi.totalePresentiPersone;
+            document.getElementById('kpi-mancanti-sub').textContent = kpi.totaleMancantiPersone;
+
+            // Filtro contatori
+            const presentOrdersCount = orders.filter(o => o.presente).length;
+            const missingOrdersCount = orders.filter(o => !o.presente).length;
+            document.getElementById('count-filter-all').textContent = orders.length;
+            document.getElementById('count-filter-missing').textContent = missingOrdersCount;
+            document.getElementById('count-filter-present').textContent = presentOrdersCount;
+
+            // Box allergie
+            const allergiesBox = document.getElementById('allergies-box');
+            const allergiesContainer = document.getElementById('allergies-list-container');
+            if (allergies && allergies.length > 0) {
+                allergiesBox.style.display = 'block';
+                allergiesContainer.innerHTML = allergies.map(a => `
+                    <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 6px; padding: 0.8rem;">
+                        <div style="font-weight: 700; color: white; font-size: 0.95rem;">${a.referente} <small style="color: #60a5fa;">(${a.bookingCode})</small></div>
+                        <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 0.3rem;">Tavolo: ${a.settore}</div>
+                        <div style="font-size: 0.88rem; color: #fca5a5; font-weight: 500;">🚨 ${a.note}</div>
+                    </div>
+                `).join('');
+            } else {
+                allergiesBox.style.display = 'none';
+            }
+
+            filterTable();
+        }
+
+        // Rendering e filtraggio tabella
+        function filterTable() {
+            const tbody = document.getElementById('orders-tbody');
+            const query = document.getElementById('table-search').value.toLowerCase().trim();
+
+            let filtered = allOrders;
+
+            if (currentFilter === 'present') {
+                filtered = filtered.filter(o => o.presente);
+            } else if (currentFilter === 'missing') {
+                filtered = filtered.filter(o => !o.presente);
+            }
+
+            if (query) {
+                filtered = filtered.filter(o => 
+                    (o.bookingCode && o.bookingCode.toLowerCase().includes(query)) ||
+                    (o.cognome && o.cognome.toLowerCase().includes(query)) ||
+                    (o.nome && o.nome.toLowerCase().includes(query)) ||
+                    (o.settore && o.settore.toLowerCase().includes(query)) ||
+                    (o.note && o.note.toLowerCase().includes(query))
+                );
+            }
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-muted); padding: 2rem;">Nessuna prenotazione trovata per i filtri selezionati.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(o => `
+                <tr class="${o.presente ? 'row-presente' : ''}" id="row_${o.bookingCode}">
+                    <td style="font-family: monospace; font-weight: 700; color: #60a5fa;">
+                        ${o.bookingCode}
+                    </td>
+                    <td>
+                        <strong style="color: white; font-size: 1rem;">${o.cognome} ${o.nome}</strong>
+                        ${o.email ? `<div style="font-size: 0.78rem; color: var(--text-muted);">${o.email}</div>` : ''}
+                    </td>
+                    <td><span style="font-size: 0.85rem; color: var(--text-secondary);">${o.settore}</span></td>
+                    <td style="text-align: center;"><strong style="font-size: 1.1rem; color: white;">${o.partecipantiCount}</strong></td>
+                    <td style="font-size: 0.85rem; color: var(--text-secondary);">
+                        🍕 ${o.margherita} Marg. / ${o.rossa} Rossa<br>
+                        🥤 ${o.acqua} Acq. / ${o.coca} Coca / ${o.aranciata} Aran.
+                        ${o.birre > 0 ? ` &bull; <strong style="color: #ffd100;">🍺 ${o.birre} Birre</strong>` : ''}
+                        ${o.note ? `<div style="color: #f87171; font-size: 0.82rem; margin-top: 0.2rem;">⚠️ ${o.note}</div>` : ''}
+                    </td>
+                    <td style="font-size: 0.85rem; color: var(--text-secondary);">
+                        ⭐ ${o.pandoro} Pan. / 🍞 ${o.panettone} Panet.
+                    </td>
+                    <td style="font-weight: 700; color: var(--color-green-light);">
+                        € ${(parseFloat(o.quota) || 0).toFixed(2).replace('.', ',')}
+                    </td>
+                    <td>
+                        ${o.presente ? `
+                            <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+                                <span class="badge-status badge-presente">✅ Presente (${o.checkinTime ? o.checkinTime.split(' ')[1] : 'OK'})</span>
+                                <button type="button" class="btn-checkin-cancel" onclick="toggleCheckin('${o.bookingCode}', false)">Annulla</button>
+                            </div>
+                        ` : `
+                            <button type="button" class="btn-checkin" onclick="toggleCheckin('${o.bookingCode}', true)">
+                                <span>✓</span> Convalida Arrivo
+                            </button>
+                        `}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        window.setFilter = function(filter, btn) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterTable();
+        };
+
+        // Esecuzione Check-in (con persistenza server e sincronizzazione UI)
+        window.toggleCheckin = async function(bookingCode, isPresent) {
+            const target = allOrders.find(o => o.bookingCode === bookingCode);
+            if (!target) return;
+
+            target.presente = isPresent;
+            target.checkinTime = isPresent ? new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }) : '';
+
+            // Salva stato locale
+            localStorage.setItem('vg_christmas_orders', JSON.stringify(allOrders));
+            recalculateAndRender();
+
+            if (isPresent) {
+                playBeep();
+                showToast(`🎉 Check-in confermato: ${target.cognome} ${target.nome} (${target.partecipantiCount} persone)!`);
+            }
+
+            // Invio aggiornamento al foglio Google Apps Script
+            try {
+                const url = `${APPS_SCRIPT_URL}?action=CHECKIN_CHRISTMAS_ATTENDEE&userEmail=${encodeURIComponent(currentStaffUser.email)}&code=${encodeURIComponent(bookingCode)}&presente=${isPresent}`;
+                await fetch(url);
+            } catch (err) {
+                console.warn("Sincronizzazione server check-in in background:", err);
+            }
+        };
+
+        function showToast(msg) {
+            toastBanner.textContent = msg;
+            toastBanner.style.display = 'block';
+            setTimeout(() => {
+                toastBanner.style.display = 'none';
+            }, 3500);
+        }
+
+        // Check-in Manuale Rapido
+        btnManualCheckin.addEventListener('click', () => {
+            const val = manualCodeInput.value.trim().toUpperCase();
+            if (!val) return;
+
+            const order = allOrders.find(o => 
+                (o.bookingCode && o.bookingCode.toUpperCase().includes(val)) ||
+                (o.cognome && o.cognome.toUpperCase().includes(val))
+            );
+
+            if (order) {
+                toggleCheckin(order.bookingCode, true);
+                manualCodeInput.value = '';
+                manualCodeInput.focus();
+            } else {
+                alert(`Nessuna prenotazione trovata per "${val}".`);
+            }
+        });
+
+        manualCodeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                btnManualCheckin.click();
+            }
+        });
+
+        // Scanner Fotocamera QR Code
+        btnToggleScanner.addEventListener('click', () => {
+            if (isScannerRunning) {
+                stopScanner();
+            } else {
+                startScanner();
+            }
+        });
+
+        function startScanner() {
+            qrReaderDiv.style.display = 'block';
+            btnToggleScanner.textContent = '⏹️ Ferma Fotocamera';
+            btnToggleScanner.className = 'btn btn-secondary';
+
+            html5QrCode = new Html5Qrcode("qr-reader");
+            const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
+            html5QrCode.start(
+                { facingMode: "environment" },
+                config,
+                (decodedText) => {
+                    // QR Code Riconosciuto
+                    const cleanCode = decodedText.trim();
+                    const order = allOrders.find(o => o.bookingCode && cleanCode.includes(o.bookingCode));
+                    if (order) {
+                        if (!order.presente) {
+                            toggleCheckin(order.bookingCode, true);
+                        } else {
+                            showToast(`ℹ️ ${order.cognome} ${order.nome} è già stato registrato come presente.`);
+                        }
+                    } else {
+                        showToast(`⚠️ QR Code non riconosciuto nel sistema: ${cleanCode}`);
+                    }
+                },
+                (errorMessage) => {
+                    // Parsing frame in corso
+                }
+            ).then(() => {
+                isScannerRunning = true;
+            }).catch((err) => {
+                alert("Impossibile accedere alla fotocamera: verifica i permessi nel browser o usa la ricerca manuale.");
+                stopScanner();
+            });
+        }
+
+        function stopScanner() {
+            if (html5QrCode) {
+                html5QrCode.stop().then(() => {
+                    html5QrCode.clear();
+                    qrReaderDiv.style.display = 'none';
+                    btnToggleScanner.textContent = '📷 Avvia Scanner Fotocamera';
+                    btnToggleScanner.className = 'btn btn-primary';
+                    isScannerRunning = false;
+                }).catch(() => {
+                    qrReaderDiv.style.display = 'none';
+                    btnToggleScanner.textContent = '📷 Avvia Scanner Fotocamera';
+                    btnToggleScanner.className = 'btn btn-primary';
+                    isScannerRunning = false;
+                });
+            }
+        }
+
+        // Inizializzazione automatica se già autenticato
         document.addEventListener('DOMContentLoaded', () => {
             const savedUser = sessionStorage.getItem('vg_staff_user');
             if (savedUser) {
