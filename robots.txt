@@ -6,6 +6,7 @@ Disallow: /404.html
 Disallow: /virtus-non-pubblico/
 Disallow: /data/
 Disallow: /area-riservata.html
+Disallow: /docs/guida-operativa-staff*
 
 # Sitemap ufficiale del sito
 Sitemap: https://www.virtusgroane.com/sitemap.xml

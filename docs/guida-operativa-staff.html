@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida Operativa Staff - Virtus Groane ASD</title>
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================== */
+        /* IMPOSTAZIONI DI STAMPA A4 CALIBRATE                            */
+        /* ============================================================== */
+        @page {
+            size: A4 portrait;
+            margin: 8mm 12mm 8mm 12mm;
+        }
+
+        :root {
+            --vg-blue: #1b589b;
+            --vg-blue-light: #2b7ad2;
+            --vg-green: #24b267;
+            --vg-green-light: #2ecc71;
+            --vg-dark: #0c0f12;
+            --vg-card-bg: #141922;
+            --vg-card-tertiary: #1b2230;
+            --vg-yellow: #ffd100;
+            --vg-red: #ef4444;
+            --vg-text: #1e293b;
+            --vg-text-muted: #64748b;
+            --font-title: 'Barlow Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--vg-text);
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+            font-size: 8.8pt;
+        }
+
+        .doc-page {
+            width: 100%;
+            height: 280mm;
+            max-height: 280mm;
+            page-break-after: always;
+            break-after: page;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            padding: 2mm 0;
+        }
+
+        .doc-page:last-child {
+            page-break-after: auto;
+            break-after: auto;
+        }
+
+        .page-content {
+            flex: 1;
+        }
+
+        /* Titoli e gerarchia */
+        h1, h2, h3, h4 {
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            margin-top: 0;
+            color: #0f172a;
+        }
+
+        h1 {
+            font-size: 19pt;
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--vg-blue);
+            margin-bottom: 2px;
+        }
+
+        h2 {
+            font-size: 13pt;
+            font-weight: 700;
+            color: var(--vg-blue);
+            border-bottom: 2px solid var(--vg-blue-light);
+            padding-bottom: 2px;
+            margin-top: 6pt;
+            margin-bottom: 5pt;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        h3 {
+            font-size: 10.5pt;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-top: 5pt;
+            margin-bottom: 3pt;
+        }
+
+        p {
+            margin: 0 0 5pt 0;
+        }
+
+        strong {
+            color: #0f172a;
+        }
+
+        /* Badge di stato */
+        .badge {
+            display: inline-block;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 7.5pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .badge-blue { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+        .badge-green { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .badge-orange { background-color: #ffedd5; color: #9a3412; border: 1px solid #fed7aa; }
+        .badge-purple { background-color: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+        .badge-red { background-color: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+
+        .callout-box {
+            background-color: #f8fafc;
+            border-left: 3px solid var(--vg-blue-light);
+            padding: 6px 10px;
+            border-radius: 0 5px 5px 0;
+            margin: 5pt 0;
+            font-size: 8.5pt;
+        }
+
+        .callout-box.tip { border-left-color: var(--vg-green); background-color: #f0fdf4; }
+        .callout-box.warning { border-left-color: #f59e0b; background-color: #fffbeb; }
+        .callout-box.danger { border-left-color: var(--vg-red); background-color: #fef2f2; }
+
+        /* Tabelle documentali */
+        .doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.2pt;
+            margin: 5pt 0 7pt 0;
+        }
+
+        .doc-table th {
+            background-color: #f1f5f9;
+            color: #0f172a;
+            font-weight: 700;
+            text-align: left;
+            padding: 4px 6px;
+            border: 1px solid #cbd5e1;
+            font-family: var(--font-title);
+            font-size: 8.8pt;
+            text-transform: uppercase;
+        }
+
+        .doc-table td {
+            padding: 4px 6px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        .doc-table tr:nth-child(even) td { background-color: #f8fafc; }
+
+        /* Mockup visivi dark-mode fedeli al sito */
+        .mockup-container {
+            background: #0c0f12;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 8px 10px;
+            margin: 5pt 0 7pt 0;
+            color: #f8fafc;
+            font-size: 7.8pt;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+        }
+
+        .mockup-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 5px;
+            margin-bottom: 6px;
+        }
+
+        .mockup-btn {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 7.2pt;
+            font-weight: 600;
+            text-align: center;
+            border: none;
+            white-space: nowrap;
+        }
+
+        .mockup-btn-green { background: #24b267; color: #ffffff; }
+        .mockup-btn-blue { background: #1b589b; color: #ffffff; }
+        .mockup-btn-orange { background: #d35400; color: #ffffff; }
+        .mockup-btn-red { background: rgba(239, 68, 68, 0.25); color: #ef4444; border: 1px solid #ef4444; }
+        .mockup-btn-gray { background: #1b2230; color: #cbd5e1; border: 1px solid #334155; }
+
+        .mockup-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 7.5pt;
+            margin-top: 4px;
+        }
+
+        .mockup-table th {
+            background: #18385e;
+            color: #ffffff;
+            padding: 4px 5px;
+            text-align: left;
+            font-size: 7.5pt;
+            text-transform: uppercase;
+        }
+
+        .mockup-table td {
+            padding: 3px 5px;
+            border-bottom: 1px solid #1e293b;
+            background: #141922;
+            color: #e2e8f0;
+        }
+
+        /* Diagramma orizzontale del flusso */
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4px;
+            margin: 6pt 0;
+            padding: 6px 8px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+        }
+
+        .flow-step {
+            flex: 1;
+            text-align: center;
+            padding: 5px 2px;
+            border-radius: 4px;
+            font-size: 7.2pt;
+            font-weight: 600;
+            background: white;
+            border: 1px solid #cbd5e1;
+            line-height: 1.25;
+        }
+
+        .flow-arrow {
+            color: var(--vg-blue-light);
+            font-weight: bold;
+            font-size: 11pt;
+        }
+
+        .step-num {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background: var(--vg-blue);
+            color: white;
+            border-radius: 50%;
+            font-size: 7pt;
+            line-height: 15px;
+            text-align: center;
+            margin-bottom: 2px;
+        }
+
+        /* Intestazione pagina */
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--vg-blue);
+            padding-bottom: 6px;
+            margin-bottom: 6pt;
+        }
+
+        .doc-header-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .doc-logo-box {
+            width: 38px;
+            height: 38px;
+            background: var(--vg-blue);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: var(--font-title);
+            font-size: 17pt;
+            font-weight: 800;
+        }
+
+        .doc-header-meta {
+            text-align: right;
+            font-size: 7.8pt;
+            color: var(--vg-text-muted);
+            line-height: 1.3;
+        }
+
+        .doc-footer-meta {
+            margin-top: 4pt;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 4pt;
+            display: flex;
+            justify-content: space-between;
+            font-size: 7.5pt;
+            color: var(--vg-text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================== -->
+    <!-- PAGINA 1: COPERTINA, PANORAMICA & DIAGRAMMA GENERALE           -->
+    <!-- ============================================================== -->
+    <div class="doc-page">
+        <div class="page-content">
+            <div class="doc-header">
+                <div class="doc-header-brand">
+                    <div class="doc-logo-box">VG</div>
+                    <div>
+                        <h1 style="margin:0;">VIRTUS GROANE ASD</h1>
+                        <p style="margin:0; font-size: 8.8pt; color: var(--vg-blue); font-weight: 700; text-transform: uppercase;">
+                            Area Riservata Staff &bull; Manuale Operativo Gestionale
+                        </p>
+                    </div>
+                </div>
+                <div class="doc-header-meta">
+                    <strong>DOCUMENTO INTERNO RISERVATO</strong><br>
+                    Versione: 1.0 &bull; Aggiornato: Novembre 2026<br>
+                    Sito: <em>virtusgroane.com/area-riservata.html</em>
+                </div>
+            </div>
+
+            <div class="callout-box tip" style="margin-top:0;">
+                <strong>Benvenuti nella nuova piattaforma operativa Virtus Groane!</strong><br>
+                Questo strumento automatizza la gestione dell'abbigliamento societario: dall'ordine al fornitore, alla verifica contabile dei bonifici, fino alla consegna fisica all'atleta in pista. Zero errori e comunicazioni automatiche in tempo reale.
+            </div>
+
+            <h2>1. Il Ciclo di Vita dell'Ordine (I 5 Stati)</h2>
+            <p>
+                Il portale è collegato direttamente al foglio gestionale <strong>GestioneAutomatizzata</strong> e invia email ai tesserati in ciascun passaggio chiave:
+            </p>
+
+            <!-- DIAGRAMMA A 5 BLOCCHI -->
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <span class="step-num">1</span><br>
+                    <strong>Inserimento</strong><br>
+                    <span style="color:#64748b;">(Solo Col. A-D)</span><br>
+                    <span class="badge badge-blue" style="font-size:6.5pt;">Marco</span>
+                </div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step">
+                    <span class="step-num">2</span><br>
+                    <strong>Da Ordinare &amp; Ordinato</strong><br>
+                    <span style="color:#64748b;">Fornitore</span><br>
+                    <span class="badge badge-blue" style="font-size:6.5pt;">Marco</span>
+                </div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step">
+                    <span class="step-num">3</span><br>
+                    <strong>In Virtus (Arrivo)</strong><br>
+                    <span style="color:#64748b;">Carico Magazzino</span><br>
+                    <span class="badge badge-orange" style="font-size:6.5pt;">Marco</span>
+                </div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step">
+                    <span class="step-num">4</span><br>
+                    <strong>Pagato &amp; Assegnato</strong><br>
+                    <span style="color:#64748b;">Verifica Bonifico</span><br>
+                    <span class="badge badge-green" style="font-size:6.5pt;">Teresa</span>
+                </div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step">
+                    <span class="step-num">5</span><br>
+                    <strong>Consegnato</strong><br>
+                    <span style="color:#64748b;">Al Campo Sportivo</span><br>
+                    <span class="badge badge-purple" style="font-size:6.5pt;">Marc / Luigi</span>
+                </div>
+            </div>
+
+            <h2>2. Tabella dei Ruoli Operativi (Chi fa Cosa)</h2>
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th style="width: 17%;">Membro Staff</th>
+                        <th style="width: 31%;">Responsabilità Primaria</th>
+                        <th style="width: 27%;">Cosa vede nel Portale</th>
+                        <th style="width: 25%;">Quando interviene</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Silvano</strong><br><span class="badge badge-blue">Presidente</span></td>
+                        <td>Supervisione globale, controllo flussi e risoluzione blocchi.</td>
+                        <td><strong>Tutto:</strong> panoramica completa o filtri su ciascun ruolo.</td>
+                        <td>Monitoraggio e interventi straordinari.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Marco</strong><br><span class="badge badge-blue">Ordini &amp; Magazzino</span></td>
+                        <td>Inserimento ordini, ordini a fornitori e ricezione pacchi con carico.</td>
+                        <td>Ordini da lavorare e modulo <strong>Carico Fornitore</strong>.</td>
+                        <td>Alla ricezione richieste e all'arrivo pacchi corriere.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Teresa</strong><br><span class="badge badge-green">Tesoreria</span></td>
+                        <td>Verifica bonifici bancari, assegnazione referente consegna e resi.</td>
+                        <td>Ordini <strong>In Virtus</strong> in attesa bonifico e gestione rimborsi.</td>
+                        <td>All'accredito dei bonifici sul conto bancario Virtus.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Marc &amp; Luigi</strong><br><span class="badge badge-purple">Consegne Campo</span></td>
+                        <td>Ritiro capi pagati e consegna a mano a tesserati/genitori in pista.</td>
+                        <td>Solo ed esclusivamente i <strong>propri capi assegnati</strong>.</td>
+                        <td>Durante gli allenamenti a Senago, Solaro, Cesate...</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>3. Come Accedere all'Area Riservata</h2>
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+                <div style="flex: 1.3;">
+                    <ol style="margin: 0; padding-left: 15px; font-size: 8.5pt;">
+                        <li>Vai su <strong>virtusgroane.com</strong> e clicca su <strong>"Area Riservata"</strong> nel menu o nel footer di qualsiasi pagina.</li>
+                        <li>Clicca sul pulsante <strong>"Accedi con Google"</strong>.</li>
+                        <li>Seleziona il tuo indirizzo email societario <strong>@virtusgroane.com</strong>.</li>
+                        <li>Il portale ti riconosce all'istante e carica la tua schermata dedicata!</li>
+                    </ol>
+                    <div class="callout-box" style="margin-top: 4pt; font-size: 7.8pt;">
+                        🔒 <strong>Privacy Assoluta:</strong> Nessun dato dei tesserati è accessibile dall'esterno. Solo le email autorizzate dello staff possono autenticarsi.
+                    </div>
+                </div>
+                <div style="flex: 0.9;">
+                    <div class="mockup-container" style="text-align: center; padding: 10px;">
+                        <div style="font-size: 11pt; margin-bottom: 2px;">🔒</div>
+                        <div style="font-weight: 700; color: #4da3ff; font-size: 8.5pt; margin-bottom: 2px;">Accesso Riservato Staff</div>
+                        <div style="font-size: 7pt; color: #94a3b8; margin-bottom: 8px;">Utenza istituzionale @virtusgroane.com</div>
+                        <div style="background: white; color: #333; padding: 4px 10px; border-radius: 4px; font-weight: 600; font-size: 7.5pt; display: inline-flex; align-items: center; gap: 5px;">
+                            <span style="color:#4285F4; font-weight:bold;">G</span> Accedi con Google
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-footer-meta">
+            <span>Virtus Groane ASD &bull; Area Riservata Staff</span>
+            <span>Pagina 1 di 5</span>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- PAGINA 2: SILVANO (PRESIDENTE & SUPER-ADMIN)                   -->
+    <!-- ============================================================== -->
+    <div class="doc-page">
+        <div class="page-content">
+            <div class="doc-header">
+                <div class="doc-header-brand">
+                    <div class="doc-logo-box">VG</div>
+                    <div>
+                        <h1 style="margin:0;">SILVANO &bull; PRESIDENTE &amp; SUPER-ADMIN</h1>
+                        <p style="margin:0; font-size: 8.8pt; color: var(--vg-blue); font-weight: 700; text-transform: uppercase;">
+                            Supervisione Generale &bull; Controllo Flussi &bull; Risoluzione Blocchi
+                        </p>
+                    </div>
+                </div>
+                <div class="doc-header-meta">
+                    Ruolo: <strong>Super-Admin</strong><br>
+                    Accesso: <em>Panoramica Totale a 360°</em>
+                </div>
+            </div>
+
+            <h2>1. Le Funzionalità Esclusive di Silvano</h2>
+            <p>
+                Come Presidente, <strong>Silvano</strong> ha accesso completo all'intero ciclo operativo. La sua dashboard dispone dell'esclusiva <strong>Barra di Cambio Visuale (Selettore Ruoli)</strong>, che permette di avere una visione d'insieme o di immedesimarsi al volo nella vista di Marco, Teresa o dei Fattorini (Marc e Luigi) per assisterli o sbloccare situazioni urgenti.
+            </p>
+
+            <!-- MOCKUP VISTA SILVANO -->
+            <div class="mockup-container">
+                <div class="mockup-header-bar">
+                    <div>
+                        <strong style="color: #4da3ff;">👑 Vista Amministratore (Vedi tutto)</strong> &bull;
+                        <span style="color: #94a3b8; font-size: 7pt;">Filtra visuale per ruolo:</span>
+                    </div>
+                    <div>
+                        <span class="mockup-btn mockup-btn-blue" style="font-size: 6.8pt;">Tutto (Completo)</span>
+                        <span class="mockup-btn mockup-btn-gray" style="font-size: 6.8pt;">Solo Ordini (Marco)</span>
+                        <span class="mockup-btn mockup-btn-gray" style="font-size: 6.8pt;">Solo Pagamenti (Teresa)</span>
+                        <span class="mockup-btn mockup-btn-gray" style="font-size: 6.8pt;">Solo Consegne (Marc/Luigi)</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 6px; margin-bottom: 6px;">
+                    <div style="flex: 1; background: #141922; border: 1px solid #334155; padding: 5px; border-radius: 4px; text-align: center;">
+                        <div style="color: #94a3b8; font-size: 6.5pt;">DA ORDINARE</div>
+                        <div style="color: #60a5fa; font-weight: bold; font-size: 10pt;">8</div>
+                    </div>
+                    <div style="flex: 1; background: #141922; border: 1px solid #334155; padding: 5px; border-radius: 4px; text-align: center;">
+                        <div style="color: #94a3b8; font-size: 6.5pt;">ORDINATO FORNITORE</div>
+                        <div style="color: #38bdf8; font-weight: bold; font-size: 10pt;">14</div>
+                    </div>
+                    <div style="flex: 1; background: #141922; border: 1px solid #334155; padding: 5px; border-radius: 4px; text-align: center;">
+                        <div style="color: #94a3b8; font-size: 6.5pt;">IN VIRTUS (ATTESA BONIFICO)</div>
+                        <div style="color: #fb923c; font-weight: bold; font-size: 10pt;">5</div>
+                    </div>
+                    <div style="flex: 1; background: #141922; border: 1px solid #334155; padding: 5px; border-radius: 4px; text-align: center;">
+                        <div style="color: #94a3b8; font-size: 6.5pt;">PAGATI (IN CONSEGNA)</div>
+                        <div style="color: #4ade80; font-weight: bold; font-size: 10pt;">3</div>
+                    </div>
+                </div>
+                <div style="font-size: 7.2pt; color: #cbd5e1;">
+                    &bull; Vista globale attiva: tutte le sezioni (Ordini, Tesoreria, Consegne) visibili su un unico schermo.
+                </div>
+            </div>
+
+            <h2>2. Guida Operativa Passo-Passo per Silvano</h2>
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Azione</th>
+                        <th style="width: 45%;">Procedura Semplice</th>
+                        <th style="width: 30%;">Risultato / Utilità</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Monitorare lo stato societario</strong></td>
+                        <td>All'accesso, lascia attivo il pulsante <strong>"Tutto (Panoramica Completa)"</strong>. Scorri la pagina per vedere ordini, pagamenti e consegne.</td>
+                        <td>Controllo immediato: quanti capi sono fermi dal fornitore, quanti bonifici mancano e quanti capi sono in consegna.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Immedesimarsi in un collaboratore</strong></td>
+                        <td>Clicca sul selettore in alto: <strong>"Solo Ordini"</strong>, <strong>"Solo Pagamenti"</strong> o <strong>"Solo Consegne"</strong>.</td>
+                        <td>La schermata mostra fedelmente e isolatamente ciò che vede quel collaboratore in quel preciso istante.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Sbloccare o sostituire un'azione</strong></td>
+                        <td>Silvano può agire direttamente su ogni pulsante (avanzamento, pagamento, consegna o annullamento) con la propria password.</td>
+                        <td>Intervento tempestivo garantito anche durante assenze, gare o periodi di ferie dello staff.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Consultare il Registro Storico</strong></td>
+                        <td>In fondo alla pagina, espandere il <strong>"📜 Registro Storico Operazioni"</strong>.</td>
+                        <td>Elenco immutabile di ogni singola azione con data, ora, utente autore e modifica apportata. Trasparenza assoluta.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout-box tip">
+                💡 <strong>Ricerca Rapida per Silvano:</strong> Se un genitore o atleta ti chiede aggiornamenti su un ordine, usa <em>Ctrl + F</em> (o la ricerca della pagina sul cellulare) per digitare il suo nome: troverai all'istante l'articolo e il suo stato esatto!
+            </div>
+
+            <h2>3. Annullamenti e Resi: la Visione del Presidente</h2>
+            <p>
+                Qualora un ordine venga annullato in qualsiasi fase (pre-Virtus, prima del pagamento, o reso sul campo), Silvano ne vede traccia nel Registro Operazioni e può verificare che Teresa riceva tempestivamente la richiesta di rimborso all'atleta qualora il capo fosse già stato pagato.
+            </p>
+        </div>
+
+        <div class="doc-footer-meta">
+            <span>Virtus Groane ASD &bull; Area Riservata Staff</span>
+            <span>Pagina 2 di 5</span>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- PAGINA 3: MARCO (ORDINI, FORNITORI & MAGAZZINO)                -->
+    <!-- ============================================================== -->
+    <div class="doc-page">
+        <div class="page-content">
+            <div class="doc-header">
+                <div class="doc-header-brand">
+                    <div class="doc-logo-box">VG</div>
+                    <div>
+                        <h1 style="margin:0;">MARCO &bull; ORDINI, FORNITORI &amp; MAGAZZINO</h1>
+                        <p style="margin:0; font-size: 8.8pt; color: var(--vg-blue); font-weight: 700; text-transform: uppercase;">
+                            Compilazione Richieste &bull; Avanzamento Fornitori &bull; Carico Pacchi
+                        </p>
+                    </div>
+                </div>
+                <div class="doc-header-meta">
+                    Ruolo: <strong>Ordini &amp; Magazzino</strong><br>
+                    Fase Operativa: <em>Dall'inserimento all'arrivo in Virtus</em>
+                </div>
+            </div>
+
+            <h2>1. Inserimento Nuovi Ordini (Foglio Google)</h2>
+            <p>
+                Quando un atleta o genitore richiede un capo, <strong>Marco</strong> apre il foglio Google <strong>GestioneAutomatizzata</strong> (scheda <em>Ordini</em>).
+            </p>
+            <div class="callout-box warning" style="margin-top:0;">
+                ⚠️ <strong>Regola Fondamentale:</strong> Marco compila <strong>esclusivamente le prime 4 colonne (A, B, C, D)</strong>. Le colonne successive (E, F, G, H, I, J, K, L, M) sono protette e gestite in automatico dal sistema!
+            </div>
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">Colonna A</th>
+                        <th style="width: 25%;">Colonna B</th>
+                        <th style="width: 35%;">Colonna C</th>
+                        <th style="width: 25%;">Colonna D</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Data Richiesta</strong><br><span style="color:#64748b;">(es. 15/11/2026)</span></td>
+                        <td><strong>Nome Atleta o Genitore</strong><br><span style="color:#64748b;">(es. Mario Rossi)</span></td>
+                        <td><strong>Articolo Richiesto</strong><br><span style="color:#64748b;">(es. Tuta di Rappresentanza)</span></td>
+                        <td><strong>Taglia Richiesta</strong><br><span style="color:#64748b;">(es. M, L, 10 anni...)</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>2. Lavorazione nel Portale Web (Area Riservata)</h2>
+            <p>
+                Dopo aver inserito l'ordine nel foglio, Marco apre l'Area Riservata nella sezione <strong>"📦 Gestione Ordini &amp; Magazzino"</strong>:
+            </p>
+
+            <!-- MOCKUP VISTA MARCO -->
+            <div class="mockup-container">
+                <div class="mockup-header-bar">
+                    <span style="font-weight:bold; color:white;">📦 Gestione Ordini &amp; Magazzino (Vista di Marco)</span>
+                    <div style="display:flex; gap:5px;">
+                        <span class="mockup-btn mockup-btn-blue">Metti in: Da Ordinare</span>
+                        <span class="mockup-btn mockup-btn-blue">Metti in: Ordinato al Fornitore</span>
+                    </div>
+                </div>
+                <table class="mockup-table">
+                    <thead>
+                        <tr>
+                            <th style="width:25px;"><input type="checkbox" checked></th>
+                            <th>Riga</th>
+                            <th>Data</th>
+                            <th>Atleta</th>
+                            <th>Articolo &amp; Taglia</th>
+                            <th>Stato Attuale</th>
+                            <th>Azione Rapida</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" checked></td>
+                            <td>#42</td>
+                            <td>20/11</td>
+                            <td>Luca Bianchi</td>
+                            <td>Giacca Antivento (Taglia M)</td>
+                            <td><span class="badge badge-blue">Nuovo Ordine</span></td>
+                            <td><span class="mockup-btn mockup-btn-red" style="font-size:6.8pt;">Annulla Ordine</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>3. 🚚 Ricezione Consegna Fornitore &amp; Carico Magazzino</h2>
+            <p>
+                Quando il corriere recapita il pacco della merce ordinata, Marco usa il modulo dedicato <strong>"🚚 Ricezione Consegna Fornitore"</strong>:
+            </p>
+            <ol style="margin: 0; padding-left: 15px; font-size: 8.5pt;">
+                <li>Clicca sul pulsante blu <strong>"➕ Registra Nuovo Carico Fornitore"</strong>.</li>
+                <li>(Opzionale) Inserisce un riferimento, es. <em>"Pacco Bioracer DDT n. 104"</em>.</li>
+                <li>Seleziona i capi arrivati, la taglia e la quantità di pezzi contenuti nel pacco.</li>
+                <li>Clicca su <strong>"💾 OK, Salva Carico Magazzino"</strong> e conferma con la password.</li>
+            </ol>
+            <div class="callout-box tip">
+                ✨ <strong>Automazione Immediata:</strong> Gli ordini passano all'istante a <strong>In Virtus</strong>! Il sistema invia subito all'atleta l'email con le coordinate bancarie per il bonifico, e Teresa riceve la notifica che la merce è pronta per il controllo del pagamento.
+            </div>
+
+            <h2>4. Come Annullare un Ordine (Fase Pre-Virtus)</h2>
+            <p>
+                Se un atleta rinuncia prima dell'arrivo del capo in Virtus (stati: <em>Nuovo, Da Ordinare, Ordinato</em>), Marco clicca sul pulsante rosso <strong>"Annulla Ordine"</strong> sulla riga corrispondente: l'ordine viene archiviato e l'atleta riceve conferma dell'annullamento via email.
+            </p>
+        </div>
+
+        <div class="doc-footer-meta">
+            <span>Virtus Groane ASD &bull; Area Riservata Staff</span>
+            <span>Pagina 3 di 5</span>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- PAGINA 4: TERESA (TESORERIA, BONIFICI & ASSEGNAZIONE)          -->
+    <!-- ============================================================== -->
+    <div class="doc-page">
+        <div class="page-content">
+            <div class="doc-header">
+                <div class="doc-header-brand">
+                    <div class="doc-logo-box">VG</div>
+                    <div>
+                        <h1 style="margin:0;">TERESA &bull; TESORERIA &amp; PAGAMENTI</h1>
+                        <p style="margin:0; font-size: 8.8pt; color: var(--vg-blue); font-weight: 700; text-transform: uppercase;">
+                            Verifica Bonifici &bull; Assegnazione Fattorino &bull; Gestione Resi
+                        </p>
+                    </div>
+                </div>
+                <div class="doc-header-meta">
+                    Ruolo: <strong>Tesoreria</strong><br>
+                    Fase Operativa: <em>Merce In Virtus &rarr; Pagata &rarr; In Consegna</em>
+                </div>
+            </div>
+
+            <h2>1. Il Ruolo di Teresa nel Portale</h2>
+            <p>
+                <strong>Teresa</strong> è il punto di riferimento per la tesoreria: verifica che gli atleti abbiano saldato il bonifico per i capi arrivati in sede e assegna la consegna fisica al campo sportivo a uno dei due referenti: <strong>Marc</strong> oppure <strong>Luigi</strong>.
+            </p>
+
+            <!-- MOCKUP VISTA TERESA -->
+            <div class="mockup-container">
+                <div class="mockup-header-bar">
+                    <span style="font-weight:bold; color:white;">💳 Pagamenti in Attesa di Verifica (Vista di Teresa)</span>
+                    <span class="badge badge-orange" style="font-size:6.8pt;">In Attesa Bonifico</span>
+                </div>
+                <table class="mockup-table">
+                    <thead>
+                        <tr>
+                            <th>Riga</th>
+                            <th>Atleta</th>
+                            <th>Articolo &amp; Taglia</th>
+                            <th>Prezzo</th>
+                            <th style="width: 120px;">Fattorino Incaricato</th>
+                            <th>Azione Pagamento</th>
+                            <th>Annulla</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#38</td>
+                            <td>Matteo Verdi</td>
+                            <td>Zaino Virtus (TU)</td>
+                            <td><strong>€ 30,00</strong></td>
+                            <td>
+                                <select style="background:#0c0f12; color:white; border:1px solid #334155; padding:2px 3px; font-size:7pt; border-radius:3px; width:100%;">
+                                    <option>Seleziona...</option>
+                                    <option selected>Marc</option>
+                                    <option>Luigi</option>
+                                </select>
+                            </td>
+                            <td><span class="mockup-btn mockup-btn-green" style="font-size:6.8pt;">Segna come Pagato</span></td>
+                            <td><span class="mockup-btn mockup-btn-red" style="font-size:6.8pt;">Annulla</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>2. Procedura Passo-Passo per Teresa: Registrare un Pagamento</h2>
+            <ol style="margin: 0; padding-left: 15px; font-size: 8.5pt;">
+                <li><strong>Avviso via Email:</strong> Quando Marco registra l'arrivo dei capi, Teresa riceve una notifica automatica con il riepilogo degli articoli disponibili.</li>
+                <li><strong>Controllo Conto Corrente:</strong> Teresa verifica l'estratto conto bancario societario di Virtus Groane ASD.</li>
+                <li><strong>Accesso all'Area Riservata:</strong> Accede al portale ed esamina la tabella <strong>"💳 Pagamenti in Attesa di Verifica"</strong>.</li>
+                <li><strong>Assegnazione Consegna:</strong> Nel menu a tendina <em>"Fattorino Incaricato"</em>, seleziona <strong>Marc</strong> o <strong>Luigi</strong>.</li>
+                <li><strong>Segna Pagato:</strong> Clicca sul tasto verde <strong>"Segna come Pagato"</strong> accanto all'ordine.</li>
+                <li><strong>Salvataggio Finale:</strong> In basso compare la barra verde con il tasto <strong>"💾 Salva Modifiche"</strong>: Teresa clicca, inserisce la password e conferma.</li>
+            </ol>
+
+            <div class="callout-box tip">
+                🎉 <strong>Notifica all'Atleta:</strong> Il tesserato riceve subito un'email con scritto: <em>"Grazie! Abbiamo registrato il tuo pagamento. Il tuo capo è stato affidato a [Marc / Luigi] per la consegna al campo!"</em>. L'ordine entra direttamente nella vista del fattorino designato.
+            </div>
+
+            <h2>3. Gestione Annullamenti &amp; Rimborsi per Teresa</h2>
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Situazione</th>
+                        <th style="width: 42%;">Cosa deve fare Teresa</th>
+                        <th style="width: 28%;">Flusso Economico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>L'ordine è in Virtus ma NON è stato ancora pagato</strong></td>
+                        <td>Se l'atleta non desidera più il capo, Teresa clicca semplicemente sul pulsante rosso <strong>"Annulla Ordine"</strong> nella sua tabella.</td>
+                        <td>Nessun rimborso (il bonifico non era ancora stato incassato).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>L'ordine era già pagato, ma viene reso sul campo</strong></td>
+                        <td>Il fattorino (Marc o Luigi) clicca <em>Annulla Ordine</em> al campo. A Teresa arriva subito un'email con oggetto <strong>"⚠️ RICHIESTA RIMBORSO/RESO"</strong> con tutti i dati dell'atleta e l'importo.</td>
+                        <td>Teresa effettua il <strong>bonifico di reso/rimborso</strong> all'atleta sull'IBAN indicato.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="doc-footer-meta">
+            <span>Virtus Groane ASD &bull; Area Riservata Staff</span>
+            <span>Pagina 4 di 5</span>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- PAGINA 5: MARC E LUIGI (REFERENTI CONSEGNE AL CAMPO)           -->
+    <!-- ============================================================== -->
+    <div class="doc-page">
+        <div class="page-content">
+            <div class="doc-header">
+                <div class="doc-header-brand">
+                    <div class="doc-logo-box">VG</div>
+                    <div>
+                        <h1 style="margin:0;">MARC &amp; LUIGI &bull; REFERENTI CONSEGNE AL CAMPO</h1>
+                        <p style="margin:0; font-size: 8.8pt; color: var(--vg-blue); font-weight: 700; text-transform: uppercase;">
+                            Presa in Carico &bull; Consegna all'Atleta &bull; Annullamento/Reso
+                        </p>
+                    </div>
+                </div>
+                <div class="doc-header-meta">
+                    Ruolo: <strong>Referenti Consegne (Fattorini)</strong><br>
+                    Fase Operativa: <em>Dal campo alla consegna finale</em>
+                </div>
+            </div>
+
+            <h2>1. La Schermata Personale di Marc e Luigi</h2>
+            <p>
+                <strong>Marc</strong> e <strong>Luigi</strong> dispongono di una schermata pulita, essenziale e velocissima, consultabile comodamente anche da smartphone durante gli allenamenti al campo di atletica (Senago, Solaro, Cesate...).
+            </p>
+            <div class="callout-box tip" style="margin-top:0;">
+                👁️ <strong>Vista Riservata Personale:</strong> Marc vede unicamente i capi a lui affidati da Teresa; Luigi vede unicamente i capi a lui affidati. Nessuna confusione tra ordini!
+            </div>
+
+            <!-- MOCKUP VISTA FATTORINO -->
+            <div class="mockup-container">
+                <div class="mockup-header-bar">
+                    <span style="font-weight:bold; color:white;">🚚 I Tuoi Capi da Consegnare (Vista Personale)</span>
+                    <span class="badge badge-green" style="font-size:6.8pt;">2 Capi Pronti per il Ritiro</span>
+                </div>
+                <table class="mockup-table">
+                    <thead>
+                        <tr>
+                            <th style="width:25px;"><input type="checkbox"></th>
+                            <th>Riga</th>
+                            <th>Atleta</th>
+                            <th>Articolo &amp; Taglia</th>
+                            <th>Stato Pagamento</th>
+                            <th>Azione Consegna</th>
+                            <th>Reso / Rinuncia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>#31</td>
+                            <td>Sofia Neri</td>
+                            <td>Maglia Gara Sociale (Taglia S)</td>
+                            <td><span class="badge badge-green" style="font-size:6.5pt;">Pagato</span></td>
+                            <td><span class="mockup-btn mockup-btn-green" style="font-size:6.8pt;">Segna come Consegnato</span></td>
+                            <td><span class="mockup-btn mockup-btn-red" style="font-size:6.8pt;">Annulla Ordine</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>2. Come Registrare la Consegna all'Atleta (Passo-Passo)</h2>
+            <ol style="margin: 0; padding-left: 15px; font-size: 8.5pt;">
+                <li>Apri l'Area Riservata dal tuo smartphone al campo sportivo.</li>
+                <li>Consulta l'elenco dei capi pagati assegnati a te che hai portato con te nella borsa sociale.</li>
+                <li>Quando consegni a mano l'articolo all'atleta o al genitore:
+                    <ul style="margin: 2px 0; padding-left: 14px;">
+                        <li>Clicca sul pulsante verde <strong>"Segna come Consegnato"</strong> accanto al nome.</li>
+                        <li><em>(Se ne consegni diversi insieme: spunta le caselle a sinistra e clicca sul bottone cumulativo in alto).</em></li>
+                    </ul>
+                </li>
+                <li>In basso compare la barra verde: clicca su <strong>"💾 Salva Modifiche"</strong>, inserisci la password e conferma.</li>
+            </ol>
+            <div class="callout-box tip">
+                ✉️ <strong>Chiusura e Conferma:</strong> L'ordine scompare dall'elenco (risulta completato al 100%) e l'atleta riceve un'email automatica di ringraziamento: <em>"Il tuo capo è stato consegnato! Buone corse con Virtus Groane!"</em>.
+            </div>
+
+            <h2>3. Cosa fare se l'Atleta NON ritira il Capo o serve un Reso</h2>
+            <p>
+                Se l'atleta prova il capo e la taglia non è corretta e non scambiabile, oppure decide di non ritirarlo:
+            </p>
+            <ol style="margin: 0; padding-left: 15px; font-size: 8.5pt;">
+                <li>Il referente di consegna clicca sul pulsante rosso <strong>"Annulla Ordine"</strong> sulla riga dell'articolo.</li>
+                <li>Digita la password e dà conferma.</li>
+                <li>Il capo viene ritirato e rimesso a magazzino.</li>
+                <li><strong>A Teresa arriva subito un'email prioritaria automatica</strong> per procedere al bonifico di rimborso all'atleta.</li>
+            </ol>
+
+            <h2>4. Regole d'Oro per Tutto lo Staff</h2>
+            <table class="doc-table">
+                <tbody>
+                    <tr>
+                        <td style="width: 25%;"><strong>🔐 Password &amp; Sicurezza</strong></td>
+                        <td>Non comunicare mai la tua password. Se accedi da un dispositivo condiviso al campo, ricordati sempre di cliccare su <strong>"Esci"</strong> a fine sessione.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>💾 Salvataggio in Blocco</strong></td>
+                        <td>Puoi lavorare più capi insieme: la barra inferiore calcola tutte le modifiche e le salva con una sola transazione sicura.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🆘 Assistenza Tecnica</strong></td>
+                        <td>Per dubbi, errori di digitazione o anomalie nel foglio, contatta <strong>Emiliano</strong> per la verifica o il ripristino immediato del dato.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="doc-footer-meta">
+            <span>Virtus Groane ASD &bull; Area Riservata Staff</span>
+            <span>Pagina 5 di 5</span>
+        </div>
+    </div>
+
+</body>
+</html>

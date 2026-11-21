@@ -6,6 +6,7 @@ virtus-non-pubblico/
 *.csv
 # File e script di sviluppo locale
 serve.js
+scratch/
 data/google-apps-script-code.js
 data/script-mailing-vecchio.js
 .env
