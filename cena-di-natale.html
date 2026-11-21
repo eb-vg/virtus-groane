@@ -879,9 +879,10 @@
                 const response = await fetch(url);
                 if (response.ok) {
                     const data = await response.json();
-                    if (data && data.status === 'SUCCESS' && Array.isArray(data.orders) && data.orders.length > 0) {
+                    if (data && data.status === 'SUCCESS' && Array.isArray(data.orders)) {
                         allOrders = data.orders;
-                        renderDashboard(data.kpi, allOrders, data.allergies);
+                        localStorage.setItem('vg_christmas_orders', JSON.stringify(allOrders));
+                        renderDashboard(data.kpi, allOrders, data.allergies || []);
                         return;
                     }
                 }
