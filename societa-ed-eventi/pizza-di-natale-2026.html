@@ -641,6 +641,12 @@
                             <label for="ref-note">Eventuali fratelli/sorelle tesserati Virtus o note generali</label>
                             <input type="text" id="ref-note" placeholder="Es. Fratelli iscritti all'atletica giovanile, note sul tavolo, ecc.">
                         </div>
+
+                        <!-- Campo Honeypot Antispam invisibile per gli umani (trappola per bot) -->
+                        <div style="position: absolute; left: -9999px; top: -9999px; opacity: 0; height: 0; width: 0; overflow: hidden; z-index: -1;" aria-hidden="true">
+                            <label for="company_website_url">Non compilare questo campo</label>
+                            <input type="text" id="company_website_url" name="company_website_url" tabindex="-1" autocomplete="off" value="">
+                        </div>
                     </div>
 
                     <!-- STEP 2: PARTECIPANTI (DINAMICI 1 A 1) -->
@@ -844,6 +850,7 @@
         ];
 
         let participantsList = [];
+        const formStartTime = Date.now(); // Protezione Time-Gate Antispam
 
         const participantsContainer = document.getElementById('participants-container');
         const priceBreakdownText = document.getElementById('price-breakdown-text');
@@ -1135,6 +1142,11 @@
 
         // Invio effettivo prenotazione
         btnConfirmSend.addEventListener('click', async () => {
+            if (participantsList.length > 8) {
+                alert("Per prenotazioni di gruppi superiori a 8 persone, ti invitiamo a contattare direttamente la segreteria societaria all'indirizzo info@virtusgroane.com.");
+                return;
+            }
+
             btnConfirmSend.disabled = true;
             btnConfirmSend.innerHTML = 'Invio in corso... ⏳';
 
@@ -1144,18 +1156,22 @@
             const refTel = document.getElementById('ref-telefono').value.trim();
             const refDataNascita = document.getElementById('ref-data-nascita').value.trim();
             const refNote = document.getElementById('ref-note').value.trim();
+            const honeypotVal = document.getElementById('company_website_url') ? document.getElementById('company_website_url').value.trim() : '';
+            const elapsedSeconds = Math.round((Date.now() - formStartTime) / 1000);
 
             const info = calculateTotal();
 
             // Codice univoco di prova per il collaudo direttivo
             const randomSuffix = Math.floor(100 + Math.random() * 900);
-            const assignedCode = `VG-TEST-2026-${randomSuffix}`;
-            const qrUrl = `https://quickchart.io/qr?text=${encodeURIComponent(assignedCode)}&size=220&margin=2`;
+            let assignedCode = `VG-TEST-2026-${randomSuffix}`;
+            let qrUrl = `https://quickchart.io/qr?text=${encodeURIComponent(assignedCode)}&size=220&margin=2`;
 
             const payload = {
                 action: 'REGISTER_CHRISTMAS_BOOKING',
                 isTest: true,
                 testCode: assignedCode,
+                honeypot: honeypotVal,
+                formElapsedSeconds: elapsedSeconds,
                 referente: {
                     cognome: refCognome,
                     nome: refNome,
@@ -1170,11 +1186,29 @@
 
             try {
                 // Invio a Google Apps Script per spedire l'email reale con il QR Code all'indirizzo @virtusgroane.com
-                await fetch(APPS_SCRIPT_URL, {
+                const response = await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(payload)
                 });
+
+                if (response.ok) {
+                    try {
+                        const result = await response.json();
+                        if (result && (result.status === 'ERROR' || result.status === 'RATE_LIMITED' || result.status === 'SOLD_OUT')) {
+                            alert("Avviso di sicurezza: " + (result.message || "Impossibile completare la registrazione."));
+                            btnConfirmSend.disabled = false;
+                            btnConfirmSend.innerHTML = 'Procedi alla Conferma 🎄 &rarr;';
+                            return;
+                        }
+                        if (result && result.bookingCode) {
+                            assignedCode = result.bookingCode;
+                            if (result.qrUrl) qrUrl = result.qrUrl;
+                        }
+                    } catch (e) {
+                        // Risposta non JSON, mantieni codice generato
+                    }
+                }
             } catch (err) {
                 console.warn("Invio test Apps Script:", err);
             }
