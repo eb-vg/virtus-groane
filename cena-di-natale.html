@@ -973,6 +973,7 @@
 
         function logout() {
             sessionStorage.removeItem('vg_staff_user');
+            localStorage.removeItem('vg_christmas_orders');
             if (isScannerRunning) stopScanner();
             loginContainer.style.display = 'block';
             dashboardContainer.style.display = 'none';
@@ -1107,6 +1108,7 @@
             try {
                 if (allOrders && allOrders.length > 0) {
                     sessionStorage.setItem('vg_christmas_orders', JSON.stringify(allOrders));
+                    localStorage.setItem('vg_christmas_orders', JSON.stringify(allOrders));
                 }
             } catch(e) {}
         };
