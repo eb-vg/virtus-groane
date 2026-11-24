@@ -674,6 +674,19 @@
 
             <!-- WIZARD PRENOTAZIONE ONLINE -->
             <div id="booking-wizard-container">
+                <!-- BARRA SIMULATORE COMPILAZIONE PROVA (PER STAFF E COLLAUDO) -->
+                <div id="demo-simulation-bar" style="background: rgba(43, 122, 210, 0.15); border: 1px dashed var(--color-blue-light); border-radius: 8px; padding: 0.8rem 1.2rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.8rem;">
+                    <div style="font-size: 0.88rem; color: #93c5fd;">
+                        🧪 <strong>Simulatore Prova per Collaboratori:</strong> Seleziona uno scenario per precompilare il modulo in 1 click:
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-secondary" onclick="simulaCompilazione('singola')" style="padding: 0.35rem 0.7rem; font-size: 0.8rem;">1 Persona Singola</button>
+                        <button type="button" class="btn btn-secondary" onclick="simulaCompilazione('coppia')" style="padding: 0.35rem 0.7rem; font-size: 0.8rem;">Coppia (2 Adulti)</button>
+                        <button type="button" class="btn btn-secondary" onclick="simulaCompilazione('famiglia3')" style="padding: 0.35rem 0.7rem; font-size: 0.8rem;">Famiglia 3 (1 Minore)</button>
+                        <button type="button" class="btn btn-secondary" onclick="simulaCompilazione('famiglia4')" style="padding: 0.35rem 0.7rem; font-size: 0.8rem;">Famiglia 4 (2 Minori)</button>
+                    </div>
+                </div>
+
                 <form id="christmas-booking-form" novalidate>
 
                     <!-- STEP 1: DATI DEL REFERENTE -->
@@ -1365,10 +1378,167 @@
             });
         };
 
-        // Inizializzazione: primo partecipante di default
-        document.addEventListener('DOMContentLoaded', () => {
-            participantsList.push(createParticipant('', 'Masters Atletica e Triathlon'));
+        window.simulaCompilazione = function(tipo) {
+            participantsList = [];
+            const refCognome = document.getElementById('ref-cognome');
+            const refNome = document.getElementById('ref-nome');
+            const refEmail = document.getElementById('ref-email');
+            const refDataNascita = document.getElementById('ref-data-nascita');
+            const refSettore = document.getElementById('ref-settore');
+            const refNote = document.getElementById('ref-note');
+
+            if (tipo === 'singola') {
+                refCognome.value = "Bianchi";
+                refNome.value = "Marco";
+                refEmail.value = "emiliano.bina@virtusgroane.com";
+                refDataNascita.value = "1985-04-12";
+                refSettore.value = "Masters Atletica e Triathlon";
+                refNote.value = "Test persona singola (Adulto con birra extra)";
+
+                participantsList.push({
+                    id: 'p_sim_1',
+                    nome: "Marco Bianchi",
+                    settore: "Masters Atletica e Triathlon",
+                    pizza: "Margherita",
+                    bevanda: "Birra",
+                    birraExtra: 1,
+                    dolce: "Pandoro",
+                    intolleranze: ""
+                });
+            } else if (tipo === 'coppia') {
+                refCognome.value = "Villa";
+                refNome.value = "Roberto";
+                refEmail.value = "emiliano.bina@virtusgroane.com";
+                refDataNascita.value = "1980-11-05";
+                refSettore.value = "Mamme che Sport!";
+                refNote.value = "Test coppia (2 adulti)";
+
+                participantsList.push({
+                    id: 'p_sim_1',
+                    nome: "Roberto Villa",
+                    settore: "Mamme che Sport!",
+                    pizza: "Margherita",
+                    bevanda: "Birra",
+                    birraExtra: 0,
+                    dolce: "Pandoro",
+                    intolleranze: ""
+                });
+                participantsList.push({
+                    id: 'p_sim_2',
+                    nome: "Elena Galli",
+                    settore: "Mamme che Sport!",
+                    pizza: "Rossa",
+                    bevanda: "Acqua",
+                    birraExtra: 0,
+                    dolce: "Pandoro",
+                    intolleranze: ""
+                });
+            } else if (tipo === 'famiglia3') {
+                refCognome.value = "Ferrari";
+                refNome.value = "Andrea";
+                refEmail.value = "emiliano.bina@virtusgroane.com";
+                refDataNascita.value = "1979-03-14";
+                refSettore.value = "Atletica giovanile";
+                refNote.value = "Test famiglia da 3 (2 adulti + 1 minorenne: Matteo atleta giovanile)";
+
+                participantsList.push({
+                    id: 'p_sim_1',
+                    nome: "Andrea Ferrari",
+                    settore: "Ospiti Virtus",
+                    pizza: "Margherita",
+                    bevanda: "Birra",
+                    birraExtra: 0,
+                    dolce: "Panettone",
+                    intolleranze: ""
+                });
+                participantsList.push({
+                    id: 'p_sim_2',
+                    nome: "Silvia Fontana",
+                    settore: "Ospiti Virtus",
+                    pizza: "Margherita",
+                    bevanda: "Coca-Cola",
+                    birraExtra: 0,
+                    dolce: "Pandoro",
+                    intolleranze: ""
+                });
+                // Minorenne: NESSUNA BIRRA
+                participantsList.push({
+                    id: 'p_sim_3',
+                    nome: "Matteo Ferrari (Minorenne)",
+                    settore: "Atletica giovanile",
+                    pizza: "Rossa",
+                    bevanda: "Aranciata",
+                    birraExtra: 0,
+                    dolce: "Pandoro",
+                    intolleranze: ""
+                });
+            } else if (tipo === 'famiglia4') {
+                refCognome.value = "Conti";
+                refNome.value = "Stefano";
+                refEmail.value = "emiliano.bina@virtusgroane.com";
+                refDataNascita.value = "1982-09-30";
+                refSettore.value = "Atletica giovanile";
+                refNote.value = "Test famiglia da 4 (2 adulti + 2 minorenni, Sofia senza lattosio)";
+
+                participantsList.push({
+                    id: 'p_sim_1',
+                    nome: "Stefano Conti",
+                    settore: "Masters Atletica e Triathlon",
+                    pizza: "Margherita",
+                    bevanda: "Birra",
+                    birraExtra: 1,
+                    dolce: "Pandoro",
+                    intolleranze: ""
+                });
+                participantsList.push({
+                    id: 'p_sim_2',
+                    nome: "Francesca Riva",
+                    settore: "Mamme che Sport!",
+                    pizza: "Margherita",
+                    bevanda: "Acqua",
+                    birraExtra: 0,
+                    dolce: "Panettone",
+                    intolleranze: ""
+                });
+                // Minorenne 1: NESSUNA BIRRA
+                participantsList.push({
+                    id: 'p_sim_3',
+                    nome: "Tommaso Conti (Minorenne)",
+                    settore: "Atletica giovanile",
+                    pizza: "Margherita",
+                    bevanda: "Coca-Cola",
+                    birraExtra: 0,
+                    dolce: "Pandoro",
+                    intolleranze: ""
+                });
+                // Minorenne 2: NESSUNA BIRRA
+                participantsList.push({
+                    id: 'p_sim_4',
+                    nome: "Sofia Conti (Minorenne)",
+                    settore: "Atletica giovanile",
+                    pizza: "Rossa",
+                    bevanda: "Aranciata",
+                    birraExtra: 0,
+                    dolce: "Pandoro",
+                    intolleranze: "Intollerante al lattosio (no formaggio)"
+                });
+            }
+
             renderParticipants();
+            updatePriceDisplay();
+        };
+
+        // Inizializzazione: primo partecipante di default o parametro simulazione
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const simParam = urlParams.get('simula') || urlParams.get('demo') || '';
+
+            if (simParam && ['singola', 'coppia', 'famiglia3', 'famiglia4'].includes(simParam)) {
+                simulaCompilazione(simParam);
+            } else {
+                participantsList.push(createParticipant('', 'Masters Atletica e Triathlon'));
+                renderParticipants();
+            }
         });
     </script>
 </body>

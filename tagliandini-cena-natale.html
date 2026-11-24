@@ -632,58 +632,94 @@
         // Dati dimostrativi di fallback iniziale (nessun dato sensibile o PII cablato)
         const MOCK_ORDERS = [
             {
-                bookingCode: "VG-NAT-2026-001",
-                cognome: "Bina",
-                nome: "Emiliano",
+                bookingCode: "VG-TEST-2026-004",
+                cognome: "Bianchi",
+                nome: "Marco",
                 settore: "Masters Atletica e Triathlon",
-                margherita: 2,
-                rossa: 1,
-                acqua: 1,
+                margherita: 1,
+                rossa: 0,
+                acqua: 0,
+                coca: 0,
+                aranciata: 0,
+                birre: 2,
+                pandoro: 1,
+                panettone: 0,
+                partecipantiJson: JSON.stringify([
+                    { nome: "Marco Bianchi", pizza: "Margherita", bevanda: "Birra", birraExtra: 1, dolce: "Pandoro", intolleranze: "" }
+                ])
+            },
+            {
+                bookingCode: "VG-TEST-2026-005",
+                cognome: "Colombo",
+                nome: "Laura",
+                settore: "Running School",
+                margherita: 1,
+                rossa: 0,
+                acqua: 0,
                 coca: 1,
                 aranciata: 0,
+                birre: 0,
+                pandoro: 0,
+                panettone: 1,
+                partecipantiJson: JSON.stringify([
+                    { nome: "Laura Colombo", pizza: "Margherita", bevanda: "Coca-Cola", birraExtra: 0, dolce: "Panettone", intolleranze: "Celiaca (pizza gluten-free)" }
+                ])
+            },
+            {
+                bookingCode: "VG-TEST-2026-006",
+                cognome: "Villa",
+                nome: "Roberto",
+                settore: "Mamme che Sport!",
+                margherita: 1,
+                rossa: 1,
+                acqua: 1,
+                coca: 0,
+                aranciata: 0,
+                birre: 1,
+                pandoro: 2,
+                panettone: 0,
+                partecipantiJson: JSON.stringify([
+                    { nome: "Roberto Villa", pizza: "Margherita", bevanda: "Birra", birraExtra: 0, dolce: "Pandoro", intolleranze: "" },
+                    { nome: "Elena Galli", pizza: "Rossa", bevanda: "Acqua", birraExtra: 0, dolce: "Pandoro", intolleranze: "" }
+                ])
+            },
+            {
+                bookingCode: "VG-TEST-2026-007",
+                cognome: "Ferrari",
+                nome: "Andrea",
+                settore: "Atletica giovanile",
+                margherita: 2,
+                rossa: 1,
+                acqua: 0,
+                coca: 1,
+                aranciata: 1,
                 birre: 1,
                 pandoro: 2,
                 panettone: 1,
                 partecipantiJson: JSON.stringify([
-                    { nome: "Emiliano Bina", pizza: "Margherita", bevanda: "Birra", birraExtra: 1, dolce: "Pandoro", intolleranze: "" },
-                    { nome: "Chiara", pizza: "Rossa", bevanda: "Coca-Cola", birraExtra: 0, dolce: "Panettone", intolleranze: "Senza Lattosio" },
-                    { nome: "Lorenzo", pizza: "Margherita", bevanda: "Acqua", birraExtra: 0, dolce: "Pandoro", intolleranze: "" }
+                    { nome: "Andrea Ferrari", pizza: "Margherita", bevanda: "Birra", birraExtra: 0, dolce: "Panettone", intolleranze: "" },
+                    { nome: "Silvia Fontana", pizza: "Margherita", bevanda: "Coca-Cola", birraExtra: 0, dolce: "Pandoro", intolleranze: "" },
+                    { nome: "Matteo Ferrari (Minorenne)", pizza: "Rossa", bevanda: "Aranciata", birraExtra: 0, dolce: "Pandoro", intolleranze: "" }
                 ])
             },
             {
-                bookingCode: "VG-NAT-2026-002",
-                cognome: "Genesi",
-                nome: "Silvano",
-                settore: "Allenatori",
-                margherita: 2,
-                rossa: 0,
+                bookingCode: "VG-TEST-2026-008",
+                cognome: "Conti",
+                nome: "Stefano",
+                settore: "Atletica giovanile",
+                margherita: 3,
+                rossa: 1,
                 acqua: 1,
-                coca: 0,
+                coca: 1,
                 aranciata: 1,
-                birre: 0,
-                pandoro: 1,
+                birre: 2,
+                pandoro: 3,
                 panettone: 1,
                 partecipantiJson: JSON.stringify([
-                    { nome: "Silvano Genesi", pizza: "Margherita", bevanda: "Aranciata", birraExtra: 0, dolce: "Panettone", intolleranze: "" },
-                    { nome: "Mirella", pizza: "Margherita", bevanda: "Acqua", birraExtra: 0, dolce: "Pandoro", intolleranze: "" }
-                ])
-            },
-            {
-                bookingCode: "VG-NAT-2026-003",
-                cognome: "Locatelli",
-                nome: "Marco",
-                settore: "Masters Atletica e Triathlon",
-                margherita: 1,
-                rossa: 1,
-                acqua: 0,
-                coca: 1,
-                aranciata: 0,
-                birre: 2,
-                pandoro: 2,
-                panettone: 0,
-                partecipantiJson: JSON.stringify([
-                    { nome: "Marco Locatelli", pizza: "Margherita", bevanda: "Birra", birraExtra: 2, dolce: "Pandoro", intolleranze: "" },
-                    { nome: "Sonia", pizza: "Rossa", bevanda: "Coca-Cola", birraExtra: 0, dolce: "Pandoro", intolleranze: "Celiaca (Gluten Free)" }
+                    { nome: "Stefano Conti", pizza: "Margherita", bevanda: "Birra", birraExtra: 1, dolce: "Pandoro", intolleranze: "" },
+                    { nome: "Francesca Riva", pizza: "Margherita", bevanda: "Acqua", birraExtra: 0, dolce: "Panettone", intolleranze: "" },
+                    { nome: "Tommaso Conti (Minorenne)", pizza: "Margherita", bevanda: "Coca-Cola", birraExtra: 0, dolce: "Pandoro", intolleranze: "" },
+                    { nome: "Sofia Conti (Minorenne)", pizza: "Rossa", bevanda: "Aranciata", birraExtra: 0, dolce: "Pandoro", intolleranze: "Intollerante al lattosio (no formaggio)" }
                 ])
             }
         ];
