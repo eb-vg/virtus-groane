@@ -457,6 +457,9 @@
                         </div>
                     </div>
                     <div style="display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
+                        <a href="tagliandini-cena-natale.html" target="_blank" onclick="salvaOrdiniInSessione()" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; background: var(--color-green); color: black; font-weight: bold;" title="Apri e stampa i tagliandini A4 per tutte le prenotazioni">
+                            🏷️ Stampa Tagliandini A4 &nearr;
+                        </a>
                         <a href="docs/guida-pizzata-natale-2026.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; border-color: rgba(255, 209, 0, 0.4); color: #ffd100;" title="Manuale istruzioni operative per la serata della pizzata">
                             📖 Guida Check-in (PDF) &nearr;
                         </a>
@@ -989,8 +992,19 @@
                 allergiesBox.style.display = 'none';
             }
 
+            // Salva ordini in sessione per il generatore di tagliandini
+            salvaOrdiniInSessione();
+
             filterTable();
         }
+
+        window.salvaOrdiniInSessione = function() {
+            try {
+                if (allOrders && allOrders.length > 0) {
+                    sessionStorage.setItem('vg_christmas_orders', JSON.stringify(allOrders));
+                }
+            } catch(e) {}
+        };
 
         // Rendering e filtraggio tabella
         function filterTable() {
@@ -1048,11 +1062,15 @@
                             <div style="display: flex; flex-direction: column; gap: 0.3rem;">
                                 <span class="badge-status badge-presente">✅ Presente (${o.checkinTime ? o.checkinTime.split(' ')[1] : 'OK'})</span>
                                 <button type="button" class="btn-checkin-cancel" onclick="toggleCheckin('${o.bookingCode}', false)">Annulla</button>
+                                <a href="tagliandini-cena-natale.html?code=${o.bookingCode}" target="_blank" onclick="salvaOrdiniInSessione()" style="font-size: 0.76rem; color: #60a5fa; text-decoration: underline; margin-top: 0.2rem;">🏷️ Tagliandini Referente</a>
                             </div>
                         ` : `
-                            <button type="button" class="btn-checkin" onclick="toggleCheckin('${o.bookingCode}', true)">
-                                <span>✓</span> Convalida Arrivo
-                            </button>
+                            <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+                                <button type="button" class="btn-checkin" onclick="toggleCheckin('${o.bookingCode}', true)">
+                                    <span>✓</span> Convalida Arrivo
+                                </button>
+                                <a href="tagliandini-cena-natale.html?code=${o.bookingCode}" target="_blank" onclick="salvaOrdiniInSessione()" style="font-size: 0.76rem; color: #60a5fa; text-decoration: underline; text-align: center;">🏷️ Tagliandini Referente</a>
+                            </div>
                         `}
                     </td>
                 </tr>

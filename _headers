@@ -11,6 +11,9 @@
   X-Robots-Tag: noindex, nofollow, noarchive
   Permissions-Policy: camera=(self)
 
+/tagliandini-cena-natale.html
+  X-Robots-Tag: noindex, nofollow, noarchive
+
 /*
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff

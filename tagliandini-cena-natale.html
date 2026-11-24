@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stampa Tagliandini Pizzata di Natale 2026 - Virtus Groane ASD</title>
+    <meta name="description" content="Strumento di stampa e plastificazione tagliandini A4 per la Pizzata di Natale Virtus Groane ASD. Ordinati per referente per lo scambio al tavolo.">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+
+    <!-- Fonts Ufficiali Virtus Groane -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=1.3">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <style>
+        /* REGOLE DI STAMPA A4 */
+        @page {
+            size: A4 portrait;
+            margin: 7mm 8mm 7mm 8mm;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #0c0f12;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* BARRA DI CONTROLLO INTERATTIVA (NON VISIBILE IN STAMPA) */
+        .controls-toolbar {
+            background: linear-gradient(135deg, #141922 0%, #1b2230 100%);
+            border-bottom: 3px solid var(--color-green);
+            padding: 1.2rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .controls-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .toolbar-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .toolbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .toolbar-brand img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+        }
+
+        .toolbar-title h1 {
+            margin: 0;
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: white;
+            line-height: 1.1;
+        }
+
+        .toolbar-title p {
+            margin: 0.2rem 0 0 0;
+            color: var(--color-green-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .toolbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-print-main {
+            background-color: var(--color-green);
+            color: #000000 !important;
+            font-weight: 800;
+            font-size: 1rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 14px rgba(36, 178, 103, 0.4);
+            transition: all 0.2s;
+        }
+
+        .btn-print-main:hover {
+            background-color: var(--color-green-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(36, 178, 103, 0.6);
+        }
+
+        /* KPI STATS BAR */
+        .kpi-strip {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 0.88rem;
+        }
+
+        .kpi-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .kpi-pill strong {
+            color: white;
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+        }
+
+        .kpi-pill span {
+            color: var(--text-secondary);
+        }
+
+        /* FILTRI E RICERCA */
+        .filter-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 260px;
+            max-width: 450px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 0.6rem 1rem 0.6rem 2.4rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--color-green);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .cat-tab {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.45rem 0.9rem;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.15s;
+        }
+
+        .cat-tab:hover, .cat-tab.active {
+            background: var(--color-blue);
+            color: white;
+            border-color: var(--color-blue-light);
+        }
+
+        /* CONTENITORE FOGLI A4 STAMPABILI */
+        .print-workspace {
+            padding: 2rem 1rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* SCHEDA FOGLIO A4 (SIMULAZIONE A SCHERMO / PAGINA REALE IN STAMPA) */
+        .a4-sheet {
+            background: #ffffff;
+            color: #1a202c;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 2.5rem;
+            padding: 7mm 7mm 7mm 7mm;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            page-break-after: always;
+            break-after: page;
+            position: relative;
+        }
+
+        .sheet-watermark {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 7.5pt;
+            color: #718096;
+            margin-bottom: 4mm;
+            padding-bottom: 2mm;
+            border-bottom: 1px solid #e2e8f0;
+            font-weight: 600;
+        }
+
+        /* GRIGLIA TAGLIANDINI (4 COLONNE x 7 RIGHE = 28 TAGLIANDINI PER FOGLIO) */
+        .coupons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.2mm;
+        }
+
+        /* SINGOLO TAGLIANDINO (DIMENSIONI CIRCA 46.5mm x 36.5mm) */
+        .coupon-card {
+            width: 100%;
+            height: 36.5mm;
+            border: 1.5px dashed #4a5568;
+            border-radius: 5px;
+            padding: 2.5mm 3mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            background-color: #ffffff;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            overflow: hidden;
+        }
+
+        /* COLORI TEMATICI PER CATEGORIA ALIMENTO */
+        .coupon-card.pizza-margherita {
+            background-color: #fff8f6;
+            border-color: #e53e3e;
+        }
+
+        .coupon-card.pizza-rossa {
+            background-color: #fff5f5;
+            border-color: #dc2626;
+        }
+
+        .coupon-card.bevanda-birra {
+            background-color: #fffdf0;
+            border-color: #d97706;
+        }
+
+        .coupon-card.bevanda-acqua {
+            background-color: #f0f9ff;
+            border-color: #0284c7;
+        }
+
+        .coupon-card.bevanda-coca {
+            background-color: #fff1f2;
+            border-color: #e11d48;
+        }
+
+        .coupon-card.bevanda-aranciata {
+            background-color: #fff7ed;
+            border-color: #ea580c;
+        }
+
+        .coupon-card.dolce-pandoro {
+            background-color: #fefce8;
+            border-color: #ca8a04;
+        }
+
+        .coupon-card.dolce-panettone {
+            background-color: #fbf7ee;
+            border-color: #92400e;
+        }
+
+        /* FORBICE GUIDA TAGLIO */
+        .coupon-cut-indicator {
+            position: absolute;
+            top: -4px;
+            right: -3px;
+            font-size: 8pt;
+            line-height: 1;
+            opacity: 0.6;
+        }
+
+        /* INTESTAZIONE TAGLIANDINO */
+        .coupon-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 5.5pt;
+            font-weight: 700;
+            color: #718096;
+            text-transform: uppercase;
+            border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+            padding-bottom: 1mm;
+            line-height: 1;
+        }
+
+        .coupon-ref-box {
+            margin-top: 1.2mm;
+            line-height: 1.15;
+        }
+
+        .coupon-referente {
+            font-size: 7.5pt;
+            font-weight: 800;
+            color: #1b589b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+        }
+
+        .coupon-code {
+            font-size: 6pt;
+            color: #718096;
+            font-family: monospace;
+            font-weight: 600;
+        }
+
+        /* CORPO CENTRALE */
+        .coupon-body {
+            text-align: center;
+            margin: auto 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .coupon-icon {
+            font-size: 16pt;
+            line-height: 1;
+            margin-bottom: 1mm;
+        }
+
+        .coupon-item-title {
+            font-family: 'Barlow Condensed', Arial Narrow, sans-serif;
+            font-size: 9.8pt;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #1a202c;
+            line-height: 1;
+            letter-spacing: 0.02em;
+        }
+
+        .coupon-item-desc {
+            font-size: 5.8pt;
+            color: #4a5568;
+            margin-top: 0.8mm;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .coupon-alert-intoll {
+            background-color: #fee2e2;
+            border: 0.5px solid #ef4444;
+            color: #b91c1c;
+            font-size: 5.8pt;
+            font-weight: 800;
+            padding: 0.5mm 1.5mm;
+            border-radius: 2px;
+            margin-top: 0.8mm;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        /* PIEDE TAGLIANDINO */
+        .coupon-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 5.4pt;
+            color: #718096;
+            border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+            padding-top: 1mm;
+            line-height: 1;
+        }
+
+        .coupon-footer strong {
+            color: #2d3748;
+        }
+
+        /* STILI DI STAMPA (@MEDIA PRINT) */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                margin: 0;
+                padding: 0;
+            }
+
+            .controls-toolbar,
+            .no-print {
+                display: none !important;
+            }
+
+            .print-workspace {
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: none !important;
+            }
+
+            .a4-sheet {
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                min-height: auto !important;
+                page-break-after: always !important;
+                break-after: page !important;
+            }
+
+            .coupon-card {
+                border-color: #000000 !important;
+            }
+        }
+
+        /* MODALE ISTRUZIONI */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            z-index: 2000;
+        }
+
+        .modal-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            max-width: 650px;
+            width: 100%;
+            padding: 2rem;
+            color: white;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA CONTROLLI SUPERIORE (NON STAMPATA) -->
+    <header class="controls-toolbar no-print">
+        <div class="controls-inner">
+            <div class="toolbar-top">
+                <div class="toolbar-brand">
+                    <img src="logo.webp" alt="Virtus Groane ASD" onerror="this.src='logo.png'">
+                    <div class="toolbar-title">
+                        <h1>🎄 Tagliandini Pizzata di Natale 2026</h1>
+                        <p>Virtus Groane ASD &bull; Stampa A4, Plastificazione &amp; Taglio</p>
+                    </div>
+                </div>
+
+                <div class="toolbar-actions">
+                    <button type="button" class="btn btn-secondary" onclick="openInstructionsModal()" style="padding: 0.6rem 1rem; font-size: 0.85rem;">
+                        📖 Guida all'Uso
+                    </button>
+                    <a href="https://docs.google.com/spreadsheets/d/1Ujp8wzckT8iql7nsGLjbCH8s-fTEK95ATOSorLIwliQ/edit" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 0.6rem 1rem; font-size: 0.85rem;">
+                        📊 Foglio Risposte &nearr;
+                    </a>
+                    <a href="cena-di-natale.html" class="btn btn-secondary" style="padding: 0.6rem 1rem; font-size: 0.85rem;">
+                        ⬅️ Check-in Serata
+                    </a>
+                    <button type="button" class="btn-print-main" onclick="window.print()">
+                        🖨️ Stampa Fogli A4
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIEPILOGO KPI -->
+            <div class="kpi-strip">
+                <div class="kpi-pill">
+                    <span>👥 Referenti:</span>
+                    <strong id="stat-referenti">0</strong>
+                </div>
+                <div class="kpi-pill">
+                    <span>🏷️ Tagliandini Totali:</span>
+                    <strong id="stat-tagliandini" style="color: var(--color-green-light);">0</strong>
+                </div>
+                <div class="kpi-pill">
+                    <span>📄 Fogli A4:</span>
+                    <strong id="stat-pagine">0</strong>
+                </div>
+                <div class="kpi-pill">
+                    <span>🍕 Pizze:</span>
+                    <strong id="stat-pizze">0</strong>
+                </div>
+                <div class="kpi-pill">
+                    <span>🥤 Bibite/Birre:</span>
+                    <strong id="stat-bibite">0</strong>
+                </div>
+                <div class="kpi-pill">
+                    <span>⭐ Dolci:</span>
+                    <strong id="stat-dolci">0</strong>
+                </div>
+                <div class="kpi-pill" style="margin-left: auto;">
+                    <span id="data-source-status" style="color: var(--color-green-light); font-weight: bold;">● Dati Pronti</span>
+                </div>
+            </div>
+
+            <!-- FILTRI DI VISUALIZZAZIONE -->
+            <div class="filter-row">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="filter-search" placeholder="Cerca referente o codice (es. Rossi, VG-NAT-001)..." oninput="applyFilters()">
+                </div>
+
+                <div class="category-tabs">
+                    <button type="button" class="cat-tab active" data-cat="all" onclick="setCategoryFilter('all', this)">
+                        Tutti i Tagliandini
+                    </button>
+                    <button type="button" class="cat-tab" data-cat="PIZZA" onclick="setCategoryFilter('PIZZA', this)">
+                        🍕 Solo Pizze
+                    </button>
+                    <button type="button" class="cat-tab" data-cat="BEVANDA" onclick="setCategoryFilter('BEVANDA', this)">
+                        🥤 Solo Bevande
+                    </button>
+                    <button type="button" class="cat-tab" data-cat="DOLCE" onclick="setCategoryFilter('DOLCE', this)">
+                        ⭐ Solo Dolci
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- AREA DI VISUALIZZAZIONE FOGLI A4 -->
+    <main class="print-workspace" id="print-workspace">
+        <!-- I fogli A4 (.a4-sheet) vengono iniettati dinamicamente da JavaScript -->
+        <div style="text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
+            Caricamento e impaginazione tagliandini in corso... ⏳
+        </div>
+    </main>
+
+    <!-- MODALE GUIDA ISTRUZIONI -->
+    <div id="instructions-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-box">
+            <h2 style="margin-top: 0; color: var(--color-green-light); font-family: var(--font-title); font-size: 1.6rem; text-transform: uppercase;">
+                📋 Come Utilizzare i Tagliandini alla Pizzata
+            </h2>
+            <div style="font-size: 0.92rem; line-height: 1.6; color: var(--text-secondary);">
+                <p>
+                    I tagliandini servono per <strong>garantire che ogni tavolo riceva esattamente quanto prenotato</strong>, evitando che partecipanti prendano bevande o pizze in più rispetto all'ordine:
+                </p>
+                <ol style="padding-left: 1.2rem; margin: 1rem 0;">
+                    <li style="margin-bottom: 0.6rem;">
+                        <strong>Prima della serata:</strong> Clicca su <strong>🖨️ Stampa Fogli A4</strong>. Nelle opzioni della stampante assicurati di selezionare <em>Formato: A4</em> e spuntare <em>"Grafica di sfondo"</em>.
+                    </li>
+                    <li style="margin-bottom: 0.6rem;">
+                        <strong>Plastificazione e Taglio:</strong> Inserisci i fogli A4 nelle buste da plastificare, falli passare nella plastificatrice e poi ritaglia i singoli tagliandini (seguendo i bordi tratteggiati ✂️).
+                    </li>
+                    <li style="margin-bottom: 0.6rem;">
+                        <strong>Confezionamento per Referente:</strong> Poiché i tagliandini sono già rigorosamente ordinati per referente, basta raggrupparli con una graffetta o in una bustina trasparente con il nome e codice prenotazione.
+                    </li>
+                    <li style="margin-bottom: 0.6rem;">
+                        <strong>All'Ingresso (Check-in):</strong> Quando la famiglia arriva e mostra il QR Code dal proprio smartphone, lo scanner conferisce la presenza e lo staff consegna contestualmente la bustina con i loro tagliandini.
+                    </li>
+                    <li style="margin-bottom: 0.6rem;">
+                        <strong>Al Tavolo (Scambio 1:1):</strong> Quando i volontari servono le pizze, le bevande e i dolci, ritirano 1 tagliandino corrispondente per ogni portata consegnata.
+                    </li>
+                </ol>
+            </div>
+            <div style="text-align: right; margin-top: 1.5rem;">
+                <button type="button" class="btn btn-primary" onclick="closeInstructionsModal()" style="padding: 0.6rem 1.4rem;">
+                    Ho Capito, Chiudi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGICA DI GENERAZIONE ED IMPAGINAZIONE -->
+    <script>
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby90eW3dKucfZW1H8NqLS0cQ_E9CuEz7IHCaCvwq3FuhHEWYAGiISkEam_VpnGYyK7e/exec';
+        const CARDS_PER_A4_PAGE = 28; // 4 colonne x 7 righe per resa perfetta su foglio A4
+
+        let rawOrders = [];
+        let allCoupons = [];
+        let filteredCoupons = [];
+        let currentCategory = 'all';
+        let searchQuery = '';
+
+        // Dati dimostrativi di fallback iniziale (nessun dato sensibile o PII cablato)
+        const MOCK_ORDERS = [
+            {
+                bookingCode: "VG-NAT-2026-001",
+                cognome: "Bina",
+                nome: "Emiliano",
+                settore: "Masters Atletica e Triathlon",
+                margherita: 2,
+                rossa: 1,
+                acqua: 1,
+                coca: 1,
+                aranciata: 0,
+                birre: 1,
+                pandoro: 2,
+                panettone: 1,
+                partecipantiJson: JSON.stringify([
+                    { nome: "Emiliano Bina", pizza: "Margherita", bevanda: "Birra", birraExtra: 1, dolce: "Pandoro", intolleranze: "" },
+                    { nome: "Chiara", pizza: "Rossa", bevanda: "Coca-Cola", birraExtra: 0, dolce: "Panettone", intolleranze: "Senza Lattosio" },
+                    { nome: "Lorenzo", pizza: "Margherita", bevanda: "Acqua", birraExtra: 0, dolce: "Pandoro", intolleranze: "" }
+                ])
+            },
+            {
+                bookingCode: "VG-NAT-2026-002",
+                cognome: "Genesi",
+                nome: "Silvano",
+                settore: "Allenatori",
+                margherita: 2,
+                rossa: 0,
+                acqua: 1,
+                coca: 0,
+                aranciata: 1,
+                birre: 0,
+                pandoro: 1,
+                panettone: 1,
+                partecipantiJson: JSON.stringify([
+                    { nome: "Silvano Genesi", pizza: "Margherita", bevanda: "Aranciata", birraExtra: 0, dolce: "Panettone", intolleranze: "" },
+                    { nome: "Mirella", pizza: "Margherita", bevanda: "Acqua", birraExtra: 0, dolce: "Pandoro", intolleranze: "" }
+                ])
+            },
+            {
+                bookingCode: "VG-NAT-2026-003",
+                cognome: "Locatelli",
+                nome: "Marco",
+                settore: "Masters Atletica e Triathlon",
+                margherita: 1,
+                rossa: 1,
+                acqua: 0,
+                coca: 1,
+                aranciata: 0,
+                birre: 2,
+                pandoro: 2,
+                panettone: 0,
+                partecipantiJson: JSON.stringify([
+                    { nome: "Marco Locatelli", pizza: "Margherita", bevanda: "Birra", birraExtra: 2, dolce: "Pandoro", intolleranze: "" },
+                    { nome: "Sonia", pizza: "Rossa", bevanda: "Coca-Cola", birraExtra: 0, dolce: "Pandoro", intolleranze: "Celiaca (Gluten Free)" }
+                ])
+            }
+        ];
+
+        // 1. Inizializzazione dati
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Controlla se c'è un filtro pre-impostato nei parametri URL (es. ?code=VG-NAT-2026-001)
+            const urlParams = new URLSearchParams(window.location.search);
+            const preFilterCode = urlParams.get('code') || urlParams.get('bookingCode') || '';
+            if (preFilterCode) {
+                document.getElementById('filter-search').value = preFilterCode;
+                searchQuery = preFilterCode.toLowerCase().trim();
+            }
+
+            // Prova a caricare dalla sessione aperta in precedenza dalla dashboard
+            let loaded = false;
+            try {
+                const sessionData = sessionStorage.getItem('vg_christmas_orders');
+                if (sessionData) {
+                    const parsed = JSON.parse(sessionData);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        rawOrders = parsed;
+                        loaded = true;
+                        document.getElementById('data-source-status').textContent = '● Dati Live da Sessione';
+                        document.getElementById('data-source-status').style.color = '#2ecc71';
+                    }
+                }
+            } catch(e) {}
+
+            // Se non in sessione, prova a caricare online dal Google Apps Script
+            if (!loaded) {
+                try {
+                    const res = await fetch(`${APPS_SCRIPT_URL}?action=GET_CHRISTMAS_DASHBOARD`, { method: 'GET' });
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data && data.status === 'SUCCESS' && Array.isArray(data.orders) && data.orders.length > 0) {
+                            rawOrders = data.orders;
+                            loaded = true;
+                            document.getElementById('data-source-status').textContent = '● Dati Live dal Foglio Google';
+                            document.getElementById('data-source-status').style.color = '#2ecc71';
+                        }
+                    }
+                } catch(err) {
+                    console.warn("Impossibile contattare direttamente Apps Script:", err);
+                }
+            }
+
+            // Se ancora non caricato, usa i dati dimostrativi
+            if (!loaded || rawOrders.length === 0) {
+                rawOrders = MOCK_ORDERS;
+                document.getElementById('data-source-status').textContent = '● Modalità Dimostrativa';
+                document.getElementById('data-source-status').style.color = '#ffd100';
+            }
+
+            scomponiInTagliandini();
+            applyFilters();
+        });
+
+        // 2. Scomposizione degli ordini in singoli tagliandini
+        function scomponiInTagliandini() {
+            allCoupons = [];
+
+            // Ordina per referente (Cognome, poi Nome)
+            const sortedOrders = [...rawOrders].sort((a, b) => {
+                const cogA = (a.cognome || '').toString().toLowerCase();
+                const cogB = (b.cognome || '').toString().toLowerCase();
+                return cogA.localeCompare(cogB);
+            });
+
+            sortedOrders.forEach(ord => {
+                const referente = ((ord.cognome || '') + ' ' + (ord.nome || '')).trim().toUpperCase();
+                const bookingCode = ord.bookingCode || 'VG-NAT-2026';
+                const settore = ord.settore || 'Virtus Groane';
+                const items = [];
+
+                let parsedPart = null;
+                if (ord.partecipantiJson) {
+                    try {
+                        parsedPart = typeof ord.partecipantiJson === 'string' ? JSON.parse(ord.partecipantiJson) : ord.partecipantiJson;
+                    } catch(e) { parsedPart = null; }
+                }
+
+                if (Array.isArray(parsedPart) && parsedPart.length > 0) {
+                    parsedPart.forEach((p, idx) => {
+                        const pNome = (p.nome || ('Partecipante ' + (idx + 1))).trim();
+                        const pizza = (p.pizza || 'Margherita').trim();
+                        const bevanda = (p.bevanda || 'Acqua').trim();
+                        const dolce = (p.dolce || 'Pandoro').trim();
+                        const intoll = (p.intolleranze || '').trim();
+                        const extraBirre = parseInt(p.birraExtra || p.birreExtra || 0, 10);
+
+                        // Tagliando Pizza
+                        if (pizza.toLowerCase().includes('rossa')) {
+                            items.push({
+                                categoria: 'PIZZA',
+                                classe: 'pizza-rossa',
+                                tipo: 'PIZZA ROSSA',
+                                desc: 'Pomodoro & Origano',
+                                icon: '🍅',
+                                beneficiario: pNome,
+                                intolleranze: intoll
+                            });
+                        } else {
+                            items.push({
+                                categoria: 'PIZZA',
+                                classe: 'pizza-margherita',
+                                tipo: 'PIZZA MARGHERITA',
+                                desc: 'Pomodoro & Mozzarella',
+                                icon: '🍕',
+                                beneficiario: pNome,
+                                intolleranze: intoll
+                            });
+                        }
+
+                        // Tagliando Bevanda inclusa
+                        if (bevanda.toLowerCase().includes('birra')) {
+                            items.push({
+                                categoria: 'BEVANDA',
+                                classe: 'bevanda-birra',
+                                tipo: 'BIRRA ALLA SPINA',
+                                desc: 'Media Bionda Spina',
+                                icon: '🍺',
+                                beneficiario: pNome,
+                                intolleranze: ''
+                            });
+                        } else if (bevanda.toLowerCase().includes('coca')) {
+                            items.push({
+                                categoria: 'BEVANDA',
+                                classe: 'bevanda-coca',
+                                tipo: 'COCA-COLA',
+                                desc: 'Lattina 33cl',
+                                icon: '🥤',
+                                beneficiario: pNome,
+                                intolleranze: ''
+                            });
+                        } else if (bevanda.toLowerCase().includes('aranciata')) {
+                            items.push({
+                                categoria: 'BEVANDA',
+                                classe: 'bevanda-aranciata',
+                                tipo: 'ARANCIATA',
+                                desc: 'Lattina 33cl',
+                                icon: '🍊',
+                                beneficiario: pNome,
+                                intolleranze: ''
+                            });
+                        } else {
+                            items.push({
+                                categoria: 'BEVANDA',
+                                classe: 'bevanda-acqua',
+                                tipo: 'ACQUA NATURALE',
+                                desc: 'Bottiglietta 50cl',
+                                icon: '💧',
+                                beneficiario: pNome,
+                                intolleranze: ''
+                            });
+                        }
+
+                        // Birre alla spina extra
+                        if (extraBirre > 0) {
+                            for (let b = 0; b < extraBirre; b++) {
+                                items.push({
+                                    categoria: 'BEVANDA',
+                                    classe: 'bevanda-birra',
+                                    tipo: 'BIRRA ALLA SPINA',
+                                    desc: 'Birra Extra Spina (+4€)',
+                                    icon: '🍺',
+                                    beneficiario: pNome,
+                                    intolleranze: ''
+                                });
+                            }
+                        }
+
+                        // Tagliando Dolce
+                        if (dolce.toLowerCase().includes('panettone')) {
+                            items.push({
+                                categoria: 'DOLCE',
+                                classe: 'dolce-panettone',
+                                tipo: 'PANETTONE',
+                                desc: 'Fetta Tradizionale',
+                                icon: '🍞',
+                                beneficiario: pNome,
+                                intolleranze: ''
+                            });
+                        } else {
+                            items.push({
+                                categoria: 'DOLCE',
+                                classe: 'dolce-pandoro',
+                                tipo: 'PANDORO',
+                                desc: 'Fetta Tradizionale',
+                                icon: '⭐',
+                                beneficiario: pNome,
+                                intolleranze: ''
+                            });
+                        }
+                    });
+                } else {
+                    // Fallback contatori
+                    const marg = parseInt(ord.margherita || 0, 10);
+                    const ross = parseInt(ord.rossa || 0, 10);
+                    const acq = parseInt(ord.acqua || 0, 10);
+                    const coc = parseInt(ord.coca || 0, 10);
+                    const ara = parseInt(ord.aranciata || 0, 10);
+                    const bir = parseInt(ord.birre || 0, 10);
+                    const pan = parseInt(ord.pandoro || 0, 10);
+                    const pne = parseInt(ord.panettone || 0, 10);
+
+                    for (let i = 0; i < marg; i++) items.push({ categoria: 'PIZZA', classe: 'pizza-margherita', tipo: 'PIZZA MARGHERITA', desc: 'Pomodoro & Mozzarella', icon: '🍕', beneficiario: '', intolleranze: '' });
+                    for (let i = 0; i < ross; i++) items.push({ categoria: 'PIZZA', classe: 'pizza-rossa', tipo: 'PIZZA ROSSA', desc: 'Pomodoro & Origano', icon: '🍅', beneficiario: '', intolleranze: '' });
+                    for (let i = 0; i < acq; i++) items.push({ categoria: 'BEVANDA', classe: 'bevanda-acqua', tipo: 'ACQUA NATURALE', desc: 'Bottiglietta 50cl', icon: '💧', beneficiario: '', intolleranze: '' });
+                    for (let i = 0; i < coc; i++) items.push({ categoria: 'BEVANDA', classe: 'bevanda-coca', tipo: 'COCA-COLA', desc: 'Lattina 33cl', icon: '🥤', beneficiario: '', intolleranze: '' });
+                    for (let i = 0; i < ara; i++) items.push({ categoria: 'BEVANDA', classe: 'bevanda-aranciata', tipo: 'ARANCIATA', desc: 'Lattina 33cl', icon: '🍊', beneficiario: '', intolleranze: '' });
+                    for (let i = 0; i < bir; i++) items.push({ categoria: 'BEVANDA', classe: 'bevanda-birra', tipo: 'BIRRA ALLA SPINA', desc: 'Media Bionda Spina', icon: '🍺', beneficiario: '', intolleranze: '' });
+                    for (let i = 0; i < pan; i++) items.push({ categoria: 'DOLCE', classe: 'dolce-pandoro', tipo: 'PANDORO', desc: 'Fetta Tradizionale', icon: '⭐', beneficiario: '', intolleranze: '' });
+                    for (let i = 0; i < pne; i++) items.push({ categoria: 'DOLCE', classe: 'dolce-panettone', tipo: 'PANETTONE', desc: 'Fetta Tradizionale', icon: '🍞', beneficiario: '', intolleranze: '' });
+                }
+
+                const totalReferente = items.length;
+                items.forEach((it, idx) => {
+                    allCoupons.push({
+                        id: `${bookingCode}-${String(idx + 1).padStart(2, '0')}`,
+                        bookingCode: bookingCode,
+                        referente: referente,
+                        settore: settore,
+                        categoria: it.categoria,
+                        classe: it.classe,
+                        tipo: it.tipo,
+                        desc: it.desc,
+                        icon: it.icon,
+                        beneficiario: it.beneficiario,
+                        intolleranze: it.intolleranze,
+                        progressivo: `${idx + 1}/${totalReferente}`,
+                        totaleGruppo: totalReferente
+                    });
+                });
+            });
+        }
+
+        // 3. Applicazione Filtri e Ricerca
+        function applyFilters() {
+            filteredCoupons = allCoupons.filter(c => {
+                // Filtro categoria
+                if (currentCategory !== 'all' && c.categoria !== currentCategory) {
+                    return false;
+                }
+
+                // Filtro ricerca testo
+                if (searchQuery) {
+                    const matchRef = c.referente.toLowerCase().includes(searchQuery);
+                    const matchCode = c.bookingCode.toLowerCase().includes(searchQuery);
+                    const matchBen = (c.beneficiario || '').toLowerCase().includes(searchQuery);
+                    const matchTipo = c.tipo.toLowerCase().includes(searchQuery);
+                    if (!matchRef && !matchCode && !matchBen && !matchTipo) return false;
+                }
+
+                return true;
+            });
+
+            aggiornaKpiStats();
+            renderFogliA4();
+        }
+
+        function setCategoryFilter(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            applyFilters();
+        }
+
+        function filterSearch() {
+            searchQuery = document.getElementById('filter-search').value.toLowerCase().trim();
+            applyFilters();
+        }
+
+        // 4. Aggiornamento KPI in alto
+        function aggiornaKpiStats() {
+            const referentiSet = new Set(filteredCoupons.map(c => c.bookingCode));
+            const pizzeCount = filteredCoupons.filter(c => c.categoria === 'PIZZA').length;
+            const bibiteCount = filteredCoupons.filter(c => c.categoria === 'BEVANDA').length;
+            const dolciCount = filteredCoupons.filter(c => c.categoria === 'DOLCE').length;
+            const totalCoupons = filteredCoupons.length;
+            const pagineCount = Math.ceil(totalCoupons / CARDS_PER_A4_PAGE) || 0;
+
+            document.getElementById('stat-referenti').textContent = referentiSet.size;
+            document.getElementById('stat-tagliandini').textContent = totalCoupons;
+            document.getElementById('stat-pagine').textContent = pagineCount;
+            document.getElementById('stat-pizze').textContent = pizzeCount;
+            document.getElementById('stat-bibite').textContent = bibiteCount;
+            document.getElementById('stat-dolci').textContent = dolciCount;
+        }
+
+        // 5. Renderizzazione impaginata A4 (28 tagliandini per pagina)
+        function renderFogliA4() {
+            const container = document.getElementById('print-workspace');
+            container.innerHTML = '';
+
+            if (filteredCoupons.length === 0) {
+                container.innerHTML = `
+                    <div style="background: var(--bg-secondary); border: 1px dashed var(--border-color); border-radius: 12px; padding: 3rem; text-align: center; color: var(--text-secondary);">
+                        <h3 style="color: white; margin-top: 0;">Nessun tagliando trovato</h3>
+                        <p>Nessun risultato corrisponde ai criteri di ricerca impostati.</p>
+                        <button type="button" class="btn btn-secondary" onclick="resetFilters()">Azzera Filtri</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const totalPages = Math.ceil(filteredCoupons.length / CARDS_PER_A4_PAGE);
+
+            for (let pageIdx = 0; pageIdx < totalPages; pageIdx++) {
+                const sheetDiv = document.createElement('div');
+                sheetDiv.className = 'a4-sheet';
+
+                // Intestazione tecnica filigrana foglio
+                const watermark = document.createElement('div');
+                watermark.className = 'sheet-watermark';
+                watermark.innerHTML = `
+                    <span>🎄 VIRTUS GROANE ASD &bull; PIZZATA DI NATALE 2026 &bull; FOGLIO A4 STAMPABILE</span>
+                    <span>PAGINA ${pageIdx + 1} DI ${totalPages} (${filteredCoupons.length} TAGLIANDINI TOTALI)</span>
+                `;
+                sheetDiv.appendChild(watermark);
+
+                // Griglia 4 x 7
+                const gridDiv = document.createElement('div');
+                gridDiv.className = 'coupons-grid';
+
+                const startIdx = pageIdx * CARDS_PER_A4_PAGE;
+                const endIdx = Math.min(startIdx + CARDS_PER_A4_PAGE, filteredCoupons.length);
+
+                for (let i = startIdx; i < endIdx; i++) {
+                    const c = filteredCoupons[i];
+                    const card = document.createElement('div');
+                    card.className = `coupon-card ${c.classe}`;
+                    card.innerHTML = `
+                        <div class="coupon-cut-indicator">✂️</div>
+                        <div class="coupon-header">
+                            <span>VIRTUS GROANE ASD</span>
+                            <span>NATALE 2026</span>
+                        </div>
+                        <div class="coupon-ref-box">
+                            <div class="coupon-referente" title="${c.referente}">👤 ${c.referente}</div>
+                            <div class="coupon-code">Cod. ${c.bookingCode}</div>
+                        </div>
+                        <div class="coupon-body">
+                            <div class="coupon-icon">${c.icon}</div>
+                            <div class="coupon-item-title">${c.tipo}</div>
+                            <div class="coupon-item-desc">${c.beneficiario ? ('Per: ' + c.beneficiario) : c.desc}</div>
+                            ${c.intolleranze ? `<div class="coupon-alert-intoll">⚠️ ${c.intolleranze.toUpperCase()}</div>` : ''}
+                        </div>
+                        <div class="coupon-footer">
+                            <span>Tagliando <strong>${c.progressivo}</strong></span>
+                            <span>Scambio al tavolo</span>
+                        </div>
+                    `;
+                    gridDiv.appendChild(card);
+                }
+
+                sheetDiv.appendChild(gridDiv);
+                container.appendChild(sheetDiv);
+            }
+        }
+
+        function resetFilters() {
+            document.getElementById('filter-search').value = '';
+            searchQuery = '';
+            currentCategory = 'all';
+            document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+            document.querySelector('.cat-tab[data-cat="all"]').classList.add('active');
+            applyFilters();
+        }
+
+        function openInstructionsModal() {
+            document.getElementById('instructions-modal').style.display = 'flex';
+        }
+
+        function closeInstructionsModal() {
+            document.getElementById('instructions-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
