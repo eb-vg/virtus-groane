@@ -102,9 +102,21 @@
     <style>
         .event-banner-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 1.2rem;
             margin-bottom: 2.5rem;
+        }
+
+        @media (max-width: 1150px) {
+            .event-banner-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .event-banner-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .event-info-box {
@@ -337,6 +349,69 @@
             display: flex;
             flex-direction: column;
             gap: 0.3rem;
+        }
+
+        .price-summary-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-left: auto;
+        }
+
+        .price-summary-total-box {
+            text-align: right;
+        }
+
+        .price-summary-btn-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.35rem;
+        }
+
+        @media (max-width: 900px) {
+            .price-summary-bar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1.2rem;
+            }
+            .price-summary-details {
+                width: 100%;
+                border-bottom: 1px solid var(--border-color);
+                padding-bottom: 0.8rem;
+            }
+            .price-summary-actions {
+                width: 100%;
+                justify-content: space-between;
+                margin-left: 0;
+            }
+            .price-summary-total-box {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .price-summary-actions {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+            .price-summary-total-box {
+                text-align: center;
+            }
+            .price-summary-btn-box {
+                align-items: stretch;
+            }
+            .price-summary-btn-box button {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            .price-summary-btn-box span {
+                text-align: center !important;
+            }
         }
 
         .price-summary-title {
@@ -578,7 +653,7 @@
                         <h3 style="margin: 0 0 0.3rem 0; font-size: 1.15rem; color: white;">Quota &amp; Menù</h3>
                         <p style="margin: 0; color: var(--text-secondary); font-size: 0.92rem;">
                             <strong>15 € a persona</strong> comprensivi di:<br>
-                            &bull; Tranci di pizza a volontà (Margherita o Rossa)<br>
+                            &bull; Trancio di pizza (Margherita o Rossa)<br>
                             &bull; Bibita a scelta (Acqua, Coca o Aranciata)<br>
                             &bull; Pandoro o Panettone tradizionale
                         </p>
@@ -590,7 +665,7 @@
                     <div>
                         <h3 style="margin: 0 0 0.3rem 0; font-size: 1.15rem; color: white;">Birra &amp; Intolleranze</h3>
                         <p style="margin: 0; color: var(--text-secondary); font-size: 0.92rem;">
-                            &bull; <strong>Birra alla Spina (+4 €)</strong> per i maggiori di 18 anni.<br>
+                            &bull; <strong>Birra alla Spina aggiuntiva (+4 €)</strong> per chi la desidera (>18 anni).<br>
                             &bull; Opzioni dedicate per <strong>celiaci (senza glutine)</strong> o intolleranze da segnalare nel modulo.
                         </p>
                     </div>
@@ -658,7 +733,7 @@
                             </button>
                         </div>
                         <p style="color: var(--text-secondary); font-size: 0.92rem; margin-top: -0.5rem; margin-bottom: 1.5rem;">
-                            Aggiungi ciascuna persona partecipante: per ognuno puoi specificare il tipo di pizza, la bevanda preferita, il dolce e il settore del tavolo.
+                            Aggiungi ciascuna persona partecipante: per ognuno specifica il tipo di pizza, la bevanda preferita, il dolce e il settore del tavolo.
                         </p>
 
                         <!-- Contenitore delle schede partecipanti -->
@@ -681,16 +756,29 @@
                                 1 partecipante &times; 15,00 € = 15,00 € &bull; 0 birre extra
                             </p>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
-                            <div style="text-align: right;">
+                        <div class="price-summary-actions">
+                            <div class="price-summary-total-box">
                                 <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Totale da Versare</div>
                                 <div class="price-summary-total" id="price-total-display">15,00 €</div>
                             </div>
-                            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem;">
+                            <div class="price-summary-btn-box">
                                 <button type="submit" id="btn-submit-booking" class="btn btn-primary" style="padding: 0.9rem 1.8rem; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.03em;">
                                     Procedi alla Conferma 🎄 &rarr;
                                 </button>
-                                <span style="font-size: 0.78rem; color: #ffd100; font-weight: 600;">🔒 Anteprima &bull; Test attivo per @virtusgroane.com</span>
+                                <span style="font-size: 0.76rem; color: var(--text-secondary); text-align: right;">Riceverai subito un'email con il QR Code d'ingresso</span>
+                                <span style="font-size: 0.76rem; color: #ffd100; font-weight: 600;">🔒 Anteprima &bull; Test attivo per @virtusgroane.com</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INFORMATIVA SULLA PRIVACY E TRATTAMENTO DATI (GDPR) -->
+                    <div style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.1rem 1.3rem; margin-top: 1.6rem; font-size: 0.86rem; color: var(--text-secondary); line-height: 1.55;">
+                        <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+                            <span style="font-size: 1.4rem; line-height: 1; flex-shrink: 0;">🔒</span>
+                            <div>
+                                <strong style="color: white; font-size: 0.92rem;">Informativa sul Trattamento dei Dati Personali (GDPR - Regolamento UE 2016/679):</strong><br>
+                                I dati raccolti tramite questo modulo (recapiti del referente, nominativi dei partecipanti, preferenze sul menù ed eventuali intolleranze alimentari) sono trattati da Virtus Groane ASD al solo scopo di gestire la logistica, i tavoli e le prenotazioni della Pizzata Sociale di Natale 2026.<br>
+                                I dati inseriti <strong>verranno conservati esclusivamente per la gestione della pizzata e cancellati subito dopo</strong> la conclusione dell'evento. Nessun dato sarà ceduto a terzi o utilizzato per finalità promozionali o di profilazione.
                             </div>
                         </div>
                     </div>
@@ -715,14 +803,14 @@
                             <span style="font-weight: 600; color: white;">Totale Bonifico Previsto:</span>
                             <span id="modal-total-display" style="font-size: 1.5rem; font-weight: 800; color: var(--color-green-light);">15,00 €</span>
                         </div>
-                        <p style="margin: 0.5rem 0 0; font-size: 0.82rem; color: var(--text-muted);">
-                            La conferma con il <strong>QR Code per l'ingresso</strong> e l'IBAN ti verrà recapitata all'indirizzo email indicato.
-                        </p>
+                        <div style="margin-top: 0.8rem; background: rgba(43, 122, 210, 0.12); border: 1px solid #3b82f6; border-radius: 6px; padding: 0.7rem 0.9rem; color: #93c5fd; font-size: 0.86rem; line-height: 1.45;">
+                            📩 <strong>Invio Email Automatico:</strong> Subito dopo la conferma, riceverai una mail di riepilogo con il <strong>QR Code per l'ingresso</strong> e le istruzioni per il bonifico all'indirizzo email indicato.
+                        </div>
                     </div>
 
                     <div style="display: flex; justify-content: flex-end; gap: 1rem; flex-wrap: wrap;">
                         <button type="button" id="btn-cancel-modal" class="btn btn-secondary">Modifica Dati</button>
-                        <button type="button" id="btn-confirm-send" class="btn btn-primary" style="font-weight: 700;">Invia e Ricevi QR Code 🚀</button>
+                        <button type="button" id="btn-confirm-send" class="btn btn-primary" style="font-weight: 700;">Invia e Ricevi QR Code via Email 🚀</button>
                     </div>
                 </div>
             </div>
@@ -828,8 +916,8 @@
         </div>
     </footer>
 
-    <!-- PULSANTE FLOTTANTE WHATSAPP -->
-    <a href="https://wa.me/393406274022?text=Ciao%20Virtus%20Groane,%20vorrei%20informazioni%20sulla%20Pizzata%20di%20Natale..." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contatta Virtus Groane su WhatsApp">
+    <!-- PULSANTE FLOTTANTE WHATSAPP (Contatto Diretto Nadia) -->
+    <a href="https://wa.me/393381261675?text=Ciao%20Nadia,%20vorrei%20informazioni%20sulla%20Pizzata%20di%20Natale%20Virtus%20Groane..." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contatta Nadia su WhatsApp per la Pizzata di Natale">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" style="width: 24px; height: 24px; fill: white;"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.123.553 4.116 1.517 5.852l-1.611 5.888 6.042-1.585c1.705.931 3.654 1.445 5.727 1.445 6.627 0 12-5.373 12-12s-5.373-12-12-12z"/></svg>
         <span>Scrivici su WhatsApp</span>
     </a>
@@ -884,6 +972,7 @@
                 settore: defaultSettore,
                 pizza: 'Margherita',
                 bevanda: 'Acqua',
+                birraExtra: 0,
                 dolce: 'Pandoro',
                 intolleranze: ''
             };
@@ -925,7 +1014,7 @@
 
                     <!-- SCELTA PIZZA -->
                     <div class="form-group" style="margin-top: 0.8rem;">
-                        <label>Scelta Pizza (Tranci a volontà)</label>
+                        <label>Scelta Pizza (Trancio Margherita o Rossa)</label>
                         <div class="choice-grid">
                             <div class="choice-option">
                                 <input type="radio" name="pizza_${p.id}" id="pizza_margherita_${p.id}" value="Margherita" ${p.pizza === 'Margherita' ? 'checked' : ''} onchange="updateParticipantField('${p.id}', 'pizza', 'Margherita')">
@@ -944,9 +1033,9 @@
                         </div>
                     </div>
 
-                    <!-- SCELTA BEVANDA -->
+                    <!-- SCELTA BEVANDA INCLUSA -->
                     <div class="form-group" style="margin-top: 1rem;">
-                        <label>Scelta Bevanda Inclusa (o Birra Facoltativa)</label>
+                        <label>Scelta Bevanda Inclusa nel Menù</label>
                         <div class="choice-grid">
                             <div class="choice-option">
                                 <input type="radio" name="bevanda_${p.id}" id="bev_acqua_${p.id}" value="Acqua" ${p.bevanda === 'Acqua' ? 'checked' : ''} onchange="updateParticipantField('${p.id}', 'bevanda', 'Acqua')">
@@ -969,12 +1058,35 @@
                                     <span class="choice-text">Aranciata</span>
                                 </label>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- BIRRA ALLA SPINA AGGIUNTIVA -->
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label>Birra alla Spina Aggiuntiva (Facoltativa, +4 € cad. - per i maggiori di 18 anni)</label>
+                        <div class="choice-grid">
                             <div class="choice-option">
-                                <input type="radio" name="bevanda_${p.id}" id="bev_birra_${p.id}" value="Birra" ${p.bevanda === 'Birra' ? 'checked' : ''} onchange="updateParticipantField('${p.id}', 'bevanda', 'Birra')">
-                                <label for="bev_birra_${p.id}" class="choice-label">
+                                <input type="radio" name="birra_${p.id}" id="birra_0_${p.id}" value="0" ${(!p.birraExtra || p.birraExtra === 0) ? 'checked' : ''} onchange="updateParticipantField('${p.id}', 'birraExtra', 0)">
+                                <label for="birra_0_${p.id}" class="choice-label">
+                                    <span class="choice-icon">🚫</span>
+                                    <span class="choice-text">Nessuna birra</span>
+                                    <span class="choice-badge" style="color: var(--text-muted);">Inclusa quota</span>
+                                </label>
+                            </div>
+                            <div class="choice-option">
+                                <input type="radio" name="birra_${p.id}" id="birra_1_${p.id}" value="1" ${p.birraExtra === 1 ? 'checked' : ''} onchange="updateParticipantField('${p.id}', 'birraExtra', 1)">
+                                <label for="birra_1_${p.id}" class="choice-label">
                                     <span class="choice-icon">🍺</span>
-                                    <span class="choice-text">Birra Spina</span>
+                                    <span class="choice-text">1 Birra Spina</span>
                                     <span class="choice-badge">+4 € (&gt;18 anni)</span>
+                                </label>
+                            </div>
+                            <div class="choice-option">
+                                <input type="radio" name="birra_${p.id}" id="birra_2_${p.id}" value="2" ${p.birraExtra === 2 ? 'checked' : ''} onchange="updateParticipantField('${p.id}', 'birraExtra', 2)">
+                                <label for="birra_2_${p.id}" class="choice-label">
+                                    <span class="choice-icon">🍻</span>
+                                    <span class="choice-text">2 Birre Spina</span>
+                                    <span class="choice-badge">+8 € (&gt;18 anni)</span>
                                 </label>
                             </div>
                         </div>
@@ -1017,9 +1129,11 @@
         window.updateParticipantField = function(id, field, value) {
             const p = participantsList.find(item => item.id === id);
             if (p) {
-                p[field] = value;
-                if (field === 'bevanda') {
+                if (field === 'birraExtra') {
+                    p[field] = parseInt(value, 10) || 0;
                     updatePriceDisplay();
+                } else {
+                    p[field] = value;
                 }
             }
         };
@@ -1041,7 +1155,10 @@
         // Calcolo totale prezzo
         function calculateTotal() {
             const count = participantsList.length;
-            const beers = participantsList.filter(p => p.bevanda === 'Birra').length;
+            let beers = 0;
+            participantsList.forEach(p => {
+                beers += (parseInt(p.birraExtra, 10) || 0);
+            });
             const total = (count * 15) + (beers * 4);
             return {
                 count: count,
@@ -1119,11 +1236,12 @@
             `;
 
             participantsList.forEach((p, idx) => {
+                const extraBirraText = (p.birraExtra && p.birraExtra > 0) ? ` &bull; 🍺 +${p.birraExtra} Birra${p.birraExtra > 1 ? 'e' : ''} Spina (+${p.birraExtra * 4} €)` : '';
                 html += `
                     <li style="margin-bottom: 0.4rem;">
                         <strong>${escapeHtml(p.nome)}</strong> &bull; Tavolo: <em>${escapeHtml(p.settore)}</em><br>
                         <span style="font-size: 0.88rem; color: var(--text-secondary);">
-                            🍕 Pizza: ${p.pizza} &bull; 🥤 Bevanda: ${p.bevanda}${p.bevanda === 'Birra' ? ' (+4 €)' : ''} &bull; 🍰 Dolce: ${p.dolce}
+                            🍕 Pizza: ${p.pizza} &bull; 🥤 Bevanda: ${p.bevanda}${extraBirraText} &bull; 🍰 Dolce: ${p.dolce}
                             ${p.intolleranze ? `<br><strong style="color: #f87171;">⚠️ Intolleranze: ${escapeHtml(p.intolleranze)}</strong>` : ''}
                         </span>
                     </li>
