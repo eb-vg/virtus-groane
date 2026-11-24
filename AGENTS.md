@@ -90,7 +90,7 @@ Tutte le nuove pagine o le modifiche a quelle esistenti **devono seguire rigoros
 6. **Footer Condiviso**:
    Presente in tutte le pagine, suddiviso in: colonna istituzionale con Codice Fiscale (`04577740964`) e affiliazioni (FIDAL, FITRI, AICS, FIASP, CONI), link rapidi, orari/sedi operative e pulsanti social (Facebook, Instagram, Strava).
 7. **Pulsante Flottante WhatsApp**:
-   In fondo a ogni pagina, prima della chiusura di `</body>`:
+   In fondo a ogni pagina pubblica, prima della chiusura di `</body>` (omesso nelle pagine dell'Area Riservata e nei moduli operativi staff):
    ```html
    <a href="https://wa.me/393406274022?text=Ciao%20Virtus%20Groane,%20vorrei%20informazioni..." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contatta Virtus Groane su WhatsApp">
        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="..."/></svg>

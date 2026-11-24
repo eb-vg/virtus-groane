@@ -1273,7 +1273,9 @@ footer {
     }
     
     /* Keep the English flag visible next to hamburger menu */
-    .nav-list .nav-item:last-child {
+    .nav-list .nav-item.nav-item-lang,
+    .nav-list .nav-item:has(a[href*="english.html"]),
+    .nav-list .nav-item:has(img[alt="English"]) {
         position: fixed;
         top: 29px;
         right: 4.5rem;
@@ -1281,7 +1283,9 @@ footer {
         border-bottom: none;
     }
     
-    .nav-list .nav-item:last-child > a {
+    .nav-list .nav-item.nav-item-lang > a,
+    .nav-list .nav-item:has(a[href*="english.html"]) > a,
+    .nav-list .nav-item:has(img[alt="English"]) > a {
         padding: 0;
         width: auto;
     }

@@ -1,18 +1,18 @@
-/docs/guida-operativa-staff*
-  X-Robots-Tag: noindex, nofollow, noarchive
+/area-riservata*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
 
-/docs/guida-pizzata-natale*
-  X-Robots-Tag: noindex, nofollow, noarchive
+/ordini-vestiario*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
 
-/ordini-vestiario.html
-  X-Robots-Tag: noindex, nofollow, noarchive
-
-/cena-di-natale.html
-  X-Robots-Tag: noindex, nofollow, noarchive
+/cena-di-natale*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
   Permissions-Policy: camera=(self)
 
-/tagliandini-cena-natale.html
-  X-Robots-Tag: noindex, nofollow, noarchive
+/tagliandini-cena-natale*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
+
+/docs/guida-*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
 
 /*
   X-Frame-Options: SAMEORIGIN

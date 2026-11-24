@@ -3,7 +3,25 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
     <title>Manuale Operativo Check-in Serata Pizzata di Natale 2026 - Virtus Groane ASD</title>
+    <script>
+        (function() {
+            try {
+                const s = sessionStorage.getItem('vg_staff_user');
+                if (!s) {
+                    window.location.replace('../area-riservata.html');
+                    return;
+                }
+                const u = JSON.parse(s);
+                if (!u || !u.email || !u.email.endsWith('@virtusgroane.com')) {
+                    window.location.replace('../area-riservata.html');
+                }
+            } catch(e) {
+                window.location.replace('../area-riservata.html');
+            }
+        })();
+    </script>
     <style>
         @page {
             size: A4 portrait;

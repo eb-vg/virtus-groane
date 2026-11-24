@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stampa Tagliandini Pizzata di Natale 2026 - Virtus Groane ASD</title>
     <meta name="description" content="Generatore e strumento di stampa A4 tagliandini plastificabili per la Pizzata di Natale Virtus Groane ASD. Ordinati per referente per lo scambio al tavolo.">
-    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 
     <!-- Fonts Ufficiali Virtus Groane -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -294,7 +294,7 @@
             height: 37mm;
             border: 1.5px dashed #4a5568;
             border-radius: 6px;
-            padding: 2mm 2.2mm;
+            padding: 1.6mm 2mm;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -328,7 +328,7 @@
             text-transform: uppercase;
             letter-spacing: 0.03em;
             line-height: 1;
-            padding-bottom: 1mm;
+            padding-bottom: 0.8mm;
             border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
         }
 
@@ -336,42 +336,50 @@
         .coupon-ref-banner {
             background-color: #edf2f7;
             border-radius: 3px;
-            padding: 1.2mm 2mm;
-            margin-top: 1mm;
+            padding: 1mm 1.8mm;
+            margin-top: 0.8mm;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            line-height: 1.1;
+            gap: 1.5mm;
+            line-height: 1.15;
+            min-height: 5.8mm;
         }
 
         .coupon-referente-name {
-            font-size: 7.2pt;
+            font-size: 6.8pt;
             font-weight: 800;
             color: #1b589b;
             text-transform: uppercase;
-            white-space: nowrap;
+            line-height: 1.15;
+            flex: 1;
+            min-width: 0;
+            word-break: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
             overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 72%;
             letter-spacing: -0.01em;
         }
 
         .coupon-booking-code {
             font-family: monospace;
-            font-size: 5.8pt;
+            font-size: 5.4pt;
             font-weight: 700;
             color: #4a5568;
             background: #ffffff;
-            padding: 0.5mm 1.5mm;
+            padding: 0.4mm 1.2mm;
             border-radius: 2px;
             border: 0.5px solid #cbd5e0;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         /* 3. BLOCCO CENTRALE PORTATA / ALIMENTO (BOX A COLORI VIBRANTI) */
         .coupon-food-badge {
             border-radius: 4px;
-            padding: 1.5mm 1.5mm;
-            margin: 1mm 0;
+            padding: 1.2mm 1.5mm;
+            margin: 0.8mm 0;
             display: flex;
             align-items: center;
             gap: 2mm;
@@ -488,18 +496,24 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 5.6pt;
-            line-height: 1;
-            margin-bottom: 0.8mm;
+            font-size: 5.8pt;
+            line-height: 1.15;
+            margin-bottom: 0.6mm;
+            gap: 1.5mm;
+            min-height: 3.8mm;
         }
 
         .coupon-destinatario {
             color: #4a5568;
             font-weight: 600;
-            white-space: nowrap;
+            line-height: 1.15;
+            flex: 1;
+            min-width: 0;
+            word-break: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
             overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 58%;
         }
 
         .coupon-alert-badge {
@@ -507,15 +521,16 @@
             border: 0.5px solid #ef4444;
             color: #991b1b;
             font-weight: 800;
-            font-size: 5.4pt;
-            padding: 0.4mm 1.5mm;
+            font-size: 5.2pt;
+            padding: 0.4mm 1.2mm;
             border-radius: 2px;
             text-transform: uppercase;
             letter-spacing: 0.02em;
             white-space: nowrap;
+            flex-shrink: 0;
+            max-width: 50%;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 100%;
         }
 
         /* 5. PIÈ DI PAGINA TAGLIANDINO */
@@ -783,6 +798,24 @@
 
     <!-- LOGICA JAVASCRIPT: ESTRAZIONE, FILTRAGGIO & RENDERING A4 -->
     <script>
+        // Blocco di sicurezza: accesso consentito esclusivamente allo staff autenticato
+        const DOMINIO_AUTORIZZATO = 'virtusgroane.com';
+        (function() {
+            try {
+                const saved = sessionStorage.getItem('vg_staff_user');
+                if (!saved) {
+                    window.location.replace('area-riservata.html');
+                    return;
+                }
+                const u = JSON.parse(saved);
+                if (!u || !u.email || !u.email.endsWith('@' + DOMINIO_AUTORIZZATO)) {
+                    window.location.replace('area-riservata.html');
+                }
+            } catch(e) {
+                window.location.replace('area-riservata.html');
+            }
+        })();
+
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby90eW3dKucfZW1H8NqLS0cQ_E9CuEz7IHCaCvwq3FuhHEWYAGiISkEam_VpnGYyK7e/exec';
         const CARDS_PER_A4_PAGE = 28; // Griglia 4 colonne x 7 righe
 

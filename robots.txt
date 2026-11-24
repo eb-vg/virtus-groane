@@ -1,15 +1,15 @@
 User-agent: *
 Allow: /
 
-# Risorse e pagine non destinate all'indicizzazione diretta
-Disallow: /404.html
+# Risorse e pagine riservate (escluse dal crawling e dai motori di ricerca)
+Disallow: /404*
 Disallow: /virtus-non-pubblico/
 Disallow: /data/
-Disallow: /area-riservata.html
-Disallow: /ordini-vestiario.html
-Disallow: /cena-di-natale.html
-Disallow: /docs/guida-operativa-staff*
-Disallow: /docs/guida-pizzata-natale*
+Disallow: /area-riservata*
+Disallow: /ordini-vestiario*
+Disallow: /cena-di-natale*
+Disallow: /tagliandini-cena-natale*
+Disallow: /docs/guida-*
 
 # Sitemap ufficiale del sito
 Sitemap: https://www.virtusgroane.com/sitemap.xml
