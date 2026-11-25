@@ -719,10 +719,6 @@
                                 <label for="ref-telefono">Telefono Cellulare *</label>
                                 <input type="tel" id="ref-telefono" required placeholder="Es. 333 1234567">
                             </div>
-                            <div class="form-group">
-                                <label for="ref-data-nascita">Data / Anno di Nascita (opzionale)</label>
-                                <input type="text" id="ref-data-nascita" placeholder="GG/MM/AAAA o Anno">
-                            </div>
                         </div>
 
                         <div class="form-group" style="margin-top: 0.5rem;">
@@ -975,12 +971,13 @@
         const receiptEmailDisplay = document.getElementById('receipt-email-display');
         const btnCopyCausale = document.getElementById('btn-copy-causale');
 
-        // Crea una nuova scheda partecipante
-        function createParticipant(defaultName = '', defaultSettore = 'Masters Atletica e Triathlon') {
+        // Crea una nuova scheda partecipante (Cognome prima, poi Nome)
+        function createParticipant(defaultCognome = '', defaultNome = '', defaultSettore = 'Masters Atletica e Triathlon') {
             const id = 'p_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
             return {
                 id: id,
-                nome: defaultName,
+                cognome: defaultCognome,
+                nome: defaultNome,
                 settore: defaultSettore,
                 pizza: 'Margherita',
                 bevanda: 'Acqua',
@@ -1013,8 +1010,12 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Nome e Cognome Partecipante *</label>
-                            <input type="text" class="p-input-nome" value="${escapeHtml(p.nome)}" required placeholder="Es. Mario Rossi" oninput="updateParticipantField('${p.id}', 'nome', this.value)">
+                            <label>Cognome Partecipante *</label>
+                            <input type="text" class="p-input-cognome" value="${escapeHtml(p.cognome || '')}" required placeholder="Es. Rossi" oninput="updateParticipantField('${p.id}', 'cognome', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Nome Partecipante *</label>
+                            <input type="text" class="p-input-nome" value="${escapeHtml(p.nome || '')}" required placeholder="Es. Mario" oninput="updateParticipantField('${p.id}', 'nome', this.value)">
                         </div>
                         <div class="form-group">
                             <label>Settore / Tavolo Desiderato *</label>
@@ -1157,7 +1158,7 @@
         };
 
         function addParticipant() {
-            participantsList.push(createParticipant('', 'Masters Atletica e Triathlon'));
+            participantsList.push(createParticipant('', '', 'Masters Atletica e Triathlon'));
             renderParticipants();
         }
 
@@ -1221,10 +1222,15 @@
                 return;
             }
 
-            // Verifica che ogni partecipante abbia un nome
+            // Verifica che ogni partecipante abbia sia cognome che nome (inseriti prima cognome, poi nome)
             for (let i = 0; i < participantsList.length; i++) {
-                if (!participantsList[i].nome || !participantsList[i].nome.trim()) {
-                    alert(`Inserisci il Nome e Cognome per il Partecipante #${i + 1}.`);
+                const p = participantsList[i];
+                if (!p.cognome || !p.cognome.trim()) {
+                    alert(`Inserisci il Cognome per il Partecipante #${i + 1}.`);
+                    return;
+                }
+                if (!p.nome || !p.nome.trim()) {
+                    alert(`Inserisci il Nome per il Partecipante #${i + 1}.`);
                     return;
                 }
             }
@@ -1248,10 +1254,11 @@
             `;
 
             participantsList.forEach((p, idx) => {
+                const pNomeCompleto = `${(p.cognome || '').trim()} ${(p.nome || '').trim()}`.trim() || `Partecipante #${idx + 1}`;
                 const extraBirraText = (p.birraExtra && p.birraExtra > 0) ? ` &bull; 🍺 +${p.birraExtra} Birra${p.birraExtra > 1 ? 'e' : ''} Spina (+${p.birraExtra * 4} €)` : '';
                 html += `
                     <li style="margin-bottom: 0.4rem;">
-                        <strong>${escapeHtml(p.nome)}</strong> &bull; Tavolo: <em>${escapeHtml(p.settore)}</em><br>
+                        <strong>${escapeHtml(pNomeCompleto)}</strong> &bull; Tavolo: <em>${escapeHtml(p.settore)}</em><br>
                         <span style="font-size: 0.88rem; color: var(--text-secondary);">
                             🍕 Pizza: ${p.pizza} &bull; 🥤 Bevanda: ${p.bevanda}${extraBirraText} &bull; 🍰 Dolce: ${p.dolce}
                             ${p.intolleranze ? `<br><strong style="color: #f87171;">⚠️ Intolleranze: ${escapeHtml(p.intolleranze)}</strong>` : ''}
@@ -1284,7 +1291,6 @@
             const refNome = document.getElementById('ref-nome').value.trim();
             const refEmail = document.getElementById('ref-email').value.trim();
             const refTel = document.getElementById('ref-telefono').value.trim();
-            const refDataNascita = document.getElementById('ref-data-nascita').value.trim();
             const refNote = document.getElementById('ref-note').value.trim();
             const honeypotVal = document.getElementById('company_website_url') ? document.getElementById('company_website_url').value.trim() : '';
             const elapsedSeconds = Math.round((Date.now() - formStartTime) / 1000);
@@ -1307,7 +1313,6 @@
                     nome: refNome,
                     email: refEmail,
                     telefono: refTel,
-                    dataNascita: refDataNascita,
                     note: refNote ? `[TEST COLLAUDO DIRETTIVO] ${refNote}` : '[TEST COLLAUDO DIRETTIVO]',
                     settore: participantsList[0] ? participantsList[0].settore : 'Masters Atletica e Triathlon'
                 },
@@ -1382,21 +1387,18 @@
             const refCognome = document.getElementById('ref-cognome');
             const refNome = document.getElementById('ref-nome');
             const refEmail = document.getElementById('ref-email');
-            const refDataNascita = document.getElementById('ref-data-nascita');
-            const refSettore = document.getElementById('ref-settore');
             const refNote = document.getElementById('ref-note');
 
             if (tipo === 'singola') {
                 refCognome.value = "Bianchi";
                 refNome.value = "Marco";
                 refEmail.value = "emiliano.bina@virtusgroane.com";
-                refDataNascita.value = "1985-04-12";
-                refSettore.value = "Masters Atletica e Triathlon";
                 refNote.value = "Test persona singola (Adulto con birra extra)";
 
                 participantsList.push({
                     id: 'p_sim_1',
-                    nome: "Marco Bianchi",
+                    cognome: "Bianchi",
+                    nome: "Marco",
                     settore: "Masters Atletica e Triathlon",
                     pizza: "Margherita",
                     bevanda: "Birra",
@@ -1408,13 +1410,12 @@
                 refCognome.value = "Villa";
                 refNome.value = "Roberto";
                 refEmail.value = "emiliano.bina@virtusgroane.com";
-                refDataNascita.value = "1980-11-05";
-                refSettore.value = "Mamme che Sport!";
                 refNote.value = "Test coppia (2 adulti)";
 
                 participantsList.push({
                     id: 'p_sim_1',
-                    nome: "Roberto Villa",
+                    cognome: "Villa",
+                    nome: "Roberto",
                     settore: "Mamme che Sport!",
                     pizza: "Margherita",
                     bevanda: "Birra",
@@ -1424,7 +1425,8 @@
                 });
                 participantsList.push({
                     id: 'p_sim_2',
-                    nome: "Elena Galli",
+                    cognome: "Galli",
+                    nome: "Elena",
                     settore: "Mamme che Sport!",
                     pizza: "Rossa",
                     bevanda: "Acqua",
@@ -1436,13 +1438,12 @@
                 refCognome.value = "Ferrari";
                 refNome.value = "Andrea";
                 refEmail.value = "emiliano.bina@virtusgroane.com";
-                refDataNascita.value = "1979-03-14";
-                refSettore.value = "Atletica giovanile";
                 refNote.value = "Test famiglia da 3 (2 adulti + 1 minorenne: Matteo atleta giovanile)";
 
                 participantsList.push({
                     id: 'p_sim_1',
-                    nome: "Andrea Ferrari",
+                    cognome: "Ferrari",
+                    nome: "Andrea",
                     settore: "Ospiti Virtus",
                     pizza: "Margherita",
                     bevanda: "Birra",
@@ -1452,7 +1453,8 @@
                 });
                 participantsList.push({
                     id: 'p_sim_2',
-                    nome: "Silvia Fontana",
+                    cognome: "Fontana",
+                    nome: "Silvia",
                     settore: "Ospiti Virtus",
                     pizza: "Margherita",
                     bevanda: "Coca-Cola",
@@ -1463,7 +1465,8 @@
                 // Minorenne: NESSUNA BIRRA
                 participantsList.push({
                     id: 'p_sim_3',
-                    nome: "Matteo Ferrari (Minorenne)",
+                    cognome: "Ferrari",
+                    nome: "Matteo (Minorenne)",
                     settore: "Atletica giovanile",
                     pizza: "Rossa",
                     bevanda: "Aranciata",
@@ -1475,13 +1478,12 @@
                 refCognome.value = "Conti";
                 refNome.value = "Stefano";
                 refEmail.value = "emiliano.bina@virtusgroane.com";
-                refDataNascita.value = "1982-09-30";
-                refSettore.value = "Atletica giovanile";
                 refNote.value = "Test famiglia da 4 (2 adulti + 2 minorenni, Sofia senza lattosio)";
 
                 participantsList.push({
                     id: 'p_sim_1',
-                    nome: "Stefano Conti",
+                    cognome: "Conti",
+                    nome: "Stefano",
                     settore: "Masters Atletica e Triathlon",
                     pizza: "Margherita",
                     bevanda: "Birra",
@@ -1491,7 +1493,8 @@
                 });
                 participantsList.push({
                     id: 'p_sim_2',
-                    nome: "Francesca Riva",
+                    cognome: "Riva",
+                    nome: "Francesca",
                     settore: "Mamme che Sport!",
                     pizza: "Margherita",
                     bevanda: "Acqua",
@@ -1502,7 +1505,8 @@
                 // Minorenne 1: NESSUNA BIRRA
                 participantsList.push({
                     id: 'p_sim_3',
-                    nome: "Tommaso Conti (Minorenne)",
+                    cognome: "Conti",
+                    nome: "Tommaso (Minorenne)",
                     settore: "Atletica giovanile",
                     pizza: "Margherita",
                     bevanda: "Coca-Cola",
@@ -1513,7 +1517,8 @@
                 // Minorenne 2: NESSUNA BIRRA
                 participantsList.push({
                     id: 'p_sim_4',
-                    nome: "Sofia Conti (Minorenne)",
+                    cognome: "Conti",
+                    nome: "Sofia (Minorenne)",
                     settore: "Atletica giovanile",
                     pizza: "Rossa",
                     bevanda: "Aranciata",
@@ -1535,7 +1540,7 @@
             if (simParam && ['singola', 'coppia', 'famiglia3', 'famiglia4'].includes(simParam)) {
                 simulaCompilazione(simParam);
             } else {
-                participantsList.push(createParticipant('', 'Masters Atletica e Triathlon'));
+                participantsList.push(createParticipant('', '', 'Masters Atletica e Triathlon'));
                 renderParticipants();
             }
         });

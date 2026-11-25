@@ -828,7 +828,8 @@
                 quota: 19,
                 statoPagamento: "In attesa di pagamento",
                 presente: false,
-                checkinTime: ""
+                checkinTime: "",
+                partecipantiJson: JSON.stringify([{ cognome: "Bianchi", nome: "Marco", settore: "Masters Atletica e Triathlon", pizza: "Margherita", bevanda: "Birra", birraExtra: 1, dolce: "Pandoro" }])
             },
             {
                 rowNumber: 3,
@@ -850,7 +851,8 @@
                 quota: 15,
                 statoPagamento: "In attesa di pagamento",
                 presente: false,
-                checkinTime: ""
+                checkinTime: "",
+                partecipantiJson: JSON.stringify([{ cognome: "Colombo", nome: "Laura", settore: "Running School", pizza: "Margherita", bevanda: "Coca-Cola", birraExtra: 0, dolce: "Panettone", intolleranze: "Celiaca (pizza gluten-free)" }])
             },
             {
                 rowNumber: 4,
@@ -872,7 +874,11 @@
                 quota: 34,
                 statoPagamento: "In attesa di pagamento",
                 presente: false,
-                checkinTime: ""
+                checkinTime: "",
+                partecipantiJson: JSON.stringify([
+                    { cognome: "Villa", nome: "Roberto", settore: "Mamme che Sport!", pizza: "Margherita", bevanda: "Birra", birraExtra: 0, dolce: "Pandoro" },
+                    { cognome: "Galli", nome: "Elena", settore: "Mamme che Sport!", pizza: "Rossa", bevanda: "Acqua", birraExtra: 0, dolce: "Pandoro" }
+                ])
             },
             {
                 rowNumber: 5,
@@ -894,7 +900,12 @@
                 quota: 49,
                 statoPagamento: "In attesa di pagamento",
                 presente: false,
-                checkinTime: ""
+                checkinTime: "",
+                partecipantiJson: JSON.stringify([
+                    { cognome: "Ferrari", nome: "Andrea", settore: "Ospiti Virtus", pizza: "Margherita", bevanda: "Birra", birraExtra: 0, dolce: "Panettone" },
+                    { cognome: "Fontana", nome: "Silvia", settore: "Ospiti Virtus", pizza: "Margherita", bevanda: "Coca-Cola", birraExtra: 0, dolce: "Pandoro" },
+                    { cognome: "Ferrari", nome: "Matteo (Minorenne)", settore: "Atletica giovanile", pizza: "Rossa", bevanda: "Aranciata", birraExtra: 0, dolce: "Pandoro" }
+                ])
             },
             {
                 rowNumber: 6,
@@ -916,7 +927,13 @@
                 quota: 64,
                 statoPagamento: "In attesa di pagamento",
                 presente: false,
-                checkinTime: ""
+                checkinTime: "",
+                partecipantiJson: JSON.stringify([
+                    { cognome: "Conti", nome: "Stefano", settore: "Masters Atletica e Triathlon", pizza: "Margherita", bevanda: "Birra", birraExtra: 1, dolce: "Pandoro" },
+                    { cognome: "Riva", nome: "Francesca", settore: "Mamme che Sport!", pizza: "Margherita", bevanda: "Acqua", birraExtra: 0, dolce: "Panettone" },
+                    { cognome: "Conti", nome: "Tommaso (Minorenne)", settore: "Atletica giovanile", pizza: "Margherita", bevanda: "Coca-Cola", birraExtra: 0, dolce: "Pandoro" },
+                    { cognome: "Conti", nome: "Sofia (Minorenne)", settore: "Atletica giovanile", pizza: "Rossa", bevanda: "Aranciata", birraExtra: 0, dolce: "Pandoro", intolleranze: "Intollerante al lattosio (no formaggio)" }
+                ])
             }
         ];
 
@@ -1132,7 +1149,8 @@
                     (o.cognome && o.cognome.toLowerCase().includes(query)) ||
                     (o.nome && o.nome.toLowerCase().includes(query)) ||
                     (o.settore && o.settore.toLowerCase().includes(query)) ||
-                    (o.note && o.note.toLowerCase().includes(query))
+                    (o.note && o.note.toLowerCase().includes(query)) ||
+                    (o.partecipantiJson && o.partecipantiJson.toLowerCase().includes(query))
                 );
             }
 
@@ -1141,7 +1159,22 @@
                 return;
             }
 
-            tbody.innerHTML = filtered.map(o => `
+            tbody.innerHTML = filtered.map(o => {
+                let partListHtml = '';
+                if (o.partecipantiJson) {
+                    try {
+                        const pList = JSON.parse(o.partecipantiJson);
+                        if (Array.isArray(pList) && pList.length > 0) {
+                            const pNames = pList.map(p => {
+                                const c = (p.cognome || '').trim();
+                                const n = (p.nome || '').trim();
+                                return (c ? (c + ' ' + n) : n) || 'Partecipante';
+                            }).join(', ');
+                            partListHtml = `<div style="font-size: 0.78rem; color: #a0aec0; margin-top: 0.35rem; line-height: 1.35;">👥 <strong>Partecipanti:</strong> ${pNames}</div>`;
+                        }
+                    } catch(e) {}
+                }
+                return `
                 <tr class="${o.presente ? 'row-presente' : ''}" id="row_${o.bookingCode}">
                     <td style="font-family: monospace; font-weight: 700; color: #60a5fa;">
                         ${o.bookingCode}
@@ -1149,6 +1182,7 @@
                     <td>
                         <strong style="color: white; font-size: 1rem;">${o.cognome} ${o.nome}</strong>
                         ${o.email ? `<div style="font-size: 0.78rem; color: var(--text-muted);">${o.email}</div>` : ''}
+                        ${partListHtml}
                     </td>
                     <td><span style="font-size: 0.85rem; color: var(--text-secondary);">${o.settore}</span></td>
                     <td style="text-align: center;"><strong style="font-size: 1.1rem; color: white;">${o.partecipantiCount}</strong></td>
@@ -1181,7 +1215,8 @@
                         `}
                     </td>
                 </tr>
-            `).join('');
+            `;
+            }).join('');
         }
 
         window.setFilter = function(filter, btn) {
@@ -1271,7 +1306,9 @@
 
             const order = allOrders.find(o => 
                 (o.bookingCode && o.bookingCode.toUpperCase().includes(val)) ||
-                (o.cognome && o.cognome.toUpperCase().includes(val))
+                (o.cognome && o.cognome.toUpperCase().includes(val)) ||
+                (o.nome && o.nome.toUpperCase().includes(val)) ||
+                (o.partecipantiJson && o.partecipantiJson.toUpperCase().includes(val))
             );
 
             if (order) {
