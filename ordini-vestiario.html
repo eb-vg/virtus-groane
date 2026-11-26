@@ -604,6 +604,9 @@
                         <a href="docs/guida-operativa-staff.html" target="_blank" rel="opener" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; color: #ffd100; border-color: rgba(255, 209, 0, 0.4);" title="Apri o stampa la guida operativa riservata allo staff">
                             📖 Guida Operativa &nearr;
                         </a>
+                        <a id="btn-open-sheet" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: none; padding: 0.5rem 1rem; font-size: 0.85rem; text-decoration: none; align-items: center; gap: 0.4rem;" title="Apri il foglio Google GestioneAutomatizzata">
+                            📊 Foglio Gestione &nearr;
+                        </a>
                         <button type="button" id="btn-refresh" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;" title="Ricarica i dati dal Foglio Google">
                             🔄 Aggiorna Dati
                         </button>
@@ -1136,6 +1139,11 @@
             localStorage.removeItem('vg_staff_user');
             sessionStorage.removeItem('vg_christmas_orders');
             localStorage.removeItem('vg_christmas_orders');
+            const btnSheet = document.getElementById('btn-open-sheet');
+            if (btnSheet) {
+                btnSheet.style.display = 'none';
+                btnSheet.href = '#';
+            }
             loginContainer.style.display = 'block';
             dashboardContainer.style.display = 'none';
         }
@@ -1184,6 +1192,13 @@
                     }
                     if (result.userName) {
                         userDisplayName.textContent = result.userName;
+                    }
+                    if (result.spreadsheetUrl && String(result.spreadsheetUrl).startsWith('https://docs.google.com/spreadsheets/')) {
+                        const btnSheet = document.getElementById('btn-open-sheet');
+                        if (btnSheet) {
+                            btnSheet.href = result.spreadsheetUrl;
+                            btnSheet.style.display = 'inline-flex';
+                        }
                     }
                     renderDashboard();
                 } else if (result.status === 'UNAUTHORIZED') {
