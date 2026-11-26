@@ -601,7 +601,7 @@
                         <a href="area-riservata.html" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;" title="Torna al menu principale dell'Area Riservata">
                             ⬅️ Menu Riservato
                         </a>
-                        <a href="docs/guida-operativa-staff.html" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; color: #ffd100; border-color: rgba(255, 209, 0, 0.4);" title="Apri o stampa la guida operativa riservata allo staff">
+                        <a href="docs/guida-operativa-staff.html" target="_blank" rel="opener" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; color: #ffd100; border-color: rgba(255, 209, 0, 0.4);" title="Apri o stampa la guida operativa riservata allo staff">
                             📖 Guida Operativa &nearr;
                         </a>
                         <button type="button" id="btn-refresh" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;" title="Ricarica i dati dal Foglio Google">
@@ -1110,7 +1110,9 @@
 
         function loginSuccess(user) {
             currentUser = user;
-            sessionStorage.setItem('vg_staff_user', JSON.stringify(user));
+            const serialized = JSON.stringify(user);
+            sessionStorage.setItem('vg_staff_user', serialized);
+            localStorage.setItem('vg_staff_user', serialized);
 
             userDisplayName.textContent = user.name;
             userDisplayEmail.textContent = user.email;
@@ -1131,6 +1133,7 @@
             pendingActions = {};
             updateStickyBar();
             sessionStorage.removeItem('vg_staff_user');
+            localStorage.removeItem('vg_staff_user');
             sessionStorage.removeItem('vg_christmas_orders');
             localStorage.removeItem('vg_christmas_orders');
             loginContainer.style.display = 'block';
@@ -1160,10 +1163,16 @@
             dataLoadingIndicator.style.display = 'block';
             btnRefresh.disabled = true;
 
-            const url = `${APPS_SCRIPT_URL}?action=GET_DASHBOARD_DATA&userEmail=${encodeURIComponent(currentUser.email)}&idToken=${encodeURIComponent(currentUser.idToken)}&_t=${Date.now()}`;
-
             try {
-                const response = await fetch(url);
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        action: 'GET_DASHBOARD_DATA',
+                        userEmail: currentUser.email,
+                        idToken: currentUser.idToken
+                    })
+                });
                 const result = await response.json();
 
                 if (result.status === 'SUCCESS') {
@@ -1178,15 +1187,15 @@
                     }
                     renderDashboard();
                 } else if (result.status === 'UNAUTHORIZED') {
-                    showToast("Accesso negato: utenza priva di ruoli operativi.", true);
-                    showLoginError(result.message || "Account non autorizzato alle funzionalità di gestione.");
+                    showToast("Sessione scaduta o utenza non autorizzata.", true);
+                    showLoginError(result.message || "Sessione scaduta o account privo di permessi. Effettua nuovamente l'accesso con Google.");
                     logout();
                 } else {
                     showToast(result.message || "Errore durante il caricamento dei dati.", true);
                 }
             } catch (err) {
                 console.error("Errore fetch ordini:", err);
-                showToast("Errore di connessione al server gestionale.", true);
+                showToast("Errore di connessione: verifica che il deployment Apps Script abbia accesso impostato su 'Chiunque'.", true);
             } finally {
                 dataLoadingIndicator.style.display = 'none';
                 btnRefresh.disabled = false;
@@ -2061,7 +2070,7 @@
 
         // Avvio applicazione
         window.addEventListener('load', () => {
-            const saved = sessionStorage.getItem('vg_staff_user');
+            const saved = sessionStorage.getItem('vg_staff_user') || localStorage.getItem('vg_staff_user');
             if (saved) {
                 try {
                     const u = JSON.parse(saved);
@@ -2070,9 +2079,11 @@
                         return;
                     } else {
                         sessionStorage.removeItem('vg_staff_user');
+                        localStorage.removeItem('vg_staff_user');
                     }
                 } catch(e) {
                     sessionStorage.removeItem('vg_staff_user');
+                    localStorage.removeItem('vg_staff_user');
                 }
             }
 

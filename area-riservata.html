@@ -591,7 +591,9 @@
         }
 
         function loginSuccess(user) {
-            sessionStorage.setItem('vg_staff_user', JSON.stringify(user));
+            const serialized = JSON.stringify(user);
+            sessionStorage.setItem('vg_staff_user', serialized);
+            localStorage.setItem('vg_staff_user', serialized);
 
             userDisplayName.textContent = user.name;
             userDisplayEmail.textContent = user.email;
@@ -603,6 +605,7 @@
 
         function logout() {
             sessionStorage.removeItem('vg_staff_user');
+            localStorage.removeItem('vg_staff_user');
             sessionStorage.removeItem('vg_christmas_orders');
             localStorage.removeItem('vg_christmas_orders');
             loginContainer.style.display = 'block';
@@ -611,9 +614,9 @@
 
         btnLogout.addEventListener('click', logout);
 
-        // Controllo sessione esistente all'avvio
+        // Controllo sessione esistente all'avvio (condivisa tra schede fino a scadenza naturale token Google 1h)
         document.addEventListener('DOMContentLoaded', () => {
-            const savedUser = sessionStorage.getItem('vg_staff_user');
+            const savedUser = sessionStorage.getItem('vg_staff_user') || localStorage.getItem('vg_staff_user');
             if (savedUser) {
                 try {
                     const user = JSON.parse(savedUser);
@@ -621,9 +624,11 @@
                         loginSuccess(user);
                     } else {
                         sessionStorage.removeItem('vg_staff_user');
+                        localStorage.removeItem('vg_staff_user');
                     }
                 } catch (e) {
                     sessionStorage.removeItem('vg_staff_user');
+                    localStorage.removeItem('vg_staff_user');
                 }
             }
         });

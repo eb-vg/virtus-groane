@@ -1168,7 +1168,9 @@
                     idToken: response.credential,
                     exp: data.exp || 0
                 };
-                sessionStorage.setItem('vg_staff_user', JSON.stringify(user));
+                const serialized = JSON.stringify(user);
+                sessionStorage.setItem('vg_staff_user', serialized);
+                localStorage.setItem('vg_staff_user', serialized);
                 unlockAndLoadTagliandini(user);
             } else {
                 showGateError(`L'account <strong>${escapeHtml(email)}</strong> non appartiene al dominio @${DOMINIO_AUTORIZZATO}.`);
@@ -1181,6 +1183,7 @@
             allStrips = [];
             filteredStrips = [];
             sessionStorage.removeItem('vg_staff_user');
+            localStorage.removeItem('vg_staff_user');
             sessionStorage.removeItem('vg_christmas_orders');
             localStorage.removeItem('vg_christmas_orders');
             document.getElementById('print-workspace').innerHTML = '';
@@ -1197,18 +1200,21 @@
                 searchQuery = preFilterCode.toLowerCase().trim();
             }
 
-            const savedUser = sessionStorage.getItem('vg_staff_user');
+            const savedUser = sessionStorage.getItem('vg_staff_user') || localStorage.getItem('vg_staff_user');
             if (savedUser) {
                 try {
                     const user = JSON.parse(savedUser);
                     if (isValidStaffSession(user)) {
+                        sessionStorage.setItem('vg_staff_user', JSON.stringify(user));
                         unlockAndLoadTagliandini(user);
                         return;
                     } else {
                         sessionStorage.removeItem('vg_staff_user');
+                        localStorage.removeItem('vg_staff_user');
                     }
                 } catch (e) {
                     sessionStorage.removeItem('vg_staff_user');
+                    localStorage.removeItem('vg_staff_user');
                 }
             }
         });
@@ -1233,10 +1239,18 @@
                 }
             } catch(e) {}
 
-            // Contatta live il Google Apps Script Web App con credenziali staff verificate
+            // Contatta live il Google Apps Script Web App con credenziali staff verificate nel body POST
             if (!loaded) {
                 try {
-                    const res = await fetch(`${APPS_SCRIPT_URL}?action=GET_CHRISTMAS_DASHBOARD&userEmail=${encodeURIComponent(user.email)}&idToken=${encodeURIComponent(user.idToken || '')}&_t=${Date.now()}`, { method: 'GET' });
+                    const res = await fetch(APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify({
+                            action: 'GET_CHRISTMAS_DASHBOARD',
+                            userEmail: user.email,
+                            idToken: user.idToken || ''
+                        })
+                    });
                     if (res.ok) {
                         const data = await res.json();
                         if (data && data.status === 'UNAUTHORIZED') {

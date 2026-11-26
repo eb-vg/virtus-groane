@@ -518,10 +518,10 @@
                         </div>
                     </div>
                     <div style="display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
-                        <a href="tagliandini-cena-natale.html" target="_blank" onclick="salvaOrdiniInSessione()" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; background: var(--color-green); color: black; font-weight: bold;" title="Apri e stampa i tagliandini A4 per tutte le prenotazioni">
+                        <a href="tagliandini-cena-natale.html" target="_blank" rel="opener" onclick="salvaOrdiniInSessione()" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; background: var(--color-green); color: black; font-weight: bold;" title="Apri e stampa i tagliandini A4 per tutte le prenotazioni">
                             🏷️ Stampa Tagliandini A4 &nearr;
                         </a>
-                        <a href="docs/guida-pizzata-natale-2026.html" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; border-color: rgba(255, 209, 0, 0.4); color: #ffd100;" title="Manuale istruzioni operative per la serata della pizzata">
+                        <a href="docs/guida-pizzata-natale-2026.html" target="_blank" rel="opener" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; border-color: rgba(255, 209, 0, 0.4); color: #ffd100;" title="Manuale istruzioni operative per la serata della pizzata">
                             📖 Guida Check-in &nearr;
                         </a>
                         <a id="btn-open-sheet" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: none; padding: 0.5rem 1rem; font-size: 0.85rem; align-items: center; gap: 0.4rem;" title="Apri il foglio Google con le risposte">
@@ -994,7 +994,9 @@
 
         function loginSuccess(user) {
             currentStaffUser = user;
-            sessionStorage.setItem('vg_staff_user', JSON.stringify(user));
+            const serialized = JSON.stringify(user);
+            sessionStorage.setItem('vg_staff_user', serialized);
+            localStorage.setItem('vg_staff_user', serialized);
 
             userDisplayName.textContent = user.name;
             userDisplayEmail.textContent = user.email;
@@ -1010,6 +1012,7 @@
             currentStaffUser = null;
             allOrders = [];
             sessionStorage.removeItem('vg_staff_user');
+            localStorage.removeItem('vg_staff_user');
             sessionStorage.removeItem('vg_christmas_orders');
             localStorage.removeItem('vg_christmas_orders');
             const btnSheet = document.getElementById('btn-open-sheet');
@@ -1031,8 +1034,15 @@
                 return;
             }
             try {
-                const url = `${APPS_SCRIPT_URL}?action=GET_CHRISTMAS_DASHBOARD&userEmail=${encodeURIComponent(currentStaffUser.email)}&idToken=${encodeURIComponent(currentStaffUser.idToken)}&_t=${Date.now()}`;
-                const response = await fetch(url);
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        action: 'GET_CHRISTMAS_DASHBOARD',
+                        userEmail: currentStaffUser.email,
+                        idToken: currentStaffUser.idToken
+                    })
+                });
                 if (response.ok) {
                     const data = await response.json();
                     if (data && data.status === 'UNAUTHORIZED') {
@@ -1276,14 +1286,14 @@
                             <div style="display: flex; flex-direction: column; gap: 0.3rem;">
                                 <span class="badge-status badge-presente">✅ Presente (${o.checkinTime ? o.checkinTime.split(' ')[1] : 'OK'})</span>
                                 <button type="button" class="btn-checkin-cancel" onclick="toggleCheckin('${o.bookingCode}', false)">Annulla</button>
-                                <a href="tagliandini-cena-natale.html?code=${o.bookingCode}" target="_blank" onclick="salvaOrdiniInSessione()" style="font-size: 0.76rem; color: #60a5fa; text-decoration: underline; margin-top: 0.2rem;">🏷️ Tagliandini Referente</a>
+                                <a href="tagliandini-cena-natale.html?code=${o.bookingCode}" target="_blank" rel="opener" onclick="salvaOrdiniInSessione()" style="font-size: 0.76rem; color: #60a5fa; text-decoration: underline; margin-top: 0.2rem;">🏷️ Tagliandini Referente</a>
                             </div>
                         ` : `
                             <div style="display: flex; flex-direction: column; gap: 0.3rem;">
                                 <button type="button" class="btn-checkin" onclick="toggleCheckin('${o.bookingCode}', true)">
                                     <span>✓</span> Convalida Arrivo
                                 </button>
-                                <a href="tagliandini-cena-natale.html?code=${o.bookingCode}" target="_blank" onclick="salvaOrdiniInSessione()" style="font-size: 0.76rem; color: #60a5fa; text-decoration: underline; text-align: center;">🏷️ Tagliandini Referente</a>
+                                <a href="tagliandini-cena-natale.html?code=${o.bookingCode}" target="_blank" rel="opener" onclick="salvaOrdiniInSessione()" style="font-size: 0.76rem; color: #60a5fa; text-decoration: underline; text-align: center;">🏷️ Tagliandini Referente</a>
                             </div>
                         `}
                     </td>
@@ -1316,10 +1326,19 @@
                 showToast(`🎉 Check-in confermato: ${target.cognome} ${target.nome} (${target.partecipantiCount} persone)!`);
             }
 
-            // Invio aggiornamento al foglio Google Apps Script
+            // Invio aggiornamento al foglio Google Apps Script via POST cifrato
             try {
-                const url = `${APPS_SCRIPT_URL}?action=CHECKIN_CHRISTMAS_ATTENDEE&userEmail=${encodeURIComponent(currentStaffUser.email)}&idToken=${encodeURIComponent(currentStaffUser.idToken || '')}&code=${encodeURIComponent(bookingCode)}&presente=${isPresent}`;
-                await fetch(url);
+                await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        action: 'CHECKIN_CHRISTMAS_ATTENDEE',
+                        userEmail: currentStaffUser.email,
+                        idToken: currentStaffUser.idToken || '',
+                        code: bookingCode,
+                        presente: isPresent
+                    })
+                });
             } catch (err) {
                 console.warn("Sincronizzazione server check-in in background:", err);
             }
@@ -1470,7 +1489,7 @@
         // Inizializzazione automatica se già autenticato con token valido
         document.addEventListener('DOMContentLoaded', () => {
             localStorage.removeItem('vg_christmas_orders');
-            const savedUser = sessionStorage.getItem('vg_staff_user');
+            const savedUser = sessionStorage.getItem('vg_staff_user') || localStorage.getItem('vg_staff_user');
             if (savedUser) {
                 try {
                     const user = JSON.parse(savedUser);
@@ -1478,9 +1497,11 @@
                         loginSuccess(user);
                     } else {
                         sessionStorage.removeItem('vg_staff_user');
+                        localStorage.removeItem('vg_staff_user');
                     }
                 } catch (e) {
                     sessionStorage.removeItem('vg_staff_user');
+                    localStorage.removeItem('vg_staff_user');
                 }
             }
         });

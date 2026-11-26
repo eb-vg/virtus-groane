@@ -356,6 +356,9 @@
             text-align: center;
             box-shadow: 0 12px 36px rgba(0,0,0,0.5);
         }
+        .staff-auth-box strong {
+            color: #ffffff;
+        }
         .staff-doc-toolbar {
             background: #0c0f12;
             color: #ffffff;
@@ -1052,7 +1055,9 @@
             const em = p.email.toLowerCase().trim();
             if (em.endsWith('@' + DOMINIO_AUTORIZZATO)) {
                 const u = { email: em, name: p.name || em, picture: p.picture || '', idToken: res.credential, exp: p.exp || 0 };
-                sessionStorage.setItem('vg_staff_user', JSON.stringify(u));
+                const serialized = JSON.stringify(u);
+                sessionStorage.setItem('vg_staff_user', serialized);
+                localStorage.setItem('vg_staff_user', serialized);
                 unlockDoc(u);
             } else {
                 err.textContent = 'Accesso consentito esclusivamente ad account @' + DOMINIO_AUTORIZZATO + '.';
@@ -1061,13 +1066,21 @@
         };
         document.addEventListener('DOMContentLoaded', () => {
             try {
-                const s = sessionStorage.getItem('vg_staff_user');
+                const s = sessionStorage.getItem('vg_staff_user') || localStorage.getItem('vg_staff_user');
                 if (s) {
                     const u = JSON.parse(s);
-                    if (isValidStaffSession(u)) unlockDoc(u);
-                    else sessionStorage.removeItem('vg_staff_user');
+                    if (isValidStaffSession(u)) {
+                        sessionStorage.setItem('vg_staff_user', JSON.stringify(u));
+                        unlockDoc(u);
+                    } else {
+                        sessionStorage.removeItem('vg_staff_user');
+                        localStorage.removeItem('vg_staff_user');
+                    }
                 }
-            } catch (e) { sessionStorage.removeItem('vg_staff_user'); }
+            } catch (e) {
+                sessionStorage.removeItem('vg_staff_user');
+                localStorage.removeItem('vg_staff_user');
+            }
         });
     </script>
 </body>
