@@ -1130,6 +1130,16 @@
             } catch(e) {}
         };
 
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
         // Rendering e filtraggio tabella
         function filterTable() {
             const tbody = document.getElementById('orders-tbody');
@@ -1165,12 +1175,33 @@
                     try {
                         const pList = JSON.parse(o.partecipantiJson);
                         if (Array.isArray(pList) && pList.length > 0) {
-                            const pNames = pList.map(p => {
+                            const pRows = pList.map((p, pIdx) => {
                                 const c = (p.cognome || '').trim();
                                 const n = (p.nome || '').trim();
-                                return (c ? (c + ' ' + n) : n) || 'Partecipante';
-                            }).join(', ');
-                            partListHtml = `<div style="font-size: 0.78rem; color: #a0aec0; margin-top: 0.35rem; line-height: 1.35;">👥 <strong>Partecipanti:</strong> ${pNames}</div>`;
+                                const fullName = (c ? (c + ' ' + n) : n) || ('Partecipante ' + (pIdx + 1));
+                                const pizza = p.pizza || 'Margherita';
+                                const isRossa = pizza.toLowerCase().includes('rossa');
+                                const bev = p.bevanda || 'Acqua';
+                                const isBirra = bev.toLowerCase().includes('birra');
+                                const extra = (p.birraExtra && p.birraExtra > 0) ? ` (+${p.birraExtra}🍺)` : '';
+                                const dolce = p.dolce || 'Pandoro';
+                                const isPane = dolce.toLowerCase().includes('panettone');
+                                const alert = p.intolleranze ? ` <span style="color: #f87171; font-weight: 700;">[⚠️ ${escapeHtml(p.intolleranze)}]</span>` : '';
+                                return `
+                                    <div style="margin-top: 0.2rem; font-size: 0.76rem; color: #cbd5e1; line-height: 1.35;">
+                                        &bull; <strong>${escapeHtml(fullName)}</strong>: 
+                                        ${isRossa ? '🔴 Rossa' : '🌼 Marg.'} &bull; 
+                                        ${isBirra ? '🍺 Birra' : ('🥤 ' + escapeHtml(bev))}${extra} &bull; 
+                                        ${isPane ? '🍞 Panett.' : '⭐ Pand.'}${alert}
+                                    </div>
+                                `;
+                            }).join('');
+                            partListHtml = `
+                                <div style="margin-top: 0.45rem; background: rgba(0,0,0,0.35); padding: 0.4rem 0.6rem; border-radius: 5px; border-left: 2.5px solid var(--color-green);">
+                                    <div style="font-size: 0.72rem; color: #a0aec0; text-transform: uppercase; font-weight: 700; letter-spacing: 0.03em;">👥 Dettaglio Singoli Partecipanti:</div>
+                                    ${pRows}
+                                </div>
+                            `;
                         }
                     } catch(e) {}
                 }
