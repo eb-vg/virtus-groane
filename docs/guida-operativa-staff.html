@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guida Operativa Staff - Virtus Groane ASD</title>
     <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -327,9 +328,105 @@
             font-size: 7.5pt;
             color: var(--vg-text-muted);
         }
+
+        /* PROTEZIONE ACCESSO RISERVATO STAFF */
+        body:not(.staff-authenticated) .doc-page,
+        body:not(.staff-authenticated) .staff-doc-toolbar {
+            display: none !important;
+        }
+        body.staff-authenticated #staff-auth-gate {
+            display: none !important;
+        }
+        #staff-auth-gate {
+            min-height: 100vh;
+            background: #0c0f12;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .staff-auth-box {
+            background: #141922;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 32px 28px;
+            max-width: 460px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+        }
+        .staff-doc-toolbar {
+            background: #0c0f12;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-bottom: 3px solid #24b267;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        @media screen {
+            body.staff-authenticated {
+                background: #cbd5e1;
+            }
+            body.staff-authenticated .doc-page {
+                background: #ffffff;
+                max-width: 210mm;
+                margin: 14px auto;
+                padding: 10mm 12mm;
+                box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+                border-radius: 4px;
+            }
+        }
+        @media print {
+            body:not(.staff-authenticated) * {
+                display: none !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
+
+    <!-- GATE DI AUTENTICAZIONE OBBLIGATORIA STAFF -->
+    <div id="staff-auth-gate" class="no-print">
+        <div class="staff-auth-box">
+            <div style="display:inline-block; background:rgba(36,178,103,0.15); border:1px solid #24b267; color:#2ecc71; padding:4px 12px; border-radius:20px; font-size:9pt; font-weight:700; margin-bottom:14px;">
+                🔒 Documento Interno Riservato
+            </div>
+            <h1 style="color:#ffffff; font-size:18pt; margin:0 0 8px 0;">Accesso Riservato Staff</h1>
+            <p style="color:#a0aec0; font-size:9.5pt; line-height:1.5; margin:0 0 20px 0;">
+                Questa guida operativa è riservata ai collaboratori autorizzati con account istituzionale <strong>@virtusgroane.com</strong>.
+            </p>
+            <div id="gate-err" style="display:none; background:rgba(239,68,68,0.15); border:1px solid #ef4444; color:#fca5a5; padding:10px; border-radius:8px; margin-bottom:14px; font-size:8.8pt; text-align:left;"></div>
+            <div style="display:flex; justify-content:center; min-height:44px; margin-bottom:14px;">
+                <div id="g_id_onload"
+                     data-client_id="430736319015-ogb4t5t2tkn4r5nn3mgnn7pelbqmgiea.apps.googleusercontent.com"
+                     data-context="signin"
+                     data-ux_mode="popup"
+                     data-callback="handleStaffDocAuth"
+                     data-auto_prompt="false"></div>
+                <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline" data-text="signin_with" data-size="large"></div>
+            </div>
+            <a href="../area-riservata.html" style="color:#94a3b8; font-size:8.8pt; text-decoration:underline;">⬅️ Torna all'Area Riservata</a>
+        </div>
+    </div>
+
+    <!-- BARRA COMANDI STAMPA / PDF (NON STAMPATA) -->
+    <div class="staff-doc-toolbar no-print">
+        <div style="font-size:9.5pt;">
+            <strong style="color:#2ecc71;">🔒 Guida Operativa Staff</strong> &bull; <span id="doc-staff-email" style="color:#cbd5e1;">@virtusgroane.com</span>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+            <a href="../ordini-vestiario.html" style="background:#1b2230; color:#fff; text-decoration:none; padding:6px 12px; border-radius:6px; font-size:8.8pt; border:1px solid #334155;">⬅️ Gestione Vestiario</a>
+            <button type="button" onclick="window.print()" style="background:#24b267; color:#000; font-weight:700; border:none; padding:6px 14px; border-radius:6px; font-size:9pt; cursor:pointer;">🖨️ Stampa / Salva PDF</button>
+        </div>
+    </div>
 
     <!-- ============================================================== -->
     <!-- PAGINA 1: COPERTINA, PANORAMICA & DIAGRAMMA GENERALE           -->
@@ -919,5 +1016,59 @@
         </div>
     </div>
 
+    <script>
+        if (window.location.hostname === 'virtusgroane.com') {
+            window.location.replace('https://www.virtusgroane.com' + window.location.pathname + window.location.search);
+        }
+        const DOMINIO_AUTORIZZATO = 'virtusgroane.com';
+        function parseJwt(token) {
+            try {
+                const b = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+                return JSON.parse(decodeURIComponent(atob(b).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
+            } catch (e) { return null; }
+        }
+        function isValidStaffSession(u) {
+            if (!u || !u.email || !u.idToken) return false;
+            const em = u.email.toLowerCase().trim();
+            if (!em.endsWith('@' + DOMINIO_AUTORIZZATO)) return false;
+            const p = parseJwt(u.idToken);
+            if (!p || p.email.toLowerCase().trim() !== em || p.email_verified === false) return false;
+            if (p.exp && (p.exp * 1000) < Date.now()) return false;
+            return true;
+        }
+        function unlockDoc(user) {
+            document.getElementById('doc-staff-email').textContent = user.email;
+            document.body.classList.add('staff-authenticated');
+        }
+        window.handleStaffDocAuth = function(res) {
+            const p = parseJwt(res.credential);
+            const err = document.getElementById('gate-err');
+            err.style.display = 'none';
+            if (!p || !p.email || p.email_verified === false) {
+                err.textContent = 'Impossibile verificare le credenziali Google.';
+                err.style.display = 'block';
+                return;
+            }
+            const em = p.email.toLowerCase().trim();
+            if (em.endsWith('@' + DOMINIO_AUTORIZZATO)) {
+                const u = { email: em, name: p.name || em, picture: p.picture || '', idToken: res.credential, exp: p.exp || 0 };
+                sessionStorage.setItem('vg_staff_user', JSON.stringify(u));
+                unlockDoc(u);
+            } else {
+                err.textContent = 'Accesso consentito esclusivamente ad account @' + DOMINIO_AUTORIZZATO + '.';
+                err.style.display = 'block';
+            }
+        };
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const s = sessionStorage.getItem('vg_staff_user');
+                if (s) {
+                    const u = JSON.parse(s);
+                    if (isValidStaffSession(u)) unlockDoc(u);
+                    else sessionStorage.removeItem('vg_staff_user');
+                }
+            } catch (e) { sessionStorage.removeItem('vg_staff_user'); }
+        });
+    </script>
 </body>
 </html>

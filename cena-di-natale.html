@@ -521,10 +521,10 @@
                         <a href="tagliandini-cena-natale.html" target="_blank" onclick="salvaOrdiniInSessione()" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; background: var(--color-green); color: black; font-weight: bold;" title="Apri e stampa i tagliandini A4 per tutte le prenotazioni">
                             🏷️ Stampa Tagliandini A4 &nearr;
                         </a>
-                        <a href="docs/guida-pizzata-natale-2026.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; border-color: rgba(255, 209, 0, 0.4); color: #ffd100;" title="Manuale istruzioni operative per la serata della pizzata">
-                            📖 Guida Check-in (PDF) &nearr;
+                        <a href="docs/guida-pizzata-natale-2026.html" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; border-color: rgba(255, 209, 0, 0.4); color: #ffd100;" title="Manuale istruzioni operative per la serata della pizzata">
+                            📖 Guida Check-in &nearr;
                         </a>
-                        <a href="https://docs.google.com/spreadsheets/d/1Ujp8wzckT8iql7nsGLjbCH8s-fTEK95ATOSorLIwliQ/edit" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem;" title="Apri il foglio Google con le risposte">
+                        <a id="btn-open-sheet" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: none; padding: 0.5rem 1rem; font-size: 0.85rem; align-items: center; gap: 0.4rem;" title="Apri il foglio Google con le risposte">
                             📊 Foglio Risposte &nearr;
                         </a>
                         <a href="area-riservata.html" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem;">
@@ -782,6 +782,10 @@
 
     <!-- LOGICA DASHBOARD & QR SCANNER -->
     <script>
+        if (window.location.hostname === 'virtusgroane.com') {
+            window.location.replace('https://www.virtusgroane.com' + window.location.pathname + window.location.search);
+        }
+
         const DOMINIO_AUTORIZZATO = 'virtusgroane.com';
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby90eW3dKucfZW1H8NqLS0cQ_E9CuEz7IHCaCvwq3FuhHEWYAGiISkEam_VpnGYyK7e/exec';
 
@@ -950,10 +954,22 @@
             }
         }
 
+        function isValidStaffSession(user) {
+            if (!user || !user.email || !user.idToken) return false;
+            const email = user.email.toLowerCase().trim();
+            if (!email.endsWith('@' + DOMINIO_AUTORIZZATO)) return false;
+            const payload = parseJwt(user.idToken);
+            if (!payload || payload.email.toLowerCase().trim() !== email) return false;
+            if (payload.email_verified === false || payload.email_verified === 'false') return false;
+            if (payload.exp && (payload.exp * 1000) < Date.now()) return false;
+            return true;
+        }
+
         window.handleCredentialResponse = function(response) {
+            loginErrorAlert.style.display = 'none';
             const data = parseJwt(response.credential);
-            if (!data || !data.email) {
-                showLoginError("Impossibile leggere le credenziali fornite da Google.");
+            if (!data || !data.email || data.email_verified === false) {
+                showLoginError("Impossibile verificare le credenziali fornite da Google.");
                 return;
             }
 
@@ -962,10 +978,12 @@
                 loginSuccess({
                     email: email,
                     name: data.name || email,
-                    picture: data.picture || ''
+                    picture: data.picture || '',
+                    idToken: response.credential,
+                    exp: data.exp || 0
                 });
             } else {
-                showLoginError(`L'account <strong>${email}</strong> non appartiene al dominio societario (@${DOMINIO_AUTORIZZATO}).`);
+                showLoginError(`L'account <strong>${escapeHtml(email)}</strong> non appartiene al dominio societario (@${DOMINIO_AUTORIZZATO}).`);
             }
         };
 
@@ -989,8 +1007,16 @@
         }
 
         function logout() {
+            currentStaffUser = null;
+            allOrders = [];
             sessionStorage.removeItem('vg_staff_user');
+            sessionStorage.removeItem('vg_christmas_orders');
             localStorage.removeItem('vg_christmas_orders');
+            const btnSheet = document.getElementById('btn-open-sheet');
+            if (btnSheet) {
+                btnSheet.style.display = 'none';
+                btnSheet.href = '#';
+            }
             if (isScannerRunning) stopScanner();
             loginContainer.style.display = 'block';
             dashboardContainer.style.display = 'none';
@@ -998,26 +1024,43 @@
 
         btnLogout.addEventListener('click', logout);
 
-        // Caricamento dati da Google Apps Script
+        // Caricamento dati da Google Apps Script (solo per sessione autenticata)
         async function loadDashboardData() {
+            if (!currentStaffUser || !currentStaffUser.email || !currentStaffUser.idToken) {
+                logout();
+                return;
+            }
             try {
-                const url = `${APPS_SCRIPT_URL}?action=GET_CHRISTMAS_DASHBOARD&userEmail=${encodeURIComponent(currentStaffUser.email)}`;
+                const url = `${APPS_SCRIPT_URL}?action=GET_CHRISTMAS_DASHBOARD&userEmail=${encodeURIComponent(currentStaffUser.email)}&idToken=${encodeURIComponent(currentStaffUser.idToken)}&_t=${Date.now()}`;
                 const response = await fetch(url);
                 if (response.ok) {
                     const data = await response.json();
+                    if (data && data.status === 'UNAUTHORIZED') {
+                        showLoginError(data.message || "Sessione non autorizzata o scaduta. Effettua nuovamente l'accesso.");
+                        logout();
+                        return;
+                    }
                     if (data && data.status === 'SUCCESS' && Array.isArray(data.orders)) {
                         allOrders = data.orders;
-                        localStorage.setItem('vg_christmas_orders', JSON.stringify(allOrders));
+                        sessionStorage.setItem('vg_christmas_orders', JSON.stringify(allOrders));
+                        localStorage.removeItem('vg_christmas_orders');
+                        if (data.spreadsheetUrl) {
+                            const btnSheet = document.getElementById('btn-open-sheet');
+                            if (btnSheet) {
+                                btnSheet.href = data.spreadsheetUrl;
+                                btnSheet.style.display = 'inline-flex';
+                            }
+                        }
                         renderDashboard(data.kpi, allOrders, data.allergies || []);
                         return;
                     }
                 }
             } catch (err) {
-                console.warn("Chiamata Web App fallita, uso dati memorizzati/locali:", err);
+                console.warn("Chiamata Web App fallita, uso dati di sessione/collaudo:", err);
             }
 
-            // Fallback con dati iniziali
-            allOrders = JSON.parse(localStorage.getItem('vg_christmas_orders')) || INITIAL_MOCK_ORDERS;
+            // Fallback con dati di sessione (mai localStorage persistente)
+            allOrders = JSON.parse(sessionStorage.getItem('vg_christmas_orders')) || INITIAL_MOCK_ORDERS;
             recalculateAndRender();
         }
 
@@ -1125,7 +1168,6 @@
             try {
                 if (allOrders && allOrders.length > 0) {
                     sessionStorage.setItem('vg_christmas_orders', JSON.stringify(allOrders));
-                    localStorage.setItem('vg_christmas_orders', JSON.stringify(allOrders));
                 }
             } catch(e) {}
         };
@@ -1265,8 +1307,8 @@
             target.presente = isPresent;
             target.checkinTime = isPresent ? new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }) : '';
 
-            // Salva stato locale
-            localStorage.setItem('vg_christmas_orders', JSON.stringify(allOrders));
+            // Salva stato in sessione (mai in localStorage persistente)
+            sessionStorage.setItem('vg_christmas_orders', JSON.stringify(allOrders));
             recalculateAndRender();
 
             if (isPresent) {
@@ -1276,7 +1318,7 @@
 
             // Invio aggiornamento al foglio Google Apps Script
             try {
-                const url = `${APPS_SCRIPT_URL}?action=CHECKIN_CHRISTMAS_ATTENDEE&userEmail=${encodeURIComponent(currentStaffUser.email)}&code=${encodeURIComponent(bookingCode)}&presente=${isPresent}`;
+                const url = `${APPS_SCRIPT_URL}?action=CHECKIN_CHRISTMAS_ATTENDEE&userEmail=${encodeURIComponent(currentStaffUser.email)}&idToken=${encodeURIComponent(currentStaffUser.idToken || '')}&code=${encodeURIComponent(bookingCode)}&presente=${isPresent}`;
                 await fetch(url);
             } catch (err) {
                 console.warn("Sincronizzazione server check-in in background:", err);
@@ -1325,7 +1367,7 @@
             };
 
             allOrders.unshift(testOrder);
-            localStorage.setItem('vg_christmas_orders', JSON.stringify(allOrders));
+            sessionStorage.setItem('vg_christmas_orders', JSON.stringify(allOrders));
             recalculateAndRender();
             showToast(`🎉 [TEST COLLAUDO] Check-in convalidato per ${code}!`);
         }
@@ -1425,14 +1467,17 @@
             }
         }
 
-        // Inizializzazione automatica se già autenticato
+        // Inizializzazione automatica se già autenticato con token valido
         document.addEventListener('DOMContentLoaded', () => {
+            localStorage.removeItem('vg_christmas_orders');
             const savedUser = sessionStorage.getItem('vg_staff_user');
             if (savedUser) {
                 try {
                     const user = JSON.parse(savedUser);
-                    if (user && user.email && user.email.endsWith('@' + DOMINIO_AUTORIZZATO)) {
+                    if (isValidStaffSession(user)) {
                         loginSuccess(user);
+                    } else {
+                        sessionStorage.removeItem('vg_staff_user');
                     }
                 } catch (e) {
                     sessionStorage.removeItem('vg_staff_user');

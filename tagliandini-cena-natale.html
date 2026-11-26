@@ -7,6 +7,9 @@
     <meta name="description" content="Generatore e strumento di stampa A4 delle strisce e tagliandini plastificabili per la Pizzata di Natale Virtus Groane ASD. Struttura a striscia per persona con quanto ordinato.">
     <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 
+    <!-- Google Identity Services (GIS) per Autenticazione Obbligatoria Staff -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
     <!-- Fonts Ufficiali Virtus Groane -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -674,8 +677,43 @@
             transform: scale(1.05);
         }
 
+        /* BLOCCO DI SICUREZZA PRE-LOGIN: Nasconde tutto (anche in stampa) se non autenticato */
+        body:not(.staff-authenticated) .controls-toolbar,
+        body:not(.staff-authenticated) #print-workspace,
+        body:not(.staff-authenticated) .floating-print-btn {
+            display: none !important;
+        }
+
+        body.staff-authenticated #staff-login-gate {
+            display: none !important;
+        }
+
+        #staff-login-gate {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            background-color: #0c0f12;
+        }
+
+        .staff-auth-card {
+            background-color: #141922;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+        }
+
         /* REGOLE DI STAMPA (@MEDIA PRINT) */
         @media print {
+            body:not(.staff-authenticated) * {
+                display: none !important;
+            }
+
             body {
                 background: white !important;
                 color: black !important;
@@ -750,6 +788,40 @@
 </head>
 <body>
 
+    <!-- GATE DI AUTENTICAZIONE OBBLIGATORIA STAFF (@virtusgroane.com) -->
+    <div id="staff-login-gate" class="no-print">
+        <div class="staff-auth-card">
+            <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(36, 178, 103, 0.15); border: 1px solid #24b267; color: #2ecc71; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.82rem; font-weight: 700; margin-bottom: 1.2rem;">
+                🔒 Portale Interno Virtus Groane
+            </div>
+            <h1 style="font-family: var(--font-title); font-size: 1.85rem; text-transform: uppercase; color: white; margin: 0 0 0.7rem 0;">
+                Accesso Riservato Staff
+            </h1>
+            <p style="font-size: 0.94rem; color: #a0aec0; line-height: 1.5; margin: 0 0 1.8rem 0;">
+                La generazione e la stampa dei tagliandini nominali sono riservate agli account istituzionali <strong>@virtusgroane.com</strong>.
+            </p>
+            <div id="gate-error-alert" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #fca5a5; padding: 0.9rem; border-radius: 8px; margin-bottom: 1.4rem; text-align: left; font-size: 0.88rem;"></div>
+            <div style="display: flex; justify-content: center; margin-bottom: 1.4rem; min-height: 44px;">
+                <div id="g_id_onload"
+                     data-client_id="430736319015-ogb4t5t2tkn4r5nn3mgnn7pelbqmgiea.apps.googleusercontent.com"
+                     data-context="signin"
+                     data-ux_mode="popup"
+                     data-callback="handleCredentialResponse"
+                     data-auto_prompt="false">
+                </div>
+                <div id="g_id_signin_button" class="g_id_signin"
+                     data-type="standard"
+                     data-shape="rectangular"
+                     data-theme="outline"
+                     data-text="signin_with"
+                     data-size="large"
+                     data-logo_alignment="left">
+                </div>
+            </div>
+            <a href="area-riservata.html" style="color: #a0aec0; font-size: 0.85rem; text-decoration: underline;">⬅️ Torna all'Area Riservata</a>
+        </div>
+    </div>
+
     <!-- BARRA CONTROLLI SUPERIORE (NON STAMPATA) -->
     <div class="controls-toolbar no-print">
         <div class="controls-inner">
@@ -766,12 +838,15 @@
                     <button type="button" class="btn btn-secondary" onclick="openInstructionsModal()" style="padding: 0.6rem 1rem; font-size: 0.85rem;">
                         📖 Istruzioni Stampa
                     </button>
-                    <a href="https://docs.google.com/spreadsheets/d/1Ujp8wzckT8iql7nsGLjbCH8s-fTEK95ATOSorLIwliQ/edit" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 0.6rem 1rem; font-size: 0.85rem;">
+                    <a id="btn-open-sheet" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: none; padding: 0.6rem 1rem; font-size: 0.85rem;">
                         📊 Foglio Google &nearr;
                     </a>
                     <a href="cena-di-natale.html" class="btn btn-secondary" style="padding: 0.6rem 1rem; font-size: 0.85rem;">
                         ⬅️ Dashboard Check-in
                     </a>
+                    <button type="button" class="btn btn-secondary" onclick="staffLogout()" style="padding: 0.6rem 1rem; font-size: 0.85rem;">
+                        Esci
+                    </button>
                     <button type="button" class="btn-print-main" onclick="window.print()">
                         🖨️ Stampa Fogli A4
                     </button>
@@ -929,12 +1004,18 @@
         </div>
     </div>
 
-    <!-- LOGICA JAVASCRIPT: ESTRAZIONE, FILTRAGGIO & RENDERING A4 -->
+    <!-- LOGICA JAVASCRIPT: AUTENTICAZIONE, ESTRAZIONE, FILTRAGGIO & RENDERING A4 -->
     <script>
+        if (window.location.hostname === 'virtusgroane.com') {
+            window.location.replace('https://www.virtusgroane.com' + window.location.pathname + window.location.search);
+        }
+
+        const DOMINIO_AUTORIZZATO = 'virtusgroane.com';
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby90eW3dKucfZW1H8NqLS0cQ_E9CuEz7IHCaCvwq3FuhHEWYAGiISkEam_VpnGYyK7e/exec';
         const STRIPS_PER_A4_PAGE = 12; // 12 strisce orizzontali per foglio A4 (altezza 21.2mm)
         const CARDS_PER_A4_PAGE = 28;  // 4 colonne x 7 righe per le vecchie tessere singole
 
+        let currentStaffUser = null;
         let rawOrders = [];
         let allStrips = [];
         let filteredStrips = [];
@@ -1043,8 +1124,72 @@
             }
         ];
 
-        // 1. Inizializzazione dati
-        document.addEventListener('DOMContentLoaded', async () => {
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+                return JSON.parse(jsonPayload);
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function isValidStaffSession(user) {
+            if (!user || !user.email || !user.idToken) return false;
+            const email = user.email.toLowerCase().trim();
+            if (!email.endsWith('@' + DOMINIO_AUTORIZZATO)) return false;
+            const payload = parseJwt(user.idToken);
+            if (!payload || payload.email.toLowerCase().trim() !== email) return false;
+            if (payload.email_verified === false || payload.email_verified === 'false') return false;
+            if (payload.exp && (payload.exp * 1000) < Date.now()) return false;
+            return true;
+        }
+
+        function showGateError(msg) {
+            const box = document.getElementById('gate-error-alert');
+            box.innerHTML = '<strong>❌ Accesso Negato:</strong> ' + msg;
+            box.style.display = 'block';
+        }
+
+        window.handleCredentialResponse = function(response) {
+            document.getElementById('gate-error-alert').style.display = 'none';
+            const data = parseJwt(response.credential);
+            if (!data || !data.email || data.email_verified === false) {
+                showGateError("Impossibile verificare le credenziali Google.");
+                return;
+            }
+            const email = data.email.toLowerCase().trim();
+            if (email.endsWith('@' + DOMINIO_AUTORIZZATO)) {
+                const user = {
+                    email: email,
+                    name: data.name || email,
+                    picture: data.picture || '',
+                    idToken: response.credential,
+                    exp: data.exp || 0
+                };
+                sessionStorage.setItem('vg_staff_user', JSON.stringify(user));
+                unlockAndLoadTagliandini(user);
+            } else {
+                showGateError(`L'account <strong>${escapeHtml(email)}</strong> non appartiene al dominio @${DOMINIO_AUTORIZZATO}.`);
+            }
+        };
+
+        window.staffLogout = function() {
+            currentStaffUser = null;
+            rawOrders = [];
+            allStrips = [];
+            filteredStrips = [];
+            sessionStorage.removeItem('vg_staff_user');
+            sessionStorage.removeItem('vg_christmas_orders');
+            localStorage.removeItem('vg_christmas_orders');
+            document.getElementById('print-workspace').innerHTML = '';
+            document.body.classList.remove('staff-authenticated');
+        };
+
+        // 1. Verifica autenticazione all'avvio prima di caricare qualsiasi dato
+        document.addEventListener('DOMContentLoaded', () => {
+            localStorage.removeItem('vg_christmas_orders');
             const urlParams = new URLSearchParams(window.location.search);
             const preFilterCode = urlParams.get('code') || urlParams.get('bookingCode') || '';
             if (preFilterCode) {
@@ -1052,11 +1197,31 @@
                 searchQuery = preFilterCode.toLowerCase().trim();
             }
 
+            const savedUser = sessionStorage.getItem('vg_staff_user');
+            if (savedUser) {
+                try {
+                    const user = JSON.parse(savedUser);
+                    if (isValidStaffSession(user)) {
+                        unlockAndLoadTagliandini(user);
+                        return;
+                    } else {
+                        sessionStorage.removeItem('vg_staff_user');
+                    }
+                } catch (e) {
+                    sessionStorage.removeItem('vg_staff_user');
+                }
+            }
+        });
+
+        async function unlockAndLoadTagliandini(user) {
+            currentStaffUser = user;
+            document.body.classList.add('staff-authenticated');
+
             let loaded = false;
 
-            // Prova caricamento da sessione
+            // Prova caricamento da sessionStorage autenticato
             try {
-                const sessionData = sessionStorage.getItem('vg_christmas_orders') || localStorage.getItem('vg_christmas_orders');
+                const sessionData = sessionStorage.getItem('vg_christmas_orders');
                 if (sessionData) {
                     const parsed = JSON.parse(sessionData);
                     if (Array.isArray(parsed) && parsed.length > 0) {
@@ -1068,17 +1233,32 @@
                 }
             } catch(e) {}
 
-            // Se non in sessione, contatta live il Google Apps Script Web App
+            // Contatta live il Google Apps Script Web App con credenziali staff verificate
             if (!loaded) {
                 try {
-                    const res = await fetch(`${APPS_SCRIPT_URL}?action=GET_CHRISTMAS_DASHBOARD`, { method: 'GET' });
+                    const res = await fetch(`${APPS_SCRIPT_URL}?action=GET_CHRISTMAS_DASHBOARD&userEmail=${encodeURIComponent(user.email)}&idToken=${encodeURIComponent(user.idToken || '')}&_t=${Date.now()}`, { method: 'GET' });
                     if (res.ok) {
                         const data = await res.json();
-                        if (data && data.status === 'SUCCESS' && Array.isArray(data.orders) && data.orders.length > 0) {
-                            rawOrders = data.orders;
-                            loaded = true;
-                            document.getElementById('data-source-status').textContent = '● Dati Live dal Foglio Google';
-                            document.getElementById('data-source-status').style.color = '#2ecc71';
+                        if (data && data.status === 'UNAUTHORIZED') {
+                            staffLogout();
+                            showGateError(data.message || "Sessione scaduta o non autorizzata.");
+                            return;
+                        }
+                        if (data && data.status === 'SUCCESS' && Array.isArray(data.orders)) {
+                            if (data.spreadsheetUrl) {
+                                const btnSheet = document.getElementById('btn-open-sheet');
+                                if (btnSheet) {
+                                    btnSheet.href = data.spreadsheetUrl;
+                                    btnSheet.style.display = 'inline-flex';
+                                }
+                            }
+                            if (data.orders.length > 0) {
+                                rawOrders = data.orders;
+                                sessionStorage.setItem('vg_christmas_orders', JSON.stringify(rawOrders));
+                                loaded = true;
+                                document.getElementById('data-source-status').textContent = '● Dati Live dal Foglio Google';
+                                document.getElementById('data-source-status').style.color = '#2ecc71';
+                            }
                         }
                     }
                 } catch(err) {
@@ -1086,7 +1266,7 @@
                 }
             }
 
-            // Fallback su dati dimostrativi
+            // Fallback su dati dimostrativi (solo per staff autenticato)
             if (!loaded || rawOrders.length === 0) {
                 rawOrders = MOCK_ORDERS;
                 document.getElementById('data-source-status').textContent = '● Modalità Dimostrativa';
@@ -1095,7 +1275,7 @@
 
             costruisciStrisceETagliandini();
             applyFilters();
-        });
+        }
 
         // 2. Costruzione Strisce Partecipanti e Tagliandini Singoli
         function costruisciStrisceETagliandini() {

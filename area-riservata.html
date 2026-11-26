@@ -517,6 +517,10 @@
 
     <!-- SCRIPT CLIENT LOGIC -->
     <script>
+        if (window.location.hostname === 'virtusgroane.com') {
+            window.location.replace('https://www.virtusgroane.com' + window.location.pathname + window.location.search);
+        }
+
         const DOMINIO_AUTORIZZATO = 'virtusgroane.com';
         
         // Elementi DOM
@@ -543,11 +547,27 @@
             }
         }
 
+        function isValidStaffSession(user) {
+            if (!user || !user.email || !user.idToken) return false;
+            const email = user.email.toLowerCase().trim();
+            if (!email.endsWith('@' + DOMINIO_AUTORIZZATO)) return false;
+            const payload = parseJwt(user.idToken);
+            if (!payload || payload.email.toLowerCase().trim() !== email) return false;
+            if (payload.email_verified === false || payload.email_verified === 'false') return false;
+            if (payload.exp && (payload.exp * 1000) < Date.now()) return false;
+            return true;
+        }
+
+        function escapeHtml(str) {
+            return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
         // Callback Google Identity Services
         window.handleCredentialResponse = function(response) {
+            loginErrorAlert.style.display = 'none';
             const data = parseJwt(response.credential);
-            if (!data || !data.email) {
-                showLoginError("Impossibile leggere le credenziali fornite da Google.");
+            if (!data || !data.email || data.email_verified === false) {
+                showLoginError("Impossibile verificare le credenziali fornite da Google.");
                 return;
             }
 
@@ -556,10 +576,12 @@
                 loginSuccess({
                     email: email,
                     name: data.name || email,
-                    picture: data.picture || ''
+                    picture: data.picture || '',
+                    idToken: response.credential,
+                    exp: data.exp || 0
                 });
             } else {
-                showLoginError(`L'account <strong>${email}</strong> non appartiene al dominio societario (@${DOMINIO_AUTORIZZATO}).`);
+                showLoginError(`L'account <strong>${escapeHtml(email)}</strong> non appartiene al dominio societario (@${DOMINIO_AUTORIZZATO}).`);
             }
         };
 
@@ -581,6 +603,8 @@
 
         function logout() {
             sessionStorage.removeItem('vg_staff_user');
+            sessionStorage.removeItem('vg_christmas_orders');
+            localStorage.removeItem('vg_christmas_orders');
             loginContainer.style.display = 'block';
             dashboardContainer.style.display = 'none';
         }
@@ -593,8 +617,10 @@
             if (savedUser) {
                 try {
                     const user = JSON.parse(savedUser);
-                    if (user && user.email && user.email.endsWith('@' + DOMINIO_AUTORIZZATO)) {
+                    if (isValidStaffSession(user)) {
                         loginSuccess(user);
+                    } else {
+                        sessionStorage.removeItem('vg_staff_user');
                     }
                 } catch (e) {
                     sessionStorage.removeItem('vg_staff_user');

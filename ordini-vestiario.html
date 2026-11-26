@@ -535,7 +535,7 @@
     <section id="main-content" class="page-hero">
         <div class="container">
             <h1><a href="area-riservata.html" class="parent-link">Area Riservata</a> <span class="parent-separator">/</span> Ordini Vestiario & Magazzino</h1>
-            <p style="color: var(--text-secondary); margin-top: 0.5rem;">Piattaforma operativa interna Virtus Groane ASD &bull; Sincronizzata in tempo reale con il foglio <strong>GestioneAutomatizzata</strong></p>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem;">Piattaforma operativa interna riservata allo staff di Virtus Groane ASD</p>
         </div>
     </section>
 
@@ -563,7 +563,7 @@
                     </div>
 
                     <!-- Pulsante Ufficiale Google Sign-In (Dichiarativo + Programmatico) -->
-                    <div id="google-btn-wrapper" style="display: flex; justify-content: center; min-height: 48px; margin-bottom: 1.5rem;">
+                    <div id="google-btn-wrapper" style="display: flex; justify-content: center; min-height: 48px; margin-bottom: 0.5rem;">
                         <div id="g_id_onload"
                              data-client_id="430736319015-ogb4t5t2tkn4r5nn3mgnn7pelbqmgiea.apps.googleusercontent.com"
                              data-context="signin"
@@ -579,10 +579,6 @@
                              data-size="large"
                              data-logo_alignment="left">
                         </div>
-                    </div>
-
-                    <div style="margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1rem; font-size: 0.85rem; color: var(--text-secondary); text-align: center;">
-                        📖 Serve aiuto? Consulta la <a href="docs/guida-operativa-staff.pdf" target="_blank" rel="noopener noreferrer" style="color: #4da3ff; text-decoration: underline; font-weight: 500;">Guida Operativa Staff (PDF)</a>
                     </div>
                 </div>
             </div>
@@ -605,8 +601,8 @@
                         <a href="area-riservata.html" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;" title="Torna al menu principale dell'Area Riservata">
                             ⬅️ Menu Riservato
                         </a>
-                        <a href="docs/guida-operativa-staff.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; color: #ffd100; border-color: rgba(255, 209, 0, 0.4);" title="Scarica o visualizza la guida per lo staff">
-                            📖 Guida Operativa (PDF)
+                        <a href="docs/guida-operativa-staff.html" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; color: #ffd100; border-color: rgba(255, 209, 0, 0.4);" title="Apri o stampa la guida operativa riservata allo staff">
+                            📖 Guida Operativa &nearr;
                         </a>
                         <button type="button" id="btn-refresh" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;" title="Ricarica i dati dal Foglio Google">
                             🔄 Aggiorna Dati
@@ -617,14 +613,14 @@
                     </div>
                 </div>
 
-                <!-- Barra Cambia Ruolo per Super Admin (Emiliano / Silvano) -->
+                <!-- Barra Cambia Ruolo per Amministratori -->
                 <div id="admin-role-switcher" class="role-tester-bar" style="display:none;">
                     <strong style="color: #4da3ff;">👑 Vista Amministratore (Vedi tutto):</strong>
                     <span>Filtra visuale come:</span>
                     <button type="button" class="role-btn active" onclick="switchFilterView('all')">Tutto (Panoramica Completa)</button>
-                    <button type="button" class="role-btn" onclick="switchFilterView('marco')">Solo Ordini (Marco)</button>
-                    <button type="button" class="role-btn" onclick="switchFilterView('teresa')">Solo Pagamenti (Teresa)</button>
-                    <button type="button" class="role-btn" onclick="switchFilterView('fattorini')">Solo Consegne (Fattorini)</button>
+                    <button type="button" class="role-btn" onclick="switchFilterView('marco')">Solo Ordini &amp; Magazzino</button>
+                    <button type="button" class="role-btn" onclick="switchFilterView('teresa')">Solo Tesoreria &amp; Pagamenti</button>
+                    <button type="button" class="role-btn" onclick="switchFilterView('fattorini')">Solo Consegne Campo</button>
                 </div>
 
                 <!-- Stato di caricamento dati -->
@@ -884,7 +880,7 @@
                 Stai per annullare l'ordine <strong id="modal-annulla-rif">#</strong> di <strong id="modal-annulla-nome">Tesserato</strong> (<span id="modal-annulla-capo">Capo</span>).
             </p>
             <div id="modal-annulla-reso-warning" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 6px; padding: 0.8rem; color: #fca5a5; font-size: 0.88rem; margin: 0.8rem 0;">
-                ⚠️ <strong>ATTENZIONE:</strong> Questo ordine risulta <strong>GIÀ PAGATO</strong> con bonifico. Verrà inviata una segnalazione urgente all'amministrazione (Teresa Marchese) per disporre il bonifico di rimborso al tesserato.
+                ⚠️ <strong>ATTENZIONE:</strong> Questo ordine risulta <strong>GIÀ PAGATO</strong> con bonifico. Verrà inviata una segnalazione urgente alla Tesoreria per disporre il bonifico di rimborso al tesserato.
             </div>
             <div class="modal-input-group">
                 <label for="input-motivo-annullamento"><strong>Motivo dell'annullamento:</strong></label>
@@ -1075,12 +1071,12 @@
         window.handleCredentialResponse = function(response) {
             loginErrorAlert.style.display = 'none';
             const payload = parseJwt(response.credential);
-            if (!payload || !payload.email) {
+            if (!payload || !payload.email || payload.email_verified === false) {
                 showLoginError("Impossibile verificare l'account Google.");
                 return;
             }
 
-            const email = payload.email.toLowerCase();
+            const email = payload.email.toLowerCase().trim();
             const emailDomain = email.split('@')[1] || '';
 
             if (emailDomain === DOMINIO_AUTORIZZATO) {
@@ -1088,12 +1084,24 @@
                     name: payload.name || email,
                     email: email,
                     picture: payload.picture || '',
-                    idToken: response.credential
+                    idToken: response.credential,
+                    exp: payload.exp || 0
                 });
             } else {
                 showLoginError(`L'account <strong>${escapeHtml(email)}</strong> non appartiene al dominio societario (@${DOMINIO_AUTORIZZATO}).`);
             }
         };
+
+        function isValidStaffSession(user) {
+            if (!user || !user.email || !user.idToken) return false;
+            const email = user.email.toLowerCase().trim();
+            if (!email.endsWith('@' + DOMINIO_AUTORIZZATO)) return false;
+            const payload = parseJwt(user.idToken);
+            if (!payload || payload.email.toLowerCase().trim() !== email) return false;
+            if (payload.email_verified === false || payload.email_verified === 'false') return false;
+            if (payload.exp && (payload.exp * 1000) < Date.now()) return false;
+            return true;
+        }
 
         function showLoginError(msg) {
             loginErrorMessage.innerHTML = msg;
@@ -1123,6 +1131,8 @@
             pendingActions = {};
             updateStickyBar();
             sessionStorage.removeItem('vg_staff_user');
+            sessionStorage.removeItem('vg_christmas_orders');
+            localStorage.removeItem('vg_christmas_orders');
             loginContainer.style.display = 'block';
             dashboardContainer.style.display = 'none';
         }
@@ -1143,11 +1153,14 @@
         // CARICAMENTO DATI DAL BACKEND APPS SCRIPT (Server-Side RBAC & Privacy)
         // =====================================================================
         async function fetchOrdersFromSheet() {
-            if (!currentUser || !currentUser.email) return;
+            if (!currentUser || !currentUser.email || !currentUser.idToken) {
+                logout();
+                return;
+            }
             dataLoadingIndicator.style.display = 'block';
             btnRefresh.disabled = true;
 
-            const url = `${APPS_SCRIPT_URL}?action=GET_DASHBOARD_DATA&userEmail=${encodeURIComponent(currentUser.email)}&_t=${Date.now()}`;
+            const url = `${APPS_SCRIPT_URL}?action=GET_DASHBOARD_DATA&userEmail=${encodeURIComponent(currentUser.email)}&idToken=${encodeURIComponent(currentUser.idToken)}&_t=${Date.now()}`;
 
             try {
                 const response = await fetch(url);
@@ -1332,6 +1345,7 @@
                 action: "EXECUTE_BATCH",
                 userEmail: currentUser.email,
                 userName: currentUser.name,
+                idToken: currentUser.idToken || '',
                 actions: actionsList
             };
 
@@ -1357,7 +1371,7 @@
         });
 
         // ---------------------------------------------------------------------
-        // TABELLA 1: GESTIONE ORDINI & MAGAZZINO (MARCO LOCATELLI)
+        // TABELLA 1: GESTIONE ORDINI & MAGAZZINO
         // ---------------------------------------------------------------------
         function renderMarcoTable(orders) {
             const list = orders || [];
@@ -1461,7 +1475,7 @@
         }
 
         // ---------------------------------------------------------------------
-        // TABELLA 2: VERIFICA PAGAMENTI (TERESA MARCHESE)
+        // TABELLA 2: VERIFICA PAGAMENTI & TESORERIA
         // ---------------------------------------------------------------------
         function renderTeresaTable(orders) {
             const list = orders || [];
@@ -1630,7 +1644,7 @@
         }
 
         // ---------------------------------------------------------------------
-        // TABELLA 4: VISTA MASTER (SUPER ADMIN: SILVANO ED EMILIANO)
+        // TABELLA 4: VISTA MASTER (AMMINISTRATORI)
         // ---------------------------------------------------------------------
         function renderAllTable(orders) {
             const list = orders || [];
@@ -1733,7 +1747,7 @@
                 'SET_IN_VIRTUS',
                 { importo: importo },
                 `In Virtus (${importo}€)`,
-                `Email bonifico al tesserato (${pendingActionRow.mail}) ed email a Teresa Marchese`
+                `Email bonifico al tesserato (${pendingActionRow.mail}) e notifica alla Tesoreria`
             );
         });
 
@@ -1768,7 +1782,7 @@
                 'CANCEL_ORDER',
                 { motivo: motivo },
                 `Annulla Ordine (${motivo})`,
-                isPaid ? `Email annullamento al tesserato (${pendingActionRow.mail}) ed email RESO BONIFICO a Teresa` : `Email conferma annullamento al tesserato (${pendingActionRow.mail})`
+                isPaid ? `Email annullamento al tesserato (${pendingActionRow.mail}) e notifica RESO BONIFICO alla Tesoreria` : `Email conferma annullamento al tesserato (${pendingActionRow.mail})`
             );
         });
 
@@ -1989,6 +2003,7 @@
             const payload = {
                 action: 'CARICO_FORNITORE',
                 userEmail: currentUser.email,
+                idToken: currentUser.idToken || '',
                 note: note,
                 items: validItems
             };
@@ -2050,11 +2065,15 @@
             if (saved) {
                 try {
                     const u = JSON.parse(saved);
-                    if (u && u.email && u.email.endsWith('@' + DOMINIO_AUTORIZZATO)) {
+                    if (isValidStaffSession(u)) {
                         loginSuccess(u);
                         return;
+                    } else {
+                        sessionStorage.removeItem('vg_staff_user');
                     }
-                } catch(e) {}
+                } catch(e) {
+                    sessionStorage.removeItem('vg_staff_user');
+                }
             }
 
             // Inizializza Google Sign-in e ritenta se il caricamento asincrono è in corso
